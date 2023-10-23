@@ -6,71 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textView3"
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logo_background"
+        />
+    <Button
+        android:id="@+id/goToRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/welcomeRegister"
+        tools:layout_editor_absoluteX="46dp"
+        tools:layout_editor_absoluteY="341dp" />
 
-    <TextView
-        android:id="@+id/nikolaTest"
+    <Button
+        android:id="@+id/goToLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="185dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="186dp"
-        android:layout_marginBottom="328dp"
-        android:text="Nikola"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <TextView
-        android:id="@+id/et365"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="188dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="188dp"
-        android:layout_marginBottom="292dp"
-        android:text="Ethan"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nikolaTest" />
-
-    <TextView
-        android:id="@+id/ManuelTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="177dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="176dp"
-        android:layout_marginBottom="266dp"
-        android:text="Manuel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et365" />
+        android:text="@string/welcomeLogin"
+        tools:layout_editor_absoluteX="231dp"
+        tools:layout_editor_absoluteY="340dp" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="177dp"
-        android:layout_marginBottom="233dp"
-        android:text="Juan"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ManuelTest" />
+        android:text="@string/welcomeAnonymous"
+        tools:layout_editor_absoluteX="137dp"
+        tools:layout_editor_absoluteY="506dp" />
 
     <TextView
         android:id="@+id/mishaTest"
