@@ -1,0 +1,22 @@
+23.10.2023 - Meeting log
+* Nikola, Manu and Ethan in person w/Sergey
+* Juan and Misha joined online
+
+Interesting ideas we got during the discussion
+- we don't need his name and surname, but just "how do you want to be called"
+- the user may still be able to prompt if he is anonymous, but it will be more general
+- play around with chat gpt to find what are good prompts to ask the api
+- ask for notes/comments after the workout is done
+
+Work division:
+- Database implementation - Manu
+- Prompt generation template and testing - Manu
+- Interface for Register x3 (there are three pages) - Nikola
+- Interface for Login - Juan
+- Interfacefor the Welcome page - Ethan
+- Interface for Forgot My Password page - Misha
+- Transitions and animations - Misha
+- Functional code for:
+- Login - Juan
+- Register - Nikola
+- and forgot my password page - Ethan
