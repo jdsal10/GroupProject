@@ -21,13 +21,14 @@
         android:textStyle="bold" />
 
     <LinearLayout
+        android:id="@+id/p1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="visible"
-        tools:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
+            android:id="@+id/emailGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -51,6 +52,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/nameGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -73,6 +75,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/passwordGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -96,13 +99,18 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/p2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <LinearLayout
+            android:id="@+id/dobGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="8dp"
             android:orientation="vertical">
 
             <TextView
@@ -112,7 +120,7 @@
                 android:text="Date of Birth" />
 
             <EditText
-                android:id="@+id/editTextDate"
+                android:id="@+id/dobTextBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -120,8 +128,11 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/sexGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:orientation="vertical">
 
             <TextView
@@ -131,7 +142,7 @@
                 android:text="Sex" />
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/sexButtons"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
@@ -154,8 +165,11 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/heightGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:orientation="vertical">
 
             <TextView
@@ -165,7 +179,7 @@
                 android:text="Height" />
 
             <EditText
-                android:id="@+id/editTextNumber"
+                android:id="@+id/heightTextNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -173,8 +187,11 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/weightGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:orientation="vertical">
 
             <TextView
@@ -184,7 +201,7 @@
                 android:text="Weight" />
 
             <EditText
-                android:id="@+id/editTextNumber2"
+                android:id="@+id/weightTextNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"

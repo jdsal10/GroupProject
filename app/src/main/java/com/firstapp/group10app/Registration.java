@@ -17,7 +17,7 @@ public class Registration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        radioGroup_MaleFemale = findViewById(R.id.radioGroup);
+        radioGroup_MaleFemale = findViewById(R.id.sexButtons);
     }
 
     public void checkButton(View v) {
