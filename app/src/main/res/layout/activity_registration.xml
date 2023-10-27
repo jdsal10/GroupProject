@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/emailGroup"
@@ -103,7 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/dobGroup"
@@ -220,6 +220,8 @@
             android:id="@+id/allergiesGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="8dp"
             android:orientation="vertical">
 
             <TextView
@@ -243,6 +245,8 @@
             android:id="@+id/reasonsGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:orientation="vertical">
 
             <TextView
@@ -250,6 +254,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Main reason to download the app?" />
+
+            <Spinner
+                android:id="@+id/reasonsDropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </LinearLayout>
