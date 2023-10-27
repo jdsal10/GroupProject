@@ -11,7 +11,6 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button goToRegisterButton;
     private Button goToLoginButton;
-
     private TextView skipText;
 
     @Override
@@ -19,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Interactions initialised
         goToRegisterButton = findViewById(R.id.goToRegister);
         goToRegisterButton.setOnClickListener(this);
 
@@ -27,25 +27,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         skipText = findViewById(R.id.skipToHome);
         skipText.setOnClickListener(this);
-
-
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         if(id == R.id.goToRegister) {
-            Intent welcomeToRegister = new Intent(MainActivity.this, Registration.class);
-            startActivity(welcomeToRegister);
+            startActivity(new Intent(MainActivity.this, Registration.class));
         }
         else if (id == R.id.goToLogin) {
-            Intent welcomeToLogin = new Intent(MainActivity.this, Login.class);
-            startActivity(welcomeToLogin);
+            startActivity(new Intent(MainActivity.this, Login.class));
         }
         else if (id == R.id.skipToHome) {
-            Intent skipToHome = new Intent(MainActivity.this, Home.class);
-            //Add form of identifier for the rest of the code to fucntion.
-            startActivity(skipToHome);
+            startActivity(new Intent(MainActivity.this, Home.class));
+            //Add form of identifier for the rest of the code to function.
         }
     }
 }
