@@ -1,0 +1,14 @@
+Nikola, Juan, Manu and Ethan in person meeting
+
+Caught up with what everyone has done
+
+Identified additional tasks:
+- Logo | everyone, but Juan is leading (already did most of it)
+- Color pallete and gradient design | everyone
+- Maybe do "Log in with Google"
+
+Timeline:
+- Juan will start with the LoginPage his weekend
+- Manu will work on both of his tasks this weekend and Monday
+- Ethan will try to finish the Welcome page by the end of Monday
+- Nik will try to finish the registration page by the end of Monday and think about gradient colors
