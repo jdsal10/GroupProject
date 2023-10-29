@@ -1,7 +1,5 @@
 package com.firstapp.group10app;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,55 +7,93 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class Registration extends AppCompatActivity implements View.OnClickListener {
 
-    private RadioGroup radioGroup_MaleFemale;
-    private RadioButton radioButton_MaleFemale;
     private LinearLayout page1, page2, page3;
     private int activePage;
-    private EditText email;
+    private EditText email, name, password, dob, height, weight, conditions;
+    private RadioGroup sex;
+    private Spinner reasons;
+    private Button backButton, nextButton;
+    private String[] details = new String[9];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        // Get the pages from the xml
-        page1 = findViewById(R.id.p1);
-        page2 = findViewById(R.id.p2);
-        page3 = findViewById(R.id.p3);
+        // Set the dropdown for the reasons for joining
+        setSpinner();
+
+        // Get the pages, EditText fields, and buttons from the xml
+        getAllPages();
+        getAllFields();
+        getAllButtons();
 
         // Set page1 to be visible
         page1.setVisibility(View.VISIBLE);
         activePage = 1;
 
         // Set the onClickListeners of the buttons
-        Button backButton = findViewById(R.id.buttonBack);
         backButton.setOnClickListener(this);
-
-        Button nextButton = findViewById(R.id.buttonCont);
         nextButton.setOnClickListener(this);
+    }
 
-        // Set the onTextChangedListener of the email field
+    // Set the dropdown for the reasons for joining
+    public void setSpinner() {
+        //get the spinner from the xml.
+        Spinner dropdown = findViewById(R.id.reasonsDropdown);
+
+        //create a list of items for the spinner.
+        String[] reasons = {"I want to lose weight", "I want to gain weight", "I want to maintain my weight"};
+
+        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, reasons);
+
+        //set the spinners adapter to the previously created one.
+        dropdown.setAdapter(adapter);
+    }
+
+    // Get page1, page2, page3 from the xml
+    private void getAllPages() {
+        page1 = findViewById(R.id.p1);
+        page2 = findViewById(R.id.p2);
+        page3 = findViewById(R.id.p3);
+    }
+
+    // Get all the EditText fields from the xml
+    private void getAllFields() {
         email = findViewById(R.id.emailTextBox);
+        name = findViewById(R.id.nameTextBox);
+        password = findViewById(R.id.passwordTextBox);
+        dob = findViewById(R.id.dobTextBox);
+        sex = findViewById(R.id.sexButtons);
+        height = findViewById(R.id.heightTextNumber);
+        weight = findViewById(R.id.weightTextNumber);
+        conditions = findViewById(R.id.allergiesTextBox);
+        reasons = findViewById(R.id.reasonsDropdown);
+    }
 
-        // Set the dropdown for the reasons for joining
-        setSpinner(null);
-
-        radioGroup_MaleFemale = findViewById(R.id.sexButtons);
+    // Get backButton, nextButton from the xml
+    private void getAllButtons() {
+        backButton = findViewById(R.id.buttonBack);
+        nextButton = findViewById(R.id.buttonCont);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
+
         if (id == R.id.buttonCont) continuePressed();
         else if (id == R.id.buttonBack) backPressed();
     }
 
+    // If the continue button is pressed - logic
     public void continuePressed() {
         if (activePage == 1) {
             page1.setVisibility(View.GONE);
@@ -68,10 +104,18 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             page3.setVisibility(View.VISIBLE);
             activePage = 3;
         } else if (activePage == 3) {
+            saveUserDetails();
 
+            // For visualisation purposes
+            for (String detail : details) {
+                System.out.println(detail);
+            }
+
+            startActivity(new Intent(Registration.this, Login.class));
         }
     }
 
+    // If the back button is pressed - logic
     public void backPressed() {
         if (activePage == 1) {
             startActivity(new Intent(Registration.this, MainActivity.class));
@@ -86,22 +130,25 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void checkButton(View v) {
-        int radioId = radioGroup_MaleFemale.getCheckedRadioButtonId();
-        radioButton_MaleFemale = findViewById(radioId);
+    // Get the chosen sex radio button as a string
+    public String getSelectedSex() {
+        int radioId = sex.getCheckedRadioButtonId();
+
+        if (radioId == 0) return "Male";
+        else if (radioId == 1) return "Female";
+        else return "Other";
     }
 
-    public void setSpinner(View v) {
-        //get the spinner from the xml.
-        Spinner dropdown = findViewById(R.id.reasonsDropdown);
-
-        //create a list of items for the spinner.
-        String[] reasons = {"I want to lose weight", "I want to gain weight", "I want to maintain my weight"};
-
-        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, reasons);
-
-        //set the spinners adapter to the previously created one.
-        dropdown.setAdapter(adapter);
+    // Save the user details to the details array
+    private void saveUserDetails() {
+        details[0] = email.getText().toString();
+        details[1] = name.getText().toString();
+        details[2] = password.getText().toString();
+        details[3] = dob.getText().toString();
+        details[4] = getSelectedSex();
+        details[5] = height.getText().toString();
+        details[6] = weight.getText().toString();
+        details[7] = conditions.getText().toString();
+        details[8] = reasons.getSelectedItem().toString();
     }
 }
