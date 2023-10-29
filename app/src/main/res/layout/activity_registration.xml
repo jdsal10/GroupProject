@@ -28,7 +28,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.7"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/emailGroup"
@@ -47,7 +47,7 @@
             <EditText
                 android:id="@+id/emailTextBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:autofillHints="Email"
                 android:ems="10"
                 android:hint="_____@gmail.com"
@@ -72,7 +72,7 @@
             <EditText
                 android:id="@+id/nameTextBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:autofillHints="Name"
                 android:ems="10"
                 android:hint="First and Surname"
@@ -96,7 +96,7 @@
             <EditText
                 android:id="@+id/passwordTextBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:ems="10"
                 android:hint="Secure Password"
                 android:inputType="textPassword" />
@@ -110,7 +110,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.7"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:id="@+id/dobGroup"
@@ -129,7 +129,7 @@
             <EditText
                 android:id="@+id/dobTextBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:ems="10"
                 android:hint="dd.mm.yyyy"
                 android:inputType="date" />
@@ -189,8 +189,9 @@
             <EditText
                 android:id="@+id/heightTextNumber"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:ems="10"
+                android:hint="eg. 178 cm"
                 android:inputType="number" />
         </LinearLayout>
 
@@ -211,8 +212,9 @@
             <EditText
                 android:id="@+id/weightTextNumber"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:ems="10"
+                android:hint="eg. 76 kg"
                 android:inputType="number" />
         </LinearLayout>
 
