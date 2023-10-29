@@ -14,7 +14,8 @@
     <TextView
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
         android:text="Registration"
         android:textAlignment="center"
         android:textSize="24sp"
@@ -23,7 +24,8 @@
     <LinearLayout
         android:id="@+id/p1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.7"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -101,14 +103,15 @@
     <LinearLayout
         android:id="@+id/p2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.7"
         android:orientation="vertical"
         android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/dobGroup"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="8dp"
             android:orientation="vertical">
@@ -130,7 +133,7 @@
         <LinearLayout
             android:id="@+id/sexGroup"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:orientation="vertical">
@@ -167,7 +170,7 @@
         <LinearLayout
             android:id="@+id/heightGroup"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:orientation="vertical">
@@ -189,7 +192,7 @@
         <LinearLayout
             android:id="@+id/weightGroup"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:orientation="vertical">
@@ -213,7 +216,8 @@
     <LinearLayout
         android:id="@+id/p3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.7"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -271,7 +275,8 @@
     <LinearLayout
         android:id="@+id/buttons"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
         android:orientation="horizontal">
 
         <Button
