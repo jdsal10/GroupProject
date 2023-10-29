@@ -27,7 +27,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.7"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:id="@+id/emailGroup"
@@ -41,7 +41,7 @@
                 android:id="@+id/emailLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Email:" />
+                android:text="@string/email" />
 
             <EditText
                 android:id="@+id/emailTextBox"
@@ -65,7 +65,7 @@
                 android:id="@+id/nameLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="How to call you?" />
+                android:text="@string/name" />
 
             <EditText
                 android:id="@+id/nameTextBox"
@@ -88,7 +88,7 @@
                 android:id="@+id/passwordLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Password:" />
+                android:text="@string/password" />
 
             <EditText
                 android:id="@+id/passwordTextBox"
