@@ -110,7 +110,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.7"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/dobGroup"

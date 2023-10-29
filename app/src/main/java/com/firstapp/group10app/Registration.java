@@ -2,15 +2,21 @@ package com.firstapp.group10app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener {
 
@@ -34,6 +40,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         getAllPages();
         getAllFields();
         getAllButtons();
+
+        emailAddTextChangedListener();
 
         // Set page1 to be visible
         page1.setVisibility(View.VISIBLE);
@@ -85,6 +93,40 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         nextButton = findViewById(R.id.buttonCont);
     }
 
+    private void emailAddTextChangedListener() {
+        email.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                email.setError(null);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() == 0) {
+                    email.setError("Email is required!");
+                } else if (!emailValidator(s.toString())) {
+                    email.setError("Email is invalid!");
+                } else email.setError(null);
+            }
+        });
+    }
+
+    public boolean emailValidator(String email) {
+        Pattern pattern;
+        Matcher matcher;
+
+        final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(email);
+
+        return matcher.matches();
+    }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -133,10 +175,10 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     // Get the chosen sex radio button as a string
     public String getSelectedSex() {
         int radioId = sex.getCheckedRadioButtonId();
+        RadioButton selectedSex = findViewById(radioId);
 
-        if (radioId == 0) return "Male";
-        else if (radioId == 1) return "Female";
-        else return "Other";
+        if (selectedSex == null) return "Other";
+        else return selectedSex.getText().toString();
     }
 
     // Save the user details to the details array
