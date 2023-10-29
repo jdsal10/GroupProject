@@ -42,6 +42,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         getAllButtons();
 
         emailAddTextChangedListener();
+        passwordAddTextChangedListener();
 
         // Set page1 to be visible
         page1.setVisibility(View.VISIBLE);
@@ -125,6 +126,36 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         matcher = pattern.matcher(email);
 
         return matcher.matches();
+    }
+
+    private void passwordAddTextChangedListener() {
+        password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                password.setError(null);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    password.setError("Password is required!");
+                } else if (s.length() < 8) {
+                    password.setError("Password must be at least 8 characters long!");
+                } else if (!s.toString().matches(".*[0-9].*")) {
+                    password.setError("Password must contain at least one number!");
+                } else if (!s.toString().matches(".*[A-Z].*")) {
+                    password.setError("Password must contain at least one capital letter!");
+                } else if (!s.toString().matches(".*[a-z].*")) {
+                    password.setError("Password must contain at least one lowercase letter!");
+                } else if (!s.toString().matches(".*[!@#$%^&*+=?-].*")) {
+                    password.setError("Password must contain at least one special character!");
+                } else password.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
     }
 
     @Override
