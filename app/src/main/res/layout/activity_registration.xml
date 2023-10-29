@@ -50,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="Email"
                 android:ems="10"
+                android:hint="_____@gmail.com"
                 android:inputType="textEmailAddress" />
 
         </LinearLayout>
@@ -74,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="Name"
                 android:ems="10"
+                android:hint="First and Surname"
                 android:inputType="text|textPersonName" />
         </LinearLayout>
 
@@ -96,6 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:hint="Secure Password"
                 android:inputType="textPassword" />
         </LinearLayout>
 
@@ -128,6 +131,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:hint="dd.mm.yyyy"
                 android:inputType="date" />
         </LinearLayout>
 
@@ -240,6 +244,7 @@
                 android:id="@+id/allergiesTextBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Type here..."
                 android:inputType="text|textMultiLine"
                 android:lines="8"
                 android:maxLines="10"
