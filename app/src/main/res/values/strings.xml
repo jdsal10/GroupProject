@@ -1,10 +1,15 @@
 <resources>
     <string name="app_name">Group10App</string>
-    <!--    Welcome Page Values-->
+
+    <!-- Welcome Page Values -->
     <string name="welcomeLogin">Login</string>
     <string name="welcomeRegister">Register</string>
     <string name="welcomeAnonymous">Anonymous Browsing</string>
     <string name="welcomeBackgroundImage">Background Image</string>
     <string name="welcomeLogoBackground">Logo Background</string>
 
+    <!-- Register Page Values -->
+    <string name="email">Email <font color='#FF0000'>*</font></string>
+    <string name="name">Name <font color='#FF0000'>*</font></string>
+    <string name="password">Password <font color='#FF0000'>*</font></string>
 </resources>
