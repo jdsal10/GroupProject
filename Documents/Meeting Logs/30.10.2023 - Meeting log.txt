@@ -1,0 +1,13 @@
+30.10.2023 - Meeting log
+
+1. discussed what everyone's done
+2. identify tasks for next sprint
+    - connect to ChatGPT's API | Nikola
+    - design the home page     | Juan
+    - workouts page
+    - stats page
+    - settings page 	       | Ethan
+	- accessibility
+	- remove data
+3. Taks for this sprint
+    - transfer everything from Notion to Monday
