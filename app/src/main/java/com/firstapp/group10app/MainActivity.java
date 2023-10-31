@@ -9,9 +9,6 @@ import android.content.Intent;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button goToRegisterButton;
-    private Button goToLoginButton;
-    private TextView skipText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,13 +16,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         //Interactions initialised
-        goToRegisterButton = findViewById(R.id.goToRegister);
+        Button goToRegisterButton = findViewById(R.id.goToRegister);
         goToRegisterButton.setOnClickListener(this);
 
-        goToLoginButton = findViewById(R.id.goToLogin);
+        Button goToLoginButton = findViewById(R.id.goToLogin);
         goToLoginButton.setOnClickListener(this);
 
-        skipText = findViewById(R.id.skipToHome);
+        TextView skipText = findViewById(R.id.skipToHome);
         skipText.setOnClickListener(this);
     }
 
