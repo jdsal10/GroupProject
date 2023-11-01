@@ -37,10 +37,9 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         setSpinner();
 
         // Get the pages, EditText fields, and buttons from the xml
-        getAllPages();
-        getAllFields();
-        getAllButtons();
+        getAllElements();
 
+        // Add text changed listeners to the email and password fields
         emailAddTextChangedListener();
         passwordAddTextChangedListener();
 
@@ -66,6 +65,12 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         //set the spinners adapter to the previously created one.
         dropdown.setAdapter(adapter);
+    }
+
+    private void getAllElements() {
+        getAllPages();
+        getAllFields();
+        getAllButtons();
     }
 
     // Get page1, page2, page3 from the xml
