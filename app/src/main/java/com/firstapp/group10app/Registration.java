@@ -102,7 +102,9 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         dob = findViewById(R.id.dobTextBox);
         sex = findViewById(R.id.sexButtons);
         height = findViewById(R.id.heightTextNumber);
+        heightUnits = findViewById(R.id.heightUnitsDropdown);
         weight = findViewById(R.id.weightTextNumber);
+        weightUnits = findViewById(R.id.weightUnitsDropdown);
         conditions = findViewById(R.id.allergiesTextBox);
         reasons = findViewById(R.id.reasonsDropdown);
     }
@@ -255,8 +257,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         details[2] = password.getText().toString();
         details[3] = dob.getText().toString();
         details[4] = getSelectedSex();
-        details[5] = height.getText().toString();
-        details[6] = weight.getText().toString();
+        details[5] = height.getText().toString() + " " + heightUnits.getSelectedItem().toString();
+        details[6] = weight.getText().toString() + " " + weightUnits.getSelectedItem().toString();
         details[7] = conditions.getText().toString();
         details[8] = reasons.getSelectedItem().toString();
     }
