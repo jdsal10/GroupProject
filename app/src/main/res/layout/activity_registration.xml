@@ -16,9 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.15"
-        android:gravity="center_vertical"
-        android:text="Registration"
-        android:textAlignment="center"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/registrationTitle"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -50,7 +49,7 @@
                 android:layout_height="48dp"
                 android:autofillHints="Email"
                 android:ems="10"
-                android:hint="_____@gmail.com"
+                android:hint="@string/emailHint"
                 android:inputType="textEmailAddress" />
 
         </LinearLayout>
@@ -75,7 +74,7 @@
                 android:layout_height="48dp"
                 android:autofillHints="Name"
                 android:ems="10"
-                android:hint="First and Surname"
+                android:hint="@string/nameHint"
                 android:inputType="text|textPersonName" />
         </LinearLayout>
 
@@ -98,7 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:ems="10"
-                android:hint="Secure Password"
+                android:hint="@string/passwordHint"
                 android:inputType="textPassword" />
         </LinearLayout>
 
@@ -124,14 +123,14 @@
                 android:id="@+id/dobLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Date of Birth" />
+                android:text="@string/dob" />
 
             <EditText
                 android:id="@+id/dobTextBox"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:ems="10"
-                android:hint="dd.mm.yyyy"
+                android:hint="@string/dobHint"
                 android:inputType="date" />
         </LinearLayout>
 
@@ -147,7 +146,7 @@
                 android:id="@+id/sexLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sex" />
+                android:text="@string/sex" />
 
             <RadioGroup
                 android:id="@+id/sexButtons"
@@ -160,14 +159,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="Male" />
+                    android:text="@string/radioButtonMale" />
 
                 <RadioButton
                     android:id="@+id/femaleRadioButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="Female" />
+                    android:text="@string/radioButtonMale" />
 
             </RadioGroup>
         </LinearLayout>
@@ -184,14 +183,14 @@
                 android:id="@+id/heightLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Height" />
+                android:text="@string/height" />
 
             <EditText
                 android:id="@+id/heightTextNumber"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:ems="10"
-                android:hint="eg. 178 cm"
+                android:hint="@string/heightHint"
                 android:inputType="number" />
         </LinearLayout>
 
@@ -207,14 +206,14 @@
                 android:id="@+id/weightLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Weight" />
+                android:text="@string/weight" />
 
             <EditText
                 android:id="@+id/weightTextNumber"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:ems="10"
-                android:hint="eg. 76 kg"
+                android:hint="@string/weightHint"
                 android:inputType="number" />
         </LinearLayout>
 
@@ -240,13 +239,13 @@
                 android:id="@+id/allergiesLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Any health conditions (eg. allergies, heart condition, etc.)?" />
+                android:text="@string/healthConditions" />
 
             <EditText
                 android:id="@+id/allergiesTextBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Type here..."
+                android:hint="@string/healthConditionsHint"
                 android:inputType="text|textMultiLine"
                 android:lines="8"
                 android:maxLines="10"
@@ -290,19 +289,19 @@
         <Button
             android:id="@+id/buttonBack"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="2dp"
+            android:layout_marginEnd="8dp"
             android:layout_weight="0.5"
-            android:text="Back" />
+            android:text="@string/back" />
 
         <Button
-            android:id="@+id/buttonCont"
+            android:id="@+id/buttonNext"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="2dp"
+            android:layout_marginStart="8dp"
             android:layout_weight="0.5"
-            android:text="Continue" />
+            android:text="@string/next" />
     </LinearLayout>
 </LinearLayout>

@@ -91,7 +91,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     // Get backButton, nextButton from the xml
     private void getAllButtons() {
         backButton = findViewById(R.id.buttonBack);
-        nextButton = findViewById(R.id.buttonCont);
+        nextButton = findViewById(R.id.buttonNext);
     }
 
     private void emailAddTextChangedListener() {
@@ -162,7 +162,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         int id = v.getId();
 
-        if (id == R.id.buttonCont) continuePressed();
+        if (id == R.id.buttonNext) continuePressed();
         else if (id == R.id.buttonBack) backPressed();
     }
 
