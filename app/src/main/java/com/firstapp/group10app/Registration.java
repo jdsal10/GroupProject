@@ -54,21 +54,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         nextButton.setOnClickListener(this);
     }
 
-    // Set the dropdown for the reasons for joining
-    private void setReasonsSpinner() {
-        //get the spinner from the xml.
-        Spinner dropdown = findViewById(R.id.reasonsDropdown);
-
-        //create a list of items for the spinner.
-        String[] reasons = {"I want to lose weight", "I want to gain weight", "I want to maintain my weight"};
-
-        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, reasons);
-
-        //set the spinners adapter to the previously created one.
-        dropdown.setAdapter(adapter);
-    }
-
     // Set the dropdowns (for the height and weight units and the reasons for joining)
     private void setSpinner(String[] items, int id) {
         //get the spinner from the xml.
