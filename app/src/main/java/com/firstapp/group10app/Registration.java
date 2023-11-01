@@ -53,7 +53,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     }
 
     // Set the dropdown for the reasons for joining
-    public void setSpinner() {
+    private void setSpinner() {
         //get the spinner from the xml.
         Spinner dropdown = findViewById(R.id.reasonsDropdown);
 
@@ -171,8 +171,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         else if (id == R.id.buttonBack) backPressed();
     }
 
-    // If the continue button is pressed - logic
-    public void continuePressed() {
+    // If the next button is pressed - logic
+    private void nextPressed() {
         if (activePage == 1) {
             page1.setVisibility(View.GONE);
             page2.setVisibility(View.VISIBLE);
@@ -194,7 +194,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     }
 
     // If the back button is pressed - logic
-    public void backPressed() {
+    private void backPressed() {
         if (activePage == 1) {
             startActivity(new Intent(Registration.this, MainActivity.class));
         } else if (activePage == 2) {
@@ -209,7 +209,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     }
 
     // Get the chosen sex radio button as a string
-    public String getSelectedSex() {
+    private String getSelectedSex() {
         int radioId = sex.getCheckedRadioButtonId();
         RadioButton selectedSex = findViewById(radioId);
 
