@@ -24,7 +24,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private int activePage;
     private EditText email, name, password, dob, height, weight, conditions;
     private RadioGroup sex;
-    private Spinner reasons;
+    private Spinner heightUnits, weightUnits, reasons;
     private Button backButton, nextButton;
     private String[] details = new String[9];
 
@@ -33,8 +33,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        // Set the dropdown for the reasons for joining
-        setSpinner();
         // Set the dropdowns
         setSpinner(new String[]{"cm", "inches"}, R.id.heightUnitsDropdown);
         setSpinner(new String[]{"kg", "lbs"}, R.id.weightUnitsDropdown);
