@@ -1,16 +1,22 @@
 package com.firstapp.group10app;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import java.lang.*;
 import android.os.Bundle;
-
+import android.view.View;
+import java.util.Properties;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.*;
-
-import android.view.*;
 
 public class forgotPassword extends AppCompatActivity implements View.OnClickListener {
 
-    private Button sendEmail;
     private EditText emailToSend;
 
     @Override
@@ -21,10 +27,8 @@ public class forgotPassword extends AppCompatActivity implements View.OnClickLis
         emailToSend = findViewById(R.id.editTextTextEmailAddress);
         emailToSend.setOnClickListener(this);
 
-        sendEmail = findViewById(R.id.sendEmail);
+        Button sendEmail = findViewById(R.id.sendEmail);
         sendEmail.setOnClickListener(this);
-
-
     }
 
     @Override
@@ -32,8 +36,55 @@ public class forgotPassword extends AppCompatActivity implements View.OnClickLis
         int id = v.getId();
         if (id == R.id.sendEmail) {
             if (emailToSend.getText().toString().equals("")) {
-                //Send the email
+                //Send email
+                try {
+                    toSend();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
             }
+        }
+    }
+
+    public void toSend() {
+        try {
+            String testEmailToSend = "noreplyhealthapp@gmail.com";
+
+            String stringHost = "smtp.gmail.com";
+
+            Properties properties = System.getProperties();
+
+            properties.put("mail.smtp.host", stringHost);
+            properties.put("mail.smtp.port", "465");
+            properties.put("mail.smtp.ssl.enable", "true");
+            properties.put("mail.smtp.auth", "true");
+
+            javax.mail.Session session = Session.getInstance(properties, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication("noreplyhealthapp@gmail.com", "rocbljtgnqaaroet"
+                    );
+                }
+            });
+
+            MimeMessage mimeMessage = new MimeMessage(session);
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(testEmailToSend));
+
+            mimeMessage.setSubject("Test Email");
+            mimeMessage.setText("Test Email Contents");
+
+            Thread thread = new Thread(() -> {
+                try {
+                    Transport.send(mimeMessage);
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+            });
+            thread.start();
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
         }
     }
 }
