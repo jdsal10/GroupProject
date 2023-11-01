@@ -1,23 +1,20 @@
 package com.firstapp.group10app;
-import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
-import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.gson.GsonFactory;
-import com.google.api.client.util.store.FileDataStoreFactory;
-import com.google.api.services.gmail.GmailScopes;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.file.Paths;
-import java.util.Set;
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 
+import java.lang.*;
+import android.os.Bundle;
+import android.view.View;
+import java.util.Properties;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.*;
 
-import android.view.*;
 public class forgotPassword extends AppCompatActivity implements View.OnClickListener {
 
     private EditText emailToSend;
@@ -32,8 +29,6 @@ public class forgotPassword extends AppCompatActivity implements View.OnClickLis
 
         Button sendEmail = findViewById(R.id.sendEmail);
         sendEmail.setOnClickListener(this);
-
-
     }
 
     @Override
@@ -42,28 +37,54 @@ public class forgotPassword extends AppCompatActivity implements View.OnClickLis
         if (id == R.id.sendEmail) {
             if (emailToSend.getText().toString().equals("")) {
                 //Send email
-                new forgotPassword().sendEmail("subject", "message");
-                            }
+                try {
+                    toSend();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
         }
     }
-    public void sendEmail(String subject, String message) {
 
-    }
-    private static com.google.api.client.auth.oauth2.Credential getCredentials(final NetHttpTransport httpTransport, GsonFactory jsonFactory)
-            throws IOException {
-        // Load client secrets.
-        InputStream in = forgotPassword.class.getResourceAsStream("/...json");
-        GoogleClientSecrets clientSecrets =
-                GoogleClientSecrets.load(jsonFactory, new InputStreamReader(forgotPassword.class.getResourceAsStream("/...json")));
+    public void toSend() {
+        try {
+            String testEmailToSend = "noreplyhealthapp@gmail.com";
 
-        // Build flow and trigger user authorization request.
-        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-                httpTransport, jsonFactory, clientSecrets, Set.of(GmailScopes.GMAIL_SEND))
-                .setDataStoreFactory(new FileDataStoreFactory(Paths.get("tokens").toFile()))
-                .setAccessType("offline")
-                .build();
-        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
-        //returns an authorized Credential object.
-        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
+            String stringHost = "smtp.gmail.com";
+
+            Properties properties = System.getProperties();
+
+            properties.put("mail.smtp.host", stringHost);
+            properties.put("mail.smtp.port", "465");
+            properties.put("mail.smtp.ssl.enable", "true");
+            properties.put("mail.smtp.auth", "true");
+
+            javax.mail.Session session = Session.getInstance(properties, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication("noreplyhealthapp@gmail.com", "rocbljtgnqaaroet"
+                    );
+                }
+            });
+
+            MimeMessage mimeMessage = new MimeMessage(session);
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(testEmailToSend));
+
+            mimeMessage.setSubject("Test Email");
+            mimeMessage.setText("Test Email Contents");
+
+            Thread thread = new Thread(() -> {
+                try {
+                    Transport.send(mimeMessage);
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+            });
+            thread.start();
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
-    }
+}
