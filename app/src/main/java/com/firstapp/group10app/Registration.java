@@ -35,6 +35,10 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         // Set the dropdown for the reasons for joining
         setSpinner();
+        // Set the dropdowns
+        setSpinner(new String[]{"cm", "inches"}, R.id.heightUnitsDropdown);
+        setSpinner(new String[]{"kg", "lbs"}, R.id.weightUnitsDropdown);
+        setSpinner(new String[]{"I want to lose weight", "I want to gain weight", "I want to maintain my weight"}, R.id.reasonsDropdown);
 
         // Get the pages, EditText fields, and buttons from the xml
         getAllElements();
@@ -53,7 +57,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     }
 
     // Set the dropdown for the reasons for joining
-    private void setSpinner() {
+    private void setReasonsSpinner() {
         //get the spinner from the xml.
         Spinner dropdown = findViewById(R.id.reasonsDropdown);
 
@@ -62,6 +66,18 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         //create an adapter to describe how the items are displayed, adapters are used in several places in android.
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, reasons);
+
+        //set the spinners adapter to the previously created one.
+        dropdown.setAdapter(adapter);
+    }
+
+    // Set the dropdowns (for the height and weight units and the reasons for joining)
+    private void setSpinner(String[] items, int id) {
+        //get the spinner from the xml.
+        Spinner dropdown = findViewById(id);
+
+        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
 
         //set the spinners adapter to the previously created one.
         dropdown.setAdapter(adapter);
@@ -132,7 +148,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     }
 
     private boolean emailValid() {
-        return emailValidator(email.toString()) == null;
+        return emailValidator(email.getText().toString()) == null;
     }
 
     private void passwordAddTextChangedListener() {
@@ -168,7 +184,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     }
 
     private boolean passwordValid() {
-        return passwordValidator(password.toString()) == null;
+        return passwordValidator(password.getText().toString()) == null;
     }
 
     @Override
