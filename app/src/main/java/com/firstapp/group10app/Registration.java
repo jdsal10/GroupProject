@@ -37,10 +37,9 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         setSpinner();
 
         // Get the pages, EditText fields, and buttons from the xml
-        getAllPages();
-        getAllFields();
-        getAllButtons();
+        getAllElements();
 
+        // Add text changed listeners to the email and password fields
         emailAddTextChangedListener();
         passwordAddTextChangedListener();
 
@@ -54,7 +53,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     }
 
     // Set the dropdown for the reasons for joining
-    public void setSpinner() {
+    private void setSpinner() {
         //get the spinner from the xml.
         Spinner dropdown = findViewById(R.id.reasonsDropdown);
 
@@ -66,6 +65,12 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         //set the spinners adapter to the previously created one.
         dropdown.setAdapter(adapter);
+    }
+
+    private void getAllElements() {
+        getAllPages();
+        getAllFields();
+        getAllButtons();
     }
 
     // Get page1, page2, page3 from the xml
@@ -91,14 +96,13 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     // Get backButton, nextButton from the xml
     private void getAllButtons() {
         backButton = findViewById(R.id.buttonBack);
-        nextButton = findViewById(R.id.buttonCont);
+        nextButton = findViewById(R.id.buttonNext);
     }
 
     private void emailAddTextChangedListener() {
         email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                email.setError(null);
             }
 
             @Override
@@ -107,25 +111,28 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length() == 0) {
-                    email.setError("Email is required!");
-                } else if (!emailValidator(s.toString())) {
-                    email.setError("Email is invalid!");
-                } else email.setError(null);
+                email.setError(emailValidator(s.toString()));
             }
         });
     }
 
-    public boolean emailValidator(String email) {
-        Pattern pattern;
-        Matcher matcher;
+    private String emailValidator(String email) {
+        if (email == null || email.length() == 0) return ("Email is required!");
+        else {
+            Pattern pattern;
+            Matcher matcher;
 
-        final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+            final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
-        pattern = Pattern.compile(EMAIL_PATTERN);
-        matcher = pattern.matcher(email);
+            pattern = Pattern.compile(EMAIL_PATTERN);
+            matcher = pattern.matcher(email);
 
-        return matcher.matches();
+            return matcher.matches() ? null : "Email is invalid!";
+        }
+    }
+
+    private boolean emailValid() {
+        return emailValidator(email.toString()) == null;
     }
 
     private void passwordAddTextChangedListener() {
@@ -137,19 +144,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    password.setError("Password is required!");
-                } else if (s.length() < 8) {
-                    password.setError("Password must be at least 8 characters long!");
-                } else if (!s.toString().matches(".*[0-9].*")) {
-                    password.setError("Password must contain at least one number!");
-                } else if (!s.toString().matches(".*[A-Z].*")) {
-                    password.setError("Password must contain at least one capital letter!");
-                } else if (!s.toString().matches(".*[a-z].*")) {
-                    password.setError("Password must contain at least one lowercase letter!");
-                } else if (!s.toString().matches(".*[!@#$%^&*+=?-].*")) {
-                    password.setError("Password must contain at least one special character!");
-                } else password.setError(null);
+                password.setError(passwordValidator(s.toString()));
             }
 
             @Override
@@ -158,20 +153,47 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    private String passwordValidator(String password) {
+        if (password == null || password.length() == 0) return "Password is required!";
+        else if (password.length() < 8) return "Password must be at least 8 characters long!";
+        else if (!password.matches(".*[0-9].*"))
+            return "Password must contain at least one number!";
+        else if (!password.matches(".*[A-Z].*"))
+            return "Password must contain at least one capital letter!";
+        else if (!password.matches(".*[a-z].*"))
+            return "Password must contain at least one lowercase letter!";
+        else if (!password.matches(".*[!@#$%^&*+=?-].*"))
+            return "Password must contain at least one special character!";
+        else return null;
+    }
+
+    private boolean passwordValid() {
+        return passwordValidator(password.toString()) == null;
+    }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
 
-        if (id == R.id.buttonCont) continuePressed();
+        if (id == R.id.buttonNext) nextPressed();
         else if (id == R.id.buttonBack) backPressed();
     }
 
-    // If the continue button is pressed - logic
-    public void continuePressed() {
+    // If the next button is pressed - logic
+    private void nextPressed() {
         if (activePage == 1) {
-            page1.setVisibility(View.GONE);
-            page2.setVisibility(View.VISIBLE);
-            activePage = 2;
+            // Check if the email and password are valid
+            if (emailValid() && passwordValid()) { // If both are valid
+                page1.setVisibility(View.GONE);
+                page2.setVisibility(View.VISIBLE);
+                activePage = 2;
+            } else if (!emailValid()) { // If the email is invalid
+                email.setError(emailValidator(email.getText().toString()));
+                email.requestFocus();
+            } else if (!passwordValid()) { // If the password is invalid
+                password.setError(passwordValidator(password.getText().toString()));
+                password.requestFocus();
+            }
         } else if (activePage == 2) {
             page2.setVisibility(View.GONE);
             page3.setVisibility(View.VISIBLE);
@@ -189,7 +211,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     }
 
     // If the back button is pressed - logic
-    public void backPressed() {
+    private void backPressed() {
         if (activePage == 1) {
             startActivity(new Intent(Registration.this, MainActivity.class));
         } else if (activePage == 2) {
@@ -204,7 +226,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     }
 
     // Get the chosen sex radio button as a string
-    public String getSelectedSex() {
+    private String getSelectedSex() {
         int radioId = sex.getCheckedRadioButtonId();
         RadioButton selectedSex = findViewById(radioId);
 
