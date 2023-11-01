@@ -211,6 +211,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 password.requestFocus();
             }
         } else if (activePage == 2) {
+            nextButton.setText(R.string.finish);
+
             page2.setVisibility(View.GONE);
             page3.setVisibility(View.VISIBLE);
             activePage = 3;
@@ -235,6 +237,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             page1.setVisibility(View.VISIBLE);
             activePage = 1;
         } else if (activePage == 3) {
+            nextButton.setText(R.string.next);
+
             page3.setVisibility(View.GONE);
             page2.setVisibility(View.VISIBLE);
             activePage = 2;

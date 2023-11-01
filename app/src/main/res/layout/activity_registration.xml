@@ -175,7 +175,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="@string/radioButtonMale"
+                    android:text="@string/radioButtonFemale"
                     android:textSize="20sp" />
 
             </RadioGroup>
