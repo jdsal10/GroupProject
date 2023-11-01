@@ -8,8 +8,36 @@
     <string name="welcomeBackgroundImage">Background Image</string>
     <string name="welcomeLogoBackground">Logo Background</string>
 
-    <!-- Register Page Values -->
+    <!-- Registration Page Values -->
+    <string name="registrationTitle">Registration</string>
+
+    <!-- Required (Registration) -->
     <string name="email">Email <font color='#FF0000'>*</font></string>
     <string name="name">Name <font color='#FF0000'>*</font></string>
     <string name="password">Password <font color='#FF0000'>*</font></string>
+
+    <!-- Optional (Registration) -->
+    <string name="dob">Birth date <font color='#d3d3d3'>(optional)</font></string>
+    <string name="sex">Sex <font color='#d3d3d3'>(optional)</font></string>
+    <string name="height">Height <font color='#d3d3d3'>(optional)</font></string>
+    <string name="weight">Weight <font color='#d3d3d3'>(optional)</font></string>
+    <string name="radioButtonMale">Male</string>
+    <string name="radioButtonFemale">Female</string>
+
+    <!-- Additional optional (Registration) -->
+    <string name="healthConditions">Any health conditions? <font color='#d3d3d3'>(optional)</font></string>
+
+    <!-- Hints (Registration) -->
+    <string name="emailHint">eg. example@gmail.com</string>
+    <string name="nameHint">eg. John Doe</string>
+    <string name="passwordHint">eg. d*7A1R#3</string>
+    <string name="dobHint">eg. 18.01.1998</string>
+    <string name="heightHint">eg. 178 cm</string>
+    <string name="weightHint">eg. 76 kg</string>
+    <string name="healthConditionsHint">eg. Diabetes, Asthma, etc.</string>
+
+    <!-- Buttons (Registration) -->
+    <string name="back">Back</string>
+    <string name="next">Next</string>
+    <string name="register">Register</string>
 </resources>
