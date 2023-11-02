@@ -1,0 +1,37 @@
+Database design
+Users:
+    - UserID {PK}
+    - Email
+    - FirstName
+    - SecondName
+    - Password
+    - DOB
+    - Weight
+    - Height
+    - Sex
+    - Alergies
+    - ReasonForDownloading
+
+UserWorkoutPairs:
+    - UserID
+    - WorkoutID
+
+Workouts:
+    - WorkoutID {PK}
+    - Name
+    - Duration
+    - TargetMuscleGroup
+    - Equipment
+    - Difficulty
+
+ExerciseWorkoutPairs:
+    - WorkoutID
+    - ExerciseID
+
+Exercises:
+    - ExerciseID {PK}
+    - Name
+    - Illustration (link to a resource)
+    - TargetMuscleGroup
+    - Equipment
+    - Difficulty

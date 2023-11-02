@@ -1,61 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="3">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="-110dp"
+            android:paddingLeft="-50dp"
+            android:paddingRight="-50dp"
+            android:contentDescription="@string/welcomeBackgroundImage"
+            android:foregroundGravity="top"
+            android:layout_marginTop="-250dp"
+            android:src="@drawable/welcome_circle" />
+
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/welcomeLogoBackground"
+            android:src="@drawable/logo_background" />
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:paddingTop="-110dp"
+            android:paddingLeft="-50dp"
+            android:paddingRight="-50dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/welcomeBackgroundImage"
+            android:foregroundGravity="top"
+            android:src="@drawable/groupimg" />
+    </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/goToRegister"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="50dp"
+            android:layout_weight="0.5"
+            android:layout_marginLeft="25dp"
+            android:textSize="30dp"
+            android:text="Register" />
+        <Button
+            android:id="@+id/goToLogin"
+            android:layout_width="match_parent"
+            android:layout_marginRight="25dp"
+            android:layout_height="100dp"
+            android:layout_weight="0.5"
+            android:textSize="30dp"
+            android:layout_marginTop="50dp"
+            android:text="Login">
+        </Button>
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/nikolaTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="185dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="186dp"
-        android:layout_marginBottom="328dp"
-        android:text="Nikola"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <TextView
-        android:id="@+id/et365"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="188dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="188dp"
-        android:layout_marginBottom="292dp"
-        android:text="Ethan"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nikolaTest" />
-
-    <TextView
-        android:id="@+id/ManuelTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="177dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="176dp"
-        android:layout_marginBottom="266dp"
-        android:text="Manuel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et365" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_width="match_parent"
+        android:id="@+id/skipToHome"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="center_horizontal"
+        android:text="@string/welcomeAnonymous"
+        android:textSize="25dp">
+    </TextView>
+</LinearLayout>
