@@ -35,7 +35,7 @@ public class forgotPassword extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.sendEmail) {
-            if (emailToSend.getText().toString().equals("")) {
+            if (!(emailToSend.getText().toString().equals(""))) {
                 //Send email
                 try {
                     toSend();
@@ -71,8 +71,16 @@ public class forgotPassword extends AppCompatActivity implements View.OnClickLis
             MimeMessage mimeMessage = new MimeMessage(session);
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(testEmailToSend));
 
-            mimeMessage.setSubject("Test Email");
-            mimeMessage.setText("Test Email Contents");
+            mimeMessage.setSubject("Health App Password Reset");
+            mimeMessage.setText("Hi " + emailToSend.getText().toString() + "." +
+                    "A request was recently made to reset." +
+                    "If you didn't send a request, please ignore this email and check your " +
+                    "account security." +
+                    "" +
+                    " myapp://test/somepath " +
+                    "" +
+                    "Many Thanks," +
+                    "The Health App Team");
 
             Thread thread = new Thread(() -> {
                 try {
