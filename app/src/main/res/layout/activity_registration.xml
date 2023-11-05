@@ -356,5 +356,14 @@
             android:layout_marginStart="8dp"
             android:layout_weight="0.5"
             android:text="@string/next" />
+
+        <Button
+            android:id="@+id/buttonTemp"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:layout_weight="0.5"
+            android:text="ChatGPT" />
     </LinearLayout>
 </LinearLayout>

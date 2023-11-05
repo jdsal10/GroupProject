@@ -25,7 +25,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private EditText email, name, password, dob, height, weight, conditions;
     private RadioGroup sex;
     private Spinner heightUnits, weightUnits, reasons;
-    private Button backButton, nextButton;
+    private Button backButton, nextButton, tempButton;
     private String[] details = new String[9];
 
     @Override
@@ -52,6 +52,17 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         // Set the onClickListeners of the buttons
         backButton.setOnClickListener(this);
         nextButton.setOnClickListener(this);
+
+        temp();
+    }
+
+    private void temp() {
+        tempButton = findViewById(R.id.buttonTemp);
+        tempButton.setOnClickListener(this);
+    }
+
+    private void tempPressed() {
+        System.out.println("tempPressed");
     }
 
     // Set the dropdowns (for the height and weight units and the reasons for joining)
@@ -178,6 +189,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         if (id == R.id.buttonNext) nextPressed();
         else if (id == R.id.buttonBack) backPressed();
+        else if (id == R.id.buttonTemp) tempPressed();
     }
 
     // If the next button is pressed - logic
