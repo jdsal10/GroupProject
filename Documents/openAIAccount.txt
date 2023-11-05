@@ -1,3 +1,5 @@
-Log in with Google (Username = noreplyhealthapp@gmail.com)
+Username = nk465@kent.ac.uk
 
-Phone: +44 7856791314 (Nikola)
+Password = comp6000health
+
+Phone: +359 882808200 (Nikola - BG)
