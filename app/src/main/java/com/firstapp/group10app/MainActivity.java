@@ -35,21 +35,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView skipText = findViewById(R.id.skipToHome);
         skipText.setOnClickListener(this);
         System.out.println("Attempting");
-        new Thread(() -> {
-            try {
-                //Seems the code below is the issue, no print statements occur.
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection connection = DriverManager.getConnection(url, username, password);
-                System.out.println("Connected");
-                Statement statement = connection.createStatement();
-                System.out.println("Creating");
-        statement.execute("CREATE TABLE test");
-        connection.close();
-        System.out.println("SUCCESS");
-    } catch (Exception e) {
-        throw new RuntimeException(e);
-    }
-    }).start();
+//        new Thread(() -> {
+//            try {
+//                //Seems the code below is the issue, no print statements occur.
+//                Class.forName("com.mysql.jdbc.Driver");
+//                Connection connection = DriverManager.getConnection(url, username, password);
+//                System.out.println("Connected");
+//                Statement statement = connection.createStatement();
+//                System.out.println("Creating");
+//        statement.execute("CREATE TABLE test");
+//        connection.close();
+//        System.out.println("SUCCESS");
+//    } catch (Exception e) {
+//        throw new RuntimeException(e);
+//    }
+//    }).start();
     }
 
 
