@@ -8,7 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class chatGPT extends AsyncTask<String, Void, String> {
+public class chatGPT_Client extends AsyncTask<String, Void, String> {
     private static final String apiKey = "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";
     private static final String model = "gpt-3.5-turbo";
     private static final String url = "https://api.openai.com/v1/chat/completions";
@@ -41,19 +41,21 @@ public class chatGPT extends AsyncTask<String, Void, String> {
         writer.write(body);
         writer.flush();
 
-        System.out.println(body); // For debugging purposes (remove later)
-
         // Get the response
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String inputLine;
-        StringBuffer response = new StringBuffer();
+        StringBuilder responseRaw = new StringBuilder();
         while ((inputLine = in.readLine()) != null) {
-            System.out.println(inputLine); // For debugging purposes (remove later)
-            response.append(inputLine);
+            responseRaw.append(inputLine);
         }
         in.close();
 
-        System.out.println(response); // For debugging purposes (remove later)
-        return response.toString(); // Return the response
+        // extract the text from the response
+        int start = responseRaw.indexOf("content\": \"") + 11;
+        int end = responseRaw.indexOf("\"finish_reason\":") - 4;
+
+        System.out.println(responseRaw.substring(start, end)); // For debugging purposes (delete later)
+        // TODO: Find a way to get the return value from this function
+        return responseRaw.substring(start, end); // Return the response
     }
 }
