@@ -56,6 +56,12 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         /*
          * Temporary button for testing the chatGPT API
          *
+         * TODO: Currently, an error is thrown when the button is pressed. Read how to fix
+         *  here: https://stackoverflow.com/questions/6343166/how-can-i-fix-android-os-networkonmainthreadexception
+         *
+         * It seem that you may need to use AsyncTask to fix this error and will have to access the
+         * AndroidManifest.xml file to allow the app to use the internet.
+         *
          * After testing finishes: Remove this button and the temp() and tempPressed() methods
          */
         temp();
@@ -68,7 +74,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     private void tempPressed() {
         try {
-            new chatGPT_Client().execute("Hello, how are you?");
+            System.out.println(chatGPT_API.chatGPT("Hello, how are you?"));
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
