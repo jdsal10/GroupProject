@@ -74,7 +74,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     private void tempPressed() {
         try {
-            System.out.println(chatGPT_API.chatGPT("Hello, how are you?"));
+            new chatGPT().execute("Hello, how are you?");
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
