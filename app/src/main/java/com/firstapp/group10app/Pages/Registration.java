@@ -15,12 +15,11 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.Other.Validator;
 import com.firstapp.group10app.R;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener {
 
@@ -141,28 +140,15 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void afterTextChanged(Editable s) {
-                email.setError(emailValidator(s.toString()));
+                email.setError(Validator.emailValidator(s.toString()));
             }
         });
     }
 
-    private String emailValidator(String email) {
-        if (email == null || email.length() == 0) return ("Email is required!");
-        else {
-            Pattern pattern;
-            Matcher matcher;
 
-            final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
-            pattern = Pattern.compile(EMAIL_PATTERN);
-            matcher = pattern.matcher(email);
-
-            return matcher.matches() ? null : "Email is invalid!";
-        }
-    }
 
     private boolean emailValid() {
-        return emailValidator(email.getText().toString()) == null;
+        return Validator.emailValidator(email.getText().toString()) == null;
     }
 
     private void passwordAddTextChangedListener() {
@@ -174,7 +160,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                password.setError(passwordValidator(s.toString()));
+                password.setError(Validator.passwordValidator(s.toString()));
             }
 
             @Override
@@ -183,22 +169,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    private String passwordValidator(String password) {
-        if (password == null || password.length() == 0) return "Password is required!";
-        else if (password.length() < 8) return "Password must be at least 8 characters long!";
-        else if (!password.matches(".*[0-9].*"))
-            return "Password must contain at least one number!";
-        else if (!password.matches(".*[A-Z].*"))
-            return "Password must contain at least one capital letter!";
-        else if (!password.matches(".*[a-z].*"))
-            return "Password must contain at least one lowercase letter!";
-        else if (!password.matches(".*[!@#$%^&*+=?-].*"))
-            return "Password must contain at least one special character!";
-        else return null;
-    }
-
     private boolean passwordValid() {
-        return passwordValidator(password.getText().toString()) == null;
+        return Validator.passwordValidator(password.getText().toString()) == null;
     }
 
     @Override
@@ -219,10 +191,10 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 page2.setVisibility(View.VISIBLE);
                 activePage = 2;
             } else if (!emailValid()) { // If the email is invalid
-                email.setError(emailValidator(email.getText().toString()));
+                email.setError(Validator.emailValidator(email.getText().toString()));
                 email.requestFocus();
             } else if (!passwordValid()) { // If the password is invalid
-                password.setError(passwordValidator(password.getText().toString()));
+                password.setError(Validator.passwordValidator(password.getText().toString()));
                 password.requestFocus();
             }
         } else if (activePage == 2) {
