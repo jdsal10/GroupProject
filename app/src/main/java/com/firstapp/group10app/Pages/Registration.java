@@ -1,4 +1,4 @@
-package com.firstapp.group10app;
+package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,10 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.R;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -56,12 +60,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         /*
          * Temporary button for testing the chatGPT API
          *
-         * TODO: Currently, an error is thrown when the button is pressed. Read how to fix
-         *  here: https://stackoverflow.com/questions/6343166/how-can-i-fix-android-os-networkonmainthreadexception
-         *
-         * It seem that you may need to use AsyncTask to fix this error and will have to access the
-         * AndroidManifest.xml file to allow the app to use the internet.
-         *
          * After testing finishes: Remove this button and the temp() and tempPressed() methods
          */
         temp();
@@ -73,11 +71,16 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     }
 
     private void tempPressed() {
-        try {
-            System.out.println(chatGPT_API.chatGPT("Hello, how are you?"));
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        }
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        executor.execute(() -> {
+            try {
+                String test = "chatGPT turned off to not waste money"; // chatGPT_Client.chatGPT("Hello, how are you?");
+                System.out.println(test);
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            }
+        });
     }
 
     // Set the dropdowns (for the height and weight units and the reasons for joining)

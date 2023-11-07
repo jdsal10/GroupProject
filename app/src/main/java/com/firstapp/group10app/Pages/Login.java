@@ -1,14 +1,16 @@
 
-package com.firstapp.group10app;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.*;
+import android.view.View;
 import android.widget.TextView;
 
-public class Login extends AppCompatActivity implements View.OnClickListener{
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.firstapp.group10app.R;
+
+public class Login extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,9 +21,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         temp.setOnClickListener(this);
     }
 
-    public void onClick(View v){
+    public void onClick(View v) {
         int id = v.getId();
-        if(id == R.id.forgotPassword) {
+        if (id == R.id.forgotPassword) {
             startActivity(new Intent(Login.this, forgotPassword.class));
         }
     }
