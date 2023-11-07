@@ -1,15 +1,16 @@
 package com.firstapp.group10app.DB;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-public class DBHelper extends SQLiteOpenHelper {
+public class DBHelperUser extends SQLiteOpenHelper {
     public static final String USER_TABLE = "USER_TABLE";
 
-    public DBHelper(@Nullable Context context) {
+    public DBHelperUser(@Nullable Context context) {
         super(context, "users.db", null, 1);
     }
 
@@ -18,11 +19,11 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + USER_TABLE + " (" +
                 "UserID INTEGER PRIMARY KEY," +
-                "Email TEXT," +
-                "FirstName TEXT," +
-                "SecondName TEXT," +
-                "Password TEXT," +
-                "DOB TEXT," +
+                "Email TEXT NOT NULL," +
+                "FirstName TEXT NOT NULL," +
+                "SecondName TEXT NOT NULL," +
+                "Password TEXT NOT NULL," +
+                "DOB DATE NOT NULL," +
                 "Weight REAL," +
                 "Height REAL," +
                 "Sex TEXT," +
@@ -36,5 +37,15 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    public boolean addUser (UserModel userModel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("Email", userModel.getEmail());
+
+
+        return true;
     }
 }
