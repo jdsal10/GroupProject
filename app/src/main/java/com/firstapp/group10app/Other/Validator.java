@@ -7,6 +7,7 @@ public class Validator {
     private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*" +
             "@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     private static final String DOB_PATTERN = "^([0-9]{4})-([0-9]{2})-([0-9]{2})$";
+    private static final int PASSWORD_LENGTH = 6;
 
     public static String emailValidator(String email) {
         if (email == null || email.length() == 0) return ("Email is required!");
@@ -24,9 +25,8 @@ public class Validator {
 
     public static String passwordValidator(String password) {
         if (password == null || password.length() == 0) return "Password is required!";
-        else if (password.length() < 8) return "Password must be at least 8 characters long!";
-        else if (!password.matches(".*[0-9].*"))
-            return "Password must contain at least one number!";
+        else if (password.length() < PASSWORD_LENGTH)
+            return "Password must be at least " + PASSWORD_LENGTH + " characters long!";
         else if (!password.matches(".*[A-Z].*"))
             return "Password must contain at least one capital letter!";
         else if (!password.matches(".*[a-z].*"))
@@ -54,7 +54,7 @@ public class Validator {
     }
 
     public static String weightValidator(String weightString, String units) {
-        if (weightString == null) return null;
+        if (weightString == null || weightString.length() == 0) return null;
 
         try {
             double weight = Double.parseDouble(weightString);
@@ -87,9 +87,9 @@ public class Validator {
                 if (height < 50) return "Height must be more than 50cm!";
                 else if (height > 250) return "Height must be less than 250cm!";
                 else return null;
-            } else if (units.equals("ft")) {
-                if (height < 1.5) return "Height must be more than 1.5ft!";
-                else if (height > 8.2) return "Height must be less than 8.2ft!";
+            } else if (units.equals("inch.")) {
+                if (height < 20) return "Height must be more than 20in!";
+                else if (height > 100) return "Height must be less than 100in!";
                 else return null;
             } else return "Units are invalid!";
         } catch (NumberFormatException e) {
