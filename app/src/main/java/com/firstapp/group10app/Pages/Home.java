@@ -1,8 +1,10 @@
-package com.firstapp.group10app;
+package com.firstapp.group10app.Pages;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.firstapp.group10app.R;
 
 public class Home extends AppCompatActivity {
 

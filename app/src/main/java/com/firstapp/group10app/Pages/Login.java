@@ -1,5 +1,5 @@
 
-package com.firstapp.group10app;
+package com.firstapp.group10app.Pages;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.TextView;
+
+import com.firstapp.group10app.R;
 
 public class Login extends AppCompatActivity implements View.OnClickListener{
 

@@ -1,4 +1,4 @@
-package com.firstapp.group10app;
+package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,9 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.firstapp.group10app.R;
+import com.firstapp.group10app.Other.chatGPT_Client;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -73,7 +76,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         executor.execute(() -> {
             try {
-                String test = chatGPT_Client.chatGPT("Hello, how are you?");
+                String test = "chatGPT turned off to not waste money"; // chatGPT_Client.chatGPT("Hello, how are you?");
                 System.out.println(test);
             } catch (Exception e) {
                 System.out.println("Error: " + e);

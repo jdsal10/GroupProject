@@ -1,4 +1,4 @@
-package com.firstapp.group10app;
+package com.firstapp.group10app.Pages;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.*;
@@ -8,10 +8,7 @@ import android.widget.Button;
 import android.content.Intent;
 import android.widget.TextView;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import com.firstapp.group10app.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

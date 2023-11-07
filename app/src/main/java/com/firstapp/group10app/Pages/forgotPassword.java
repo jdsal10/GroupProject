@@ -1,4 +1,4 @@
-package com.firstapp.group10app;
+package com.firstapp.group10app.Pages;
 
 import java.lang.*;
 import android.os.Bundle;
@@ -17,6 +17,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.*;
+
+import com.firstapp.group10app.R;
 
 public class forgotPassword extends AppCompatActivity implements View.OnClickListener {
 

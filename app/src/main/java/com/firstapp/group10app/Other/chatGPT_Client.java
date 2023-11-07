@@ -1,4 +1,4 @@
-package com.firstapp.group10app;
+package com.firstapp.group10app.Other;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
