@@ -22,7 +22,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class forgotPassword extends AppCompatActivity implements View.OnClickListener {
+public class ForgotPassword extends AppCompatActivity implements View.OnClickListener {
 
     private EditText emailToSend;
     private String emailText;

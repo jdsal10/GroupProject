@@ -24,7 +24,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.forgotPassword) {
-            startActivity(new Intent(Login.this, forgotPassword.class));
+            startActivity(new Intent(Login.this, ForgotPassword.class));
         }
     }
 }
