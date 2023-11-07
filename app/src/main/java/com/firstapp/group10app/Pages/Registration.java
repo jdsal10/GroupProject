@@ -32,7 +32,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener {
-
     private LinearLayout page1, page2, page3;
     private int activePage;
     private EditText email, name, password, dob, height, weight, conditions;

@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.firstapp.group10app.R;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,5 +27,3 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
     }
 }
-
-

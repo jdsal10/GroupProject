@@ -23,7 +23,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class ForgotPassword extends AppCompatActivity implements View.OnClickListener {
-
     private EditText emailToSend;
     private String emailText;
 

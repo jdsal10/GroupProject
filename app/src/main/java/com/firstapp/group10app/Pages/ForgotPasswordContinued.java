@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.firstapp.group10app.R;
 
 public class ForgotPasswordContinued extends AppCompatActivity {
-
     private Uri uri;
 
     @Override

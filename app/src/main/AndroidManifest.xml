@@ -20,11 +20,13 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="myapp"
-                    android:host="test"/>
+                <data
+                    android:host="test"
+                    android:scheme="myapp" />
             </intent-filter>
         </activity>
         <activity

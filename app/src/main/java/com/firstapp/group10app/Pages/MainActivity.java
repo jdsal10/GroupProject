@@ -11,11 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.firstapp.group10app.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
     public static final String DATABASE_NAME = "healthdata";
     public static final String url = "jdbc:mysql://healthdata.cgzabjirm4kt.eu-west-2.rds.amazonaws.com:3306/" + DATABASE_NAME;
     public static final String username = "healthadmin", password = "Comp6000health";
-//    public static final String
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,18 +47,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //    }).start();
     }
 
-
-
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if(id == R.id.goToRegister) {
+        if (id == R.id.goToRegister) {
             startActivity(new Intent(MainActivity.this, Registration.class));
-        }
-        else if (id == R.id.goToLogin) {
+        } else if (id == R.id.goToLogin) {
             startActivity(new Intent(MainActivity.this, Login.class));
-        }
-        else if (id == R.id.skipToHome) {
+        } else if (id == R.id.skipToHome) {
             startActivity(new Intent(MainActivity.this, Home.class));
             //Add form of identifier for the rest of the code to function.
         }

@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.firstapp.group10app.R;
 
 public class Home extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

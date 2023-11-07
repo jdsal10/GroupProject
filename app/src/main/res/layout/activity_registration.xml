@@ -214,7 +214,7 @@
                         android:layout_height="48dp"
                         android:layout_weight="0.5"
                         android:ems="10"
-                        android:hint="@string/heightHint"
+                        android:hint="@string/heightHintCm"
                         android:inputType="number"
                         android:textSize="20sp" />
 
@@ -253,7 +253,7 @@
                         android:layout_height="48dp"
                         android:layout_weight="0.5"
                         android:ems="10"
-                        android:hint="@string/weightHint"
+                        android:hint="@string/weightHintKg"
                         android:inputType="number"
                         android:textSize="20sp" />
 
