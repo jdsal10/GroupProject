@@ -154,8 +154,16 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         return height.getText().toString();
     }
 
+    private String heightUnits() {
+        return heightUnits.getSelectedItem().toString();
+    }
+
     private String weightText() {
         return weight.getText().toString();
+    }
+
+    private String weightUnits() {
+        return weightUnits.getSelectedItem().toString();
     }
 
     // Get the chosen sex radio button as a string
@@ -278,7 +286,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     // Check if the dob, height, and weight are valid
     private boolean p2Valid() {
-        return dobValid(dobText()) && heightValid(heightText()) && weightValid(weightText());
+        return dobValid(dobText()) && heightValid(heightText(), heightUnits()) && weightValid(weightText(), weightUnits());
     }
 
     private void p2PointErrors() {
@@ -286,12 +294,12 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             dob.setError(dobValidator(dobText()));
             dob.requestFocus();
         }
-        if (!heightValid(heightText())) {
-            height.setError(heightValidator(heightText()));
+        if (!heightValid(heightText(), heightUnits())) {
+            height.setError(heightValidator(heightText(), heightUnits()));
             height.requestFocus();
         }
-        if (!weightValid(weightText())) {
-            weight.setError(weightValidator(weightText()));
+        if (!weightValid(weightText(), weightUnits())) {
+            weight.setError(weightValidator(weightText(), weightUnits()));
             weight.requestFocus();
         }
     }
@@ -311,8 +319,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         details[2] = passwordText();
         details[3] = dobText();
         details[4] = getSelectedSex();
-        details[5] = heightText() + " " + heightUnits.getSelectedItem().toString();
-        details[6] = weightText() + " " + weightUnits.getSelectedItem().toString();
+        details[5] = heightText() + " " + heightUnits();
+        details[6] = weightText() + " " + weightUnits();
         details[7] = conditions.getText().toString();
         details[8] = reasons.getSelectedItem().toString();
     }
