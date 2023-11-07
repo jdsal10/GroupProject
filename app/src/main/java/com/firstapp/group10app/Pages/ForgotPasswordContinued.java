@@ -1,14 +1,16 @@
-package com.firstapp.group10app;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-public class forgotPasswordContinued extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.R;
+
+public class ForgotPasswordContinued extends AppCompatActivity {
     private Uri uri;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
