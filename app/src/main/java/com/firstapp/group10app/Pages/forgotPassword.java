@@ -1,8 +1,14 @@
 package com.firstapp.group10app.Pages;
 
-import java.lang.*;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.firstapp.group10app.R;
+
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,15 +21,12 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import androidx.appcompat.app.AppCompatActivity;
-import android.widget.*;
-
-import com.firstapp.group10app.R;
 
 public class forgotPassword extends AppCompatActivity implements View.OnClickListener {
 
     private EditText emailToSend;
     private String emailText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +49,7 @@ public class forgotPassword extends AppCompatActivity implements View.OnClickLis
             String pat = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
             pattern = Pattern.compile(pat);
             matcher = pattern.matcher(emailText);
-            if((!(emailText.equals(""))) && (matcher.matches())) {
+            if ((!(emailText.equals(""))) && (matcher.matches())) {
                 //Try to send email
                 try {
                     toSend();
@@ -54,8 +57,7 @@ public class forgotPassword extends AppCompatActivity implements View.OnClickLis
                     throw new RuntimeException(e);
                 }
 
-            }
-            else {
+            } else {
                 //Incorrect format of email - tell the user.
                 emailToSend.setError("Please add a valid email");
             }

@@ -16,7 +16,6 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.R;
-import com.firstapp.group10app.Other.chatGPT_Client;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
