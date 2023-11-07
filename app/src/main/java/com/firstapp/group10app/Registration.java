@@ -15,6 +15,8 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -67,11 +69,16 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     }
 
     private void tempPressed() {
-        try {
-            new chatGPT_Client().execute("Hello, how are you?");
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        }
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        executor.execute(() -> {
+            try {
+                String test = chatGPT_Client.chatGPT("Hello, how are you?");
+                System.out.println(test);
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            }
+        });
     }
 
     // Set the dropdowns (for the height and weight units and the reasons for joining)

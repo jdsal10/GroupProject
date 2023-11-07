@@ -1,27 +1,15 @@
 package com.firstapp.group10app;
 
-import android.os.AsyncTask;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class chatGPT_Client extends AsyncTask<String, Void, String> {
+public class chatGPT_Client {
     private static final String apiKey = "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";
     private static final String model = "gpt-3.5-turbo";
     private static final String url = "https://api.openai.com/v1/chat/completions";
-
-    @Override
-    protected String doInBackground(String... strings) {
-        try {
-            return chatGPT(strings[0]);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Error";
-        }
-    }
 
     public static String chatGPT(String input) throws Exception {
         // Connect to the API
@@ -52,10 +40,8 @@ public class chatGPT_Client extends AsyncTask<String, Void, String> {
 
         // extract the text from the response
         int start = responseRaw.indexOf("content\": \"") + 11;
-        int end = responseRaw.indexOf("\"finish_reason\":") - 4;
+        int end = responseRaw.indexOf("\"finish_reason\":") - 15;
 
-        System.out.println(responseRaw.substring(start, end)); // For debugging purposes (delete later)
-        // TODO: Find a way to get the return value from this function
         return responseRaw.substring(start, end); // Return the response
     }
 }
