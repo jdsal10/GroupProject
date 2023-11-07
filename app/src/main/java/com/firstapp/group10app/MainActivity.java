@@ -1,6 +1,9 @@
 package com.firstapp.group10app;
-
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.*;
 
 import android.os.Bundle;
@@ -10,15 +13,8 @@ import android.widget.TextView;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.sql.Statement;
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-    public static final String DATABASE_NAME = "healthdata";
-    public static final String url = "jdbc:mysql://healthdata.cgzabjirm4kt.eu-west-2.rds.amazonaws.com:3306/" + DATABASE_NAME;
-    public static final String username = "healthadmin", password = "Comp6000health";
-//    public static final String
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,22 +31,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView skipText = findViewById(R.id.skipToHome);
         skipText.setOnClickListener(this);
         System.out.println("Attempting");
-//        new Thread(() -> {
-//            try {
-//                //Seems the code below is the issue, no print statements occur.
-//                Class.forName("com.mysql.jdbc.Driver");
-//                Connection connection = DriverManager.getConnection(url, username, password);
-//                System.out.println("Connected");
-//                Statement statement = connection.createStatement();
-//                System.out.println("Creating");
-//        statement.execute("CREATE TABLE test");
-//        connection.close();
-//        System.out.println("SUCCESS");
-//    } catch (Exception e) {
-//        throw new RuntimeException(e);
-//    }
-//    }).start();
+        connect();
     }
+
+
+    public Connection connect() {
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        Connection conn = null;
+        Log Log = null;
+        try {
+            Class.forName("net.sourceforge.jtds.jdbc.Driver");
+            @SuppressLint("AuthLeak") String connectionString = "jdbc:mysql://gateway01.eu-central-1.prod.aws.tidbcloud.com:4000/test?user=4JhVNGoguqAHant.root&password=RRdHMohyyNYd0Trx&sslMode=VERIFY_IDENTITY&enabledTLSProtocols=TLSv1.2,TLSv1.3";
+            conn = DriverManager.getConnection(connectionString);
+
+            Statement st = conn.createStatement();
+            String dropTableSQL = "DROP TABLE IF EXISTS TestTable";
+            st.execute(dropTableSQL);
+
+            System.out.println("Table dropped successfully.");
+
+            st.execute("CREATE TABLE TestTable (" +
+                    "    ID INT PRIMARY KEY," +
+                    "    Name VARCHAR(255)," +
+                    "    Age INT," +
+                    "    Email VARCHAR(255)" +
+                    ");");
+            System.out.println("Table created successfully.");
+            st.close();
+            conn.close();
+        } catch (Exception e) {
+            Log.e("Connection", "Error connecting to the database: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return conn;
+    }
+
 
 
 
