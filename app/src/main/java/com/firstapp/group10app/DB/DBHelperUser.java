@@ -6,10 +6,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-public class DBHelper extends SQLiteOpenHelper {
+public class DBHelperUser extends SQLiteOpenHelper {
     public static final String USER_TABLE = "USER_TABLE";
 
-    public DBHelper(@Nullable Context context) {
+    public DBHelperUser(@Nullable Context context) {
         super(context, "users.db", null, 1);
     }
 
