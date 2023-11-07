@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Group10App"
         tools:targetApi="31">
         <activity
-            android:name=".Pages.forgotPasswordContinued"
+            android:name=".Pages.ForgotPasswordContinued"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Pages.forgotPassword"
+            android:name=".Pages.ForgotPassword"
             android:exported="false" />
         <activity
             android:name=".Pages.Home"

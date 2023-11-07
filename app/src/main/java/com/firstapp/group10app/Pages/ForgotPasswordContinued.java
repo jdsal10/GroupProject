@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.R;
 
-public class forgotPasswordContinued extends AppCompatActivity {
+public class ForgotPasswordContinued extends AppCompatActivity {
 
     private Uri uri;
 
