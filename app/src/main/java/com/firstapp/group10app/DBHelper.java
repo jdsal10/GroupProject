@@ -17,7 +17,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + USER_TABLE + " (" +
                 "UserID INTEGER PRIMARY KEY," +
-                "Email TEXT," +
+                "Email  ," +
                 "FirstName TEXT," +
                 "SecondName TEXT," +
                 "Password TEXT," +
