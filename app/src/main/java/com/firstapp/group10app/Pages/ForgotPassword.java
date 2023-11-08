@@ -47,32 +47,43 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.sendEmail) {
+
             emailText = emailToSend.getText().toString();
             Pattern pattern;
             Matcher matcher;
             String pat = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
             pattern = Pattern.compile(pat);
             matcher = pattern.matcher(emailText);
-            if ((!(emailText.equals(""))) && (matcher.matches())) {
-                //Try to send email
-                try {
-                    toSend();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+            try {
+                if ((!(emailText.equals(""))) && (matcher.matches()) && checkExists(emailText)) {
+                    DBConnection d = new DBConnection();
+                    //Test insert
+                    d.executeStatement("INSERT INTO HealthData.USER_TABLE (Email, PreferredName, Password) VALUES ('test@gmail.com', 'Ethan', 'guess123');");
+                    try {
+                        toSend();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
 
-            } else {
-                //Incorrect format of email - tell the user.
-                emailToSend.setError("Please add a valid email");
+                } else {
+                    //Incorrect format of email - tell the user.
+                    emailToSend.setError("The email provided is not valid. Please try again.");
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
         }
     }
 
     public boolean checkExists (String email) throws SQLException {
         DBConnection d = new DBConnection();
-        ResultSet set = d.executeQuery("SELECT * FROM USER_TABLE WHERE Email = '" + email + "'");
-        if(set.next()) {
-            return true;
+        ResultSet set = d.executeQuery("SELECT * FROM HealthData.USER_TABLE WHERE Email = '" + email + "'");
+        int size = 0;
+        if(set.last()) {
+            size++;
+        }
+        if (size == 0) {
+            return false;
         }
         else return true;
     }
