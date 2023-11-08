@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.firstapp.group10app.Other.Validator;
+
 public class DBHelperUser extends SQLiteOpenHelper {
     public static final String USER_TABLE = "USER_TABLE";
 
@@ -20,8 +22,7 @@ public class DBHelperUser extends SQLiteOpenHelper {
         String createTable = "CREATE TABLE " + USER_TABLE + " (" +
                 "UserID INTEGER PRIMARY KEY," +
                 "Email TEXT NOT NULL," +
-                "FirstName TEXT NOT NULL," +
-                "SecondName TEXT NOT NULL," +
+                "PreferredName TEXT NOT NULL," +
                 "Password TEXT NOT NULL," +
                 "DOB DATE NOT NULL," +
                 "Weight REAL," +
@@ -36,14 +37,22 @@ public class DBHelperUser extends SQLiteOpenHelper {
     // Called if DB version number changes. Prevents loss of information if the DB design changes.
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
     }
 
     public boolean addUser (UserModel userModel) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+        Validator val = new Validator();
 
-        cv.put("Email", userModel.getEmail());
+        if (val.emailValid(userModel.getEmail())){
+            cv.put("Email", userModel.getEmail());
+        }
+
+        cv.put("PreName", userModel.getPreferredName());
+
+        if (val.passwordValid(userModel.getPassword())){
+            cv.put("Password", userModel.getPassword());
+        }
 
 
         return true;

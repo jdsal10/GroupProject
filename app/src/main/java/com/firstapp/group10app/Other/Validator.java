@@ -4,6 +4,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validator {
+
+    public Validator() {
+    }
+
     public static String emailValidator(String email) {
         if (email == null || email.length() == 0) return ("Email is required!");
         else {
