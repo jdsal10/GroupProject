@@ -1,5 +1,6 @@
 package com.firstapp.group10app.Pages;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +24,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.xml.parsers.DocumentBuilderFactory;
+
 import com.firstapp.group10app.DB.DBConnection;
 
 
@@ -36,17 +37,20 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        emailToSend = findViewById(R.id.editTextTextEmailAddress);
+        emailToSend = findViewById(R.id.emailtosend);
         emailToSend.setOnClickListener(this);
 
-        Button sendEmail = findViewById(R.id.sendEmail);
+        Button sendEmail = findViewById(R.id.passwordchange);
         sendEmail.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.sendEmail) {
+        if (id == R.id.passwordchange) {
+            DBConnection d = new DBConnection();
+            //Test insert
+//            d.executeStatement("INSERT INTO HealthData.USER_TABLE (Email, PreferredName, Password) VALUES ('tester@gmail.com', 'testaccount', 'guess123');");
 
             emailText = emailToSend.getText().toString();
             Pattern pattern;
@@ -56,11 +60,15 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             matcher = pattern.matcher(emailText);
             try {
                 if ((!(emailText.equals(""))) && (matcher.matches()) && checkExists(emailText)) {
-                    DBConnection d = new DBConnection();
-                    //Test insert
-                    d.executeStatement("INSERT INTO HealthData.USER_TABLE (Email, PreferredName, Password) VALUES ('test@gmail.com', 'Ethan', 'guess123');");
                     try {
-                        toSend();
+                        //Whilst the function to return to the app from the emails is still in
+                        //progress, the app currently, bypasses it and send the email as intnet,
+                        //the same way the functional system will.
+                        Intent in = new Intent(ForgotPassword.this, ForgotPasswordContinued.class);
+                        in.putExtra("email", emailText);
+                        System.out.println("starting");
+                        startActivity(in);
+//                        toSend();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
