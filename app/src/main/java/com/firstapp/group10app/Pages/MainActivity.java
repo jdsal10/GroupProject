@@ -41,19 +41,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void connect() throws SQLException {
-        try {
-            DBConnection d = new DBConnection();
-            d.executeStatement("INSERT INTO HealthData.USER_TABLE (Email, PreferredName, Password) VALUES ('Ethan', 'test@gmail.com', 'guess123');");
-            ResultSet set = d.executeQuery("SELECT * FROM HealthData.USER_TABLE");
-            while (set.next()) {
-                System.out.println(set.getString(3));
-            }
-        }
-        catch (Exception e) {
-            throw new SQLException(e);
-        }
-
-
+//        try {
+//            DBConnection d = new DBConnection();
+//            d.executeStatement("INSERT INTO HealthData.USER_TABLE (Email, PreferredName, Password) VALUES ('Ethan', 'test@gmail.com', 'guess123');");
+//            ResultSet set = d.executeQuery("SELECT * FROM HealthData.USER_TABLE");
+//            while (set.next()) {
+//                System.out.println(set.getString(3));
+//            }
+//        }
+//        catch (Exception e) {
+//            throw new SQLException(e);
+//        }
+//
+//
     }
 
     @Override
