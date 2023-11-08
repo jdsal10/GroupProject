@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.R;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,6 +23,9 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.xml.parsers.DocumentBuilderFactory;
+import com.firstapp.group10app.DB.DBConnection;
+
 
 public class ForgotPassword extends AppCompatActivity implements View.OnClickListener {
     private EditText emailToSend;
@@ -61,6 +66,15 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                 emailToSend.setError("Please add a valid email");
             }
         }
+    }
+
+    public boolean checkExists (String email) throws SQLException {
+        DBConnection d = new DBConnection();
+        ResultSet set = d.executeQuery("SELECT * FROM USER_TABLE WHERE Email = '" + email + "'");
+        if(set.next()) {
+            return true;
+        }
+        else return true;
     }
 
     public void toSend() {

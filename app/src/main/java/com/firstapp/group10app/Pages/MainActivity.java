@@ -12,6 +12,10 @@ import android.content.Intent;
 import android.widget.TextView;
 import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.R;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
@@ -29,13 +33,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView skipText = findViewById(R.id.skipToHome);
         skipText.setOnClickListener(this);
         System.out.println("Attempting");
-        connect();
+        try {
+            connect();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void connect() {
-        DBConnection d = new DBConnection();
-        d.executeStatement("DROP TABLE IF EXISTS testing");
-        d.executeStatement("CREATE TABLE testing (ID INT PRIMARY KEY, Name VARCHAR(255), Age INT)");
+    public void connect() throws SQLException {
+        try {
+            DBConnection d = new DBConnection();
+            d.executeStatement("INSERT INTO HealthData.USER_TABLE (Email, PreferredName, Password) VALUES ('Ethan', 'test@gmail.com', 'guess123');");
+            ResultSet set = d.executeQuery("SELECT * FROM HealthData.USER_TABLE");
+            while (set.next()) {
+                System.out.println(set.getString(3));
+            }
+        }
+        catch (Exception e) {
+            throw new SQLException(e);
+        }
+
 
     }
 
