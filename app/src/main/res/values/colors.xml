@@ -3,5 +3,33 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <!--    <color name="dark_blue">#b</color>-->
+
+    <!-- The color of the * symbol for required fields -->
     <color name="red_required">#FF0000</color>
+
+    <!-- Color gradients -->
+    <!-- Naming scheme: gradient_name_start/end -->
+    <!-- A Lost Memory -->
+    <color name="gradient_aLostMemory_start">#de6262</color>
+    <color name="gradient_aLostMemory_end">#ffb88c</color>
+
+    <!-- Kashmir -->
+    <color name="gradient_kashmir_start">#614385</color>
+    <color name="gradient_kashmir_end">#516395</color>
+
+    <!-- Purple White Flowers -->
+    <color name="gradient_purpleWhiteFlowers_start">#BA5370</color>
+    <color name="gradient_purpleWhiteFlowers_end">#F4E2D8</color>
+
+    <!-- Purple Bliss -->
+    <color name="gradient_purpleBliss_start">#360033</color>
+    <color name="gradient_purpleBliss_end">#0b8793</color>
+
+    <!-- Blush -->
+    <color name="gradient_blush_start">#B24592</color>
+    <color name="gradient_blush_end">#F15F79</color>
+
+    <!-- Can You Feel The Love Tonight -->
+    <color name="gradient_canYouFeelTheLoveTonight_start">#4568DC</color>
+    <color name="gradient_canYouFeelTheLoveTonight_end">#B06AB3</color>
 </resources>
