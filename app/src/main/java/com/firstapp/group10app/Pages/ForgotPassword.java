@@ -1,5 +1,6 @@
 package com.firstapp.group10app.Pages;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.R;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,6 +25,9 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.firstapp.group10app.DB.DBConnection;
+
+
 public class ForgotPassword extends AppCompatActivity implements View.OnClickListener {
     private EditText emailToSend;
     private String emailText;
@@ -31,36 +37,63 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        emailToSend = findViewById(R.id.editTextTextEmailAddress);
+        emailToSend = findViewById(R.id.emailtosend);
         emailToSend.setOnClickListener(this);
 
-        Button sendEmail = findViewById(R.id.sendEmail);
+        Button sendEmail = findViewById(R.id.passwordchange);
         sendEmail.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.sendEmail) {
+        if (id == R.id.passwordchange) {
+            DBConnection d = new DBConnection();
+            //Test insert
+//            d.executeStatement("INSERT INTO HealthData.USER_TABLE (Email, PreferredName, Password) VALUES ('tester@gmail.com', 'testaccount', 'guess123');");
+
             emailText = emailToSend.getText().toString();
             Pattern pattern;
             Matcher matcher;
             String pat = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
             pattern = Pattern.compile(pat);
             matcher = pattern.matcher(emailText);
-            if ((!(emailText.equals(""))) && (matcher.matches())) {
-                //Try to send email
-                try {
-                    toSend();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+            try {
+                if ((!(emailText.equals(""))) && (matcher.matches()) && checkExists(emailText)) {
+                    try {
+                        //Whilst the function to return to the app from the emails is still in
+                        //progress, the app currently, bypasses it and send the email as intnet,
+                        //the same way the functional system will.
+                        Intent in = new Intent(ForgotPassword.this, ForgotPasswordContinued.class);
+                        in.putExtra("email", emailText);
+                        System.out.println("starting");
+                        startActivity(in);
+//                        toSend();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
 
-            } else {
-                //Incorrect format of email - tell the user.
-                emailToSend.setError("Please add a valid email");
+                } else {
+                    //Incorrect format of email - tell the user.
+                    emailToSend.setError("The email provided is not valid. Please try again.");
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
         }
+    }
+
+    public boolean checkExists (String email) throws SQLException {
+        DBConnection d = new DBConnection();
+        ResultSet set = d.executeQuery("SELECT * FROM HealthData.USER_TABLE WHERE Email = '" + email + "'");
+        int size = 0;
+        if(set.last()) {
+            size++;
+        }
+        if (size == 0) {
+            return false;
+        }
+        else return true;
     }
 
     public void toSend() {
