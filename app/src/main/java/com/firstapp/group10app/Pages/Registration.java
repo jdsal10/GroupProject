@@ -37,7 +37,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private EditText email, name, password, dob, height, weight, conditions;
     private RadioGroup sex;
     private Spinner heightUnits, weightUnits, reasons;
-    private Button backButton, nextButton, tempButton;
+    private Button backButton, nextButton;
     private String[] details = new String[9];
 
     // Set the layout of the activity to activity_registration.xml
@@ -65,31 +65,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         // Set the onClickListeners of the buttons
         backButton.setOnClickListener(this);
         nextButton.setOnClickListener(this);
-
-        /*
-         * Temporary button for testing the chatGPT API
-         *
-         * After testing finishes: Remove this button and the temp() and tempPressed() methods
-         */
-        temp();
-    }
-
-    private void temp() {
-        tempButton = findViewById(R.id.buttonTemp);
-        tempButton.setOnClickListener(this);
-    }
-
-    private void tempPressed() {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-
-        executor.execute(() -> {
-            try {
-                String test = "chatGPT turned off to not waste money"; // chatGPT_Client.chatGPT("Hello, how are you?");
-                System.out.println(test);
-            } catch (Exception e) {
-                System.out.println("Error: " + e);
-            }
-        });
     }
 
     // Set the dropdowns (for the height and weight units and the reasons for joining)
@@ -220,7 +195,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         if (id == R.id.buttonNext) nextPressed();
         else if (id == R.id.buttonBack) backPressed();
-        else if (id == R.id.buttonTemp) tempPressed();
     }
 
     // If the back button is pressed - logic
