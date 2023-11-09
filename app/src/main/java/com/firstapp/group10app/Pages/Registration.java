@@ -28,9 +28,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.R;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 public class Registration extends AppCompatActivity implements View.OnClickListener {
     private LinearLayout page1, page2, page3; // The 3 pages of the registration
     private int activePage; // The page that is currently active
@@ -38,7 +35,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private RadioGroup sex;
     private Spinner heightUnits, weightUnits, reasons;
     private Button backButton, nextButton;
-    private String[] details = new String[9];
+    private final String[] details = new String[9];
 
     // Set the layout of the activity to activity_registration.xml
     @Override

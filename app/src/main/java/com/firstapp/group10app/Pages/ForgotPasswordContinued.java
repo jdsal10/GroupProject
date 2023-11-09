@@ -1,6 +1,5 @@
 package com.firstapp.group10app.Pages;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -50,7 +49,7 @@ public class ForgotPasswordContinued extends AppCompatActivity implements View.O
         passwordchangeconfirm.setOnClickListener(this);
 
         Bundle data = getIntent().getExtras();
-        if(data != null) {
+        if (data != null) {
             email = data.getString("email");
         }
     }
@@ -58,8 +57,8 @@ public class ForgotPasswordContinued extends AppCompatActivity implements View.O
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if(id == R.id.passwordchange) {
-            if(!password2.getText().toString().equals(password1.getText().toString())) {
+        if (id == R.id.passwordchange) {
+            if (!password2.getText().toString().equals(password1.getText().toString())) {
                 passwordchangeconfirm.setError("The passwords do not match");
             }
 

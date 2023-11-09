@@ -27,7 +27,6 @@ import javax.mail.internet.MimeMessage;
 
 import com.firstapp.group10app.DB.DBConnection;
 
-
 public class ForgotPassword extends AppCompatActivity implements View.OnClickListener {
     private EditText emailToSend;
     private String emailText;
@@ -83,17 +82,16 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    public boolean checkExists (String email) throws SQLException {
+    public boolean checkExists(String email) throws SQLException {
         DBConnection d = new DBConnection();
         ResultSet set = d.executeQuery("SELECT * FROM HealthData.USER_TABLE WHERE Email = '" + email + "'");
         int size = 0;
-        if(set.last()) {
+        if (set.last()) {
             size++;
         }
         if (size == 0) {
             return false;
-        }
-        else return true;
+        } else return true;
     }
 
     public void toSend() {

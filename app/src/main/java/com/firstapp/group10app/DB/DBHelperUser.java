@@ -39,7 +39,7 @@ public class DBHelperUser extends SQLiteOpenHelper {
 
     }
 
-    public boolean addUser (UserModel userModel) {
+    public boolean addUser(UserModel userModel) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
