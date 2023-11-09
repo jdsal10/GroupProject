@@ -32,14 +32,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener {
-    private LinearLayout page1, page2, page3;
-    private int activePage;
+    private LinearLayout page1, page2, page3; // The 3 pages of the registration
+    private int activePage; // The page that is currently active
     private EditText email, name, password, dob, height, weight, conditions;
     private RadioGroup sex;
     private Spinner heightUnits, weightUnits, reasons;
     private Button backButton, nextButton, tempButton;
     private String[] details = new String[9];
 
+    // Set the layout of the activity to activity_registration.xml
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +104,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         dropdown.setAdapter(adapter);
     }
 
+    // Get all the elements from the xml (pages, EditText fields, and buttons)
     private void getAllElements() {
         getAllPages();
         getAllFields();
@@ -137,6 +139,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         nextButton = findViewById(R.id.buttonNext);
     }
 
+    // Get the text from the EditText fields
     private String emailText() {
         return email.getText().toString();
     }
@@ -174,6 +177,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         else return selectedSex.getText().toString();
     }
 
+    // Add text changed listeners to the email and password fields
     private void emailAddTextChangedListener() {
         email.addTextChangedListener(new TextWatcher() {
             @Override
@@ -209,6 +213,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    // Actions for when the back and next buttons are pressed
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -220,18 +225,18 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     // If the back button is pressed - logic
     private void backPressed() {
-        if (activePage == 1) gotoMainActivity();
-        else if (activePage == 2) gotoP1();
-        else if (activePage == 3) gotoP2();
+        if (activePage == 1) goToMainActivity();
+        else if (activePage == 2) goToP1();
+        else if (activePage == 3) goToP2();
     }
 
     // If the next button is pressed - logic
     private void nextPressed() {
         if (activePage == 1) {
-            if (p1Valid()) gotoP2();
+            if (p1Valid()) goToP2();
             else p1PointErrors();
         } else if (activePage == 2) {
-            if (p2Valid()) gotoP3();
+            if (p2Valid()) goToP3();
             else p2PointErrors();
         } else if (activePage == 3) {
             saveUserDetails();
@@ -241,15 +246,17 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 System.out.println(detail);
             }
 
-            gotoLogin();
+            goToLogin();
         }
     }
 
-    private void gotoMainActivity() {
+    // Go to the main activity
+    private void goToMainActivity() {
         startActivity(new Intent(Registration.this, MainActivity.class));
     }
 
-    private void gotoP1() {
+    // Go to page 1
+    private void goToP1() {
         page2.setVisibility(View.GONE);
         page1.setVisibility(View.VISIBLE);
         activePage = 1;
@@ -260,6 +267,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         return emailValid(emailText()) && passwordValid(passwordText());
     }
 
+    // Point out the errors in the email and password fields
     private void p1PointErrors() {
         if (!emailValid(emailText())) {
             email.setError(emailValidator(emailText()));
@@ -271,7 +279,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void gotoP2() {
+    // Go to page 2
+    private void goToP2() {
         if (activePage == 1) page1.setVisibility(View.GONE);
         else if (activePage == 3) {
             nextButton.setText(R.string.next);
@@ -288,6 +297,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         return dobValid(dobText()) && heightValid(heightText(), heightUnits()) && weightValid(weightText(), weightUnits());
     }
 
+    // Point out the errors in the dob, height, and weight fields
     private void p2PointErrors() {
         if (!dobValid(dobText())) {
             dob.setError(dobValidator(dobText()));
@@ -303,7 +313,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void gotoP3() {
+    // Go to page 3
+    private void goToP3() {
         nextButton.setText(R.string.finish);
 
         page2.setVisibility(View.GONE);
@@ -324,7 +335,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         details[8] = reasons.getSelectedItem().toString();
     }
 
-    private void gotoLogin() {
+    // Go to the login activity
+    private void goToLogin() {
         startActivity(new Intent(Registration.this, Login.class));
     }
 }
