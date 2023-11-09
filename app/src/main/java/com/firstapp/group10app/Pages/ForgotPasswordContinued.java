@@ -15,9 +15,7 @@ public class ForgotPasswordContinued extends AppCompatActivity implements View.O
     private Uri uri;
     private EditText password1;
     private EditText password2;
-
     private Button passwordchangeconfirm;
-
     private String email;
 
     @Override
