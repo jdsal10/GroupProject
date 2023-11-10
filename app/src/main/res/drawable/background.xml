@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--    <gradient-->
+    <!--        android:angle="45"-->
+    <!--        android:endColor="@color/gradient_aLostMemory_end"-->
+    <!--        android:startColor="@color/gradient_aLostMemory_start" />-->
+    <gradient
+        android:angle="45"
+        android:endColor="#B06AB3"
+        android:startColor="#4568DC" />
+    <!--        android:endColor="#B06AB3"-->
+    <!--    android:startColor="#4568DC" />-->
+    <!--        android:endColor="@color/gradient_aLostMemory_end"-->
+    <!--        android:startColor="@color/gradient_aLostMemory_start" />-->
+
+    <corners android:radius="8dp" />
+</shape>
