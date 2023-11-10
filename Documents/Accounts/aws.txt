@@ -1,0 +1,6 @@
+Email - noreplyhealthapp@gmail.com
+Password - Comp6000health
+
+RDS
+Username - HealthAdmin
+Password - Comp6000health

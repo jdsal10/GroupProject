@@ -1,11 +1,12 @@
-package com.firstapp.group10app;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.firstapp.group10app.Pages;
 
 import android.os.Bundle;
 
-public class Home extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.R;
+
+public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

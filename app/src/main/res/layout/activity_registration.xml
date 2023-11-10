@@ -8,7 +8,7 @@
     android:layout_marginEnd="16dp"
     android:layout_marginBottom="8dp"
     android:orientation="vertical"
-    tools:context=".Registration"
+    tools:context=".Pages.Registration"
     tools:ignore="HardcodedText">
 
     <TextView
@@ -214,7 +214,7 @@
                         android:layout_height="48dp"
                         android:layout_weight="0.5"
                         android:ems="10"
-                        android:hint="@string/heightHint"
+                        android:hint="@string/heightHintCm"
                         android:inputType="number"
                         android:textSize="20sp" />
 
@@ -253,7 +253,7 @@
                         android:layout_height="48dp"
                         android:layout_weight="0.5"
                         android:ems="10"
-                        android:hint="@string/weightHint"
+                        android:hint="@string/weightHintKg"
                         android:inputType="number"
                         android:textSize="20sp" />
 
@@ -355,6 +355,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
             android:layout_weight="0.5"
+            android:background="@drawable/background"
             android:text="@string/next" />
 
         <Button
