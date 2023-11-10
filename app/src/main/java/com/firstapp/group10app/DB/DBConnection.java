@@ -9,6 +9,8 @@ import java.sql.Statement;
 public class DBConnection {
     public Connection conn;
     public Statement st;
+
+    //Used to initialise a connection to the database
     public DBConnection() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -21,20 +23,22 @@ public class DBConnection {
             throw new RuntimeException(e);
         }
     }
+
+    //Executes a query that returns no data
     public void executeStatement(String createStatement) {
         try{
             st.execute(createStatement);
-        } catch (Exception e){
-            throw new RuntimeException(e);
-        }
-    }
-    public ResultSet executeQuery(String statement) {
-        try {
-            return st.executeQuery(statement);
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-//        return null;
+    }
+
+    //Executes a query that returns a ResultSet
+    public ResultSet executeQuery(String statement) {
+        try {
+            return st.executeQuery(statement);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
