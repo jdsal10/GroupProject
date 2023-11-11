@@ -1,12 +1,13 @@
-package com.firstapp.group10app;
-
+package com.firstapp.group10app.Pages;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.*;
 
 import android.os.Bundle;
 import android.widget.Button;
 import android.content.Intent;
 import android.widget.TextView;
+import com.firstapp.group10app.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         skipText.setOnClickListener(this);
     }
 
+
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -37,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if (id == R.id.skipToHome) {
             startActivity(new Intent(MainActivity.this, Home.class));
-            //Add form of identifier for the rest of the code to function.
         }
     }
 }

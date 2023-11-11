@@ -1,4 +1,15 @@
-package com.firstapp.group10app;
+package com.firstapp.group10app.Pages;
+
+import static com.firstapp.group10app.Other.Validator.dobValid;
+import static com.firstapp.group10app.Other.Validator.dobValidator;
+import static com.firstapp.group10app.Other.Validator.emailValid;
+import static com.firstapp.group10app.Other.Validator.emailValidator;
+import static com.firstapp.group10app.Other.Validator.heightValid;
+import static com.firstapp.group10app.Other.Validator.heightValidator;
+import static com.firstapp.group10app.Other.Validator.passwordValid;
+import static com.firstapp.group10app.Other.Validator.passwordValidator;
+import static com.firstapp.group10app.Other.Validator.weightValid;
+import static com.firstapp.group10app.Other.Validator.weightValidator;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,19 +26,18 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.firstapp.group10app.R;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener {
-
-    private LinearLayout page1, page2, page3;
-    private int activePage;
+    private LinearLayout page1, page2, page3; // The 3 pages of the registration
+    private int activePage; // The page that is currently active
     private EditText email, name, password, dob, height, weight, conditions;
     private RadioGroup sex;
     private Spinner heightUnits, weightUnits, reasons;
-    private Button backButton, nextButton, tempButton;
-    private String[] details = new String[9];
+    private Button backButton, nextButton;
+    private final String[] details = new String[9];
 
+    // Set the layout of the activity to activity_registration.xml
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,32 +62,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         // Set the onClickListeners of the buttons
         backButton.setOnClickListener(this);
         nextButton.setOnClickListener(this);
-
-        /*
-         * Temporary button for testing the chatGPT API
-         *
-         * TODO: Currently, an error is thrown when the button is pressed. Read how to fix
-         *  here: https://stackoverflow.com/questions/6343166/how-can-i-fix-android-os-networkonmainthreadexception
-         *
-         * It seem that you may need to use AsyncTask to fix this error and will have to access the
-         * AndroidManifest.xml file to allow the app to use the internet.
-         *
-         * After testing finishes: Remove this button and the temp() and tempPressed() methods
-         */
-        temp();
-    }
-
-    private void temp() {
-        tempButton = findViewById(R.id.buttonTemp);
-        tempButton.setOnClickListener(this);
-    }
-
-    private void tempPressed() {
-        try {
-            System.out.println(chatGPT_API.chatGPT("Hello, how are you?"));
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        }
     }
 
     // Set the dropdowns (for the height and weight units and the reasons for joining)
@@ -92,6 +76,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         dropdown.setAdapter(adapter);
     }
 
+    // Get all the elements from the xml (pages, EditText fields, and buttons)
     private void getAllElements() {
         getAllPages();
         getAllFields();
@@ -126,6 +111,45 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         nextButton = findViewById(R.id.buttonNext);
     }
 
+    // Get the text from the EditText fields
+    private String emailText() {
+        return email.getText().toString();
+    }
+
+    private String passwordText() {
+        return password.getText().toString();
+    }
+
+    private String dobText() {
+        return dob.getText().toString();
+    }
+
+    private String heightText() {
+        return height.getText().toString();
+    }
+
+    private String heightUnits() {
+        return heightUnits.getSelectedItem().toString();
+    }
+
+    private String weightText() {
+        return weight.getText().toString();
+    }
+
+    private String weightUnits() {
+        return weightUnits.getSelectedItem().toString();
+    }
+
+    // Get the chosen sex radio button as a string
+    private String getSelectedSex() {
+        int radioId = sex.getCheckedRadioButtonId();
+        RadioButton selectedSex = findViewById(radioId);
+
+        if (selectedSex == null) return "Other";
+        else return selectedSex.getText().toString();
+    }
+
+    // Add text changed listeners to the email and password fields
     private void emailAddTextChangedListener() {
         email.addTextChangedListener(new TextWatcher() {
             @Override
@@ -141,25 +165,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 email.setError(emailValidator(s.toString()));
             }
         });
-    }
-
-    private String emailValidator(String email) {
-        if (email == null || email.length() == 0) return ("Email is required!");
-        else {
-            Pattern pattern;
-            Matcher matcher;
-
-            final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
-            pattern = Pattern.compile(EMAIL_PATTERN);
-            matcher = pattern.matcher(email);
-
-            return matcher.matches() ? null : "Email is invalid!";
-        }
-    }
-
-    private boolean emailValid() {
-        return emailValidator(email.getText().toString()) == null;
     }
 
     private void passwordAddTextChangedListener() {
@@ -180,54 +185,30 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    private String passwordValidator(String password) {
-        if (password == null || password.length() == 0) return "Password is required!";
-        else if (password.length() < 8) return "Password must be at least 8 characters long!";
-        else if (!password.matches(".*[0-9].*"))
-            return "Password must contain at least one number!";
-        else if (!password.matches(".*[A-Z].*"))
-            return "Password must contain at least one capital letter!";
-        else if (!password.matches(".*[a-z].*"))
-            return "Password must contain at least one lowercase letter!";
-        else if (!password.matches(".*[!@#$%^&*+=?-].*"))
-            return "Password must contain at least one special character!";
-        else return null;
-    }
-
-    private boolean passwordValid() {
-        return passwordValidator(password.getText().toString()) == null;
-    }
-
+    // Actions for when the back and next buttons are pressed
     @Override
     public void onClick(View v) {
         int id = v.getId();
 
         if (id == R.id.buttonNext) nextPressed();
         else if (id == R.id.buttonBack) backPressed();
-        else if (id == R.id.buttonTemp) tempPressed();
+    }
+
+    // If the back button is pressed - logic
+    private void backPressed() {
+        if (activePage == 1) goToMainActivity();
+        else if (activePage == 2) goToP1();
+        else if (activePage == 3) goToP2();
     }
 
     // If the next button is pressed - logic
     private void nextPressed() {
         if (activePage == 1) {
-            // Check if the email and password are valid
-            if (emailValid() && passwordValid()) { // If both are valid
-                page1.setVisibility(View.GONE);
-                page2.setVisibility(View.VISIBLE);
-                activePage = 2;
-            } else if (!emailValid()) { // If the email is invalid
-                email.setError(emailValidator(email.getText().toString()));
-                email.requestFocus();
-            } else if (!passwordValid()) { // If the password is invalid
-                password.setError(passwordValidator(password.getText().toString()));
-                password.requestFocus();
-            }
+            if (p1Valid()) goToP2();
+            else p1PointErrors();
         } else if (activePage == 2) {
-            nextButton.setText(R.string.finish);
-
-            page2.setVisibility(View.GONE);
-            page3.setVisibility(View.VISIBLE);
-            activePage = 3;
+            if (p2Valid()) goToP3();
+            else p2PointErrors();
         } else if (activePage == 3) {
             saveUserDetails();
 
@@ -236,46 +217,97 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 System.out.println(detail);
             }
 
-            startActivity(new Intent(Registration.this, Login.class));
+            goToLogin();
         }
     }
 
-    // If the back button is pressed - logic
-    private void backPressed() {
-        if (activePage == 1) {
-            startActivity(new Intent(Registration.this, MainActivity.class));
-        } else if (activePage == 2) {
-            page2.setVisibility(View.GONE);
-            page1.setVisibility(View.VISIBLE);
-            activePage = 1;
-        } else if (activePage == 3) {
+    // Go to the main activity
+    private void goToMainActivity() {
+        startActivity(new Intent(Registration.this, MainActivity.class));
+    }
+
+    // Go to page 1
+    private void goToP1() {
+        page2.setVisibility(View.GONE);
+        page1.setVisibility(View.VISIBLE);
+        activePage = 1;
+    }
+
+    // Check if the email and password are valid
+    private boolean p1Valid() {
+        return emailValid(emailText()) && passwordValid(passwordText());
+    }
+
+    // Point out the errors in the email and password fields
+    private void p1PointErrors() {
+        if (!emailValid(emailText())) {
+            email.setError(emailValidator(emailText()));
+            email.requestFocus();
+        }
+        if (!passwordValid(passwordText())) {
+            password.setError(passwordValidator(passwordText()));
+            password.requestFocus();
+        }
+    }
+
+    // Go to page 2
+    private void goToP2() {
+        if (activePage == 1) page1.setVisibility(View.GONE);
+        else if (activePage == 3) {
             nextButton.setText(R.string.next);
 
             page3.setVisibility(View.GONE);
-            page2.setVisibility(View.VISIBLE);
-            activePage = 2;
+        }
+
+        page2.setVisibility(View.VISIBLE);
+        activePage = 2;
+    }
+
+    // Check if the dob, height, and weight are valid
+    private boolean p2Valid() {
+        return dobValid(dobText()) && heightValid(heightText(), heightUnits()) && weightValid(weightText(), weightUnits());
+    }
+
+    // Point out the errors in the dob, height, and weight fields
+    private void p2PointErrors() {
+        if (!dobValid(dobText())) {
+            dob.setError(dobValidator(dobText()));
+            dob.requestFocus();
+        }
+        if (!heightValid(heightText(), heightUnits())) {
+            height.setError(heightValidator(heightText(), heightUnits()));
+            height.requestFocus();
+        }
+        if (!weightValid(weightText(), weightUnits())) {
+            weight.setError(weightValidator(weightText(), weightUnits()));
+            weight.requestFocus();
         }
     }
 
-    // Get the chosen sex radio button as a string
-    private String getSelectedSex() {
-        int radioId = sex.getCheckedRadioButtonId();
-        RadioButton selectedSex = findViewById(radioId);
+    // Go to page 3
+    private void goToP3() {
+        nextButton.setText(R.string.finish);
 
-        if (selectedSex == null) return "Other";
-        else return selectedSex.getText().toString();
+        page2.setVisibility(View.GONE);
+        page3.setVisibility(View.VISIBLE);
+        activePage = 3;
     }
 
     // Save the user details to the details array
     private void saveUserDetails() {
-        details[0] = email.getText().toString();
+        details[0] = emailText();
         details[1] = name.getText().toString();
-        details[2] = password.getText().toString();
-        details[3] = dob.getText().toString();
+        details[2] = passwordText();
+        details[3] = dobText();
         details[4] = getSelectedSex();
-        details[5] = height.getText().toString() + " " + heightUnits.getSelectedItem().toString();
-        details[6] = weight.getText().toString() + " " + weightUnits.getSelectedItem().toString();
+        details[5] = heightText() + " " + heightUnits();
+        details[6] = weightText() + " " + weightUnits();
         details[7] = conditions.getText().toString();
         details[8] = reasons.getSelectedItem().toString();
+    }
+
+    // Go to the login activity
+    private void goToLogin() {
+        startActivity(new Intent(Registration.this, Login.class));
     }
 }
