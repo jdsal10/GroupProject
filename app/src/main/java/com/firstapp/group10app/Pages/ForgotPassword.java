@@ -47,21 +47,15 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.passwordchange) {
-            DBConnection d = new DBConnection();
-            //Test insert
-//            d.executeStatement("INSERT INTO HealthData.USER_TABLE (Email, PreferredName, Password) VALUES ('tester@gmail.com', 'testaccount', 'guess123');");
-
             emailText = emailToSend.getText().toString();
-            Pattern pattern;
-            Matcher matcher;
             String pat = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-            pattern = Pattern.compile(pat);
-            matcher = pattern.matcher(emailText);
+            Pattern pattern = Pattern.compile(pat);
+            Matcher matcher = pattern.matcher(emailText);
             try {
                 if ((!(emailText.equals(""))) && (matcher.matches()) && checkExists(emailText)) {
                     try {
                         //Whilst the function to return to the app from the emails is still in
-                        //progress, the app currently, bypasses it and send the email as intnet,
+                        //progress, the app currently, bypasses it and send the email as intent,
                         //the same way the functional system will.
                         Intent in = new Intent(ForgotPassword.this, ForgotPasswordContinued.class);
                         in.putExtra("email", emailText);
@@ -84,14 +78,12 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
 
     public boolean checkExists(String email) throws SQLException {
         DBConnection d = new DBConnection();
-        ResultSet set = d.executeQuery("SELECT * FROM HealthData.USER_TABLE WHERE Email = '" + email + "'");
+        ResultSet set = d.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "'");
         int size = 0;
         if (set.last()) {
             size++;
         }
-        if (size == 0) {
-            return false;
-        } else return true;
+        return size != 0;
     }
 
     public void toSend() {
