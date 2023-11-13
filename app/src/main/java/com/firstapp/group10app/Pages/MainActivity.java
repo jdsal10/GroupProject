@@ -34,9 +34,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = v.getId();
         if(id == R.id.goToRegister) {
             startActivity(new Intent(MainActivity.this, Registration.class));
+            overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
         }
         else if (id == R.id.goToLogin) {
             startActivity(new Intent(MainActivity.this, Login.class));
+            overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
         }
         else if (id == R.id.skipToHome) {
             startActivity(new Intent(MainActivity.this, Home.class));

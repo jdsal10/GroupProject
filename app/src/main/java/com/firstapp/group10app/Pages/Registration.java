@@ -192,6 +192,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         if (id == R.id.buttonNext) nextPressed();
         else if (id == R.id.buttonBack) backPressed();
+        overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
     }
 
     // If the back button is pressed - logic
