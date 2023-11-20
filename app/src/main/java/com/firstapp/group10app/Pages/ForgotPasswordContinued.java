@@ -1,7 +1,9 @@
 package com.firstapp.group10app.Pages;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,10 +45,13 @@ public class ForgotPasswordContinued extends AppCompatActivity implements View.O
         if (id == R.id.passwordchange) {
             if (!password2.getText().toString().equals(password1.getText().toString())) {
                 passwordchangeconfirm.setError("The passwords do not match");
-            }
+            } else {
 
-            DBConnection d = new DBConnection();
-            d.executeStatement("UPDATE HealthData.Users SET Password = '" + password1.getText().toString() + "' WHERE Email = '" + email + "';");
+                DBConnection d = new DBConnection();
+                d.executeStatement("UPDATE HealthData.Users SET Password = '" + password1.getText().toString() + "' WHERE Email = '" + email + "';");
+                Intent t = new Intent(ForgotPasswordContinued.this, Login.class);
+                startActivity(t);
+            }
         }
     }
 }
