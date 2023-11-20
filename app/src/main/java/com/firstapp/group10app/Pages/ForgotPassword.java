@@ -44,7 +44,6 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
 
         Button sendEmail = findViewById(R.id.passwordchange);
         sendEmail.setOnClickListener(this);
-//        System.out.println(generateString());
     }
 
     @Override
@@ -69,20 +68,11 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                         System.out.println("starting");
                         startActivity(in);
 
-                        //Whilst the function to return to the app from the emails is still in
-                        //progress, the app currently, bypasses it and send the email as intent,
-                        //the same way the functional system will.
-
-//                        Intent in = new Intent(ForgotPassword.this, ForgotPasswordContinued.class);
-//                        in.putExtra("email", emailText);
-//                        System.out.println("starting");
-//                        startActivity(in);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
 
                 } else {
-                    //Incorrect format of email - tell the user.
                     emailToSend.setError("The email provided is not valid. Please try again.");
                 }
             } catch (SQLException e) {

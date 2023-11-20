@@ -16,7 +16,6 @@ import java.sql.SQLException;
 
 public class forgotpasswordcheck extends AppCompatActivity implements View.OnClickListener {
     private EditText code;
-    private Button tryagain;
     private Button codeConfirm;
     private String email;
     ForgotPassword f = new ForgotPassword();
@@ -30,7 +29,7 @@ public class forgotpasswordcheck extends AppCompatActivity implements View.OnCli
         code = findViewById(R.id.codeenter);
         code.setOnClickListener(this);
 
-        tryagain = findViewById(R.id.tryagain);
+        Button tryagain = findViewById(R.id.tryagain);
         tryagain.setOnClickListener(this);
 
         codeConfirm = findViewById(R.id.codeconfirm);
@@ -46,7 +45,6 @@ public class forgotpasswordcheck extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.tryagain) {
-            String trueCode = getCode(email);
             f.toSend(email, f.generateString());
             code.setError("Code has been resent");
         } else if (id == R.id.codeconfirm) {
@@ -54,7 +52,6 @@ public class forgotpasswordcheck extends AppCompatActivity implements View.OnCli
                 if (checkCode(code.getText().toString())) {
                     Intent in = new Intent(forgotpasswordcheck.this, ForgotPasswordContinued.class);
                     in.putExtra("email", email);
-                    System.out.println("starting");
                     startActivity(in);
                 }
                 else {
@@ -67,7 +64,6 @@ public class forgotpasswordcheck extends AppCompatActivity implements View.OnCli
 
     }
 
-
     public boolean checkCode(String code) throws SQLException {
         ResultSet set = d.executeQuery("SELECT VerifyCode FROM HealthData.Users WHERE Email = '" + email + "'");
         if (set.next()) {
@@ -78,21 +74,17 @@ public class forgotpasswordcheck extends AppCompatActivity implements View.OnCli
         }
     }
 
-    public String getCode(String email) {
-        String verifyCode = "";
-
-        try {
-            ResultSet set = d.executeQuery("SELECT VerifyCode FROM HealthData.Users WHERE `Email` = '" + email + "';");
-
-            if (set.next()) {
-                verifyCode = set.getString("VerifyCode");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return verifyCode;
-    }
+//    public String getCode(String email) {
+//        String verifyCode = "";
+//        try {
+//            ResultSet set = d.executeQuery("SELECT VerifyCode FROM HealthData.Users WHERE `Email` = '" + email + "';");
+//            if (set.next()) {
+//                verifyCode = set.getString("VerifyCode");
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return verifyCode;
+//    }
 
 }
