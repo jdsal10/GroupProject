@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +14,7 @@ import com.firstapp.group10app.R;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,7 +33,7 @@ import com.firstapp.group10app.DB.DBConnection;
 public class ForgotPassword extends AppCompatActivity implements View.OnClickListener {
     private EditText emailToSend;
     private String emailText;
-
+    private String validate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,10 +44,35 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
 
         Button sendEmail = findViewById(R.id.passwordchange);
         sendEmail.setOnClickListener(this);
+//        System.out.println(generateString());
     }
 
     @Override
     public void onClick(View v) {
+        DBConnection d = new DBConnection();
+        d.executeStatement("INSERT INTO HealthData.Users` (\n" +
+                "    `Email`,\n" +
+                "    `PreferredName`,\n" +
+                "    `Password`,\n" +
+                "    `DOB`,\n" +
+                "    `Weight`,\n" +
+                "    `Height`,\n" +
+                "    `Sex`,\n" +
+                "    `HealthCondition`,\n" +
+                "    `ReasonForDownloading`\n" +
+                "  )\n" +
+                "VALUES\n" +
+                "  (\n" +
+                "    'teatherethan@gmail.com', \n" +
+                "    'John Doe',\n" +
+                "    'password123',\n" +
+                "    '1990-01-01',\n" +
+                "    70.5,\n" +
+                "    180.0,\n" +
+                "    'Male',\n" +
+                "    'No health conditions',\n" +
+                "    'Fitness goals'\n" +
+                "  );");
         int id = v.getId();
         if (id == R.id.passwordchange) {
             emailText = emailToSend.getText().toString();
@@ -55,14 +82,16 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             try {
                 if ((!(emailText.equals(""))) && (matcher.matches()) && checkExists(emailText)) {
                     try {
+                        validate = generateString();
+                        toSend(validate);
                         //Whilst the function to return to the app from the emails is still in
                         //progress, the app currently, bypasses it and send the email as intent,
                         //the same way the functional system will.
+
                         Intent in = new Intent(ForgotPassword.this, ForgotPasswordContinued.class);
                         in.putExtra("email", emailText);
                         System.out.println("starting");
                         startActivity(in);
-//                        toSend();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -87,7 +116,18 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
         return size != 0;
     }
 
-    public void toSend() {
+
+    public String generateString() {
+        String randomOptions = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        Random r = new Random();
+        char[] chars = new char[8];
+        for(int i = 0; i < 8; i++) {
+            chars[i] = randomOptions.charAt(r.nextInt(randomOptions.length()));
+        }
+        return new String(chars);
+    }
+
+    public void toSend(String str) {
         try {
             String testEmailToSend = emailText;
 
@@ -117,7 +157,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                     "If you didn't send a request, please ignore this email and check your " +
                     "account security." +
                     "" +
-                    " myapp://test/somepath " +
+                    str +
                     "" +
                     "Many Thanks," +
                     "The Health App Team");
