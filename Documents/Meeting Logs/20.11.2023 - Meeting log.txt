@@ -1,0 +1,24 @@
+Sprint 2 tasks
+
+Design Pages
+	- Home page     	   | Juan
+	- workouts page		   | Misha and Nick
+		- Manual		| Nick
+		- AI			| Misha
+	- stats page		   | Manu
+	- settings page 	   | Ethan
+		- accessibility
+		- remove data
+
+Functionality
+	- settings Page 		| Ethan
+	- connect to ChatGPT's API 	| Nikola
+
+Other
+	- transfer everything from Notion to Monday 	| Misha
+	- at least one user story 			| (everyone has to do by next Monday)
+
+Ideas
+	- have a button on the home page "last workout" which shows the workout and you can start it.
+	- (futute idea) color blind mode in settings
+	- (future idea) implement a reader that can be turned on in the settings

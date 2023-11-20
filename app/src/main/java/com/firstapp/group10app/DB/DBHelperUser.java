@@ -45,7 +45,6 @@ public class DBHelperUser extends SQLiteOpenHelper {
 
         cv.put("Email", userModel.getEmail());
 
-
         return true;
     }
 }
