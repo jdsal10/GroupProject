@@ -33,6 +33,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
     private EditText emailToSend;
     private String emailText;
     private String validate;
+    DBConnection d = new DBConnection();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +59,12 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                 if ((!(emailText.equals(""))) && (matcher.matches()) && checkExists(emailText)) {
                     try {
                         validate = generateString();
-                        toSend(validate);
-                        Intent in = new Intent(ForgotPassword.this, ForgotPasswordContinued.class);
+                        toSend(emailText,validate);
+                        d.executeStatement("UPDATE HealthData.Users " +
+                                "SET VerifyCode = '" + validate + "' " +
+                                "WHERE Email = '" + emailText + "';");
+
+                        Intent in = new Intent(ForgotPassword.this, forgotpasswordcheck.class);
                         in.putExtra("email", emailText);
                         System.out.println("starting");
                         startActivity(in);
@@ -107,9 +112,9 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
         return new String(chars);
     }
 
-    public void toSend(String str) {
+    public void toSend(String email, String code) {
         try {
-            String testEmailToSend = emailText;
+            String testEmailToSend = email;
 
             String stringHost = "smtp.gmail.com";
 
@@ -132,12 +137,12 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(testEmailToSend));
 
             mimeMessage.setSubject("Health App Password Reset");
-            mimeMessage.setText("Hi " + emailToSend.getText().toString() + " .\n" +
+            mimeMessage.setText("Hi " + email + " .\n" +
                     "A request was recently made to reset.\n" +
                     "If you didn't send a request, please ignore this email and check your " +
                     "account security.\n" +
                     "Your code: \n" +
-                    str +
+                    code +
                     "\n" +
                     "Many Thanks,\n" +
                     "The Health App Team\n");
