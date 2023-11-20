@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +14,7 @@ import com.firstapp.group10app.R;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,7 +32,7 @@ import com.firstapp.group10app.DB.DBConnection;
 public class ForgotPassword extends AppCompatActivity implements View.OnClickListener {
     private EditText emailToSend;
     private String emailText;
-
+    private String validate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
 
         Button sendEmail = findViewById(R.id.passwordchange);
         sendEmail.setOnClickListener(this);
+//        System.out.println(generateString());
     }
 
     @Override
@@ -54,14 +57,21 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             try {
                 if ((!(emailText.equals(""))) && (matcher.matches()) && checkExists(emailText)) {
                     try {
-                        //Whilst the function to return to the app from the emails is still in
-                        //progress, the app currently, bypasses it and send the email as intent,
-                        //the same way the functional system will.
+                        validate = generateString();
+                        toSend(validate);
                         Intent in = new Intent(ForgotPassword.this, ForgotPasswordContinued.class);
                         in.putExtra("email", emailText);
                         System.out.println("starting");
                         startActivity(in);
-//                        toSend();
+
+                        //Whilst the function to return to the app from the emails is still in
+                        //progress, the app currently, bypasses it and send the email as intent,
+                        //the same way the functional system will.
+
+//                        Intent in = new Intent(ForgotPassword.this, ForgotPasswordContinued.class);
+//                        in.putExtra("email", emailText);
+//                        System.out.println("starting");
+//                        startActivity(in);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -86,7 +96,18 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
         return size != 0;
     }
 
-    public void toSend() {
+
+    public String generateString() {
+        String randomOptions = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        Random r = new Random();
+        char[] chars = new char[8];
+        for(int i = 0; i < 8; i++) {
+            chars[i] = randomOptions.charAt(r.nextInt(randomOptions.length()));
+        }
+        return new String(chars);
+    }
+
+    public void toSend(String str) {
         try {
             String testEmailToSend = emailText;
 
@@ -111,15 +132,15 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(testEmailToSend));
 
             mimeMessage.setSubject("Health App Password Reset");
-            mimeMessage.setText("Hi " + emailToSend.getText().toString() + " . " +
-                    "A request was recently made to reset." +
+            mimeMessage.setText("Hi " + emailToSend.getText().toString() + " .\n" +
+                    "A request was recently made to reset.\n" +
                     "If you didn't send a request, please ignore this email and check your " +
-                    "account security." +
-                    "" +
-                    " myapp://test/somepath " +
-                    "" +
-                    "Many Thanks," +
-                    "The Health App Team");
+                    "account security.\n" +
+                    "Your code: \n" +
+                    str +
+                    "\n" +
+                    "Many Thanks,\n" +
+                    "The Health App Team\n");
 
             Thread thread = new Thread(() -> {
                 try {
