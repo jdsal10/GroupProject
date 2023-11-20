@@ -49,30 +49,6 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        DBConnection d = new DBConnection();
-        d.executeStatement("INSERT INTO HealthData.Users` (\n" +
-                "    `Email`,\n" +
-                "    `PreferredName`,\n" +
-                "    `Password`,\n" +
-                "    `DOB`,\n" +
-                "    `Weight`,\n" +
-                "    `Height`,\n" +
-                "    `Sex`,\n" +
-                "    `HealthCondition`,\n" +
-                "    `ReasonForDownloading`\n" +
-                "  )\n" +
-                "VALUES\n" +
-                "  (\n" +
-                "    'teatherethan@gmail.com', \n" +
-                "    'John Doe',\n" +
-                "    'password123',\n" +
-                "    '1990-01-01',\n" +
-                "    70.5,\n" +
-                "    180.0,\n" +
-                "    'Male',\n" +
-                "    'No health conditions',\n" +
-                "    'Fitness goals'\n" +
-                "  );");
         int id = v.getId();
         if (id == R.id.passwordchange) {
             emailText = emailToSend.getText().toString();
@@ -84,14 +60,19 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                     try {
                         validate = generateString();
                         toSend(validate);
-                        //Whilst the function to return to the app from the emails is still in
-                        //progress, the app currently, bypasses it and send the email as intent,
-                        //the same way the functional system will.
-
                         Intent in = new Intent(ForgotPassword.this, ForgotPasswordContinued.class);
                         in.putExtra("email", emailText);
                         System.out.println("starting");
                         startActivity(in);
+
+                        //Whilst the function to return to the app from the emails is still in
+                        //progress, the app currently, bypasses it and send the email as intent,
+                        //the same way the functional system will.
+
+//                        Intent in = new Intent(ForgotPassword.this, ForgotPasswordContinued.class);
+//                        in.putExtra("email", emailText);
+//                        System.out.println("starting");
+//                        startActivity(in);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -152,15 +133,15 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(testEmailToSend));
 
             mimeMessage.setSubject("Health App Password Reset");
-            mimeMessage.setText("Hi " + emailToSend.getText().toString() + " . " +
-                    "A request was recently made to reset." +
+            mimeMessage.setText("Hi " + emailToSend.getText().toString() + " .\n" +
+                    "A request was recently made to reset.\n" +
                     "If you didn't send a request, please ignore this email and check your " +
-                    "account security." +
-                    "" +
+                    "account security.\n" +
+                    "Your code: \n" +
                     str +
-                    "" +
-                    "Many Thanks," +
-                    "The Health App Team");
+                    "\n" +
+                    "Many Thanks,\n" +
+                    "The Health App Team\n");
 
             Thread thread = new Thread(() -> {
                 try {
