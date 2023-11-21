@@ -65,13 +65,11 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
 
                         Intent in = new Intent(ForgotPassword.this, forgotpasswordcheck.class);
                         in.putExtra("email", emailText);
-                        System.out.println("starting");
                         startActivity(in);
 
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
-
                 } else {
                     emailToSend.setError("The email provided is not valid. Please try again.");
                 }

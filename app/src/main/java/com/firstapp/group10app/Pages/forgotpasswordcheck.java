@@ -34,6 +34,7 @@ public class forgotpasswordcheck extends AppCompatActivity implements View.OnCli
 
         codeConfirm = findViewById(R.id.codeconfirm);
         codeConfirm.setOnClickListener(this);
+
         Bundle data = getIntent().getExtras();
         if (data != null) {
             email = data.getString("email");
@@ -46,7 +47,7 @@ public class forgotpasswordcheck extends AppCompatActivity implements View.OnCli
         int id = v.getId();
         if (id == R.id.tryagain) {
             f.toSend(email, f.generateString());
-            code.setError("Code has been resent");
+            code.setText("Code has been resent");
         } else if (id == R.id.codeconfirm) {
             try {
                 if (checkCode(code.getText().toString())) {
