@@ -26,7 +26,9 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.R;
+import com.firstapp.group10app.Other.Index;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener {
     private LinearLayout page1, page2, page3; // The 3 pages of the registration
@@ -212,6 +214,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             else p2PointErrors();
         } else if (activePage == 3) {
             saveUserDetails();
+            DBHelper.insertUser(details);
 
             // For visualisation purposes
             for (String detail : details) {
@@ -296,15 +299,15 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     // Save the user details to the details array
     private void saveUserDetails() {
-        details[0] = emailText();
-        details[1] = name.getText().toString();
-        details[2] = passwordText();
-        details[3] = dobText();
-        details[4] = getSelectedSex();
-        details[5] = heightText() + " " + heightUnits();
-        details[6] = weightText() + " " + weightUnits();
-        details[7] = conditions.getText().toString();
-        details[8] = reasons.getSelectedItem().toString();
+        details[Index.EMAIL] = emailText();
+        details[Index.NAME] = name.getText().toString();
+        details[Index.PASSWORD] = passwordText();
+        details[Index.DOB] = dobText();
+        details[Index.HEIGHT] = heightText() + " " + heightUnits();
+        details[Index.WEIGHT] = weightText() + " " + weightUnits();
+        details[Index.SEX] = getSelectedSex();
+        details[Index.CONDITIONS] = conditions.getText().toString();
+        details[Index.REASONS] = reasons.getSelectedItem().toString();
     }
 
     // Go to the login activity
