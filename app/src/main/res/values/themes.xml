@@ -5,7 +5,11 @@
 
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/design_default_color_primary</item>
+        <item name="colorPrimaryDark">@color/design_default_color_primary_dark</item>
+        <item name="colorAccent">@color/gradient_canYouFeelTheLoveTonight_start</item>
     </style>
 
     <style name="Theme.Group10App" parent="Base.Theme.Group10App" />
+
 </resources>
