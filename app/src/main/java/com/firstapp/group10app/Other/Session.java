@@ -1,13 +1,13 @@
 package com.firstapp.group10app.Other;
 
 public class Session {
-    private final String userID;
+    private final String userEmail;
 
-    public Session(String userID) {
-        this.userID = userID;
+    public Session(String userEmail) {
+        this.userEmail = userEmail;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getUserEmail() {
+        return userEmail;
     }
 }
