@@ -1,12 +1,12 @@
 package com.firstapp.group10app.Pages;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.R;
@@ -53,8 +53,7 @@ public class forgotpasswordcheck extends AppCompatActivity implements View.OnCli
                     Intent in = new Intent(forgotpasswordcheck.this, ForgotPasswordContinued.class);
                     in.putExtra("email", email);
                     startActivity(in);
-                }
-                else {
+                } else {
                     code.setError("Invalid code");
                 }
             } catch (SQLException e) {

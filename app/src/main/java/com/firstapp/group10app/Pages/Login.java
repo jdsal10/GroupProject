@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.R;
-import com.google.android.material.button.MaterialButton;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,6 +22,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private EditText Password;
     private String EmailText;
     private String PasswordText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        createTestUser();
@@ -44,15 +44,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.logginbtn){
+        if (id == R.id.logginbtn) {
             EmailText = Email.getText().toString();
             PasswordText = Password.getText().toString();
-            System.out.println("TESTING TEXT : "+ EmailText + "TESTING PASSWORD: " + PasswordText);
+            System.out.println("TESTING TEXT : " + EmailText + "TESTING PASSWORD: " + PasswordText);
             try {
-                if (checkUser(EmailText, PasswordText)){
-                    Toast.makeText(Login.this, "LOGIN SUCCESSFULL!",Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(Login.this, "LOGIN FAILED!",Toast.LENGTH_SHORT).show();
+                if (checkUser(EmailText, PasswordText)) {
+                    Toast.makeText(Login.this, "LOGIN SUCCESSFULL!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Login.this, "LOGIN FAILED!", Toast.LENGTH_SHORT).show();
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -63,13 +63,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-
     //Check if username and password is in the database
     public boolean checkUser(String email, String password) throws SQLException {
         DBConnection db = new DBConnection();
-        ResultSet result = db.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '"+ email +"' AND Password = '"+ password +"'");
+        ResultSet result = db.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "' AND Password = '" + password + "'");
         int size = 0;
-        if (result.last()){
+        if (result.last()) {
             size++;
         }
         System.out.println("TESTING " + size);
@@ -77,7 +76,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     //trying to add some data to the database to test login
-    public void createTestUser(){
+    public void createTestUser() {
         try {
             DBConnection db = new DBConnection();
             db.executeStatement("INSERT INTO HealthData.Users (Email, PreferredName, Password, DOB, Weight, Height, Sex, HealthCondition, ReasonForDownloading) VALUES ('user@example.com', 'Juan', 'password', '1990-01-01', 70.5, 175.0, 'Male', 'None', 'Testing app')");

@@ -5,10 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.R;
 
 import java.sql.ResultSet;
@@ -27,13 +27,12 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import com.firstapp.group10app.DB.DBConnection;
-
 public class ForgotPassword extends AppCompatActivity implements View.OnClickListener {
     private EditText emailToSend;
     private String emailText;
     private String validate;
     DBConnection d = new DBConnection();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +57,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                 if ((!(emailText.equals(""))) && (matcher.matches()) && checkExists(emailText)) {
                     try {
                         validate = generateString();
-                        toSend(emailText,validate);
+                        toSend(emailText, validate);
                         d.executeStatement("UPDATE HealthData.Users " +
                                 "SET VerifyCode = '" + validate + "' " +
                                 "WHERE Email = '" + emailText + "';");
@@ -96,7 +95,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
         String randomOptions = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         Random r = new Random();
         char[] chars = new char[8];
-        for(int i = 0; i < 8; i++) {
+        for (int i = 0; i < 8; i++) {
             chars[i] = randomOptions.charAt(r.nextInt(randomOptions.length()));
         }
         return new String(chars);

@@ -1,5 +1,6 @@
 package com.firstapp.group10app.DB;
 
+import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.Other.Validator;
 
 /**
@@ -14,14 +15,10 @@ public class DataChecker {
         }
 
         // Check that the required fields pass their tests
-        else if (!checkEmail(userDetails[0])) {
-            return false;
-        } else if (!checkPassword(userDetails[2])) {
-            return false;
-        }
-
-        // return true if all tests pass
-        else return true;
+        else // return true if all tests pass
+            if (!checkEmail(userDetails[Index.EMAIL])) {
+                return false;
+            } else return checkPassword(userDetails[Index.PASSWORD]);
     }
 
     public static boolean checkEmail(String email) {

@@ -27,8 +27,8 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DBHelper;
-import com.firstapp.group10app.R;
 import com.firstapp.group10app.Other.Index;
+import com.firstapp.group10app.R;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener {
     private LinearLayout page1, page2, page3; // The 3 pages of the registration

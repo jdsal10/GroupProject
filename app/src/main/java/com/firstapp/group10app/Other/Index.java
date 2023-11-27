@@ -1,6 +1,7 @@
 package com.firstapp.group10app.Other;
 
 public class Index {
+    // Indexes for the user details array (sent from the registration page)
     public static int EMAIL = 0;
     public static int NAME = 1;
     public static int PASSWORD = 2;

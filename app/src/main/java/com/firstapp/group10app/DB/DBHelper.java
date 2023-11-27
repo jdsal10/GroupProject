@@ -6,7 +6,9 @@ public class DBHelper {
     public static void insertUser(String[] userDetails) {
         try {
             // Check that the user details are valid
-            DataChecker.checkUserDetails(userDetails);
+            if (DataChecker.checkUserDetails(userDetails)) {
+                throw new IllegalArgumentException("Invalid user details");
+            }
 
             // Format the user details
             // TODO: Finish DataFormatter
