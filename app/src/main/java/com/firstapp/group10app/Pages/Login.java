@@ -5,48 +5,84 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.R;
 import com.google.android.material.button.MaterialButton;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Login extends AppCompatActivity implements View.OnClickListener {
+    private EditText Email;
+    private EditText Password;
+    private String EmailText;
+    private String PasswordText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        createTestUser();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        TextView username = (TextView) findViewById(R.id.username);
-        TextView password = (TextView) findViewById(R.id.password);
+        Email = findViewById(R.id.username);
+        Password = findViewById(R.id.password);
 
-        Button loginbtn = (Button) findViewById(R.id.logginbtn);
 
-        //admin and admin
-        //when button is clicked return username and password type
-        loginbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(username.getText().toString().equals("admin") && password.getText().toString().equals("admin")){
-                    //correct
-                    Toast.makeText(Login.this, "LOGIN SUCCESSFULL!",Toast.LENGTH_SHORT).show();
-                }else
-                    //incorrect
-                    Toast.makeText(Login.this, "LOGIN FAILED!",Toast.LENGTH_SHORT).show();
-
-            }
-        });
+        Button Loginbtn = findViewById(R.id.logginbtn);
+        Loginbtn.setOnClickListener(this);
 
         TextView temp = findViewById(R.id.forgotPassword);
         temp.setOnClickListener(this);
     }
 
+    //Actions for when login button or forgot password is pressed
+    @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.forgotPassword) {
+        if (id == R.id.logginbtn){
+            EmailText = Email.getText().toString();
+            PasswordText = Password.getText().toString();
+            System.out.println("TESTING TEXT : "+ EmailText + "TESTING PASSWORD: " + PasswordText);
+            try {
+                if (checkUser(EmailText, PasswordText)){
+                    Toast.makeText(Login.this, "LOGIN SUCCESSFULL!",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(Login.this, "LOGIN FAILED!",Toast.LENGTH_SHORT).show();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } else if (id == R.id.forgotPassword) {
             startActivity(new Intent(Login.this, ForgotPassword.class));
+        }
+    }
+
+
+
+    //Check if username and password is in the database
+    public boolean checkUser(String email, String password) throws SQLException {
+        DBConnection db = new DBConnection();
+        ResultSet result = db.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '"+ email +"' AND Password = '"+ password +"'");
+        int size = 0;
+        if (result.last()){
+            size++;
+        }
+        System.out.println("TESTING " + size);
+        return size != 0;
+    }
+
+    //trying to add some data to the database to test login
+    public void createTestUser(){
+        try {
+            DBConnection db = new DBConnection();
+            db.executeStatement("INSERT INTO HealthData.Users (Email, PreferredName, Password, DOB, Weight, Height, Sex, HealthCondition, ReasonForDownloading) VALUES ('user@example.com', 'Juan', 'password', '1990-01-01', 70.5, 175.0, 'Male', 'None', 'Testing app')");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }
