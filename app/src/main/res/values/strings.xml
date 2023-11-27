@@ -41,4 +41,8 @@
     <string name="next">Next</string>
     <string name="finish">Finish</string>
     <string name="string_finish">\@string/finish</string>
+    <string name="title_activity_settings">settings</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
