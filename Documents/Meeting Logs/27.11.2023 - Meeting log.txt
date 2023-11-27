@@ -1,0 +1,46 @@
+27.11.2023 - Meeting log
+
+What everyone has done:
+Nick:
+- started the workouts page
+- created a Session java class
+- added a mockp for the workouts-ai page layout
+
+Ethan:
+- foratting of code
+- started settings page
+
+Juan:
+- finished login functionality
+- normalized the design of the login page
+- strated the mockup for the home page
+
+Misha:
+- moved everything to monday.com
+
+Manu
+- probably has done some stuff as well, no info
+
+*change userId to email in Session.java
+
+Milestones:
+- by Christmas we should try to implement the manual workouts functionality
+- by the time we are back from holidays, one should be able to launch the app and generate a workout
+
+------------------------------------------------------------
+
+To do next week:
+Ethan:
+- work on the settings interface
+
+Juan:
+- finish the mockup
+- start implementing the code
+
+Nikola:
+- send the info from registration to the db
+- create a mockup for the workouts-manual page
+- implement the workouts-manual page layout
+
+Everyone:
+- prompt generation
