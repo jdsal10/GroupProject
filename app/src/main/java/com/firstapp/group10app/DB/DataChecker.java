@@ -18,7 +18,9 @@ public class DataChecker {
         else // return true if all tests pass
             if (!checkEmail(userDetails[Index.EMAIL])) {
                 return false;
-            } else return checkPassword(userDetails[Index.PASSWORD]);
+            } else {
+                return checkPassword(userDetails[Index.PASSWORD]);
+            }
     }
 
     public static boolean checkEmail(String email) {
@@ -33,7 +35,7 @@ public class DataChecker {
         // Check that the email is not already in the database
         else {
             try {
-                return DBHelper.getUser(email).next();
+                return !DBHelper.checkExists(email);
             } catch (Exception e) {
                 return false;
             }
