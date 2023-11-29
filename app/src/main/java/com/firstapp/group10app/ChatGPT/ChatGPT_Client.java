@@ -1,4 +1,4 @@
-package com.firstapp.group10app.Other;
+package com.firstapp.group10app.ChatGPT;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

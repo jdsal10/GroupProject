@@ -1,4 +1,4 @@
-package com.firstapp.group10app;
+package com.firstapp.group10app.ChatGPT;
 
 import org.json.JSONObject;
 
