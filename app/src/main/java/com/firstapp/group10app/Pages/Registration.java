@@ -214,7 +214,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             else p2PointErrors();
         } else if (activePage == 3) {
             saveUserDetails();
-            DBHelper.insertUser(details);
+//            DBHelper.insertUser(details);
 
             // For visualisation purposes
             for (String detail : details) {

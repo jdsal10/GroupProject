@@ -73,7 +73,7 @@ public class DataFormatter {
      * Converts 100 lbs -> 45.3592
      * Converts "" -> null
      */
-    public static String formatWeight(String weight, String units) {
+    public static String preCheckFormatWeight(String weight, String units) {
         if (weight.equals("")) {
             return null;
         }
