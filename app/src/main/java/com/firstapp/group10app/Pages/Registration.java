@@ -46,7 +46,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_registration);
 
         // Set the dropdowns
-        setSpinner(new String[]{"cm", "inches"}, R.id.heightUnitsDropdown);
+        setSpinner(new String[]{"cm", "inch"}, R.id.heightUnitsDropdown);
         setSpinner(new String[]{"kg", "lbs"}, R.id.weightUnitsDropdown);
         setSpinner(new String[]{"I want to lose weight", "I want to gain weight", "I want to maintain my weight"}, R.id.reasonsDropdown);
 
@@ -214,7 +214,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             else p2PointErrors();
         } else if (activePage == 3) {
             saveUserDetails();
-//            DBHelper.insertUser(details);
+            DBHelper.insertUser(details);
 
             // For visualisation purposes
             for (String detail : details) {
@@ -303,8 +303,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         details[Index.NAME] = name.getText().toString();
         details[Index.PASSWORD] = passwordText();
         details[Index.DOB] = dobText();
-        details[Index.HEIGHT] = heightText() + " " + heightUnits();
         details[Index.WEIGHT] = weightText() + " " + weightUnits();
+        details[Index.HEIGHT] = heightText() + " " + heightUnits();
         details[Index.SEX] = getSelectedSex();
         details[Index.CONDITIONS] = conditions.getText().toString();
         details[Index.REASONS] = reasons.getSelectedItem().toString();
