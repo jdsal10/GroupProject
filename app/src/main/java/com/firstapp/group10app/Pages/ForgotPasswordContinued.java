@@ -41,7 +41,7 @@ public class ForgotPasswordContinued extends AppCompatActivity implements View.O
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.passwordchange) {
-            if (!password2.getText().toString().equals(password1.getText().toString())) {
+            if ((password1 != null) && (!password2.getText().toString().equals(password1.getText().toString()))) {
                 passwordchangeconfirm.setError("The passwords do not match");
             } else {
                 DBConnection d = new DBConnection();
