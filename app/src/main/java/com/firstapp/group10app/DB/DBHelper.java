@@ -51,14 +51,13 @@ public class DBHelper {
     public static ResultSet getUser(String email) {
         try {
             // Create and SQL query
-            StringBuilder sql = new StringBuilder();
-            sql.append("SELECT * FROM HealthData.Users WHERE Email = '");
-            sql.append(email);
-            sql.append("';");
+            String sql = "SELECT * FROM HealthData.Users WHERE Email = '" +
+                    email +
+                    "';";
 
             // Execute the SQL query
             DBConnection db = new DBConnection();
-            return db.executeQuery(sql.toString());
+            return db.executeQuery(sql);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

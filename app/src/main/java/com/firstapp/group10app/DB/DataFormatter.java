@@ -8,13 +8,11 @@ import java.util.ArrayList;
  * DB.DataFormatter contains methods to format the data before passing it to the database.
  */
 public class DataFormatter {
-    public static String[] preCheckFormatUserDetails(String[] userDetails) {
+    public static void preCheckFormatUserDetails(String[] userDetails) {
         // Format the user details before passing them to the DataChecker
         userDetails[Index.WEIGHT] = preCheckFormatWeight(userDetails[Index.WEIGHT]);
         userDetails[Index.HEIGHT] = preCheckFormatHeight(userDetails[Index.HEIGHT]);
         userDetails[Index.SEX] = preCheckFormatSex(userDetails[Index.SEX]);
-
-        return userDetails;
     }
 
     public static String[] formatUserDetails(String[] userDetails) {
