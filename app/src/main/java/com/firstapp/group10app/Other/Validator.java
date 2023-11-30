@@ -1,5 +1,6 @@
 package com.firstapp.group10app.Other;
 
+import java.time.Year;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,8 +47,47 @@ public class Validator {
         Pattern pattern = Pattern.compile(DOB_PATTERN);
         Matcher matcher = pattern.matcher(dob);
 
-        return matcher.matches() ? null : "Date of birth is invalid!";
+        if (!matcher.matches()) {
+            return "Date of birth is invalid!";
+        }
+
+        String[] date = dob.split("-");
+        int year = Integer.parseInt(date[0]);
+        int month = Integer.parseInt(date[1]);
+        int day = Integer.parseInt(date[2]);
+
+        if (!yearValid(year)) {
+            return "Year is invalid!";
+        } else if (!monthValid(month)) {
+            return "Month is invalid!";
+        } else if (!dayValid(day, month, year)) {
+            return "Day is invalid!";
+        } else return null;
     }
+
+    private static boolean yearValid(int year) {
+        return year >= 1900 && year <= Year.now().getValue();
+    }
+
+    private static boolean monthValid(int month) {
+        return month >= 1 && month <= 12;
+    }
+
+    private static boolean dayValid(int day, int month, int year) {
+        if (day < 1 || day > 31) {
+            return false;
+        } else if (month == 2) {
+            if (isLeapYear(year)) return day <= 29;
+            else return day <= 28;
+        } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+            return day <= 30;
+        } else return true;
+    }
+
+    private static boolean isLeapYear(int year) {
+        return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
+    }
+
 
     public static boolean dobValid(String dob) {
         return dobValidator(dob) == null;
@@ -87,7 +127,7 @@ public class Validator {
                 if (height < 50) return "Height must be more than 50cm!";
                 else if (height > 250) return "Height must be less than 250cm!";
                 else return null;
-            } else if (units.equals("inch.")) {
+            } else if (units.equals("inch")) {
                 if (height < 20) return "Height must be more than 20in!";
                 else if (height > 100) return "Height must be less than 100in!";
                 else return null;
@@ -99,11 +139,5 @@ public class Validator {
 
     public static boolean heightValid(String height, String units) {
         return heightValidator(height, units) == null;
-    }
-
-    public static String sexValidator(String sex) {
-        if (sex == null || sex.length() == 0) return "Sex is required";
-        else if (!sex.equals("M") && !sex.equals("F") && !sex.equals("O")) return "Sex is invalid!";
-        else return null;
     }
 }

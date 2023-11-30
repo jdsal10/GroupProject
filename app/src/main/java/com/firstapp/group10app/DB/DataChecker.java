@@ -18,8 +18,10 @@ public class DataChecker {
         else // return true if all tests pass
             if (!checkEmail(userDetails[Index.EMAIL])) {
                 return false;
+            } else if (!checkPassword(userDetails[Index.PASSWORD])) {
+                return false;
             } else {
-                return checkPassword(userDetails[Index.PASSWORD]);
+                return checkDOB(userDetails[Index.DOB]);
             }
     }
 
@@ -44,5 +46,9 @@ public class DataChecker {
 
     public static boolean checkPassword(String password) {
         return Validator.passwordValidator(password) == null;
+    }
+
+    public static boolean checkDOB(String dob) {
+        return Validator.dobValidator(dob) == null;
     }
 }
