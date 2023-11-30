@@ -10,10 +10,9 @@ import java.util.ArrayList;
 public class DataFormatter {
     public static String[] preCheckFormatUserDetails(String[] userDetails) {
         // Format the user details before passing them to the DataChecker
-//        userDetails[Index.NAME] = formatName(userDetails[Index.NAME]);
-//        userDetails[Index.DOB] = formatDOB(userDetails[Index.DOB]);
         userDetails[Index.WEIGHT] = preCheckFormatWeight(userDetails[Index.WEIGHT]);
         userDetails[Index.HEIGHT] = preCheckFormatHeight(userDetails[Index.HEIGHT]);
+        userDetails[Index.SEX] = preCheckFormatSex(userDetails[Index.SEX]);
 
         return userDetails;
     }
@@ -24,11 +23,9 @@ public class DataFormatter {
         formattedDetails.add(userDetails[Index.EMAIL]);
         formattedDetails.add(formatName(userDetails[Index.NAME]));
         formattedDetails.add(userDetails[Index.PASSWORD]);
-
-        // TODO: Implement the following methods
-        formattedDetails.add(formatDOB(userDetails[Index.DOB]));
-        formattedDetails.add(userDetails[Index.HEIGHT]);
+        formattedDetails.add(userDetails[Index.DOB]);
         formattedDetails.add(userDetails[Index.WEIGHT]);
+        formattedDetails.add(userDetails[Index.HEIGHT]);
         formattedDetails.add(userDetails[Index.SEX]);
         formattedDetails.add(userDetails[Index.CONDITIONS]);
         formattedDetails.add(userDetails[Index.REASONS]);
@@ -55,27 +52,6 @@ public class DataFormatter {
         }
 
         return formattedName.toString().trim();
-    }
-
-    /**
-     * Formats 01-01-2000 -> 2000-01-01
-     * Formats "" -> null
-     */
-    public static String formatDOB(String dob) {
-        if (dob.equals("")) {
-            return null;
-        }
-
-        // Format the date of birth
-        String[] dobArray = dob.split("-");
-        StringBuilder formattedDOB = new StringBuilder();
-        formattedDOB.append(dobArray[2]);
-        formattedDOB.append("-");
-        formattedDOB.append(dobArray[1]);
-        formattedDOB.append("-");
-        formattedDOB.append(dobArray[0]);
-
-        return formattedDOB.toString();
     }
 
     /**
@@ -135,6 +111,24 @@ public class DataFormatter {
             return String.valueOf(Double.parseDouble(height) * 2.54);
         } else {
             throw new RuntimeException("Invalid units!");
+        }
+    }
+
+    public static String preCheckFormatSex(String sex) {
+        if (sex.equals("")) {
+            return null;
+        }
+
+        // Convert the weight to kg
+        switch (sex) {
+            case "Male":
+                return "M";
+            case "Female":
+                return "F";
+            case "Other":
+                return "O";
+            default:
+                throw new RuntimeException("Invalid sex!");
         }
     }
 }
