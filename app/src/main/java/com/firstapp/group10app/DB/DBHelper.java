@@ -17,13 +17,11 @@ public class DBHelper {
             }
 
             // Format the user details (post-check)
-            // TODO: Finish DataFormatter
             userDetails = DataFormatter.formatUserDetails(userDetails);
 
             // Create and SQL query
             StringBuilder sql = new StringBuilder();
             sql.append("INSERT INTO HealthData.Users (");
-//            Email, PreferredName, Password, DOB, Weight, Height, Sex, HealthCondition, ReasonForDownloading) VALUES (");
             for (int i = 0; i < userDetails.length; i++) {
                 if (userDetails[i] != null) {
                     sql.append(Index.USER_DETAILS[i]);
@@ -41,10 +39,10 @@ public class DBHelper {
             sql.deleteCharAt(sql.length() - 2);
             sql.append(");");
 
-            System.out.println(sql);
+//            System.out.println(sql);
             // Execute the SQL query
-//            DBConnection db = new DBConnection();
-//            db.executeStatement(sql.toString());
+            DBConnection db = new DBConnection();
+            db.executeStatement(sql.toString());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
