@@ -45,4 +45,13 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <!-- Workouts Page Values -->
+    <string name="workoutsTitle">Workouts</string>
+    <string name="workoutsTmgLabel">Target Muscle Group</string>
+    <string name="workoutsDurationLabel">Duration</string>
+    <string name="workoutsDifficultyLabel">Difficulty</string>
+    <string name="workoutsEquipmentLabel">Equipment</string>
+    <string name="workoutsSearchButton">Search</string>
+    <string name="workoutsGenerateButton">Generate</string>
 </resources>
