@@ -61,6 +61,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Pages.Workouts"
+            android:exported="false" />
+        <activity
+            android:name=".Pages.SitemapActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
