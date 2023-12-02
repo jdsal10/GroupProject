@@ -1,58 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation = "horizontal">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="-250dp"
-            android:contentDescription="@string/welcomeBackgroundImage"
-            android:foregroundGravity="top"
-            android:paddingLeft="-50dp"
-            android:paddingTop="-110dp"
-            android:paddingRight="-50dp"
-            android:src="@drawable/welcome_circle" />
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:contentDescription="@string/welcomeLogoBackground"
-            android:src="@drawable/logo_background" />
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:contentDescription="@string/welcomeBackgroundImage"
-            android:foregroundGravity="top"
-            android:paddingLeft="-50dp"
-            android:paddingTop="-110dp"
-            android:paddingRight="-50dp"
-            android:src="@drawable/settings" />
 
-            </FrameLayout>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="horizontal">
+        android:layout_height="10dp"
+        android:id="@+id/relativelayout"
+        android:layout_marginBottom="65dp"
+        android:padding="5dp"/>
 
-    </LinearLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_weight="1"
-        app:menu="@menu/home_navigation">
+        android:layout_height="wrap_content"
+        app:menu="@menu/settings_navigation"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/settingsNav"
+        >
     </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        app:menu="@menu/home_navigation"
+        android:layout_height="match_parent"
+        android:id="@+id/bottemNv"
+        android:layout_alignParentBottom="true"
+
+        />
 </LinearLayout>
