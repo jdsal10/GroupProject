@@ -1,0 +1,21 @@
+Discussed progress
+	- Nikola is ready with everything (only SQL DB Checks)
+	- Ethan is ready, just finalizing
+	- Manu is ready, but needs to commit
+	- Misha has the transitions left
+	- Juan has the Log In functionallity left
+
+Hosting external DB
+	- google it, may also email Tim Bishop
+	- Google cloud has a free trial
+
+Sprint 2
+    - connect to ChatGPT's API | Nikola
+    - design the home page     | Juan
+    - workouts page
+    - stats page
+    - settings page 	       | Ethan
+	- accessibility
+	- remove data
+    - Write down different detailed user stories / interaction scenarios
+    - Implement the other tables in the database
