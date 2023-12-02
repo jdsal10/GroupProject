@@ -24,9 +24,6 @@
             android:name=".Pages.forgotpasswordcheck"
             android:exported="false" />
         <activity
-            android:name=".Pages.forgot_password_check"
-            android:exported="false" />
-        <activity
             android:name=".Pages.ForgotPasswordContinued"
             android:exported="true">
             <intent-filter>

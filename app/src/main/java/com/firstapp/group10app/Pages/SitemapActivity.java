@@ -92,10 +92,9 @@ public class SitemapActivity extends AppCompatActivity {
         // Set the click listener to navigate to the corresponding page
         button.setOnClickListener(v -> {
             try {
-                ExecutorService executor = Executors.newSingleThreadExecutor();
-
                 StringBuilder output = new StringBuilder();
 
+                ExecutorService executor = Executors.newSingleThreadExecutor();
                 executor.execute(() -> {
                     try {
                         output.append(ChatGPT_Client.chatGPT("Hello"));
@@ -104,8 +103,8 @@ public class SitemapActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 });
-                executor.shutdown();
 
+                executor.shutdown();
                 while (!executor.isTerminated()) {
                     // Wait for the executor to finish
                 }

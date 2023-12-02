@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <!-- Changed that, because color gradient's didn't work: <style name="Base.Theme.Group10App" parent="Theme.Material3.DayNight.NoActionBar">-->
     <style name="Base.Theme.Group10App" parent="Theme.AppCompat.Light.NoActionBar">
