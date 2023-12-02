@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.R;
 
-
+/**
+ * This class is responsible for displaying the workouts page.
+ */
 public class Workouts extends AppCompatActivity {
     private boolean AI; // true if in AI mode, false if in manual mode
 

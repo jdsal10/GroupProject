@@ -30,6 +30,9 @@ import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.R;
 
+/**
+ * The Registration class is the activity that allows the user to create an account.
+ */
 public class Registration extends AppCompatActivity implements View.OnClickListener {
     private LinearLayout page1, page2, page3; // The 3 pages of the registration
     private int activePage; // The page that is currently active

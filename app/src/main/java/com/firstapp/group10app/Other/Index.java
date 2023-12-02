@@ -1,5 +1,8 @@
 package com.firstapp.group10app.Other;
 
+/**
+ * This class contains values that other classes often reference.
+ */
 public class Index {
     // Indexes for the user details array (sent from the registration page)
     public static int EMAIL = 0;

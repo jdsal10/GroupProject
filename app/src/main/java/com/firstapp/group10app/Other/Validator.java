@@ -4,6 +4,9 @@ import java.time.Year;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The Validator class contains methods to validate the user's input upon registration.
+ */
 public class Validator {
     private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*" +
             "@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
