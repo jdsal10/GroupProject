@@ -26,6 +26,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         TextView skipText = findViewById(R.id.skipToHome);
         skipText.setOnClickListener(this);
+
+        // Temporary button to navigate to the sitemap
+        Button goToSitemapButton = findViewById(R.id.goToSitemap);
+        goToSitemapButton.setOnClickListener(this);
     }
 
     @Override
@@ -39,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
         } else if (id == R.id.skipToHome) {
             startActivity(new Intent(MainActivity.this, Home.class));
+        } else if (id == R.id.goToSitemap) {
+            startActivity(new Intent(MainActivity.this, SitemapActivity.class));
         }
     }
 }
