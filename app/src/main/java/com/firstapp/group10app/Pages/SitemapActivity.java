@@ -17,8 +17,19 @@ public class SitemapActivity extends AppCompatActivity {
 
         LinearLayout layout = findViewById(R.id.sitemap_layout);
 
-        // Add a button for each page in your app
-        addButton(layout, "Workouts Page", Registration.class);
+        // Add a button for each page in the app
+        // Sprint 1 pages
+        addButton(layout, "MainActivity", MainActivity.class);
+        addButton(layout, "Registration Page", Registration.class);
+        addButton(layout, "Login Page", Login.class);
+        addButton(layout, "Forgot Password Page", ForgotPassword.class);
+        addButton(layout, "Forgot Password Check Page", forgotpasswordcheck.class);
+        addButton(layout, "Forgot Password Continued Page", ForgotPasswordContinued.class);
+
+        // Sprint 2 pages
+        addButton(layout, "Home Page", Home.class);
+        addButton(layout, "Workouts Page", Workouts.class);
+        addButton(layout, "Settings Page", settings.class);
     }
 
     private void addButton(LinearLayout layout, String text, final Class<?> cls) {
