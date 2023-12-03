@@ -23,6 +23,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/home_navigation"/>
-
+        app:menu="@menu/home_navigation"
+        app:itemBackground="@color/white"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
