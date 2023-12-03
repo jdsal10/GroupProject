@@ -8,48 +8,39 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
-public class Home extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
+public class Home extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        NavigationView settingsN = (NavigationView) findViewById(R.id.gosettings);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.mainNav);
+        bottomNavigationView.setOnItemSelectedListener(this);
 
-        if (settingsN != null) {
-            settingsN.setNavigationItemSelectedListener(this);
 
-        }
     }
 
+
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+    public boolean onNavigationItemSelected (MenuItem item) {
         int id = item.getItemId();
-
-        if (id == R.id.gosettings) {
-                    Log.d("OnClick", "Button clicked with ID: " + id);
-            Intent go = new Intent(Home.this, settings.class);
-            startActivity(go);
+        if(id == R.id.opensettings)
+        {
+            startActivity(new Intent(Home.this, settings.class));
             return true;
-
         }
-        return false;
-    }
-    @Override
-// Update with new variables when added
-    public void onClick(View v) {
-        int id = v.getId();
-        Log.d("OnClick", "Button clicked with ID: " + id);
-
-        if (id == R.id.gosettings) {
-            Intent go = new Intent(Home.this, settings.class);
-            startActivity(go);
+        else if(id == R.id.gostats) {
+            return true;
+            //Code for stats
         }
+        return true;
     }
 }
