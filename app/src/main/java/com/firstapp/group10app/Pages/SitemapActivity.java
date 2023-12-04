@@ -49,7 +49,7 @@ public class SitemapActivity extends AppCompatActivity {
         addText("Sprint 2 Pages");
         addButton("Home Page", Home.class);
         addButton("Workouts Page", Workouts.class);
-        addButton("Settings Page", settings.class);
+        addButton("Settings Page", Settings.class);
 
         separateElements();
 

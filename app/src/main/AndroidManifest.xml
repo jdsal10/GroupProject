@@ -17,7 +17,7 @@
         android:theme="@style/Theme.Group10App"
         tools:targetApi="31">
         <activity
-            android:name=".Pages.settings"
+            android:name=".Pages.Settings"
             android:exported="false"
             android:label="@string/title_activity_settings" />
         <activity

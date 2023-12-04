@@ -7,14 +7,12 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarMenu;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class settings extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener{
+public class Settings extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +25,12 @@ public class settings extends AppCompatActivity implements NavigationBarView.OnI
                     .commit();
         }
 
-
-        BottomNavigationView settingNav = findViewById(R.id.settingsNav);
-                settingNav.setSelectedItemId(R.id.gosettings);
-
+        // Navigation view declaration.
+        BottomNavigationView settingNav = findViewById(R.id.settingsNavigation);
+        settingNav.setSelectedItemId(R.id.goSettings);
         settingNav.setOnItemSelectedListener(this);
 
+        // Button declaration.
         Button dataControlButton = findViewById(R.id.goDataControl);
         dataControlButton.setOnClickListener(this);
 
@@ -41,25 +39,19 @@ public class settings extends AppCompatActivity implements NavigationBarView.OnI
 
         Button accountButton = findViewById(R.id.goAccount);
         accountButton.setOnClickListener(this);
-
-
     }
 
     @Override
-    public boolean onNavigationItemSelected (MenuItem item) {
-        System.out.println("An item has been selected!");
+    public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.gosettings)
-        {
-            startActivity(new Intent(getApplicationContext(),settings.class));
+        if (id == R.id.goSettings) {
+            startActivity(new Intent(getApplicationContext(), Settings.class));
             return true;
-        }
-        else if(id == R.id.gostats) {
+        } else if (id == R.id.goStats) {
             return true;
             //Code for stats
-        }
-        else if(id == R.id.gohome) {
-            startActivity(new Intent(getApplicationContext(),Home.class));
+        } else if (id == R.id.goHome) {
+            startActivity(new Intent(getApplicationContext(), Home.class));
             return true;
         }
         return true;
@@ -68,13 +60,11 @@ public class settings extends AppCompatActivity implements NavigationBarView.OnI
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if(id == R.id.goDataControl) {
+        if (id == R.id.goDataControl) {
             //Go data
-        }
-        else if(id == R.id.goAccessibility) {
+        } else if (id == R.id.goAccessibility) {
             //Go access
-        }
-        else if(id == R.id.goAccount) {
+        } else if (id == R.id.goAccount) {
             //Go account
         }
     }
