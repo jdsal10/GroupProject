@@ -54,6 +54,8 @@ dependencies {
     implementation("com.google.http-client:google-http-client-gson:1.43.3")
     implementation("mysql:mysql-connector-java:5.1.49")
     implementation ("com.google.android.material:material:1.10.0")
+    implementation("androidx.fragment:fragment:1.6.2")
+
 
 
 
