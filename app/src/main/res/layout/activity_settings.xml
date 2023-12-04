@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="ButtonStyle">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -55,7 +57,7 @@
             android:id="@+id/goDataControl"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Data Control">
+            android:text="@string/dataControlButtonTitle">
 
         </Button>
 
@@ -63,7 +65,7 @@
             android:id="@+id/goAccessibility"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Accessibility">
+            android:text="@string/accessibilityButtonTitle">
 
         </Button>
 
@@ -71,7 +73,7 @@
             android:id="@+id/goAccount"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Account">
+            android:text="@string/accountButtonTitle">
 
         </Button>
 
@@ -82,12 +84,12 @@
         android:layout_height="0dp"
         android:layout_weight="6"
         android:name="com.firstapp.group10app.Fragments.settings_access"
-        android:id="@+id/settings_main">
+        android:id="@+id/settingsBody">
 
     </androidx.fragment.app.FragmentContainerView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/settingsNav"
+        android:id="@+id/settingsNavigation"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"

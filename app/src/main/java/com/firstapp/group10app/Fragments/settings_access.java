@@ -27,7 +27,7 @@ public class settings_access extends Fragment {
     private String mParam2;
 
     public settings_access() {
-        super(R.layout.fragment_settings_access);
+        super(R.layout.fragment_settings_data_control);
     }
 
     /**
@@ -61,6 +61,6 @@ public class settings_access extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings_access, container, false);
+        return inflater.inflate(R.layout.fragment_settings_data_control, container, false);
     }
 }
