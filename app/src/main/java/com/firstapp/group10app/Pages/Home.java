@@ -23,7 +23,10 @@ public class Home extends AppCompatActivity implements NavigationBarView.OnItemS
         setContentView(R.layout.activity_home);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNav);
+        bottomNavigationView.setSelectedItemId(R.id.gohome);
+
         bottomNavigationView.setOnItemSelectedListener(this);
+
 
 
     }
@@ -32,7 +35,7 @@ public class Home extends AppCompatActivity implements NavigationBarView.OnItemS
     @Override
     public boolean onNavigationItemSelected (MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.opensettings)
+        if(id == R.id.gosettings)
         {
             startActivity(new Intent(getApplicationContext(),settings.class));
             return true;
