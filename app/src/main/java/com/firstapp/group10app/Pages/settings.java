@@ -21,7 +21,6 @@ public class settings extends AppCompatActivity implements NavigationBarView.OnI
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)
-                    .add(R.id.bottemNv, settings_access.class, null)
                     .commit();
         }
     }
