@@ -34,12 +34,16 @@ public class Home extends AppCompatActivity implements NavigationBarView.OnItemS
         int id = item.getItemId();
         if(id == R.id.opensettings)
         {
-            startActivity(new Intent(Home.this, settings.class));
+            startActivity(new Intent(getApplicationContext(),settings.class));
             return true;
         }
         else if(id == R.id.gostats) {
             return true;
             //Code for stats
+        }
+        else if(id == R.id.gohome) {
+            startActivity(new Intent(getApplicationContext(),Home.class));
+            return true;
         }
         return true;
     }
