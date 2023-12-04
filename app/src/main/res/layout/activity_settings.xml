@@ -8,30 +8,30 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_weight="2"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="-250dp"
+            android:layout_marginTop="-100dp"
             android:contentDescription="@string/welcomeBackgroundImage"
             android:foregroundGravity="top"
             android:paddingLeft="-50dp"
-            android:paddingTop="-110dp"
+            android:paddingTop="-10dp"
             android:paddingRight="-50dp"
             android:src="@drawable/welcome_circle" />
 
         <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:contentDescription="@string/welcomeLogoBackground"
             android:src="@drawable/logo_background" />
 
         <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:contentDescription="@string/welcomeBackgroundImage"
             android:foregroundGravity="top"
@@ -47,12 +47,12 @@
         android:id="@+id/relativelayout"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_marginBottom="65dp"
-        android:layout_weight="0.1"
+        android:layout_weight="1"
         android:orientation="horizontal"
         android:padding="5dp">
 
         <Button
+            android:id="@+id/goDataControl"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Data Control">
@@ -60,13 +60,15 @@
         </Button>
 
         <Button
+            android:id="@+id/goAccessibility"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Accessabilty">
+            android:text="Accessibility">
 
         </Button>
 
         <Button
+            android:id="@+id/goAccount"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Account">
@@ -78,16 +80,21 @@
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="6"
+        android:name="com.firstapp.group10app.Fragments.settings_access"
+        android:id="@+id/settings_main">
 
     </androidx.fragment.app.FragmentContainerView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottemNv"
+        android:id="@+id/settingsNav"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_alignParentBottom="true"
-        android:layout_weight="0.1"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/home_navigation"
         app:itemBackground="@color/white"
-        app:menu="@menu/home_navigation" />
+        />
 </LinearLayout>
