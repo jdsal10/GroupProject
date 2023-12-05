@@ -83,7 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6"
-        android:name="com.firstapp.group10app.Fragments.settings_access"
+        android:name="com.firstapp.group10app.Fragments.settings_data_control"
         android:id="@+id/settingsBody">
 
     </androidx.fragment.app.FragmentContainerView>

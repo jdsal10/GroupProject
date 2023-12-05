@@ -7,7 +7,12 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.firstapp.group10app.Fragments.settings_accessibility;
+import com.firstapp.group10app.Fragments.settings_account;
+import com.firstapp.group10app.Fragments.settings_data_control;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -20,9 +25,7 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
         setContentView(R.layout.activity_settings);
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .setReorderingAllowed(true)
-                    .commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.settingsBody, new settings_data_control()).setReorderingAllowed(true).commit();
         }
 
         // Navigation view declaration.
@@ -61,11 +64,18 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.goDataControl) {
-            //Go data
+            updateView(new settings_data_control());
         } else if (id == R.id.goAccessibility) {
-            //Go access
+            updateView(new settings_accessibility());
         } else if (id == R.id.goAccount) {
-            //Go account
+            updateView(new settings_account());
         }
+    }
+
+    public void updateView(Fragment newVIew) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.settingsBody, newVIew);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

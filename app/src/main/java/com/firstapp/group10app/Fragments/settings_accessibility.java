@@ -15,7 +15,7 @@ import com.firstapp.group10app.R;
  * Use the {@link settings_access#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class settings_access extends Fragment {
+public class settings_accessibility extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,8 +26,8 @@ public class settings_access extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public settings_access() {
-        super(R.layout.fragment_settings_data_control);
+    public settings_accessibility() {
+        super(R.layout.fragment_settings_accessibility);
     }
 
     /**
@@ -39,8 +39,8 @@ public class settings_access extends Fragment {
      * @return A new instance of fragment settings_access.
      */
     // TODO: Rename and change types and number of parameters
-    public static settings_access newInstance(String param1, String param2) {
-        settings_access fragment = new settings_access();
+    public static settings_accessibility newInstance(String param1, String param2) {
+        settings_accessibility fragment = new settings_accessibility();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class settings_access extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings_data_control, container, false);
+        return inflater.inflate(R.layout.fragment_settings_accessibility, container, false);
     }
 }
