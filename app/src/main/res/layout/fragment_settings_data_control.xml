@@ -21,6 +21,7 @@
             android:textSize="25sp" />
 
         <EditText
+            android:id="@+id/DOBValue"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
@@ -54,6 +55,8 @@
             android:textSize="25sp" />
 
         <EditText
+            android:id="@+id/sexValue"
+
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
@@ -87,6 +90,8 @@
             android:textSize="25sp" />
 
         <EditText
+            android:id="@+id/weightValue"
+
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
@@ -120,6 +125,8 @@
             android:textSize="25sp" />
 
         <EditText
+            android:id="@+id/heightValue"
+
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
@@ -153,6 +160,7 @@
             android:textSize="25sp" />
 
         <EditText
+            android:id="@+id/allerguesValue"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
@@ -186,6 +194,7 @@
             android:textSize="25sp" />
 
         <EditText
+            android:id="@+id/reasonValue"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
