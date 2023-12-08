@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DBConnection;
+import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
 import java.sql.ResultSet;
@@ -51,6 +52,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             try {
                 if (checkUser(EmailText, PasswordText)) {
                     Toast.makeText(Login.this, "LOGIN SUCCESSFULL!", Toast.LENGTH_SHORT).show();
+                    Session.userEmail = EmailText;
+                    startActivity(new Intent(getApplicationContext(), Home.class));
                 } else {
                     Toast.makeText(Login.this, "LOGIN FAILED!", Toast.LENGTH_SHORT).show();
                 }
