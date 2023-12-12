@@ -8,8 +8,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class DBConnection {
-    public Connection conn;
-    public Statement st;
+    public static Connection conn;
+    public static Statement st;
 
     //Used to initialise a connection to the database
     public DBConnection() {
@@ -25,7 +25,7 @@ public class DBConnection {
     }
 
     //Executes a query that returns no data
-    public void executeStatement(String createStatement) {
+    public static void executeStatement(String createStatement) {
         try {
             st.execute(createStatement);
         } catch (Exception e) {
@@ -34,7 +34,7 @@ public class DBConnection {
     }
 
     //Executes a query that returns a ResultSet
-    public ResultSet executeQuery(String statement) {
+    public static ResultSet executeQuery(String statement) {
         try {
             return st.executeQuery(statement);
         } catch (Exception e) {
