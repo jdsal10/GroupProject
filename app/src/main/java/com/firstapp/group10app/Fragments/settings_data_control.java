@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.firstapp.group10app.DB.DBHelper;
@@ -16,7 +17,7 @@ import com.firstapp.group10app.R;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class settings_data_control extends Fragment {
+public class settings_data_control extends Fragment implements View.OnClickListener {
 
     EditText dobValue;
     EditText weightValue;
@@ -25,7 +26,19 @@ public class settings_data_control extends Fragment {
     EditText allergiesValue;
     EditText reasonsValue;
 
-    private static ArrayList<String> details = new ArrayList<>();
+    Button dobUpdate;
+    Button weightUpdate;
+    Button heightUpdate;
+    Button sexUpdate;
+    Button allergiesUpdate;
+    Button reasonsUpdate;
+
+    Button dobClear;
+    Button weightClear;
+    Button heightClear;
+    Button sexClear;
+    Button allergiesClear;
+    Button reasonsClear;
 
     public settings_data_control() {
         super(R.layout.fragment_settings_data_control);
@@ -50,6 +63,20 @@ public class settings_data_control extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_settings_data_control, container, false);
 
+        dobUpdate = rootView.findViewById(R.id.updateDOB);
+        weightUpdate = rootView.findViewById(R.id.updateWeight);
+        heightUpdate = rootView.findViewById(R.id.updateHeight);
+        sexUpdate = rootView.findViewById(R.id.updateSex);
+        allergiesUpdate = rootView.findViewById(R.id.updateAllergies);
+        reasonsUpdate = rootView.findViewById(R.id.updateReasons);
+
+        dobClear = rootView.findViewById(R.id.clearDOB);
+        weightClear = rootView.findViewById(R.id.clearWeight);
+        heightClear = rootView.findViewById(R.id.clearHeight);
+        sexClear = rootView.findViewById(R.id.clearSex);
+        allergiesClear = rootView.findViewById(R.id.clearAllergies);
+        reasonsClear = rootView.findViewById(R.id.clearReasons);
+
         dobValue = rootView.findViewById(R.id.DOBValue);
         weightValue = rootView.findViewById(R.id.weightValue);
         heightValue = rootView.findViewById(R.id.heightValue);
@@ -58,12 +85,12 @@ public class settings_data_control extends Fragment {
         reasonsValue = rootView.findViewById(R.id.reasonValue);
 
         String currentUser = Session.userEmail;
-        details = new ArrayList<>();
+        ArrayList<String> details = new ArrayList<>();
 
         ResultSet data = DBHelper.getUser(currentUser);
 
         try {
-            if (data.next()) { // Move the cursor to the first row
+            if (data.next()) {
                 details.add(data.getString("DOB"));
                 details.add(data.getString("Weight"));
                 details.add(data.getString("Height"));
@@ -77,5 +104,17 @@ public class settings_data_control extends Fragment {
 
         updateValues(details);
         return rootView;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if(id == R.id.clearDOB) {
+            DBHelper.clearData("DOB");
+            dobValue.setText("");
+        }
+        else if(id == R.id.updateDOB) {
+            DBHelper.updateData("DOB", dobValue.getText().toString());
+        }
     }
 }
