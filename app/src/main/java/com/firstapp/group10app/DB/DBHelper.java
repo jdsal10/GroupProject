@@ -1,6 +1,7 @@
 package com.firstapp.group10app.DB;
 
 import com.firstapp.group10app.Other.Index;
+import com.firstapp.group10app.Other.Session;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -65,5 +66,13 @@ public class DBHelper {
 
     public static boolean checkExists(String email) throws SQLException {
         return DBHelper.getUser(email).next();
+    }
+
+    public static void clearData(String toDelete) {
+        DBConnection.executeStatement("UPDATE HealthData.Users SET '" + toDelete + "' = NULL WHERE ID = '" + Session.userEmail + "');");
+    }
+
+    public static void updateData(String toUpdate, String value) {
+        DBConnection.executeStatement("UPDATE HealthData.Users SET '" + toUpdate + "' = '" + value + "' WHERE ID =  '" + Session.userEmail + "');");
     }
 }
