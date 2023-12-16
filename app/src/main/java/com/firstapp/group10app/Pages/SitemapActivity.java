@@ -53,6 +53,7 @@ public class SitemapActivity extends AppCompatActivity {
 
         separateElements();
 
+        // ChatGPT
         if (chatGPT_switch1 && chatGPT_switch2) {
             addText("ChatGPT");
             addChatGPT();

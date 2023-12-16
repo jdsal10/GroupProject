@@ -117,7 +117,7 @@ public class DataFormatter {
             return null;
         }
 
-        // Convert the weight to kg
+        // Change to M, F, or O
         switch (sex) {
             case "Male":
                 return "M";
