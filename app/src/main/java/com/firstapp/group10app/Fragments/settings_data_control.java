@@ -19,26 +19,9 @@ import java.util.ArrayList;
 
 public class settings_data_control extends Fragment implements View.OnClickListener {
 
-    EditText dobValue;
-    EditText weightValue;
-    EditText heightValue;
-    EditText sexValue;
-    EditText allergiesValue;
-    EditText reasonsValue;
-
-    Button dobUpdate;
-    Button weightUpdate;
-    Button heightUpdate;
-    Button sexUpdate;
-    Button allergiesUpdate;
-    Button reasonsUpdate;
-
-    Button dobClear;
-    Button weightClear;
-    Button heightClear;
-    Button sexClear;
-    Button allergiesClear;
-    Button reasonsClear;
+    EditText dobValue, weightValue, heightValue, sexValue, allergiesValue, reasonsValue;
+    Button dobUpdate, weightUpdate, heightUpdate, sexUpdate, allergiesUpdate, reasonsUpdate;
+    Button dobClear, weightClear, heightClear, sexClear, allergiesClear, reasonsClear;
 
     public settings_data_control() {
         super(R.layout.fragment_settings_data_control);
@@ -109,11 +92,10 @@ public class settings_data_control extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if(id == R.id.clearDOB) {
+        if (id == R.id.clearDOB) {
             DBHelper.clearData("DOB");
             dobValue.setText("");
-        }
-        else if(id == R.id.updateDOB) {
+        } else if (id == R.id.updateDOB) {
             DBHelper.updateData("DOB", dobValue.getText().toString());
         }
     }

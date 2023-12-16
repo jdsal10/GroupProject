@@ -23,8 +23,7 @@ public class settings_accessibility extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String mParam1, mParam2;
 
     public settings_accessibility() {
         super(R.layout.fragment_settings_accessibility);
