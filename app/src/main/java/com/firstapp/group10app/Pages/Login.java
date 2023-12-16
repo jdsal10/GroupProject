@@ -33,9 +33,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         Email = findViewById(R.id.username);
         Password = findViewById(R.id.password);
 
+        Button LoginBtn = findViewById(R.id.logginbtn);
+        LoginBtn.setOnClickListener(this);
 
-        Button Loginbtn = findViewById(R.id.logginbtn);
-        Loginbtn.setOnClickListener(this);
+        TextView register = findViewById(R.id.register);
+        register.setOnClickListener(this);
 
         TextView temp = findViewById(R.id.forgotPassword);
         temp.setOnClickListener(this);
@@ -62,9 +64,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             }
         } else if (id == R.id.forgotPassword) {
             startActivity(new Intent(Login.this, ForgotPassword.class));
+        } else if (id == R.id.register) {
+            startActivity(new Intent(Login.this, Registration.class));
+            overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
         }
     }
-
 
     //Check if username and password is in the database
     public boolean checkUser(String email, String password) throws SQLException {
