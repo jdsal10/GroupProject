@@ -40,10 +40,8 @@ public class DBHelper {
             sql.deleteCharAt(sql.length() - 2);
             sql.append(");");
 
-//            System.out.println(sql);
             // Execute the SQL query
-            DBConnection db = new DBConnection();
-            db.executeStatement(sql.toString());
+            DBConnection.executeStatement(sql.toString());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -57,15 +55,15 @@ public class DBHelper {
                     "';";
 
             // Execute the SQL query
-            DBConnection db = new DBConnection();
-            return db.executeQuery(sql);
+            return DBConnection.executeQuery(sql);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
+    // Returns true if the user exists in the database
     public static boolean checkExists(String email) throws SQLException {
-        return DBHelper.getUser(email).next();
+        return getUser(email).next();
     }
 
     public static void clearData(String toDelete) {

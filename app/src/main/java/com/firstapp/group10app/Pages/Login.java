@@ -19,10 +19,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
-    private EditText Email;
-    private EditText Password;
-    private String EmailText;
-    private String PasswordText;
+    private EditText Email, Password;
+    private String EmailText, PasswordText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +70,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     //Check if username and password is in the database
     public boolean checkUser(String email, String password) throws SQLException {
-        DBConnection db = new DBConnection();
-        ResultSet result = db.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "' AND Password = '" + password + "'");
+        ResultSet result = DBConnection.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "' AND Password = '" + password + "'");
         int size = 0;
         if (result.last()) {
             size++;

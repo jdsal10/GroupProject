@@ -7,7 +7,7 @@ public class Session {
     public static String userEmail;
 
     public Session(String userEmail) {
-        this.userEmail = userEmail;
+        Session.userEmail = userEmail;
     }
 
     public String getUserEmail() {

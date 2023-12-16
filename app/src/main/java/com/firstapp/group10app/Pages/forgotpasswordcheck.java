@@ -19,7 +19,6 @@ public class forgotpasswordcheck extends AppCompatActivity implements View.OnCli
     private Button codeConfirm;
     private String email;
     ForgotPassword f = new ForgotPassword();
-    DBConnection d = new DBConnection();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +64,7 @@ public class forgotpasswordcheck extends AppCompatActivity implements View.OnCli
     }
 
     public boolean checkCode(String code) throws SQLException {
-        ResultSet set = d.executeQuery("SELECT VerifyCode FROM HealthData.Users WHERE Email = '" + email + "'");
+        ResultSet set = DBConnection.executeQuery("SELECT VerifyCode FROM HealthData.Users WHERE Email = '" + email + "'");
         if (set.next()) {
             String storedCode = set.getString("VerifyCode");
             return storedCode.equals(code);

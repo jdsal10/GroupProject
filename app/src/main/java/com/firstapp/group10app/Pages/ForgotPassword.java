@@ -58,7 +58,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                     try {
                         validate = generateString();
                         toSend(emailText, validate);
-                        d.executeStatement("UPDATE HealthData.Users " +
+                        DBConnection.executeStatement("UPDATE HealthData.Users " +
                                 "SET VerifyCode = '" + validate + "' " +
                                 "WHERE Email = '" + emailText + "';");
 
@@ -79,8 +79,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
     }
 
     public boolean checkExists(String email) throws SQLException {
-        DBConnection d = new DBConnection();
-        ResultSet set = d.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "'");
+        ResultSet set = DBConnection.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "'");
         int size = 0;
         if (set.last()) {
             size++;
@@ -101,8 +100,6 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
 
     public void toSend(String email, String code) {
         try {
-            String testEmailToSend = email;
-
             String stringHost = "smtp.gmail.com";
 
             Properties properties = System.getProperties();
@@ -121,7 +118,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             });
 
             MimeMessage mimeMessage = new MimeMessage(session);
-            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(testEmailToSend));
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
             mimeMessage.setSubject("Health App Password Reset");
             mimeMessage.setText("Hi " + email + " .\n" +
