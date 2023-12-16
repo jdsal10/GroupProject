@@ -8,6 +8,10 @@
     <string name="welcomeBackgroundImage">Background Image</string>
     <string name="welcomeLogoBackground">Logo Background</string>
 
+    <!-- Login Page Values -->
+    <string name="forgotPassword">Forgot your password?</string>
+    <string name="register">Need an account? Register</string>
+
     <!-- Registration Page Values -->
     <string name="registrationTitle">Registration</string>
 

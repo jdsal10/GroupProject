@@ -82,17 +82,6 @@
             android:inputType="textPassword"
             android:textSize="24sp" />
 
-        <Button
-            android:id="@+id/logginbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-
-            android:text="LOGIN"
-            android:textSize="25dp" />
-
-
         <TextView
             android:id="@+id/forgotPassword"
             android:layout_width="wrap_content"
@@ -101,9 +90,27 @@
             android:layout_marginTop="15dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Forgot password?"
+            android:text="@string/forgotPassword"
             android:textAlignment="center"
             android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/logginbtn"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/background"
+            android:textColor="@color/white"
+            android:text="LOGIN"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register" />
+
 
     </LinearLayout>
     <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
