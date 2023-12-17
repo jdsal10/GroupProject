@@ -37,8 +37,32 @@ public class settings_data_control extends Fragment implements View.OnClickListe
 
     public void updateValues(ArrayList<String> info) {
         dobValue.setText(info.get(0));
-        weightValue.setText(info.get(1));
-        heightValue.setText(info.get(2));
+
+        // Updates the view value of weight and its units.
+        String weightUnits = info.get(1).split(" ")[1];
+        weightValue.setText(info.get(1).split(" ")[0]);
+
+        if(weightUnits == null) {
+            weightSpin.setSelection(0);
+        } else if(weightUnits == "kg") {
+            weightSpin.setSelection(1);
+        } else if(weightUnits == "lbs") {
+            weightSpin.setSelection(2);
+        }
+
+        // Updates the view value of height and its units.
+        String heightUnits = info.get(2).split(" ")[1];
+        heightValue.setText(info.get(2).split(" ")[0]);
+
+        if(heightUnits == null) {
+            heightSpin.setSelection(0);
+        } else if(heightUnits == "cm") {
+            heightSpin.setSelection(1);
+        } else if(heightUnits == "inch") {
+            heightSpin.setSelection(2);
+        }
+
+        // Updates the units for sex.
         String current = info.get(3);
 
         if (current == null) {
@@ -50,6 +74,7 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         } else if (current == "O") {
             sexSpin.setSelection(3);
         }
+
         allergiesValue.setText(info.get(4));
         reasonsValue.setText(info.get(5));
     }
@@ -127,6 +152,8 @@ public class settings_data_control extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         int id = v.getId();
+
+        // Modify DOB
         if (id == R.id.clearDOB) {
             DBHelper.clearData("DOB");
             dobValue.setText("");
@@ -136,42 +163,55 @@ public class settings_data_control extends Fragment implements View.OnClickListe
             } else {
                 dobValue.setError("Invalid format!");
             }
+        }
 
-        } else if (id == R.id.clearWeight) {
+        // Modify Weight
+        else if (id == R.id.clearWeight) {
             DBHelper.clearData("Weight");
             weightValue.setText("");
         } else if (id == R.id.updateWeight) {
             if (Validator.weightValid(weightValue.getText().toString(), weightSpin.getSelectedItem().toString())) {
-                DBHelper.updateData("Weight", weightValue.getText().toString());
+                DBHelper.updateData("Weight", weightValue.getText().toString() + " " + weightSpin.getSelectedItem().toString());
             } else {
                 weightValue.setError("Invalid format!");
             }
 
-        } else if (id == R.id.clearHeight) {
+        }
+
+        // Modify Height
+        else if (id == R.id.clearHeight) {
             DBHelper.clearData("Height");
             heightValue.setText("");
         } else if (id == R.id.updateHeight) {
             if (Validator.weightValid(heightValue.getText().toString(), heightSpin.getSelectedItem().toString())) {
-                DBHelper.updateData("Height", heightValue.getText().toString());
+                DBHelper.updateData("Height", heightValue.getText().toString() + " " + heightSpin.getSelectedItem().toString());
             } else {
                 heightValue.setError("Invalid format!");
             }
+        }
 
-        } else if (id == R.id.clearSex) {
+        // Modify Sex
+        else if (id == R.id.clearSex) {
             DBHelper.clearData("Sex");
             sexSpin.setSelection(0);
         } else if (id == R.id.updateSex) {
             DBHelper.updateData("Sex", sexSpin.getSelectedItem().toString());
-        } else if (id == R.id.clearAllergies) {
-            DBHelper.clearData("Allergies");
+        }
+
+        // Modify Allergies
+        else if (id == R.id.clearAllergies) {
+            DBHelper.clearData("HealthCondition");
             allergiesValue.setText("");
         } else if (id == R.id.clearAllergies) {
-            DBHelper.updateData("Allergies", allergiesValue.getText().toString());
-        } else if (id == R.id.reasonSpin) {
-            DBHelper.clearData("Weight");
+            DBHelper.updateData("HealthCondition", allergiesValue.getText().toString());
+        }
+
+        // Modify Reasons
+        else if (id == R.id.clearReasons) {
+            DBHelper.clearData("ReasonForDownloading");
             reasonSpin.setSelection(0);
-        } else if (id == R.id.reasonSpin) {
-            DBHelper.updateData("Reason", reasonSpin.getSelectedItem().toString());
+        } else if (id == R.id.updateReasons) {
+            DBHelper.updateData("ReasonForDownloading", reasonSpin.getSelectedItem().toString());
         }
     }
 
