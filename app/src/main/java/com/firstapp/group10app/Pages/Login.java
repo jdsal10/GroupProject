@@ -70,7 +70,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     //Check if username and password is in the database
     public boolean checkUser(String email, String password) throws SQLException {
-        ResultSet result = DBConnection.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "' AND Password = '" + password + "'");
+        DBConnection db = new DBConnection();
+        ResultSet result = db.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "' AND Password = '" + password + "'");
         int size = 0;
         if (result.last()) {
             size++;
