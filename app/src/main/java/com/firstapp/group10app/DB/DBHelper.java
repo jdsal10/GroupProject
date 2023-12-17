@@ -67,10 +67,10 @@ public class DBHelper {
     }
 
     public static void clearData(String toDelete) {
-        DBConnection.executeStatement("UPDATE HealthData.Users SET '" + toDelete + "' = NULL WHERE ID = '" + Session.userEmail + "');");
+        DBConnection.executeStatement("UPDATE HealthData.Users SET " + toDelete + " = NULL WHERE Email = '" + Session.userEmail + "'");
     }
 
     public static void updateData(String toUpdate, String value) {
-        DBConnection.executeStatement("UPDATE HealthData.Users SET '" + toUpdate + "' = '" + value + "' WHERE ID =  '" + Session.userEmail + "');");
+        DBConnection.executeStatement("UPDATE HealthData.Users SET " + toUpdate + " = '" + value + "' WHERE Email = '" + Session.userEmail + "'");
     }
 }
