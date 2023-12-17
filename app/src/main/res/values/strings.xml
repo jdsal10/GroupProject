@@ -84,6 +84,7 @@
 
 <!--    Settings - Data Control-->
     <string-array name="weight">
+        <item></item>
         <item>kg</item>
         <item>lbs</item>
     </string-array>
