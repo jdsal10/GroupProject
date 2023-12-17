@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Other.*;
@@ -19,9 +20,11 @@ import java.util.ArrayList;
 
 public class settings_data_control extends Fragment implements View.OnClickListener {
 
-    EditText dobValue, weightValue, heightValue, sexValue, allergiesValue, reasonsValue;
+    EditText dobValue, weightValue, heightValue, allergiesValue, reasonsValue;
     Button dobUpdate, weightUpdate, heightUpdate, sexUpdate, allergiesUpdate, reasonsUpdate;
     Button dobClear, weightClear, heightClear, sexClear, allergiesClear, reasonsClear;
+
+    Spinner weightSpin, heightSpin, sexSpin, reasonSpin;
 
     public settings_data_control() {
         super(R.layout.fragment_settings_data_control);
@@ -36,7 +39,17 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         dobValue.setText(info.get(0));
         weightValue.setText(info.get(1));
         heightValue.setText(info.get(2));
-        sexValue.setText(info.get(3));
+        String current = info.get(3);
+
+        if (current == null) {
+            sexSpin.setSelection(0);
+        } else if (current == "M") {
+            sexSpin.setSelection(1);
+        } else if (current == "F") {
+            sexSpin.setSelection(2);
+        } else if (current == "O") {
+            sexSpin.setSelection(3);
+        }
         allergiesValue.setText(info.get(4));
         reasonsValue.setText(info.get(5));
     }
@@ -53,6 +66,11 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         allergiesUpdate = rootView.findViewById(R.id.updateAllergies);
         reasonsUpdate = rootView.findViewById(R.id.updateReasons);
 
+        weightSpin = rootView.findViewById(R.id.weightUnitSpinner);
+        heightSpin = rootView.findViewById(R.id.heightUnitSpinner);
+        sexSpin = rootView.findViewById(R.id.sexValue);
+        reasonSpin = rootView.findViewById(R.id.reasonSpin);
+
         dobClear = rootView.findViewById(R.id.clearDOB);
         weightClear = rootView.findViewById(R.id.clearWeight);
         heightClear = rootView.findViewById(R.id.clearHeight);
@@ -63,14 +81,31 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         dobValue = rootView.findViewById(R.id.DOBValue);
         weightValue = rootView.findViewById(R.id.weightValue);
         heightValue = rootView.findViewById(R.id.heightValue);
-        sexValue = rootView.findViewById(R.id.sexValue);
         allergiesValue = rootView.findViewById(R.id.allerguesValue);
-        reasonsValue = rootView.findViewById(R.id.reasonValue);
+
+        dobClear.setOnClickListener(this);
+        dobUpdate.setOnClickListener(this);
+
+        weightClear.setOnClickListener(this);
+        weightUpdate.setOnClickListener(this);
+
+        heightClear.setOnClickListener(this);
+        heightUpdate.setOnClickListener(this);
+
+        sexClear.setOnClickListener(this);
+        sexUpdate.setOnClickListener(this);
+
+        allergiesClear.setOnClickListener(this);
+        allergiesUpdate.setOnClickListener(this);
+
+        reasonsClear.setOnClickListener(this);
+        reasonsUpdate.setOnClickListener(this);
 
         String currentUser = Session.userEmail;
         ArrayList<String> details = new ArrayList<>();
 
-        ResultSet data = DBHelper.getUser(currentUser);
+        DBHelper help = new DBHelper();
+        ResultSet data = help.getUser(currentUser);
 
         try {
             if (data.next()) {
@@ -96,7 +131,48 @@ public class settings_data_control extends Fragment implements View.OnClickListe
             DBHelper.clearData("DOB");
             dobValue.setText("");
         } else if (id == R.id.updateDOB) {
-            DBHelper.updateData("DOB", dobValue.getText().toString());
+            if (Validator.dobValid(dobValue.getText().toString())) {
+                DBHelper.updateData("DOB", dobValue.getText().toString());
+            } else {
+                dobValue.setError("Invalid format!");
+            }
+
+        } else if (id == R.id.clearWeight) {
+            DBHelper.clearData("Weight");
+            weightValue.setText("");
+        } else if (id == R.id.updateWeight) {
+            if (Validator.weightValid(weightValue.getText().toString(), weightSpin.getSelectedItem().toString())) {
+                DBHelper.updateData("Weight", weightValue.getText().toString());
+            } else {
+                weightValue.setError("Invalid format!");
+            }
+
+        } else if (id == R.id.clearHeight) {
+            DBHelper.clearData("Height");
+            heightValue.setText("");
+        } else if (id == R.id.updateHeight) {
+            if (Validator.weightValid(heightValue.getText().toString(), heightSpin.getSelectedItem().toString())) {
+                DBHelper.updateData("Height", heightValue.getText().toString());
+            } else {
+                heightValue.setError("Invalid format!");
+            }
+
+        } else if (id == R.id.clearSex) {
+            DBHelper.clearData("Sex");
+            sexSpin.setSelection(0);
+        } else if (id == R.id.updateSex) {
+            DBHelper.updateData("Sex", sexSpin.getSelectedItem().toString());
+        } else if (id == R.id.clearAllergies) {
+            DBHelper.clearData("Allergies");
+            allergiesValue.setText("");
+        } else if (id == R.id.clearAllergies) {
+            DBHelper.updateData("Allergies", allergiesValue.getText().toString());
+        } else if (id == R.id.reasonSpin) {
+            DBHelper.clearData("Weight");
+            reasonSpin.setSelection(0);
+        } else if (id == R.id.reasonSpin) {
+            DBHelper.updateData("Reason", reasonSpin.getSelectedItem().toString());
         }
     }
+
 }
