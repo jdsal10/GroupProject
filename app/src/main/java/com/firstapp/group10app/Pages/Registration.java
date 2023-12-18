@@ -30,6 +30,8 @@ import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.R;
 
+import java.util.Arrays;
+
 /**
  * The Registration class is the activity that allows the user to create an account.
  */
@@ -51,7 +53,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         // Set the dropdowns
         setSpinner(new String[]{"cm", "inch"}, R.id.heightUnitsDropdown);
         setSpinner(new String[]{"kg", "lbs"}, R.id.weightUnitsDropdown);
-        setSpinner(new String[]{"I want to lose weight", "I want to gain weight", "I want to maintain my weight"}, R.id.reasonsDropdown);
+        setSpinner(new String[]{"","I want to lose weight", "I want to gain weight", "I want to maintain my weight"}, R.id.reasonsDropdown);
 
         // Get the pages, EditText fields, and buttons from the xml
         getAllElements();
@@ -217,6 +219,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             else p2PointErrors();
         } else if (activePage == 3) {
             saveUserDetails();
+            System.out.println(Arrays.toString(details));
             DBHelper.insertUser(details);
 
             goToLogin();
@@ -301,8 +304,20 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         details[Index.NAME] = name.getText().toString();
         details[Index.PASSWORD] = passwordText();
         details[Index.DOB] = dobText();
-        details[Index.WEIGHT] = weightText() + " " + weightUnits();
-        details[Index.HEIGHT] = heightText() + " " + heightUnits();
+
+        if (weightText().isEmpty()) {
+            System.out.println("ADDED");
+            details[Index.WEIGHT] = "";
+        } else {
+            details[Index.WEIGHT] = weightText() + " " + weightUnits();
+        }
+
+        if(heightText().isEmpty()) {
+            details[Index.HEIGHT] = "";
+        } else {
+            details[Index.HEIGHT] = heightText() + " " + heightUnits();
+
+        }
         details[Index.SEX] = getSelectedSex();
         details[Index.CONDITIONS] = conditions.getText().toString();
         details[Index.REASONS] = reasons.getSelectedItem().toString();
