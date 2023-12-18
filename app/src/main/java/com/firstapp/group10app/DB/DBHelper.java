@@ -5,15 +5,18 @@ import com.firstapp.group10app.Other.Session;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 public class DBHelper {
     public static void insertUser(String[] userDetails) {
         try {
             // Format the user details before passing them to the DataChecker
             DataFormatter.preCheckFormatUserDetails(userDetails);
+            System.out.println(Arrays.toString(userDetails));
 
             // Check that the user details are valid
             if (!DataChecker.checkUserDetails(userDetails)) {
+                System.out.println("ERRORHERE");
                 throw new IllegalArgumentException("Invalid user details");
             }
 
@@ -41,6 +44,7 @@ public class DBHelper {
             sql.append(");");
 
             // Execute the SQL query
+            System.out.println(sql);
             DBConnection.executeStatement(sql.toString());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -55,6 +59,7 @@ public class DBHelper {
                     "';";
 
             // Execute the SQL query
+            System.out.println(sql);
             return DBConnection.executeQuery(sql);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -63,8 +68,19 @@ public class DBHelper {
 
     // Returns true if the user exists in the database
     public static boolean checkExists(String email) throws SQLException {
-        return getUser(email).next();
-    }
+        System.out.println("CHECKING");
+        String st =  "SELECT * FROM HealthData.Users WHERE Email = '" +
+                email +
+                "';";
+        DBConnection con = new DBConnection();
+        if(con.executeQuery(st).next()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+        }
+
 
     public static void clearData(String toDelete) {
         DBConnection.executeStatement("UPDATE HealthData.Users SET " + toDelete + " = NULL WHERE Email = '" + Session.userEmail + "'");
