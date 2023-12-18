@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class DataFormatter {
     public static void preCheckFormatUserDetails(String[] userDetails) {
         // Format the user details before passing them to the DataChecker
-        userDetails[Index.WEIGHT] = preCheckFormatWeight(userDetails[Index.WEIGHT]);
-        userDetails[Index.HEIGHT] = preCheckFormatHeight(userDetails[Index.HEIGHT]);
+//        userDetails[Index.WEIGHT] = preCheckFormatWeight(userDetails[Index.WEIGHT]);
+//        userDetails[Index.HEIGHT] = preCheckFormatHeight(userDetails[Index.HEIGHT]);
         userDetails[Index.SEX] = preCheckFormatSex(userDetails[Index.SEX]);
     }
 
