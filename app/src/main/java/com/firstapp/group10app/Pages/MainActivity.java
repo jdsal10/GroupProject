@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(MainActivity.this, Login.class));
             overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
         } else if (id == R.id.skipToHome) {
+            Session.userEmail = null;
             startActivity(new Intent(MainActivity.this, Home.class));
         } else if (id == R.id.goToSitemap) {
             startActivity(new Intent(MainActivity.this, SitemapActivity.class));
