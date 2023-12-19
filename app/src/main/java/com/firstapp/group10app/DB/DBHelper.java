@@ -81,7 +81,17 @@ public class DBHelper {
         }
         }
 
-
+        // Checks if a user exists
+    public boolean checkUser(String email, String password) throws SQLException {
+        DBConnection db = new DBConnection();
+        ResultSet result = db.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "' AND Password = '" + password + "'");
+        int size = 0;
+        if (result.last()) {
+            size++;
+        }
+        System.out.println("TESTING " + size);
+        return size != 0;
+    }
     public static void clearData(String toDelete) {
         DBConnection.executeStatement("UPDATE HealthData.Users SET " + toDelete + " = NULL WHERE Email = '" + Session.userEmail + "'");
     }
