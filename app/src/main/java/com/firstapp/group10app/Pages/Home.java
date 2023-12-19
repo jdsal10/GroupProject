@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -18,6 +20,12 @@ public class Home extends AppCompatActivity implements NavigationBarView.OnItemS
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
         bottomNavigationView.setSelectedItemId(R.id.goHome);
         bottomNavigationView.setOnItemSelectedListener(this);
+
+        if(Session.userEmail == null) {
+            System.out.println("DISABLED!");
+            bottomNavigationView.getMenu().findItem(R.id.goSettings).setEnabled(false);
+            bottomNavigationView.getMenu().findItem(R.id.goStats).setEnabled(false);
+        }
     }
 
     @Override
