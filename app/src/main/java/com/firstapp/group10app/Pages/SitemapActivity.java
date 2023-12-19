@@ -110,18 +110,20 @@ public class SitemapActivity extends AppCompatActivity {
                     // Wait for the executor to finish
                 }
 
-                addPopUp(output.toString());
+//                addPopUp(output.toString());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
     }
 
-    private void addPopUp(String text) {
+
+    // Commented due to new popup used
+    /*private void addPopUp(String text) {
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.popup_window, null);
+        View popupView = inflater.inflate(R.layout.delete_account_confirm, null);
 
         // set the text
         TextView textView = findViewById(R.id.popup_text);
@@ -142,6 +144,8 @@ public class SitemapActivity extends AppCompatActivity {
             return true;
         });
     }
+    */
+
 
     private void separateElements() {
         View view = new View(this);
