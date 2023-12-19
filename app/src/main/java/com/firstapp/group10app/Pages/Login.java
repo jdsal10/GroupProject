@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DBConnection;
+import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
@@ -50,7 +51,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             PasswordText = Password.getText().toString();
             System.out.println("TESTING TEXT : " + EmailText + "TESTING PASSWORD: " + PasswordText);
             try {
-                if (checkUser(EmailText, PasswordText)) {
+                DBHelper db = new DBHelper();
+                if (db.checkUser(EmailText, PasswordText)) {
                     Toast.makeText(Login.this, "LOGIN SUCCESSFULL!", Toast.LENGTH_SHORT).show();
                     Session.userEmail = EmailText;
                     startActivity(new Intent(getApplicationContext(), Home.class));
@@ -68,17 +70,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-    //Check if username and password is in the database
-    public boolean checkUser(String email, String password) throws SQLException {
-        DBConnection db = new DBConnection();
-        ResultSet result = db.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "' AND Password = '" + password + "'");
-        int size = 0;
-        if (result.last()) {
-            size++;
-        }
-        System.out.println("TESTING " + size);
-        return size != 0;
-    }
 
     //trying to add some data to the database to test login
     public void createTestUser() {
