@@ -17,15 +17,14 @@ import com.firstapp.group10app.Other.*;
 import com.firstapp.group10app.R;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class settings_data_control extends Fragment implements View.OnClickListener {
 
+    // Declared variables
     EditText dobValue, weightValue, heightValue, allergiesValue;
     Button dobUpdate, weightUpdate, heightUpdate, sexUpdate, allergiesUpdate, reasonsUpdate;
     Button dobClear, weightClear, heightClear, sexClear, allergiesClear, reasonsClear;
-
     Spinner weightSpin, heightSpin, sexSpin, reasonSpin;
 
     public settings_data_control() {
@@ -41,6 +40,7 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         // Debug output
         System.out.println(info.toString());
 
+        // Since DOB is a regular value, no formatting is required
         dobValue.setText(info.get(0));
 
         // Updates the view value of weight and its units.
@@ -55,9 +55,9 @@ public class settings_data_control extends Fragment implements View.OnClickListe
 
             if (weightUnits == null) {
                 weightSpin.setSelection(0);
-            } else if (weightUnits == "kg") {
+            } else if (weightUnits.equals("kg")) {
                 weightSpin.setSelection(1);
-            } else if (weightUnits == "lbs") {
+            } else if (weightUnits.equals("lbs")) {
                 weightSpin.setSelection(2);
             }
         }
@@ -74,39 +74,47 @@ public class settings_data_control extends Fragment implements View.OnClickListe
 
             if (heightUnits == null) {
                 heightSpin.setSelection(0);
-            } else if (heightUnits == "cm") {
+            } else if (heightUnits.equals("cm")) {
                 heightSpin.setSelection(1);
-            } else if (heightUnits == "inch") {
+            } else if (heightUnits.equals("inch")) {
                 heightSpin.setSelection(2);
             }
         }
 
         // Updates the units for sex.
-        String current = info.get(3).trim();
+        String selectedSex = info.get(3).trim();
 
-        if (current.equals("")) {
-            sexSpin.setSelection(0);
-        } else if (current == "M") {
-            sexSpin.setSelection(1);
-        } else if (current == "F") {
-            sexSpin.setSelection(2);
-        } else if (current == "O") {
-            sexSpin.setSelection(3);
+        switch (selectedSex) {
+            case "":
+                sexSpin.setSelection(0);
+                break;
+            case "M":
+                sexSpin.setSelection(1);
+                break;
+            case "F":
+                sexSpin.setSelection(2);
+                break;
+            case "O":
+                sexSpin.setSelection(3);
+                break;
         }
 
         allergiesValue.setText(info.get(4));
 
-        if(info.get(5).equals("")) {
-            reasonSpin.setSelection(0);
-        }
-        else if(info.get(5).equals("I want to lose weight")) {
-            reasonSpin.setSelection(1);
-        }
-        else if(info.get(5).equals("I want to gain weight")) {
-            reasonSpin.setSelection(2);
-        }
-        else if(info.get(5).equals("I want to maintain my weight")) {
-            reasonSpin.setSelection(3);
+        // Updates "reason for downloading"
+        switch (info.get(5)) {
+            case "":
+                reasonSpin.setSelection(0);
+                break;
+            case "I want to lose weight":
+                reasonSpin.setSelection(1);
+                break;
+            case "I want to gain weight":
+                reasonSpin.setSelection(2);
+                break;
+            case "I want to maintain my weight":
+                reasonSpin.setSelection(3);
+                break;
         }
     }
 
@@ -115,6 +123,9 @@ public class settings_data_control extends Fragment implements View.OnClickListe
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_settings_data_control, container, false);
 
+        // Initialises the widgets
+
+        // Initialise the update buttons.
         dobUpdate = rootView.findViewById(R.id.updateDOB);
         weightUpdate = rootView.findViewById(R.id.updateWeight);
         heightUpdate = rootView.findViewById(R.id.updateHeight);
@@ -122,11 +133,13 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         allergiesUpdate = rootView.findViewById(R.id.updateAllergies);
         reasonsUpdate = rootView.findViewById(R.id.updateReasons);
 
+        // Initialise all spinners.
         weightSpin = rootView.findViewById(R.id.weightUnitSpinner);
         heightSpin = rootView.findViewById(R.id.heightUnitSpinner);
         sexSpin = rootView.findViewById(R.id.sexValue);
         reasonSpin = rootView.findViewById(R.id.reasonSpin);
 
+        // Initialise the clear buttons
         dobClear = rootView.findViewById(R.id.clearDOB);
         weightClear = rootView.findViewById(R.id.clearWeight);
         heightClear = rootView.findViewById(R.id.clearHeight);
@@ -134,15 +147,14 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         allergiesClear = rootView.findViewById(R.id.clearAllergies);
         reasonsClear = rootView.findViewById(R.id.clearReasons);
 
+        // Initialize the value fields.
         dobValue = rootView.findViewById(R.id.DOBValue);
         weightValue = rootView.findViewById(R.id.weightValue);
         heightValue = rootView.findViewById(R.id.heightValue);
         reasonSpin = rootView.findViewById(R.id.reasonSpin);
         allergiesValue = rootView.findViewById(R.id.allerguesValue);
 
-        sexSpin = rootView.findViewById(R.id.sexValue);
-        heightSpin = rootView.findViewById(R.id.heightUnitSpinner);
-
+        // Sets onClickListener for the buttons.
         dobClear.setOnClickListener(this);
         dobUpdate.setOnClickListener(this);
 
@@ -161,20 +173,22 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         reasonsClear.setOnClickListener(this);
         reasonsUpdate.setOnClickListener(this);
 
+        // Declares an array of the users details.
         String currentUser = Session.userEmail;
         ArrayList<String> details = new ArrayList<>();
 
+        // Gets the details of the current user.
         DBHelper help = new DBHelper();
         ResultSet data = help.getUser(currentUser);
 
         try {
             if (data.next()) {
-                System.out.println(details.add(data.getString("DOB")));
-                System.out.println(details.add(data.getString("Weight")));
-                System.out.println(details.add(data.getString("Height")));
-                System.out.println(details.add(data.getString("Sex")));
-                System.out.println(details.add(data.getString("HealthCondition")));
-                System.out.println(details.add(data.getString("ReasonForDownloading")));
+                details.add(data.getString("DOB"));
+                details.add(data.getString("Weight"));
+                details.add(data.getString("Height"));
+                details.add(data.getString("Sex"));
+                details.add(data.getString("HealthCondition"));
+                details.add(data.getString("ReasonForDownloading"));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
