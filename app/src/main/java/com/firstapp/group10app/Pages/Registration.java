@@ -61,6 +61,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         // Add text changed listeners to the email and password fields
         emailAddTextChangedListener();
         passwordAddTextChangedListener();
+        dobAddTextChangedListener();
 
         // Set page1 to be visible
         page1.setVisibility(View.VISIBLE);
@@ -188,6 +189,45 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
+    private void dobAddTextChangedListener() {
+        dob.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            int ind = 0;
+            int ind1 = 0;
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                // Calculates "-" after year
+                if(s.length() == 4 && ind == 0) {
+                    dob.setText(s + "-");
+                    dob.setSelection(s.length()+1);
+                    ind = 1;
+                }
+                else if(s.length() < 4 && ind == 1) {
+                    ind=0;
+                }
+
+                // Calculates "-" after month
+                if(s.length() == 7 && ind1 == 0) {
+                    dob.setText(s + "-");
+                    dob.setSelection(s.length()+1);
+                    ind1 = 1;
+                }
+                else if(s.length() < 7 && ind1 == 1) {
+                    ind1=0;
+                }
             }
         });
     }
