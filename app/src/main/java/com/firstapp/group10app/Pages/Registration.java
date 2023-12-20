@@ -53,7 +53,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         // Set the dropdowns
         setSpinner(new String[]{"cm", "inch"}, R.id.heightUnitsDropdown);
         setSpinner(new String[]{"kg", "lbs"}, R.id.weightUnitsDropdown);
-        setSpinner(new String[]{"","I want to lose weight", "I want to gain weight", "I want to maintain my weight"}, R.id.reasonsDropdown);
+        setSpinner(new String[]{"", "I want to lose weight", "I want to gain weight", "I want to maintain my weight"}, R.id.reasonsDropdown);
 
         // Get the pages, EditText fields, and buttons from the xml
         getAllElements();
@@ -201,32 +201,29 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
-            int ind = 0;
-            int ind1 = 0;
+            int ind, ind1 = 0;
+
             @Override
             public void afterTextChanged(Editable s) {
 
                 // Calculates "-" after year
-                if(s.length() == 4 && ind == 0) {
+                if (s.length() == 4 && ind == 0) {
                     dob.setText(s + "-");
-                    dob.setSelection(s.length()+1);
+                    dob.setSelection(s.length() + 1);
                     ind = 1;
-                }
-                else if(s.length() < 4 && ind == 1) {
-                    ind=0;
+                } else if (s.length() < 4 && ind == 1) {
+                    ind = 0;
                 }
 
                 // Calculates "-" after month
-                if(s.length() == 7 && ind1 == 0) {
+                if (s.length() == 7 && ind1 == 0) {
                     dob.setText(s + "-");
-                    dob.setSelection(s.length()+1);
+                    dob.setSelection(s.length() + 1);
                     ind1 = 1;
-                }
-                else if(s.length() < 7 && ind1 == 1) {
-                    ind1=0;
+                } else if (s.length() < 7 && ind1 == 1) {
+                    ind1 = 0;
                 }
             }
         });
@@ -352,7 +349,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             details[Index.WEIGHT] = weightText() + " " + weightUnits();
         }
 
-        if(heightText().isEmpty()) {
+        if (heightText().isEmpty()) {
             details[Index.HEIGHT] = "";
         } else {
             details[Index.HEIGHT] = heightText() + " " + heightUnits();
