@@ -27,10 +27,10 @@ public class DBHelper {
             StringBuilder sql = new StringBuilder();
             sql.append("INSERT INTO HealthData.Users (");
             for (int i = 0; i < userDetails.length; i++) {
-                if (userDetails[i] != null) {
+//                if (userDetails[i] != null) {
                     sql.append(Index.USER_DETAILS[i]);
                     sql.append(", ");
-                }
+//                }
             }
             sql.deleteCharAt(sql.length() - 2);
             sql.append(") VALUES (");
