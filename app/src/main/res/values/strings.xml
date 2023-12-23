@@ -105,4 +105,26 @@
         <item></item>
         <item>test</item>
     </string-array>
+
+<!--    Settings - Account Control-->
+    <string name="changePasswordTitle">Change Password</string>
+    <string name="changePasswordButton">Change Password</string>
+
+    <string name="deleteAccountText">Delete Account</string>
+    <string name="deleteAccountButton">Delete Account</string>
+
+<!--    Settings - Account Control - Change Password-->
+    <string name="changePasswordSignedInTitle">Please enter your current and new password below.</string>
+    <string name="passwordCurrentInput">Current Password:</string>
+    <string name="CurrentPassword">Password</string>
+    <string name="changePasswordNew">Please enter your new password:</string>
+    <string name="newPasswordInput">New Password</string>
+    <string name="newPasswordInputAgain"> Please enter your new password again:</string>
+    <string name="changeConform">Confirm</string>
+
+<!--    Settings - Account Control - Delete Account-->
+    <string name="deleteAccountTitle">Are you sure you want to do this? \nYour workout history and account will be deleted.</string>
+    <string name="deleteAccountSubtitle">Please enter your password to confirm:</string>
+    <string name="deleteAccountInput">Password</string>
+    <string name="deleteAccountConfirm">Confirm</string>
 </resources>
