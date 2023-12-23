@@ -16,7 +16,6 @@ public class DBHelper {
 
             // Check that the user details are valid
             if (!DataChecker.checkUserDetails(userDetails)) {
-                System.out.println("ERRORHERE");
                 throw new IllegalArgumentException("Invalid user details");
             }
 
@@ -73,12 +72,7 @@ public class DBHelper {
                 email +
                 "';";
         DBConnection con = new DBConnection();
-        if(con.executeQuery(st).next()) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return con.executeQuery(st).next();
         }
 
         // Checks if a user exists
