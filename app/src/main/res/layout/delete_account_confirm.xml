@@ -10,13 +10,13 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Are you sure you want to do this? \nYour workout history and account will be deleted."
+        android:text="@string/deleteAccountTitle"
         android:textSize="20sp"
 />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Please enter your password to confirm:"
+        android:text="@string/deleteAccountSubtitle"
         android:textSize="16sp"
         android:textColor="@android:color/black"/>
 
@@ -25,12 +25,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:hint="Password"/>
+        android:hint="@string/deleteAccountInput"/>
 
     <Button
         android:id="@+id/deleteConfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Confirm"/>
+        android:text="@string/deleteAccountConfirm"/>
 
 </LinearLayout>
