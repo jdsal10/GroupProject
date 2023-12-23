@@ -1,5 +1,8 @@
 package com.firstapp.group10app.Fragments;
 
+import static com.firstapp.group10app.Other.Validator.passwordValid;
+import static com.firstapp.group10app.Other.Validator.passwordValidator;
+
 import android.app.AlertDialog;
 import android.os.Bundle;
 
@@ -19,7 +22,7 @@ import java.sql.SQLException;
 
 public class settings_account extends Fragment implements View.OnClickListener{
 
-    Button deleteAccount;
+    Button deleteAccount, changePassword;
     public settings_account() {
         // Required empty public constructor
     }
@@ -39,6 +42,9 @@ public class settings_account extends Fragment implements View.OnClickListener{
         deleteAccount = rootView.findViewById(R.id.deleteAccountButton);
         deleteAccount.setOnClickListener(this);
 
+        changePassword = rootView.findViewById(R.id.changePasswordSignedIn);
+        changePassword.setOnClickListener(this);
+
         return rootView;
     }
 
@@ -47,6 +53,9 @@ public class settings_account extends Fragment implements View.OnClickListener{
         int id = v.getId();
         if(id == R.id.deleteAccountButton) {
         showConfirmation();
+        }
+        else if(id == R.id.changePasswordSignedIn) {
+            changePassword();
         }
     }
 
@@ -79,5 +88,48 @@ public class settings_account extends Fragment implements View.OnClickListener{
         });
         // Show the dialog
         alertDialog.show();
+    }
+
+    public void changePassword() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        LayoutInflater inflater = getLayoutInflater();
+
+        View dialogView = inflater.inflate(R.layout.activity_change_password, null);
+        builder.setView(dialogView);
+        AlertDialog alertDialog = builder.create();
+
+        Button passwordChangeConfirm = dialogView.findViewById(R.id.changePasswordConfirm);
+
+        EditText currentPassword = dialogView.findViewById(R.id.currentPassword);
+        EditText newPassword1 = dialogView.findViewById(R.id.newPassword1);
+        EditText newPassword2 = dialogView.findViewById(R.id.newPassword2);
+
+        passwordChangeConfirm.setOnClickListener(v -> {
+            String cp = currentPassword.getText().toString();
+            String np1 = newPassword1.getText().toString();
+            String np2 = newPassword2.getText().toString();
+            DBHelper db = new DBHelper();
+            try {
+                if(!db.checkUser(Session.userEmail, cp)) {
+                    currentPassword.setError("Incorrect Password");
+                }
+                else if(!np1.equals(np2)) {
+                    newPassword1.setError("The passwords do not match");
+                }
+                else if (!passwordValid(np1)) {
+                    newPassword1.setError(passwordValidator(np1));
+                }
+                else {
+                    DBHelper.updateData("Password", np1);
+                    alertDialog.dismiss();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+        });
+
+        alertDialog.show();
+
     }
 }
