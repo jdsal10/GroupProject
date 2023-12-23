@@ -210,7 +210,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
                 // Calculates "-" after year
                 if (s.length() == 4 && ind == 0) {
-                    dob.setText(s + "-");
+                    dob.setText(String.format("%s-", s));
                     dob.setSelection(s.length() + 1);
                     ind = 1;
                 } else if (s.length() < 4 && ind == 1) {
@@ -219,7 +219,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
                 // Calculates "-" after month
                 if (s.length() == 7 && ind1 == 0) {
-                    dob.setText(s + "-");
+                    dob.setText(String.format("%s-", s));
                     dob.setSelection(s.length() + 1);
                     ind1 = 1;
                 } else if (s.length() < 7 && ind1 == 1) {
