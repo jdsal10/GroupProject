@@ -99,7 +99,7 @@
             android:id="@+id/weightUnitSpinner"
             android:layout_width="60dp"
             android:layout_height="match_parent"
-            android:entries="@array/weight"
+            android:entries="@array/weightUnits"
             android:layout_marginEnd="8dp"/>
 
         <Button
@@ -140,7 +140,7 @@
             android:id="@+id/heightUnitSpinner"
             android:layout_width="60dp"
             android:layout_height="match_parent"
-            android:entries="@array/height"
+            android:entries="@array/heightUnits"
             android:layout_marginEnd="8dp"/>
 
         <Button
