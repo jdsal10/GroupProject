@@ -4,7 +4,9 @@ import static com.firstapp.group10app.Other.Validator.passwordValid;
 import static com.firstapp.group10app.Other.Validator.passwordValidator;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.content.*;
 
 import androidx.fragment.app.Fragment;
 
@@ -16,6 +18,8 @@ import android.widget.EditText;
 
 import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Other.Session;
+import com.firstapp.group10app.Pages.MainActivity;
+import com.firstapp.group10app.Pages.Settings;
 import com.firstapp.group10app.R;
 
 import java.sql.SQLException;
@@ -77,6 +81,9 @@ public class settings_account extends Fragment implements View.OnClickListener{
                 if(db.checkUser(Session.userEmail, password)) {
                     System.out.println("CONFIRM DELETION!");
                     // Add logic for deletion below - requires integration to workouts.
+                    db.deleteUser(Session.userEmail);
+
+                    startActivity(new Intent(requireContext(), MainActivity.class));
                 }
                 else {
                     passwordDelete.setError("Incorrect password used.");

@@ -83,13 +83,14 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 <!--    Settings - Data Control-->
-    <string-array name="weight">
+    <string-array name="weightUnits">
         <item></item>
         <item>kg</item>
         <item>lbs</item>
     </string-array>
 
-    <string-array name="height">
+    <string-array name="heightUnits">
+        <item></item>
         <item>cm</item>
         <item>inch</item>
     </string-array>

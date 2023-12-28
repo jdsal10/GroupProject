@@ -21,6 +21,8 @@ import java.util.ArrayList;
 
 public class settings_data_control extends Fragment implements View.OnClickListener {
 
+    // UNITS FOR WEIGHT CURRENTLY FAILS!
+
     // Declared variables
     EditText dobValue, weightValue, heightValue, allergiesValue;
     Button dobUpdate, weightUpdate, heightUpdate, sexUpdate, allergiesUpdate, reasonsUpdate;
