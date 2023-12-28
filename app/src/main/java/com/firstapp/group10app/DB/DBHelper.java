@@ -93,4 +93,8 @@ public class DBHelper {
     public static void updateData(String toUpdate, String value) {
         DBConnection.executeStatement("UPDATE HealthData.Users SET " + toUpdate + " = '" + value + "' WHERE Email = '" + Session.userEmail + "'");
     }
+
+    public void deleteUser(String email) {
+        DBConnection.executeStatement("DELETE FROM HealthData.Users WHERE Email = '" + email + "'");
+    }
 }
