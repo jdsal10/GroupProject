@@ -104,7 +104,10 @@
 
     <string-array name="reasons">
         <item></item>
-        <item>test</item>
+        <item>I want to lose weight</item>
+        <item>I want to gain weight</item>
+        <item>I want to maintain my weight</item>
+
     </string-array>
 
 <!--    Settings - Account Control-->

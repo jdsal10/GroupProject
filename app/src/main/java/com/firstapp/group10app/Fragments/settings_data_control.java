@@ -154,7 +154,7 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         weightValue = rootView.findViewById(R.id.weightValue);
         heightValue = rootView.findViewById(R.id.heightValue);
         reasonSpin = rootView.findViewById(R.id.reasonSpin);
-        allergiesValue = rootView.findViewById(R.id.allerguesValue);
+        allergiesValue = rootView.findViewById(R.id.allergiesValue);
 
         // Sets onClickListener for the buttons.
         dobClear.setOnClickListener(this);
