@@ -6,6 +6,8 @@ package com.firstapp.group10app.Other;
 public class Session {
     public static String userEmail;
 
+    public static boolean dbStatus;
+
     public Session(String userEmail) {
         Session.userEmail = userEmail;
     }
@@ -13,4 +15,6 @@ public class Session {
     public String getUserEmail() {
         return userEmail;
     }
+
+    public boolean getDBStatus() {return dbStatus;}
 }
