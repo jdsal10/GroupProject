@@ -79,8 +79,6 @@
     <string name="homeItem">Home</string>
     <string name="settingsItem">Settings</string>
     <string name="statisticsItem">Statistics</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 <!--    Settings - Data Control-->
     <string-array name="weightUnits">
