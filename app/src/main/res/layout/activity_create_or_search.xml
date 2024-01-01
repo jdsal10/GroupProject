@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:text="@string/createTitle"
             android:layout_marginBottom="24dp"
-            android:id="@+id/goTOCreate"/>
+            android:id="@+id/goToCreate"/>
 
     </LinearLayout>
 
