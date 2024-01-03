@@ -1,11 +1,8 @@
 package com.firstapp.group10app.DB;
 
-import android.app.backup.RestoreObserver;
-
 import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.Other.Session;
 
-import java.lang.annotation.Retention;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -102,7 +99,7 @@ public class DBHelper {
         DBConnection.executeStatement("DELETE FROM HealthData.Users WHERE Email = '" + email + "'");
     }
 
-    public static String test() {
+    public static String getAllWorkouts() {
         DBConnection d = new DBConnection();
 
         ResultSet out = d.executeQuery("SELECT\n" +
