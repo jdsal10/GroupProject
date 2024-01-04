@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -22,8 +23,9 @@ import org.json.JSONObject;
 
 import java.sql.SQLException;
 
-public class searchWorkout extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
+public class searchWorkout extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
     private LinearLayout workoutLayout, exerciseLayout;
+    private Button filterWorkout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,11 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
         workoutLayout.setOrientation(LinearLayout.VERTICAL);
 
         scrollView.addView(workoutLayout);
+
+        filterWorkout = findViewById(R.id.filterWorkouts);
+        filterWorkout.setOnClickListener(this);
+
+
 
         try {
             updateWorkouts();
@@ -150,4 +157,30 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
         return true;
     }
 
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.filterWorkouts) {
+            runFilter(null, filterWorkout.getText().toString());
+        }
+    }
+
+    public void runFilter(String test, String difficulty) {
+        StringBuilder filter = new StringBuilder();
+        filter.append("WHERE");
+        if(test == null) {
+        }
+        else {
+            filter.append(" TEST = '").append(test).append("' AND");
+        }
+
+        if(difficulty == null) {
+
+        }
+        else {
+            filter.append(" Difficulty = '").append(difficulty).append("' AND ");
+        }
+
+        System.out.println(filter);
+    }
 }
