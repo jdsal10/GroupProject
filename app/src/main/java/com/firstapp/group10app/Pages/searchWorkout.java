@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -22,9 +23,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class searchWorkout extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
     private LinearLayout workoutLayout, exerciseLayout;
+    private EditText durationText, difficultyText, targetMuscleText;
     private Button filterWorkout;
 
     @Override
@@ -33,14 +36,18 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
         setContentView(R.layout.activity_search_workout);
 
         ScrollView scrollView = findViewById(R.id.resultSearchWorkout);
+
         workoutLayout = new LinearLayout(this);
         workoutLayout.setOrientation(LinearLayout.VERTICAL);
 
         scrollView.addView(workoutLayout);
 
+        durationText = findViewById(R.id.durationInput);
+        difficultyText = findViewById(R.id.difficultyInput);
+        targetMuscleText = findViewById(R.id.targetMuscleInput);
+
         filterWorkout = findViewById(R.id.filterWorkouts);
         filterWorkout.setOnClickListener(this);
-
 
 
         try {
@@ -51,7 +58,7 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
     }
 
     public void updateWorkouts() throws JSONException, SQLException {
-        String input = DBHelper.getAllWorkouts();
+        String input = DBHelper.getAllWorkouts(null);
         System.out.println(input);
         JSONArray jsonArray = new JSONArray(input);
 
@@ -161,25 +168,32 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.filterWorkouts) {
-            runFilter(null, filterWorkout.getText().toString());
+            runFilter(durationText.getText().toString(), difficultyText.getText().toString(),
+                    targetMuscleText.getText().toString());
         }
     }
 
-    public void runFilter(String test, String difficulty) {
+    public void runFilter(String duration, String difficulty, String targetMuscle) {
+        ArrayList<String> toFilter = new ArrayList<>();
+
         StringBuilder filter = new StringBuilder();
         filter.append("WHERE");
-        if(test == null) {
-        }
-        else {
-            filter.append(" TEST = '").append(test).append("' AND");
+        if (duration != null) {
+            toFilter.add(" WorkoutDuration = '" + duration + "'");
         }
 
-        if(difficulty == null) {
+        if (difficulty != null) {
+            toFilter.add(" Difficulty = '" + difficulty + "'");
+        }
 
+        if (targetMuscle != null) {
+            toFilter.add(" TargetMuscleGroup = '" + targetMuscle + "'");
         }
-        else {
-            filter.append(" Difficulty = '").append(difficulty).append("' AND ");
+
+        for (int i = 0; i < toFilter.size() - 1; i++) {
+            filter.append(toFilter.get(i)).append(" AND");
         }
+        filter.append(toFilter.get(toFilter.size() - 1));
 
         System.out.println(filter);
     }
