@@ -130,16 +130,16 @@ public class DBHelper {
                 "    )\n" +
                 "  ) AS Result\n" +
                 "FROM\n" +
-                "  HealthData.Workouts w";
+                "  HealthData.Workouts w ";
 
-        if(filter != null) {
+        if (filter != null) {
             out += filter;
         }
         out += ";";
 
+        System.out.println("SQL: " + out);
+
         ResultSet q = d.executeQuery(out);
-
-
 
         try {
             if (q.next()) {
@@ -151,6 +151,6 @@ public class DBHelper {
 
         return "";
     }
-    }
+}
 
 

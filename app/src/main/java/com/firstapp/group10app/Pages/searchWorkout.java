@@ -28,15 +28,14 @@ import java.util.ArrayList;
 public class searchWorkout extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
     private LinearLayout workoutLayout, exerciseLayout;
     private EditText durationText, difficultyText, targetMuscleText;
-    private Button filterWorkout;
+    private ScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_workout);
 
-        ScrollView scrollView = findViewById(R.id.resultSearchWorkout);
-
+        scrollView = findViewById(R.id.resultSearchWorkout);
         workoutLayout = new LinearLayout(this);
         workoutLayout.setOrientation(LinearLayout.VERTICAL);
 
@@ -46,25 +45,31 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
         difficultyText = findViewById(R.id.difficultyInput);
         targetMuscleText = findViewById(R.id.targetMuscleInput);
 
-        filterWorkout = findViewById(R.id.filterWorkouts);
+        Button filterWorkout = findViewById(R.id.filterWorkouts);
         filterWorkout.setOnClickListener(this);
 
 
         try {
-            updateWorkouts();
+            updateWorkouts(null);
         } catch (JSONException | SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void updateWorkouts() throws JSONException, SQLException {
-        String input = DBHelper.getAllWorkouts(null);
+    public void updateWorkouts(String filter) throws JSONException, SQLException {
+        String input = DBHelper.getAllWorkouts(filter);
         System.out.println(input);
-        JSONArray jsonArray = new JSONArray(input);
 
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject workoutObject = jsonArray.getJSONObject(i);
-            addDetails(workoutObject);
+
+        if (input == null) {
+            System.out.println("HEE ISD!");
+            showEmpty();
+        } else {
+            JSONArray jsonArray = new JSONArray(input);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject workoutObject = jsonArray.getJSONObject(i);
+                addDetails(workoutObject);
+            }
         }
     }
 
@@ -168,33 +173,64 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.filterWorkouts) {
-            runFilter(durationText.getText().toString(), difficultyText.getText().toString(),
-                    targetMuscleText.getText().toString());
+            try {
+                // To avoid duplicate parents, the workoutLayout is initialised here again,
+                scrollView.removeAllViews();
+                workoutLayout = new LinearLayout(this);
+                workoutLayout.setOrientation(LinearLayout.VERTICAL);
+                scrollView.addView(workoutLayout);
+                runFilter(durationText.getText().toString(), difficultyText.getText().toString(),
+                        targetMuscleText.getText().toString());
+            } catch (SQLException | JSONException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
-    public void runFilter(String duration, String difficulty, String targetMuscle) {
+    public void runFilter(String duration, String difficulty, String targetMuscle) throws SQLException, JSONException {
         ArrayList<String> toFilter = new ArrayList<>();
 
         StringBuilder filter = new StringBuilder();
         filter.append("WHERE");
-        if (duration != null) {
-            toFilter.add(" WorkoutDuration = '" + duration + "'");
+        if ((!(duration.length() == 0))) {
+            toFilter.add(" w.WorkoutDuration = '" + duration + "'");
         }
 
-        if (difficulty != null) {
-            toFilter.add(" Difficulty = '" + difficulty + "'");
+        if ((!(difficulty.length() == 0))) {
+            toFilter.add(" w.Difficulty = '" + difficulty + "'");
         }
 
-        if (targetMuscle != null) {
-            toFilter.add(" TargetMuscleGroup = '" + targetMuscle + "'");
+        if ((!(targetMuscle.length() == 0))) {
+            toFilter.add(" w.TargetMuscleGroup = '" + targetMuscle + "'");
         }
 
-        for (int i = 0; i < toFilter.size() - 1; i++) {
-            filter.append(toFilter.get(i)).append(" AND");
-        }
-        filter.append(toFilter.get(toFilter.size() - 1));
+        if (toFilter.size() == 0) {
+            updateWorkouts(null);
+        } else {
+            for (int i = 0; i < toFilter.size() - 1; i++) {
+                filter.append(toFilter.get(i)).append(" AND");
+            }
+            filter.append(toFilter.get(toFilter.size() - 1));
 
-        System.out.println(filter);
+            System.out.println(filter);
+            String newFilter = filter.toString();
+
+            updateWorkouts(newFilter);
+        }
+
     }
+
+    public void showEmpty() {
+        LinearLayout emptyLayout = new LinearLayout(this);
+        emptyLayout.setOrientation(LinearLayout.VERTICAL);
+        TextView empty = new TextView(this);
+        empty.setText("No workouts were found");
+
+        emptyLayout.addView(empty);
+
+        scrollView.removeAllViews();
+
+        scrollView.addView(emptyLayout);
+    }
+
 }
