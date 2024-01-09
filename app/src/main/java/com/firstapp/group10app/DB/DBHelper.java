@@ -99,10 +99,10 @@ public class DBHelper {
         DBConnection.executeStatement("DELETE FROM HealthData.Users WHERE Email = '" + email + "'");
     }
 
-    public static String getAllWorkouts() {
+    public static String getAllWorkouts(String filter) {
         DBConnection d = new DBConnection();
 
-        ResultSet out = d.executeQuery("SELECT\n" +
+        String out = "SELECT\n" +
                 "  JSON_ARRAYAGG(\n" +
                 "    JSON_OBJECT(\n" +
                 "      'WorkoutID', w.WorkoutID,\n" +
@@ -130,12 +130,20 @@ public class DBHelper {
                 "    )\n" +
                 "  ) AS Result\n" +
                 "FROM\n" +
-                "  HealthData.Workouts w;\n");
+                "  HealthData.Workouts w ";
 
+        if (filter != null) {
+            out += filter;
+        }
+        out += ";";
+
+        System.out.println("SQL: " + out);
+
+        ResultSet q = d.executeQuery(out);
 
         try {
-            if (out.next()) {
-                return out.getString("Result");
+            if (q.next()) {
+                return q.getString("Result");
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error processing ResultSet", e);
@@ -143,6 +151,6 @@ public class DBHelper {
 
         return "";
     }
-    }
+}
 
 
