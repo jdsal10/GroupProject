@@ -35,6 +35,7 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_workout);
 
+
         scrollView = findViewById(R.id.resultSearchWorkout);
         workoutLayout = new LinearLayout(this);
         workoutLayout.setOrientation(LinearLayout.VERTICAL);
@@ -48,6 +49,8 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
         Button filterWorkout = findViewById(R.id.filterWorkouts);
         filterWorkout.setOnClickListener(this);
 
+        NavigationBarView bottomNavigationView = findViewById(R.id.mainNavigation);
+        bottomNavigationView.setOnItemSelectedListener(this);
 
         try {
             updateWorkouts(null);

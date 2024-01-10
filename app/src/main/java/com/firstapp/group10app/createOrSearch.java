@@ -13,7 +13,7 @@ import com.firstapp.group10app.Pages.Settings;
 import com.firstapp.group10app.Pages.searchWorkout;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class createOrSearch extends AppCompatActivity implements View.OnClickListener, NavigationBarView.OnItemSelectedListener {
+public class createOrSearch extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +25,9 @@ public class createOrSearch extends AppCompatActivity implements View.OnClickLis
 
         Button goToCreate = findViewById(R.id.goToCreate);
         goToCreate.setOnClickListener(this);
+
+        NavigationBarView bottomNavigationView = findViewById(R.id.mainNavigation);
+        bottomNavigationView.setOnItemSelectedListener(this);
     }
 
     @Override
