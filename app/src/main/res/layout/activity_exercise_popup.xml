@@ -5,19 +5,23 @@
     android:layout_height="match_parent"
     tools:context=".exerciseView"
     android:orientation="vertical">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Exercises:"
-        android:gravity="center">
-    </TextView>
+        android:gravity="center" />
 
     <ScrollView
         android:id="@+id/exerciseMainView"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/selectWorkout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
->
-    </ScrollView>
+        android:text="Select Workout" />
 
 
 </LinearLayout>
