@@ -58,11 +58,8 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
 
     public void updateWorkouts(String filter) throws JSONException, SQLException {
         String input = DBHelper.getAllWorkouts(filter);
-        System.out.println(input);
-
 
         if (input == null) {
-            System.out.println("HEE ISD!");
             showEmpty();
         } else {
             JSONArray jsonArray = new JSONArray(input);
@@ -212,7 +209,6 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
             }
             filter.append(toFilter.get(toFilter.size() - 1));
 
-            System.out.println(filter);
             String newFilter = filter.toString();
 
             updateWorkouts(newFilter);
