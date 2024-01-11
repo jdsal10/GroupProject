@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
@@ -27,6 +28,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Temporary button to navigate to the sitemap
         Button goToSitemapButton = findViewById(R.id.goToSitemap);
         goToSitemapButton.setOnClickListener(this);
+
+        // TEMP CODE TO CHECK CONNECTION
+        Session.dbStatus = DBConnection.testConnection();
     }
 
     @Override

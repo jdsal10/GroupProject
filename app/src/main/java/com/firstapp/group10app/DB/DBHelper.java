@@ -27,8 +27,8 @@ public class DBHelper {
             sql.append("INSERT INTO HealthData.Users (");
             for (int i = 0; i < userDetails.length; i++) {
 //                if (userDetails[i] != null) {
-                    sql.append(Index.USER_DETAILS[i]);
-                    sql.append(", ");
+                sql.append(Index.USER_DETAILS[i]);
+                sql.append(", ");
 //                }
             }
             sql.deleteCharAt(sql.length() - 2);
@@ -68,14 +68,14 @@ public class DBHelper {
     // Returns true if the user exists in the database
     public static boolean checkExists(String email) throws SQLException {
         System.out.println("CHECKING");
-        String st =  "SELECT * FROM HealthData.Users WHERE Email = '" +
+        String st = "SELECT * FROM HealthData.Users WHERE Email = '" +
                 email +
                 "';";
         DBConnection con = new DBConnection();
         return con.executeQuery(st).next();
-        }
+    }
 
-        // Checks if a user exists
+    // Checks if a user exists
     public boolean checkUser(String email, String password) throws SQLException {
         DBConnection db = new DBConnection();
         ResultSet result = db.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "' AND Password = '" + password + "'");
@@ -86,6 +86,7 @@ public class DBHelper {
         System.out.println("TESTING " + size);
         return size != 0;
     }
+
     public static void clearData(String toDelete) {
         DBConnection.executeStatement("UPDATE HealthData.Users SET " + toDelete + " = NULL WHERE Email = '" + Session.userEmail + "'");
     }
@@ -93,4 +94,63 @@ public class DBHelper {
     public static void updateData(String toUpdate, String value) {
         DBConnection.executeStatement("UPDATE HealthData.Users SET " + toUpdate + " = '" + value + "' WHERE Email = '" + Session.userEmail + "'");
     }
+
+    public void deleteUser(String email) {
+        DBConnection.executeStatement("DELETE FROM HealthData.Users WHERE Email = '" + email + "'");
+    }
+
+    public static String getAllWorkouts(String filter) {
+        DBConnection d = new DBConnection();
+
+        String out = "SELECT\n" +
+                "  JSON_ARRAYAGG(\n" +
+                "    JSON_OBJECT(\n" +
+                "      'WorkoutID', w.WorkoutID,\n" +
+                "      'WorkoutName', w.WorkoutName,\n" +
+                "      'WorkoutDuration', w.WorkoutDuration,\n" +
+                "      'TargetMuscleGroup', w.TargetMuscleGroup,\n" +
+                "      'Equipment', w.Equipment,\n" +
+                "      'Difficulty', w.Difficulty,\n" +
+                "      'Exercises', (\n" +
+                "        SELECT JSON_ARRAYAGG(\n" +
+                "          JSON_OBJECT(\n" +
+                "            'ExerciseID', e.ExerciseID,\n" +
+                "            'ExerciseName', e.ExerciseName,\n" +
+                "            'Description', e.Description,\n" +
+                "            'Illustration', e.Illustration,\n" +
+                "            'TargetMuscleGroup', e.TargetMuscleGroup,\n" +
+                "            'Equipment', e.Equipment,\n" +
+                "            'Difficulty', e.Difficulty\n" +
+                "          )\n" +
+                "        )\n" +
+                "        FROM HealthData.ExerciseWorkoutPairs ewp\n" +
+                "        JOIN HealthData.Exercises e ON ewp.ExerciseID = e.ExerciseID\n" +
+                "        WHERE ewp.WorkoutID = w.WorkoutID\n" +
+                "      )\n" +
+                "    )\n" +
+                "  ) AS Result\n" +
+                "FROM\n" +
+                "  HealthData.Workouts w ";
+
+        if (filter != null) {
+            out += filter;
+        }
+        out += ";";
+
+        System.out.println("SQL: " + out);
+
+        ResultSet q = d.executeQuery(out);
+
+        try {
+            if (q.next()) {
+                return q.getString("Result");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error processing ResultSet", e);
+        }
+
+        return "";
+    }
 }
+
+

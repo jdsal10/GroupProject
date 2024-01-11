@@ -21,6 +21,8 @@ import java.util.ArrayList;
 
 public class settings_data_control extends Fragment implements View.OnClickListener {
 
+    // UNITS FOR WEIGHT CURRENTLY FAILS!
+
     // Declared variables
     EditText dobValue, weightValue, heightValue, allergiesValue;
     Button dobUpdate, weightUpdate, heightUpdate, sexUpdate, allergiesUpdate, reasonsUpdate;
@@ -152,7 +154,7 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         weightValue = rootView.findViewById(R.id.weightValue);
         heightValue = rootView.findViewById(R.id.heightValue);
         reasonSpin = rootView.findViewById(R.id.reasonSpin);
-        allergiesValue = rootView.findViewById(R.id.allerguesValue);
+        allergiesValue = rootView.findViewById(R.id.allergiesValue);
 
         // Sets onClickListener for the buttons.
         dobClear.setOnClickListener(this);
@@ -233,6 +235,7 @@ public class settings_data_control extends Fragment implements View.OnClickListe
             heightValue.setText("");
         } else if (id == R.id.updateHeight) {
             if (Validator.weightValid(heightValue.getText().toString(), heightSpin.getSelectedItem().toString())) {
+                // Need to check for trims here
                 DBHelper.updateData("Height", heightValue.getText().toString() + " " + heightSpin.getSelectedItem().toString());
             } else {
                 heightValue.setError("Invalid format!");
