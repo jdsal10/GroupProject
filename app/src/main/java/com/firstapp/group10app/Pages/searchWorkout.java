@@ -15,6 +15,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.firstapp.group10app.DB.DBHelper;
+import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -107,11 +108,35 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
             AlertDialog alertDialog = builder.create();
             ScrollView exerciseMainView = dialogView.findViewById(R.id.exerciseMainView);
 
+            Button close = dialogView.findViewById(R.id.closeExercise);
+            close.setOnClickListener(this);
+
+            Button selectWorkout = dialogView.findViewById(R.id.selectWorkout);
+            selectWorkout.setOnClickListener(v1 -> {
+                int id = v1.getId();
+                if (id == R.id.selectWorkout) {
+                    JSONObject workoutObject;
+                    int wID = box.getId();
+                    String out = DBHelper.getAllWorkouts("WHERE w.WorkoutID = '" + wID + "'");
+                    JSONArray jsonArray;
+                    try {
+                        jsonArray = new JSONArray(out);
+                        workoutObject = jsonArray.getJSONObject(0);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    Session.selectedWorkout = workoutObject;
+                    System.out.println("Current workout: " + Session.selectedWorkout.toString());
+                    startActivity(new Intent(searchWorkout.this, Home.class));
+                }
+            });
+
             // Creates a layout containing the exercise boxes.
             exerciseLayout = new LinearLayout(this);
             exerciseLayout.setOrientation(LinearLayout.VERTICAL);
 
-            JSONArray jsonArray = null;
+            JSONArray jsonArray;
             try {
                 jsonArray = new JSONArray(exerciseList);
             } catch (JSONException e) {
@@ -120,7 +145,7 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
 
             // For every exercise, we create a box containing the details.
             for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject workoutObject = null;
+                JSONObject workoutObject;
 
                 try {
                     workoutObject = jsonArray.getJSONObject(i);
@@ -216,7 +241,6 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
 
             updateWorkouts(newFilter);
         }
-
     }
 
     public void showEmpty() {
