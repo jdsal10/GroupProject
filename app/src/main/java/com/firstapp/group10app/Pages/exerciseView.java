@@ -1,4 +1,4 @@
-package com.firstapp.group10app;
+package com.firstapp.group10app.Pages;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.firstapp.group10app.Pages.Home;
+import com.firstapp.group10app.R;
 
 public class exerciseView extends AppCompatActivity implements View.OnClickListener {
 

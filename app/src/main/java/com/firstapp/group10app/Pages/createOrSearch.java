@@ -1,4 +1,4 @@
-package com.firstapp.group10app;
+package com.firstapp.group10app.Pages;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,9 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.firstapp.group10app.Pages.Home;
-import com.firstapp.group10app.Pages.Settings;
-import com.firstapp.group10app.Pages.searchWorkout;
+import com.firstapp.group10app.R;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class createOrSearch extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener  {

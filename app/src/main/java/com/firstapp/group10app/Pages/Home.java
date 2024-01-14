@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
-import com.firstapp.group10app.createOrSearch;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 

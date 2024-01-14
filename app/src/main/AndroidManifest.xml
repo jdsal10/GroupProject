@@ -17,13 +17,13 @@
         android:theme="@style/Theme.Group10App"
         tools:targetApi="31">
         <activity
-            android:name=".exerciseView"
+            android:name=".Pages.exerciseView"
             android:exported="false" />
         <activity
             android:name=".Pages.searchWorkout"
             android:exported="false" />
         <activity
-            android:name=".createOrSearch"
+            android:name=".Pages.createOrSearch"
             android:exported="false" />
         <activity
             android:name=".Pages.Settings"
