@@ -16,12 +16,20 @@
         android:id="@+id/exerciseMainView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/selectWorkout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Workout" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/selectWorkout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Workout" />
+        <Button
+            android:id="@+id/closeExercise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Close" />
+        </LinearLayout>
 
 
 </LinearLayout>
