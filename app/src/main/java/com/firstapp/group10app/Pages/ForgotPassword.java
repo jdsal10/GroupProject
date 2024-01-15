@@ -38,17 +38,17 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        emailToSend = findViewById(R.id.emailtosend);
+        emailToSend = findViewById(R.id.emailToSend);
         emailToSend.setOnClickListener(this);
 
-        Button sendEmail = findViewById(R.id.passwordchange);
+        Button sendEmail = findViewById(R.id.passwordChange);
         sendEmail.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.passwordchange) {
+        if (id == R.id.passwordChange) {
             emailText = emailToSend.getText().toString();
             String pat = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
             Pattern pattern = Pattern.compile(pat);

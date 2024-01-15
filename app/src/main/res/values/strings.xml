@@ -7,10 +7,17 @@
     <string name="welcomeAnonymous">Anonymous Browsing</string>
     <string name="welcomeBackgroundImage">Background Image</string>
     <string name="welcomeLogoBackground">Logo Background</string>
+    <string name="loginButton">Login</string>
+    <string name="sitemap">Sitemap</string>
 
     <!-- Login Page Values -->
     <string name="forgotPassword">Forgot your password?</string>
     <string name="register">Need an account? Register</string>
+    <string name="loginTitle">Login</string>
+    <string name="loginUsername">Username</string>
+    <string name="loginPassword">Password</string>
+    <string name="loginConfirmButton">Login</string>
+
 
     <!-- Registration Page Values -->
     <string name="registrationTitle">Registration</string>
@@ -71,7 +78,7 @@
     <string name="heightTitle">Height</string>
     <string name="allergiesTitle">Allergies</string>
     <string name="reasonsTitle">Reasons</string>
-
+    <string name="heightHint">eg. 178</string>
     <string name="updateValue">Update</string>
     <string name="clearValue">Clear</string>
 
@@ -82,26 +89,26 @@
 
     <!--    Settings - Data Control-->
     <string-array name="weightUnits">
-        <item></item>
+        <item />
         <item>kg</item>
         <item>lbs</item>
     </string-array>
 
     <string-array name="heightUnits">
-        <item></item>
+        <item />
         <item>cm</item>
         <item>inch</item>
     </string-array>
 
     <string-array name="sex">
-        <item></item>
+        <item />
         <item>M</item>
         <item>F</item>
         <item>O</item>
     </string-array>
 
     <string-array name="reasons">
-        <item></item>
+        <item />
         <item>I want to lose weight</item>
         <item>I want to gain weight</item>
         <item>I want to maintain my weight</item>
@@ -122,6 +129,7 @@
     <string name="changePasswordNew">Please enter your new password:</string>
     <string name="newPasswordInput">New Password</string>
     <string name="newPasswordInputAgain"> Please enter your new password again:</string>
+    <string name="confirmNewPassword">Confirm Password</string>
     <string name="changeConform">Confirm</string>
 
     <!--    Settings - Account Control - Delete Account-->
@@ -130,10 +138,59 @@
     <string name="deleteAccountInput">Password</string>
     <string name="deleteAccountConfirm">Confirm</string>
 
-<!--    createOrSearch-->
+    <!--    createOrSearch-->
     <string name="searchTitle">Search</string>
     <string name="searchButtonDescription">For new users who want to grab and go with a workout.</string>
 
     <string name="createTitle">Create</string>
     <string name="createButtonDescription">For experienced users who want to tailor their workout.</string>
+
+    <!--    Search Workouts-->
+    <string name="searchDifficulty">Difficulty</string>
+    <string name="searchDifficultyHint">Integer</string>
+    <string name="searchDuration">Duration</string>
+    <string name="searchDurationHint">Integer</string>
+    <string name="searchTarget">Target Muscle Group</string>
+    <string name="searchTargetHint">Text</string>
+    <string name="searchFilter">Filter</string>
+
+    <!--    Search Popup -->
+    <string name="exercisePopupTitle">Exercises:</string>
+    <string name="selectWorkout">Select Workout</string>
+    <string name="closePopup">Close</string>
+
+    <!--    Exercise View-->
+    <string name="exerciseName">Name</string>
+    <string name="exerciseDescription">Description</string>
+    <string name="exerciseIllustration">Illustration</string>
+    <string name="exerciseTargetMuscle">Target Muscle Group</string>
+    <string name="exerciseEquipment">Equipment</string>
+    <string name="exerciseDifficulty">Difficulty</string>
+
+    <!--    Workout View-->
+    <string name="workoutName">Name</string>
+    <string name="workoutDuration">Duration</string>
+    <string name="workoutTarget">Target Muscle Group</string>
+    <string name="workoutEquipment">Equipment</string>
+    <string name="workoutDifficulty">Difficulty</string>
+
+    <!--    Password Reset-->
+    <string name="resetTitle">Reset your password</string>
+    <string name="resetDescription">Enter the email address associated
+with your account and we will send you an email with further instructions.</string>
+    <string name="hintEmail">Email</string>
+    <string name="sendEmail">Send Email</string>
+
+    <!--    Password Reset Continued-->
+    <string name="resetContinueTitle">Enter your new password:</string>
+    <string name="resetContinueInput1">New Password</string>
+    <string name="resetContinueInput2">Confirm Password</string>
+    <string name="resetContinueConfirm">Change Password</string>
+
+    <!--    Password Reset Confirm-->
+    <string name="resetConfirmTitle">Enter the Code</string>
+    <string name="resetConfirmDescription">Please enter the code that was sent you. If you have not received the code, click "Try Again"</string>
+    <string name="resetConfirmCodeHint">Code</string>
+    <string name="resetConfirmTryAgain">Try Again</string>
+    <string name="resetConfirmConfirm">Confirm</string>
 </resources>

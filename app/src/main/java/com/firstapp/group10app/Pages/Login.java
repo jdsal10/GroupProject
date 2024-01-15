@@ -16,7 +16,6 @@ import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
@@ -32,7 +31,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         Email = findViewById(R.id.username);
         Password = findViewById(R.id.password);
 
-        Button LoginBtn = findViewById(R.id.logginbtn);
+        Button LoginBtn = findViewById(R.id.loginButton);
         LoginBtn.setOnClickListener(this);
 
         TextView register = findViewById(R.id.register);
@@ -46,7 +45,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.logginbtn) {
+        if (id == R.id.loginButton) {
             EmailText = Email.getText().toString();
             PasswordText = Password.getText().toString();
             System.out.println("TESTING TEXT : " + EmailText + "TESTING PASSWORD: " + PasswordText);

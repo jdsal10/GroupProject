@@ -80,14 +80,15 @@
     </LinearLayout>
 
     <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/settingsBody"
+        android:name="com.firstapp.group10app.Fragments.settings_data_control"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:name="com.firstapp.group10app.Fragments.settings_data_control"
+        android:layout_weight="6"
         android:background="@drawable/border"
-        android:id="@+id/settingsBody">
+        tools:layout="@layout/fragment_settings_data_control">
 
     </androidx.fragment.app.FragmentContainerView>
 
@@ -95,11 +96,10 @@
         android:id="@+id/settingsNavigation"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        app:itemBackground="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/home_navigation"
-        app:itemBackground="@color/white"
-        />
+        app:menu="@menu/home_navigation" />
 </LinearLayout>

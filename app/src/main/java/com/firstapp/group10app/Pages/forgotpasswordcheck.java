@@ -25,13 +25,13 @@ public class forgotpasswordcheck extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgotpasswordcheck);
 
-        code = findViewById(R.id.codeenter);
+        code = findViewById(R.id.codeEnter);
         code.setOnClickListener(this);
 
-        Button tryagain = findViewById(R.id.tryagain);
+        Button tryagain = findViewById(R.id.tryAgain);
         tryagain.setOnClickListener(this);
 
-        codeConfirm = findViewById(R.id.codeconfirm);
+        codeConfirm = findViewById(R.id.codeConfirm);
         codeConfirm.setOnClickListener(this);
 
         Bundle data = getIntent().getExtras();
@@ -44,10 +44,10 @@ public class forgotpasswordcheck extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.tryagain) {
+        if (id == R.id.tryAgain) {
             f.toSend(email, f.generateString());
             code.setText("Code has been resent");
-        } else if (id == R.id.codeconfirm) {
+        } else if (id == R.id.codeConfirm) {
             try {
                 if (checkCode(code.getText().toString())) {
                     Intent in = new Intent(forgotpasswordcheck.this, ForgotPasswordContinued.class);

@@ -39,7 +39,7 @@
             android:paddingLeft="-50dp"
             android:paddingTop="-110dp"
             android:paddingRight="-50dp"
-            android:src="@drawable/groupimg" />
+            android:src="@drawable/app_logo" />
     </FrameLayout>
 
     <LinearLayout
@@ -54,10 +54,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
-            android:text="Login"
+            android:text="@string/loginTitle"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <EditText
@@ -66,9 +66,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
+            android:autofillHints="emailAddress"
             android:ems="10"
-            android:hint="Username"
-            android:inputType="textPersonName"
+            android:hint="@string/loginUsername"
+            android:inputType="textEmailAddress"
             android:textSize="24sp" />
 
         <EditText
@@ -77,8 +78,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
+            android:autofillHints="password"
             android:ems="10"
-            android:hint="Password"
+            android:hint="@string/loginPassword"
             android:inputType="textPassword"
             android:textSize="24sp" />
 
@@ -89,21 +91,20 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:ems="10"
-            android:inputType="textPersonName"
             android:text="@string/forgotPassword"
             android:textAlignment="center"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <Button
-            android:id="@+id/logginbtn"
+            android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
             android:background="@drawable/background"
+            android:text="@string/loginButton"
             android:textColor="@color/white"
-            android:text="LOGIN"
-            android:textSize="25dp" />
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/register"
@@ -111,113 +112,5 @@
             android:layout_height="wrap_content"
             android:text="@string/register" />
 
-
     </LinearLayout>
-    <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--    xmlns:tools="http://schemas.android.com/tools"-->
-    <!--    android:layout_width="match_parent"-->
-    <!--    android:layout_height="match_parent"-->
-    <!--    android:layout_marginStart="16dp"-->
-    <!--    android:layout_marginTop="8dp"-->
-    <!--    android:layout_marginEnd="16dp"-->
-    <!--    android:layout_marginBottom="8dp"-->
-    <!--    android:orientation="vertical"-->
-    <!--    tools:context=".Pages.Login">-->
-
-    <!--    <FrameLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:layout_weight="3"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        tools:ignore="MissingConstraints">-->
-
-    <!--        <ImageView-->
-    <!--            android:layout_width="200dp"-->
-    <!--            android:layout_height="200dp"-->
-    <!--            android:layout_gravity="center"-->
-    <!--            android:contentDescription="@string/welcomeLogoBackground"-->
-    <!--            android:src="@drawable/logo_background" />-->
-
-    <!--        <ImageView-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="match_parent"-->
-    <!--            android:contentDescription="@string/welcomeBackgroundImage"-->
-    <!--            android:foregroundGravity="top"-->
-    <!--            android:paddingLeft="-50dp"-->
-    <!--            android:paddingTop="-110dp"-->
-    <!--            android:paddingRight="-50dp"-->
-    <!--            android:src="@drawable/ic_launcher_foreground" />-->
-    <!--    </FrameLayout>-->
-    <!--    -->
-    <!--    <TextView-->
-    <!--        android:id="@+id/header"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="216dp"-->
-    <!--        android:ems="10"-->
-    <!--        android:inputType="textPersonName"-->
-    <!--        android:text="Login"-->
-    <!--        android:textAlignment="center"-->
-    <!--        android:textSize="24sp"-->
-    <!--        android:textStyle="bold"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.495"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--    <EditText-->
-    <!--        android:id="@+id/username"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="328dp"-->
-    <!--        android:ems="10"-->
-    <!--        android:hint="Username"-->
-    <!--        android:inputType="textPersonName"-->
-    <!--        android:textSize="24sp"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.495"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--    <EditText-->
-    <!--        android:id="@+id/password"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="50dp"-->
-    <!--        android:ems="10"-->
-    <!--        android:hint="Password"-->
-    <!--        android:inputType="textPassword"-->
-    <!--        android:textSize="24sp"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/username" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/logginbtn"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="68dp"-->
-    <!--        android:text="Login"-->
-    <!--        android:textColor="@color/white"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.498"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/password" />-->
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/forgotPassword"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="612dp"-->
-    <!--        android:ems="10"-->
-    <!--        android:inputType="textPersonName"-->
-    <!--        android:text="Forgot password?"-->
-    <!--        android:textAlignment="center"-->
-    <!--        android:textSize="13sp"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.495"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-
 </LinearLayout>

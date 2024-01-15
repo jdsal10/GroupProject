@@ -22,13 +22,13 @@ public class ForgotPasswordContinued extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password_continued);
 
-        password1 = findViewById(R.id.newpassword1);
+        password1 = findViewById(R.id.newPasswordLoggedIn1);
         password1.setOnClickListener(this);
 
-        password2 = findViewById(R.id.newpassword2);
+        password2 = findViewById(R.id.newPasswordLoggedIn2);
         password2.setOnClickListener(this);
 
-        passwordchangeconfirm = findViewById(R.id.passwordchange);
+        passwordchangeconfirm = findViewById(R.id.passwordChange);
         passwordchangeconfirm.setOnClickListener(this);
 
         Bundle data = getIntent().getExtras();
@@ -40,7 +40,7 @@ public class ForgotPasswordContinued extends AppCompatActivity implements View.O
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.passwordchange) {
+        if (id == R.id.passwordChange) {
             if ((password1 != null) && (!password2.getText().toString().equals(password1.getText().toString()))) {
                 passwordchangeconfirm.setError("The passwords do not match");
             } else {

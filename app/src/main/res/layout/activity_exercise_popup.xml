@@ -3,33 +3,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Pages.exerciseView"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".Pages.exerciseView">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Exercises:"
-        android:gravity="center" />
+        android:gravity="center"
+        android:text="@string/exercisePopupTitle" />
 
     <ScrollView
         android:id="@+id/exerciseMainView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal">
+
         <Button
             android:id="@+id/selectWorkout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Workout" />
+            android:layout_marginStart="25dp"
+            android:text="@string/selectWorkout"
+            tools:ignore="ButtonStyle" />
+
         <Button
             android:id="@+id/closeExercise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Close" />
-        </LinearLayout>
+            android:layout_marginEnd="25dp"
+            android:text="@string/closePopup"
+            tools:ignore="ButtonStyle" />
+    </LinearLayout>
 
 
 </LinearLayout>
