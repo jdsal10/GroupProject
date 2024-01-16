@@ -55,6 +55,9 @@ public class ItemVisualiser  {
         // For now, clicking on a workout shows the exercises - may make easier later.
         box.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+            // NEED TO CHANGE TO USER DEFINED VIEW
+
             View newDialogView = inflate.inflate(R.layout.activity_exercise_popup, null);
             builder.setView(newDialogView);
             AlertDialog alertDialog = builder.create();
