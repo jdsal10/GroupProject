@@ -1,6 +1,8 @@
 package com.firstapp.group10app.Pages;
 
 
+import static com.firstapp.group10app.Other.ItemVisualiser.addSearchButtons;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.Other.ItemVisualiser;
@@ -8,8 +10,10 @@ import com.firstapp.group10app.Other.ItemVisualiser;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -25,7 +29,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.SQLException;
-import java.util.Map;
 
 public class searchWorkout extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
     private LinearLayout workoutLayout;
@@ -58,50 +61,17 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
             String input = DBHelper.getAllWorkouts(null);
 
             if (input == null) {
-                ItemVisualiser.showEmpty(scrollView);
+                ItemVisualiser.showEmpty(scrollView, this);
             } else {
                 JSONArray jsonArray = new JSONArray(input);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject workoutObject = jsonArray.getJSONObject(i);
-                    Map<Integer, View> out = ItemVisualiser.addDetails(workoutObject, this, workoutLayout);
-                    Integer in = null;
-                    View v = null;
-
-                    for (Map.Entry<Integer, View> e : out.entrySet()) {
-                        in = e.getKey();
-                        v = e.getValue();
-                    }
-                    addButtonFunction(v, in);
+                    ItemVisualiser.addDetails(workoutObject, this, workoutLayout, "search");
                 }
             }
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void addButtonFunction(View v, int wID) {
-        Button close = v.findViewById(R.id.closeExercise);
-        close.setOnClickListener(this);
-
-        Button selectWorkout = v.findViewById(R.id.selectWorkout);
-        selectWorkout.setOnClickListener(v1 -> {
-            int id = v1.getId();
-            if (id == R.id.selectWorkout) {
-                JSONObject workoutObject;
-                String out = DBHelper.getAllWorkouts("WHERE w.WorkoutID = '" + wID + "'");
-                JSONArray jsonArray;
-                try {
-                    jsonArray = new JSONArray(out);
-                    workoutObject = jsonArray.getJSONObject(0);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-
-                Session.selectedWorkout = workoutObject;
-                System.out.println("Current workout: " + Session.selectedWorkout.toString());
-                startActivity(new Intent(searchWorkout.this, Home.class));
-            }
-        });
     }
 
     @Override
@@ -125,13 +95,20 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
         int id = v.getId();
         if (id == R.id.filterWorkouts) {
             try {
-                // To avoid duplicate parents, the workoutLayout is initialised here again,
-                scrollView.removeAllViews();
-                workoutLayout = new LinearLayout(this);
-                workoutLayout.setOrientation(LinearLayout.VERTICAL);
-                scrollView.addView(workoutLayout);
+                workoutLayout.removeAllViews();
                 ItemVisualiser.runFilter(durationText.getText().toString(), difficultyText.getText().toString(),
-                        targetMuscleText.getText().toString(), this, workoutLayout);
+                        targetMuscleText.getText().toString(), this, workoutLayout, scrollView, "search");
+                LinearLayout containerView = new LinearLayout(this);
+                containerView.setOrientation(LinearLayout.VERTICAL);
+                if (workoutLayout.getParent() != null) {
+                    ((ViewGroup) workoutLayout.getParent()).removeView(workoutLayout);
+                }
+
+                containerView.addView(workoutLayout);
+
+                // Add the container view to scrollView
+                scrollView.removeAllViews();
+                scrollView.addView(containerView);
             } catch (SQLException | JSONException e) {
                 throw new RuntimeException(e);
             }

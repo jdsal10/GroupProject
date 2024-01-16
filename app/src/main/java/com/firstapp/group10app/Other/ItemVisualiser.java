@@ -1,16 +1,17 @@
 package com.firstapp.group10app.Other;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.firstapp.group10app.DB.DBHelper;
+import com.firstapp.group10app.Pages.MainActivity;
 import com.firstapp.group10app.R;
 
 import org.json.JSONArray;
@@ -19,18 +20,15 @@ import org.json.JSONObject;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-public class ItemVisualiser {
+public class ItemVisualiser  {
     static ScrollView parentView;
     static View dialogView;
 
     static LinearLayout box;
 
-    public static Map<Integer, View> addDetails(JSONObject details, Context context, LinearLayout layout) {
-        LayoutInflater inflate = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-        Map<Integer, View> output = new HashMap<>();
+    public static void addDetails(JSONObject details, Context context, LinearLayout layout, String buttonType) {
+        LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         box = (LinearLayout) inflate.inflate(R.layout.activity_workout_view, null);
         TextView nameView = box.findViewById(R.id.workoutNameView);
         TextView durationView = box.findViewById(R.id.workoutDurationView);
@@ -53,16 +51,23 @@ public class ItemVisualiser {
         // Adds to a linear layout.
         layout.addView(box);
         dialogView = inflate.inflate(R.layout.activity_exercise_popup, null);
+
         // For now, clicking on a workout shows the exercises - may make easier later.
         box.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setView(dialogView);
+            View newDialogView = inflate.inflate(R.layout.activity_exercise_popup, null);
+            builder.setView(newDialogView);
             AlertDialog alertDialog = builder.create();
-            ScrollView exerciseMainView = dialogView.findViewById(R.id.exerciseMainView);
+            ScrollView exerciseMainView = newDialogView.findViewById(R.id.exerciseMainView);
+            exerciseMainView.removeAllViews();
+
+            if(buttonType.equals("search")) {
+                addSearchButtons(newDialogView, context);
+            }
 
             LinearLayout exerciseLayout = new LinearLayout(context);
             exerciseLayout.setOrientation(LinearLayout.VERTICAL);
-            
+
             // Creates a layout containing the exercise boxes.
             JSONArray jsonArray;
             try {
@@ -80,7 +85,9 @@ public class ItemVisualiser {
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
+
                 LinearLayout exerciseBox = (LinearLayout) inflate.inflate(R.layout.activity_exercise_view, null);
+                exerciseMainView.removeView(exerciseBox);
 
                 TextView exerciseNameView = exerciseBox.findViewById(R.id.exerciseNameView);
                 TextView exerciseDescriptionView = exerciseBox.findViewById(R.id.exerciseDescriptionView);
@@ -98,35 +105,51 @@ public class ItemVisualiser {
 
                 exerciseLayout.addView(exerciseBox);
             }
+
             // Adds the Linear layout containing all boxes to the scroll view.
             exerciseMainView.addView(exerciseLayout);
-
             alertDialog.show();
         });
-
-        output.put(details.optInt("WorkoutID"), dialogView);
-    return output;
     }
 
+    public static void addSearchButtons(View v, Context c) {
+        Button b = v.findViewById(R.id.selectWorkout);
+        b.setOnClickListener(v1 -> {
+            JSONObject workoutObject;
+            String out = DBHelper.getAllWorkouts("WHERE w.WorkoutID = '" + box.getId() + "'");
+            JSONArray jsonArray;
+            try {
+                jsonArray = new JSONArray(out);
+                workoutObject = jsonArray.getJSONObject(0);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
 
-    public static void updateWorkouts(String filter, Context context, LinearLayout layout, ScrollView view) throws JSONException {
+            Session.selectedWorkout = workoutObject;
+            System.out.println("Current workout: " + Session.selectedWorkout.toString());
+            c.startActivity(new Intent(c, MainActivity.class));            });
+    }
+
+    public static void updateWorkouts(String filter, Context context, LinearLayout layout, ScrollView view, String buttonType) throws JSONException {
         String input = DBHelper.getAllWorkouts(filter);
         parentView = view;
 
         if (input == null) {
-            showEmpty(parentView);
+            showEmpty(parentView, context);
         } else {
             JSONArray jsonArray = new JSONArray(input);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject workoutObject = jsonArray.getJSONObject(i);
-                addDetails(workoutObject, context, layout);
+                addDetails(workoutObject, context, layout, buttonType );
             }
         }
     }
 
-    public static void runFilter(String duration, String difficulty, String targetMuscle, Context context, LinearLayout layout) throws SQLException, JSONException {
+    public static void runFilter(String duration, String difficulty, String targetMuscle, Context context, LinearLayout layout, ScrollView sv, String buttonType) throws SQLException, JSONException {
         ArrayList<String> toFilter = new ArrayList<>();
-
+        parentView = sv;
+        layout.removeAllViews();
+        parentView.removeAllViews();
         StringBuilder filter = new StringBuilder();
         filter.append("WHERE");
         if ((!(duration.length() == 0))) {
@@ -142,7 +165,7 @@ public class ItemVisualiser {
         }
 
         if (toFilter.size() == 0) {
-            updateWorkouts(null, context, layout, parentView);
+            updateWorkouts(null, context, layout, parentView, buttonType);
         } else {
             for (int i = 0; i < toFilter.size() - 1; i++) {
                 filter.append(toFilter.get(i)).append(" AND");
@@ -151,14 +174,20 @@ public class ItemVisualiser {
 
             String newFilter = filter.toString();
 
-            updateWorkouts(newFilter, context, layout, parentView);
+            updateWorkouts(newFilter, context, layout, parentView, buttonType);
         }
     }
 
-    public static void showEmpty(ScrollView view) {
-        LinearLayout emptyLayout = new LinearLayout(parentView.getContext());
+    public static void showEmpty(ScrollView view, Context context) {
+
+        LinearLayout emptyLayout = new LinearLayout(context);
         emptyLayout.setOrientation(LinearLayout.VERTICAL);
+        if (view != null) {
+            view.removeAllViews();
+            view.addView(emptyLayout);
+        }
         TextView empty = new TextView(emptyLayout.getContext());
+
         empty.setText("No workouts were found");
 
         emptyLayout.addView(empty);
@@ -166,8 +195,8 @@ public class ItemVisualiser {
         view.removeAllViews();
 
         view.addView(emptyLayout);
+
+
     }
+
 }
-
-
-
