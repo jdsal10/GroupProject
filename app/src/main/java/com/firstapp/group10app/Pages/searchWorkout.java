@@ -66,7 +66,7 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
                 JSONArray jsonArray = new JSONArray(input);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject workoutObject = jsonArray.getJSONObject(i);
-                    ItemVisualiser.addDetails(workoutObject, this, workoutLayout, "search");
+                    ItemVisualiser.addDetails(workoutObject, this, workoutLayout, "search", R.layout.activity_exercise_popup);
                 }
             }
         } catch (JSONException e) {
@@ -97,7 +97,7 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
             try {
                 workoutLayout.removeAllViews();
                 ItemVisualiser.runFilter(durationText.getText().toString(), difficultyText.getText().toString(),
-                        targetMuscleText.getText().toString(), this, workoutLayout, scrollView, "search");
+                        targetMuscleText.getText().toString(), this, workoutLayout, scrollView, "search", R.layout.activity_exercise_popup);
                 LinearLayout containerView = new LinearLayout(this);
                 containerView.setOrientation(LinearLayout.VERTICAL);
                 if (workoutLayout.getParent() != null) {

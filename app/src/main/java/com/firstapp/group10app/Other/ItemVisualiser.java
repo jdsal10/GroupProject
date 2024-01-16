@@ -27,7 +27,7 @@ public class ItemVisualiser  {
 
     static LinearLayout box;
 
-    public static void addDetails(JSONObject details, Context context, LinearLayout layout, String buttonType) {
+    public static void addDetails(JSONObject details, Context context, LinearLayout layout, String buttonType, int test) {
         LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         box = (LinearLayout) inflate.inflate(R.layout.activity_workout_view, null);
         TextView nameView = box.findViewById(R.id.workoutNameView);
@@ -50,7 +50,7 @@ public class ItemVisualiser  {
 
         // Adds to a linear layout.
         layout.addView(box);
-        dialogView = inflate.inflate(R.layout.activity_exercise_popup, null);
+        dialogView = inflate.inflate(test, null);
 
         // For now, clicking on a workout shows the exercises - may make easier later.
         box.setOnClickListener(v -> {
@@ -58,7 +58,7 @@ public class ItemVisualiser  {
 
             // NEED TO CHANGE TO USER DEFINED VIEW
 
-            View newDialogView = inflate.inflate(R.layout.activity_exercise_popup, null);
+            View newDialogView = inflate.inflate(test, null);
             builder.setView(newDialogView);
             AlertDialog alertDialog = builder.create();
             ScrollView exerciseMainView = newDialogView.findViewById(R.id.exerciseMainView);
@@ -133,7 +133,7 @@ public class ItemVisualiser  {
             c.startActivity(new Intent(c, MainActivity.class));            });
     }
 
-    public static void updateWorkouts(String filter, Context context, LinearLayout layout, ScrollView view, String buttonType) throws JSONException {
+    public static void updateWorkouts(String filter, Context context, LinearLayout layout, ScrollView view, String buttonType, int test) throws JSONException {
         String input = DBHelper.getAllWorkouts(filter);
         parentView = view;
 
@@ -143,12 +143,12 @@ public class ItemVisualiser  {
             JSONArray jsonArray = new JSONArray(input);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject workoutObject = jsonArray.getJSONObject(i);
-                addDetails(workoutObject, context, layout, buttonType );
+                addDetails(workoutObject, context, layout, buttonType, test);
             }
         }
     }
 
-    public static void runFilter(String duration, String difficulty, String targetMuscle, Context context, LinearLayout layout, ScrollView sv, String buttonType) throws SQLException, JSONException {
+    public static void runFilter(String duration, String difficulty, String targetMuscle, Context context, LinearLayout layout, ScrollView sv, String buttonType, int test) throws SQLException, JSONException {
         ArrayList<String> toFilter = new ArrayList<>();
         parentView = sv;
         layout.removeAllViews();
@@ -168,7 +168,7 @@ public class ItemVisualiser  {
         }
 
         if (toFilter.size() == 0) {
-            updateWorkouts(null, context, layout, parentView, buttonType);
+            updateWorkouts(null, context, layout, parentView, buttonType, test);
         } else {
             for (int i = 0; i < toFilter.size() - 1; i++) {
                 filter.append(toFilter.get(i)).append(" AND");
@@ -177,7 +177,7 @@ public class ItemVisualiser  {
 
             String newFilter = filter.toString();
 
-            updateWorkouts(newFilter, context, layout, parentView, buttonType);
+            updateWorkouts(newFilter, context, layout, parentView, buttonType, test);
         }
     }
 
