@@ -60,6 +60,10 @@ public class forgotpasswordcheck extends AppCompatActivity implements View.OnCli
                 throw new RuntimeException(e);
             }
         }
+        else if (id == R.id.backToLogin) {
+            startActivity(new Intent(getApplicationContext(), Login.class));
+
+        }
 
     }
 

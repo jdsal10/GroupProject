@@ -48,6 +48,9 @@ public class ForgotPasswordContinued extends AppCompatActivity implements View.O
                 Intent t = new Intent(ForgotPasswordContinued.this, Login.class);
                 startActivity(t);
             }
+        } else if (id == R.id.backToLogin) {
+            startActivity(new Intent(getApplicationContext(), Login.class));
+
         }
     }
 }

@@ -75,6 +75,9 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
+        } else if (id == R.id.backToLogin) {
+            startActivity(new Intent(getApplicationContext(), Login.class));
+
         }
     }
 
