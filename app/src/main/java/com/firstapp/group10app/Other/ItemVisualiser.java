@@ -63,7 +63,7 @@ public class ItemVisualiser {
             exerciseMainView.removeAllViews();
 
             if (buttonType.equals("search")) {
-                addSearchButtons(newDialogView, context);
+                addSearchButtons(newDialogView, context, alertDialog);
             }
 
             LinearLayout exerciseLayout = new LinearLayout(context);
@@ -113,7 +113,7 @@ public class ItemVisualiser {
         });
     }
 
-    public static void addSearchButtons(View v, Context c) {
+    public static void addSearchButtons(View v, Context c, AlertDialog a) {
         Button b = v.findViewById(R.id.selectWorkout);
         b.setOnClickListener(v1 -> {
             JSONObject workoutObject;
@@ -130,7 +130,10 @@ public class ItemVisualiser {
             System.out.println("Current workout: " + Session.selectedWorkout.toString());
             c.startActivity(new Intent(c, MainActivity.class));
         });
-    }
+
+        Button closeWorkout = v.findViewById(R.id.closeExercise);
+        closeWorkout.setOnClickListener(v12 -> a.dismiss());
+        }
 
     public static void updateWorkouts(String filter, Context context, LinearLayout layout, ScrollView view, String buttonType, int test) throws JSONException {
         String input = DBHelper.getAllWorkouts(filter);
@@ -181,7 +184,6 @@ public class ItemVisualiser {
     }
 
     public static void showEmpty(ScrollView view, Context context) {
-
         LinearLayout emptyLayout = new LinearLayout(context);
         emptyLayout.setOrientation(LinearLayout.VERTICAL);
         if (view != null) {
