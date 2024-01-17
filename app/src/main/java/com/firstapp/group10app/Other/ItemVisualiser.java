@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ItemVisualiser  {
+public class ItemVisualiser {
     static ScrollView parentView;
     static View dialogView;
 
@@ -56,15 +56,13 @@ public class ItemVisualiser  {
         box.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-            // NEED TO CHANGE TO USER DEFINED VIEW
-
             View newDialogView = inflate.inflate(test, null);
             builder.setView(newDialogView);
             AlertDialog alertDialog = builder.create();
             ScrollView exerciseMainView = newDialogView.findViewById(R.id.exerciseMainView);
             exerciseMainView.removeAllViews();
 
-            if(buttonType.equals("search")) {
+            if (buttonType.equals("search")) {
                 addSearchButtons(newDialogView, context);
             }
 
@@ -130,7 +128,8 @@ public class ItemVisualiser  {
 
             Session.selectedWorkout = workoutObject;
             System.out.println("Current workout: " + Session.selectedWorkout.toString());
-            c.startActivity(new Intent(c, MainActivity.class));            });
+            c.startActivity(new Intent(c, MainActivity.class));
+        });
     }
 
     public static void updateWorkouts(String filter, Context context, LinearLayout layout, ScrollView view, String buttonType, int test) throws JSONException {
