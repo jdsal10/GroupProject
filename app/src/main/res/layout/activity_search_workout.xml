@@ -102,7 +102,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/mainNavigation"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:itemBackground="@color/white"
         app:menu="@menu/home_navigation" />
