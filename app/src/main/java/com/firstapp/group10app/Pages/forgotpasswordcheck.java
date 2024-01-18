@@ -16,7 +16,6 @@ import java.sql.SQLException;
 
 public class forgotpasswordcheck extends AppCompatActivity implements View.OnClickListener {
     private EditText code;
-    private Button codeConfirm;
     private String email;
     ForgotPassword f = new ForgotPassword();
 
@@ -28,10 +27,10 @@ public class forgotpasswordcheck extends AppCompatActivity implements View.OnCli
         code = findViewById(R.id.codeEnter);
         code.setOnClickListener(this);
 
-        Button tryagain = findViewById(R.id.tryAgain);
-        tryagain.setOnClickListener(this);
+        Button tryAgain = findViewById(R.id.tryAgain);
+        tryAgain.setOnClickListener(this);
 
-        codeConfirm = findViewById(R.id.codeConfirm);
+        Button codeConfirm = findViewById(R.id.codeConfirm);
         codeConfirm.setOnClickListener(this);
 
         Bundle data = getIntent().getExtras();
@@ -76,18 +75,4 @@ public class forgotpasswordcheck extends AppCompatActivity implements View.OnCli
             return false;
         }
     }
-
-//    public String getCode(String email) {
-//        String verifyCode = "";
-//        try {
-//            ResultSet set = d.executeQuery("SELECT VerifyCode FROM HealthData.Users WHERE `Email` = '" + email + "';");
-//            if (set.next()) {
-//                verifyCode = set.getString("VerifyCode");
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return verifyCode;
-//    }
-
 }

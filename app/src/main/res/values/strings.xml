@@ -181,6 +181,8 @@ with your account and we will send you an email with further instructions.</stri
     <string name="hintEmail">Email</string>
     <string name="sendEmail">Send Email</string>
 
+<!--    Password Reset Check-->
+    <string name="codeResent">Code has been resent</string>
     <!--    Password Reset Continued-->
     <string name="resetContinueTitle">Enter your new password:</string>
     <string name="resetContinueInput1">New Password</string>

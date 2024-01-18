@@ -35,7 +35,7 @@ public class createOrSearch extends AppCompatActivity implements NavigationBarVi
             startActivity(new Intent(createOrSearch.this, searchWorkout.class));
         } else if (id == R.id.goToCreate) {
             // Update with correct file when created!
-//            startActivity(new Intent(createOrSearch.this, searchWorkout.class));
+            startActivity(new Intent(createOrSearch.this, Home.class));
         }
     }
 

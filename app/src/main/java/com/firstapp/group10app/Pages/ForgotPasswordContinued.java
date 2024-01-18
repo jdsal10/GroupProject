@@ -44,6 +44,7 @@ public class ForgotPasswordContinued extends AppCompatActivity implements View.O
             if ((password1 != null) && (!password2.getText().toString().equals(password1.getText().toString()))) {
                 passwordchangeconfirm.setError("The passwords do not match");
             } else {
+                assert password1 != null;
                 DBConnection.executeStatement("UPDATE HealthData.Users SET Password = '" + password1.getText().toString() + "' WHERE Email = '" + email + "';");
                 Intent t = new Intent(ForgotPasswordContinued.this, Login.class);
                 startActivity(t);

@@ -29,10 +29,6 @@ import javax.mail.internet.MimeMessage;
 
 public class ForgotPassword extends AppCompatActivity implements View.OnClickListener {
     private EditText emailToSend;
-    private String emailText;
-    private String validate;
-    DBConnection d = new DBConnection();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,14 +45,14 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.passwordChange) {
-            emailText = emailToSend.getText().toString();
+            String emailText = emailToSend.getText().toString();
             String pat = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
             Pattern pattern = Pattern.compile(pat);
             Matcher matcher = pattern.matcher(emailText);
             try {
                 if ((!(emailText.equals(""))) && (matcher.matches()) && checkExists(emailText)) {
                     try {
-                        validate = generateString();
+                        String validate = generateString();
                         toSend(emailText, validate);
                         DBConnection.executeStatement("UPDATE HealthData.Users " +
                                 "SET VerifyCode = '" + validate + "' " +
