@@ -11,14 +11,12 @@ import com.firstapp.group10app.R;
 
 public class exerciseView extends AppCompatActivity implements View.OnClickListener {
 
-    private Button selectWorkout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_popup);
-        
-        selectWorkout = findViewById(R.id.selectWorkout);
+
+        Button selectWorkout = findViewById(R.id.selectWorkout);
         selectWorkout.setOnClickListener(this);
     }
 

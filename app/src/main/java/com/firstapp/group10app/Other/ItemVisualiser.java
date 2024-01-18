@@ -113,7 +113,7 @@ public class ItemVisualiser {
         });
     }
 
-    public static void addSearchButtons(View v, Context c, AlertDialog a) {
+    public static void addSearchButtons(View v, Context context, AlertDialog popup) {
         Button b = v.findViewById(R.id.selectWorkout);
         b.setOnClickListener(v1 -> {
             JSONObject workoutObject;
@@ -128,11 +128,11 @@ public class ItemVisualiser {
 
             Session.selectedWorkout = workoutObject;
             System.out.println("Current workout: " + Session.selectedWorkout.toString());
-            c.startActivity(new Intent(c, MainActivity.class));
+            context.startActivity(new Intent(context, MainActivity.class));
         });
 
         Button closeWorkout = v.findViewById(R.id.closeExercise);
-        closeWorkout.setOnClickListener(v12 -> a.dismiss());
+        closeWorkout.setOnClickListener(v12 -> popup.dismiss());
         }
 
     public static void updateWorkouts(String filter, Context context, LinearLayout layout, ScrollView view, String buttonType, int test) throws JSONException {
