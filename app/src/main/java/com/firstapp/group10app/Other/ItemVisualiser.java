@@ -140,7 +140,7 @@ public class ItemVisualiser {
         parentView = view;
 
         if (input == null) {
-            showEmpty(parentView, context);
+            showEmpty(layout);
         } else {
             JSONArray jsonArray = new JSONArray(input);
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -183,24 +183,14 @@ public class ItemVisualiser {
         }
     }
 
-    public static void showEmpty(ScrollView view, Context context) {
-        LinearLayout emptyLayout = new LinearLayout(context);
-        emptyLayout.setOrientation(LinearLayout.VERTICAL);
-        if (view != null) {
-            view.removeAllViews();
-            view.addView(emptyLayout);
-        }
-        TextView empty = new TextView(emptyLayout.getContext());
+    public static void showEmpty(LinearLayout layout) {
+        TextView empty = new TextView(layout.getContext());
+        empty.setGravity(1);
 
         empty.setText("No workouts were found");
 
-        emptyLayout.addView(empty);
-
-        view.removeAllViews();
-
-        view.addView(emptyLayout);
-
-
+        layout.removeAllViews();
+        layout.addView(empty);
     }
 
 }

@@ -61,7 +61,7 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
             String input = DBHelper.getAllWorkouts(null);
 
             if (input == null) {
-                ItemVisualiser.showEmpty(scrollView, this);
+                ItemVisualiser.showEmpty(workoutLayout);
             } else {
                 JSONArray jsonArray = new JSONArray(input);
                 for (int i = 0; i < jsonArray.length(); i++) {
