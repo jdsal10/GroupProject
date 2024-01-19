@@ -12,6 +12,8 @@ public class Session {
 
     public static JSONObject selectedWorkout;
 
+    public static Boolean signedIn;
+
     public Session(String userEmail) {
         Session.userEmail = userEmail;
     }
@@ -23,4 +25,6 @@ public class Session {
     public boolean getDBStatus() {return dbStatus;}
 
     public JSONObject getSelectedWorkout() {return selectedWorkout;}
+
+    public boolean isSignedIn() {return signedIn;}
 }

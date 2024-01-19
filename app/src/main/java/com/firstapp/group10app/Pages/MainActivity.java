@@ -31,6 +31,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // TEMP CODE TO CHECK CONNECTION
         Session.dbStatus = DBConnection.testConnection();
+        
+        // Default value.
+        Session.signedIn = false;
+
+        // If the connection false, disable the login.
+        if(!Session.dbStatus) {
+            goToLoginButton.setEnabled(false);
+            goToLoginButton.setAlpha(.5f);
+        }
     }
 
     @Override
@@ -41,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
         } else if (id == R.id.skipToHome) {
             Session.userEmail = null;
+            Session.signedIn = false;
             startActivity(new Intent(MainActivity.this, Home.class));
         } else if (id == R.id.goToSitemap) {
             startActivity(new Intent(MainActivity.this, SitemapActivity.class));
