@@ -29,7 +29,7 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
         }
 
         // Navigation view declaration.
-        BottomNavigationView settingNav = findViewById(R.id.settingsNavigation);
+        BottomNavigationView settingNav = findViewById(R.id.mainNavigation);
         settingNav.setSelectedItemId(R.id.goSettings);
         settingNav.setOnItemSelectedListener(this);
 

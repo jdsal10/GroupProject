@@ -49,6 +49,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             String pat = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
             Pattern pattern = Pattern.compile(pat);
             Matcher matcher = pattern.matcher(emailText);
+            System.out.println("EMAIL: " + emailText);
             try {
                 if ((!(emailText.equals(""))) && (matcher.matches()) && checkExists(emailText)) {
                     try {
@@ -72,13 +73,14 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                 throw new RuntimeException(e);
             }
         } else if (id == R.id.backToLogin) {
-            startActivity(new Intent(getApplicationContext(), Login.class));
+            startActivity(new Intent(ForgotPassword.this, Login.class));
 
         }
     }
 
     public boolean checkExists(String email) throws SQLException {
-        ResultSet set = DBConnection.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "'");
+        DBConnection d = new DBConnection();
+        ResultSet set = d.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "'");
         int size = 0;
         if (set.last()) {
             size++;
