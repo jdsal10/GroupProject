@@ -182,7 +182,7 @@ with your account and we will send you an email with further instructions.</stri
     <string name="sendEmail">Send Email</string>
     <string name="backToLogin">Login</string>
 
-<!--    Password Reset Check-->
+    <!--    Password Reset Check-->
     <string name="codeResent">Code has been resent</string>
     <!--    Password Reset Continued-->
     <string name="resetContinueTitle">Enter your new password:</string>
