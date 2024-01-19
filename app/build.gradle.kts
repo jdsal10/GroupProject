@@ -44,7 +44,7 @@ dependencies {
     implementation("com.google.apis:google-api-services-gmail:v1-rev20220404-2.0.0")
     implementation("com.google.prefab:api:2.0.0")
     implementation("com.google:google:5")
-//    implementation(files("C:\\Users\\range\\Downloads\\postgresql-42.6.0.jar"))
+    implementation("net.sourceforge.jtds:jtds:1.3.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -53,6 +53,10 @@ dependencies {
     implementation("com.google.apis:google-api-services-gmail:v1-rev20220404-2.0.0")
     implementation("com.google.http-client:google-http-client-gson:1.43.3")
     implementation("mysql:mysql-connector-java:5.1.49")
+    implementation ("com.google.android.material:material:1.10.0")
+    implementation("androidx.fragment:fragment:1.6.2")
+
+
 
 
 }

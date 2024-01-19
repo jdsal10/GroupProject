@@ -1,0 +1,77 @@
+Database design v2.0
+
+A) 3 tables
+    - Users
+    - Exercises
+    - Workouts
+
+Users
+    - Email {PK}
+    - Password
+    - Name
+    - DOB
+    - Weight
+    - Height
+    - Sex
+    - HealthConditions
+    - ReasonForJoining
+
+Exercises
+    - Name {PK}
+    - Description
+    - MuscleGroup
+    - Equipment
+    - Difficulty
+    - Image (Illustration)
+
+Workouts
+    -
+
+-------------------------------------------------------------------------------
+
+B) 5 tables
+    - Users
+    - Exercises
+    - Workouts
+    - ExerciseWorkouts
+    - UserWorkouts
+
+Users
+    - Email {PK}        | VARCHAR(50)
+    - Password          | VARCHAR(50)
+    - Name              | VARCHAR(30)
+    - DOB               | DATE
+    - Weight            | DOUBLE
+    - Height            | DOUBLE
+    - Sex               | VARCHAR(1)
+    - HealthConditions  | TEXT
+    - ReasonForJoining  | TEXT
+
+UserWorkoutHistory
+    - Email {PK, FK}     | VARCHAR(50)
+    - WorkoutID {PK, FK} | INT
+    - Date               | DATE
+    - Duration           | INT
+
+Workouts: (change to account for exercises such as running)
+    - WorkoutID {PK}    | INT
+    - Name              | VARCHAR(50)
+    - Duration          | INT
+    - TargetMuscleGroup | TEXT
+    - Equipment         | TEXT
+    - Difficulty        | INT
+
+ExerciseWorkoutPairs:
+    - WorkoutID {PK, FK}    | INT
+    - ExerciseName {PK, FK} | VARCHAR(50)
+    - StaticVsDynamic       | VARCHAR(1)
+    - Sets                  | INT
+    - Distance              | DOUBLE
+
+Exercises:
+    - Name {PK}            | VARCHAR(50)
+    - Description          | VARCHAR(255)
+    - MuscleGroup          | TEXT
+    - Equipment            | TEXT
+    - Difficulty           | INT
+    - Image (Illustration) | VARCHAR(50)

@@ -1,34 +1,60 @@
 package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.R;
 
-public class ForgotPasswordContinued extends AppCompatActivity {
-
-    private Uri uri;
+public class ForgotPasswordContinued extends AppCompatActivity implements View.OnClickListener {
+    private EditText password1;
+    private EditText password2;
+    private Button passwordchangeconfirm;
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password_continued);
 
+        password1 = findViewById(R.id.newPasswordLoggedIn1);
+        password1.setOnClickListener(this);
 
-        Uri uri = getIntent().getData();
-        if (uri != null) {
-            String host = uri.getHost();
-            String path = uri.getPath();
-            System.out.println(host + " " + path);
+        password2 = findViewById(R.id.newPasswordLoggedIn2);
+        password2.setOnClickListener(this);
 
-            // Handle the deep link based on the host and path
+        passwordchangeconfirm = findViewById(R.id.passwordChange);
+        passwordchangeconfirm.setOnClickListener(this);
+
+        Button backToLogin = findViewById(R.id.backToLogin);
+        backToLogin.setOnClickListener(this);
+
+        Bundle data = getIntent().getExtras();
+        if (data != null) {
+            email = data.getString("email");
         }
-        // ATTENTION: This was auto-generated to handle app links.
-        Intent appLinkIntent = getIntent();
-        String appLinkAction = appLinkIntent.getAction();
-        Uri appLinkData = appLinkIntent.getData();
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.passwordChange) {
+            if ((password1 != null) && (!password2.getText().toString().equals(password1.getText().toString()))) {
+                passwordchangeconfirm.setError("The passwords do not match");
+            } else {
+                assert password1 != null;
+                DBConnection.executeStatement("UPDATE HealthData.Users SET Password = '" + password1.getText().toString() + "' WHERE Email = '" + email + "';");
+                Intent t = new Intent(ForgotPasswordContinued.this, Login.class);
+                startActivity(t);
+            }
+        } else if (id == R.id.backToLogin) {
+            startActivity(new Intent(getApplicationContext(), Login.class));
+
+        }
     }
 }

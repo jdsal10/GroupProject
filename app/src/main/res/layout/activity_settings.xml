@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="ButtonStyle">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="-100dp"
+            android:contentDescription="@string/welcomeBackgroundImage"
+            android:foregroundGravity="top"
+            android:paddingLeft="-50dp"
+            android:paddingTop="-10dp"
+            android:paddingRight="-50dp"
+            android:src="@drawable/welcome_circle" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/welcomeLogoBackground"
+            android:src="@drawable/logo_background" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/welcomeBackgroundImage"
+            android:foregroundGravity="top"
+            android:paddingLeft="-50dp"
+            android:paddingTop="-110dp"
+            android:paddingRight="-50dp"
+            android:src="@drawable/settings" />
+
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/relativelayout"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <Button
+            android:id="@+id/goDataControl"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/dataControlButtonTitle">
+
+        </Button>
+
+        <Button
+            android:id="@+id/goAccessibility"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/accessibilityButtonTitle">
+
+        </Button>
+
+        <Button
+            android:id="@+id/goAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/accountButtonTitle">
+
+        </Button>
+
+    </LinearLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/settingsBody"
+        android:name="com.firstapp.group10app.Fragments.settings_data_control"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight="6"
+        android:background="@drawable/border"
+        tools:layout="@layout/fragment_settings_data_control">
+
+    </androidx.fragment.app.FragmentContainerView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/mainNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemBackground="@color/white"
+        app:menu="@menu/home_navigation" />
+</LinearLayout>

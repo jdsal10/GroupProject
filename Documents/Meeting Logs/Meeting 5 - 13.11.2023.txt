@@ -1,0 +1,15 @@
+13.11.2023 - Meeting log
+
+CUrrent issue is too many workouts - if 100 users each generate workout - 100 workouts.
+Predifined workouts
+
+User is provided with some workouts - if the user is happy, coninutes if not use chatgpt to adjust;
+Provide feedback - provide suggestions.
+
+Create workout manual - pick and mix workouts.
+Manual - pick from database of exercises.
+
+Chatgpt - generate workout, provide feedback on existing workout
+Boolean on workouts - gym?
+
+Workouts for disabled - different from abled body.

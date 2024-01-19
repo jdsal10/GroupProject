@@ -1,0 +1,11 @@
+Current Progress:
+Nik - Create Manuel Workout, local 
+Juan - Homepage
+Ethan - Finish Settings, Search Workout
+Manu - Finish populating tables
+Misha - AI Workout, workout selection
+
+App reads data in JSON Format
+
+
+-- Get consistent format for workouts created - main bar shows workout info, click to view exercises

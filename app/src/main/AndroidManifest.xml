@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -16,15 +17,33 @@
         android:theme="@style/Theme.Group10App"
         tools:targetApi="31">
         <activity
+            android:name=".Pages.exerciseView"
+            android:exported="false" />
+        <activity
+            android:name=".Pages.searchWorkout"
+            android:exported="false" />
+        <activity
+            android:name=".Pages.createOrSearch"
+            android:exported="false" />
+        <activity
+            android:name=".Pages.Settings"
+            android:exported="false"
+            android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".Pages.forgotpasswordcheck"
+            android:exported="false" />
+        <activity
             android:name=".Pages.ForgotPasswordContinued"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="myapp"
-                    android:host="test"/>
+                <data
+                    android:host="test"
+                    android:scheme="myapp" />
             </intent-filter>
         </activity>
         <activity
@@ -44,9 +63,16 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Pages.Workouts"
+            android:exported="false" />
+        <activity
+            android:name=".Pages.SitemapActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

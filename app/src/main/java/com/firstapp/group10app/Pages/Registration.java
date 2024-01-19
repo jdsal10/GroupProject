@@ -26,30 +26,34 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.DB.DBHelper;
+import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.R;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.Arrays;
 
+/**
+ * The Registration class is the activity that allows the user to create an account.
+ */
 public class Registration extends AppCompatActivity implements View.OnClickListener {
-
-    private LinearLayout page1, page2, page3;
-    private int activePage;
+    private LinearLayout page1, page2, page3; // The 3 pages of the registration
+    private int activePage; // The page that is currently active
     private EditText email, name, password, dob, height, weight, conditions;
     private RadioGroup sex;
     private Spinner heightUnits, weightUnits, reasons;
-    private Button backButton, nextButton, tempButton;
-    private String[] details = new String[9];
+    private Button backButton, nextButton;
+    private final String[] details = new String[9];
 
+    // Set the layout of the activity to activity_registration.xml
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
         // Set the dropdowns
-        setSpinner(new String[]{"cm", "inches"}, R.id.heightUnitsDropdown);
+        setSpinner(new String[]{"cm", "inch"}, R.id.heightUnitsDropdown);
         setSpinner(new String[]{"kg", "lbs"}, R.id.weightUnitsDropdown);
-        setSpinner(new String[]{"I want to lose weight", "I want to gain weight", "I want to maintain my weight"}, R.id.reasonsDropdown);
+        setSpinner(new String[]{"", "I want to lose weight", "I want to gain weight", "I want to maintain my weight"}, R.id.reasonsDropdown);
 
         // Get the pages, EditText fields, and buttons from the xml
         getAllElements();
@@ -57,6 +61,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         // Add text changed listeners to the email and password fields
         emailAddTextChangedListener();
         passwordAddTextChangedListener();
+        dobAddTextChangedListener();
 
         // Set page1 to be visible
         page1.setVisibility(View.VISIBLE);
@@ -65,31 +70,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         // Set the onClickListeners of the buttons
         backButton.setOnClickListener(this);
         nextButton.setOnClickListener(this);
-
-        /*
-         * Temporary button for testing the chatGPT API
-         *
-         * After testing finishes: Remove this button and the temp() and tempPressed() methods
-         */
-        temp();
-    }
-
-    private void temp() {
-        tempButton = findViewById(R.id.buttonTemp);
-        tempButton.setOnClickListener(this);
-    }
-
-    private void tempPressed() {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-
-        executor.execute(() -> {
-            try {
-                String test = "chatGPT turned off to not waste money"; // chatGPT_Client.chatGPT("Hello, how are you?");
-                System.out.println(test);
-            } catch (Exception e) {
-                System.out.println("Error: " + e);
-            }
-        });
     }
 
     // Set the dropdowns (for the height and weight units and the reasons for joining)
@@ -104,6 +84,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         dropdown.setAdapter(adapter);
     }
 
+    // Get all the elements from the xml (pages, EditText fields, and buttons)
     private void getAllElements() {
         getAllPages();
         getAllFields();
@@ -138,6 +119,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         nextButton = findViewById(R.id.buttonNext);
     }
 
+    // Get the text from the EditText fields
     private String emailText() {
         return email.getText().toString();
     }
@@ -154,8 +136,16 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         return height.getText().toString();
     }
 
+    private String heightUnits() {
+        return heightUnits.getSelectedItem().toString();
+    }
+
     private String weightText() {
         return weight.getText().toString();
+    }
+
+    private String weightUnits() {
+        return weightUnits.getSelectedItem().toString();
     }
 
     // Get the chosen sex radio button as a string
@@ -167,6 +157,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         else return selectedSex.getText().toString();
     }
 
+    // Add text changed listeners to the email and password fields
     private void emailAddTextChangedListener() {
         email.addTextChangedListener(new TextWatcher() {
             @Override
@@ -202,47 +193,83 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    private void dobAddTextChangedListener() {
+        dob.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            int ind, ind1 = 0;
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                // Calculates "-" after year
+                if (s.length() == 4 && ind == 0) {
+                    dob.setText(String.format("%s-", s));
+                    dob.setSelection(s.length() + 1);
+                    ind = 1;
+                } else if (s.length() < 4 && ind == 1) {
+                    ind = 0;
+                }
+
+                // Calculates "-" after month
+                if (s.length() == 7 && ind1 == 0) {
+                    dob.setText(String.format("%s-", s));
+                    dob.setSelection(s.length() + 1);
+                    ind1 = 1;
+                } else if (s.length() < 7 && ind1 == 1) {
+                    ind1 = 0;
+                }
+            }
+        });
+    }
+
+    // Actions for when the back and next buttons are pressed
     @Override
     public void onClick(View v) {
         int id = v.getId();
 
         if (id == R.id.buttonNext) nextPressed();
         else if (id == R.id.buttonBack) backPressed();
-        else if (id == R.id.buttonTemp) tempPressed();
+        overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
     }
 
     // If the back button is pressed - logic
     private void backPressed() {
-        if (activePage == 1) gotoMainActivity();
-        else if (activePage == 2) gotoP1();
-        else if (activePage == 3) gotoP2();
+        if (activePage == 1) goToMainActivity();
+        else if (activePage == 2) goToP1();
+        else if (activePage == 3) goToP2();
     }
 
     // If the next button is pressed - logic
     private void nextPressed() {
         if (activePage == 1) {
-            if (p1Valid()) gotoP2();
+            if (p1Valid()) goToP2();
             else p1PointErrors();
         } else if (activePage == 2) {
-            if (p2Valid()) gotoP3();
+            if (p2Valid()) goToP3();
             else p2PointErrors();
         } else if (activePage == 3) {
             saveUserDetails();
+            System.out.println(Arrays.toString(details));
+            DBHelper.insertUser(details);
 
-            // For visualisation purposes
-            for (String detail : details) {
-                System.out.println(detail);
-            }
-
-            gotoLogin();
+            goToLogin();
         }
     }
 
-    private void gotoMainActivity() {
+    // Go to the main activity
+    private void goToMainActivity() {
         startActivity(new Intent(Registration.this, MainActivity.class));
     }
 
-    private void gotoP1() {
+    // Go to page 1
+    private void goToP1() {
         page2.setVisibility(View.GONE);
         page1.setVisibility(View.VISIBLE);
         activePage = 1;
@@ -253,6 +280,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         return emailValid(emailText()) && passwordValid(passwordText());
     }
 
+    // Point out the errors in the email and password fields
     private void p1PointErrors() {
         if (!emailValid(emailText())) {
             email.setError(emailValidator(emailText()));
@@ -264,7 +292,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void gotoP2() {
+    // Go to page 2
+    private void goToP2() {
         if (activePage == 1) page1.setVisibility(View.GONE);
         else if (activePage == 3) {
             nextButton.setText(R.string.next);
@@ -278,25 +307,27 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     // Check if the dob, height, and weight are valid
     private boolean p2Valid() {
-        return dobValid(dobText()) && heightValid(heightText()) && weightValid(weightText());
+        return dobValid(dobText()) && heightValid(heightText(), heightUnits()) && weightValid(weightText(), weightUnits());
     }
 
+    // Point out the errors in the dob, height, and weight fields
     private void p2PointErrors() {
         if (!dobValid(dobText())) {
             dob.setError(dobValidator(dobText()));
             dob.requestFocus();
         }
-        if (!heightValid(heightText())) {
-            height.setError(heightValidator(heightText()));
+        if (!heightValid(heightText(), heightUnits())) {
+            height.setError(heightValidator(heightText(), heightUnits()));
             height.requestFocus();
         }
-        if (!weightValid(weightText())) {
-            weight.setError(weightValidator(weightText()));
+        if (!weightValid(weightText(), weightUnits())) {
+            weight.setError(weightValidator(weightText(), weightUnits()));
             weight.requestFocus();
         }
     }
 
-    private void gotoP3() {
+    // Go to page 3
+    private void goToP3() {
         nextButton.setText(R.string.finish);
 
         page2.setVisibility(View.GONE);
@@ -306,18 +337,31 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     // Save the user details to the details array
     private void saveUserDetails() {
-        details[0] = emailText();
-        details[1] = name.getText().toString();
-        details[2] = passwordText();
-        details[3] = dobText();
-        details[4] = getSelectedSex();
-        details[5] = heightText() + " " + heightUnits.getSelectedItem().toString();
-        details[6] = weightText() + " " + weightUnits.getSelectedItem().toString();
-        details[7] = conditions.getText().toString();
-        details[8] = reasons.getSelectedItem().toString();
+        details[Index.EMAIL] = emailText();
+        details[Index.NAME] = name.getText().toString();
+        details[Index.PASSWORD] = passwordText();
+        details[Index.DOB] = dobText();
+
+        if (weightText().isEmpty()) {
+            System.out.println("ADDED");
+            details[Index.WEIGHT] = "";
+        } else {
+            details[Index.WEIGHT] = weightText() + " " + weightUnits();
+        }
+
+        if (heightText().isEmpty()) {
+            details[Index.HEIGHT] = "";
+        } else {
+            details[Index.HEIGHT] = heightText() + " " + heightUnits();
+
+        }
+        details[Index.SEX] = getSelectedSex();
+        details[Index.CONDITIONS] = conditions.getText().toString();
+        details[Index.REASONS] = reasons.getSelectedItem().toString();
     }
 
-    private void gotoLogin() {
+    // Go to the login activity
+    private void goToLogin() {
         startActivity(new Intent(Registration.this, Login.class));
     }
 }

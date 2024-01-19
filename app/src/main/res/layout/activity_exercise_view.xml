@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="25dp"
+    android:background="@drawable/border"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/exerciseNameView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/exerciseDescriptionView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/exerciseDescription"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/exerciseIllustrationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/exerciseIllustration"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/exerciseTargetMuscleGroupView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/exerciseTargetMuscle"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/exerciseEquipmentView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/exerciseEquipment"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/exerciseDifficultyView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/exerciseDifficulty"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+</LinearLayout>

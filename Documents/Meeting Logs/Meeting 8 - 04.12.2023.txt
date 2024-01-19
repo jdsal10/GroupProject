@@ -1,0 +1,38 @@
+Discuss format of workouts page.
+
+Offline searchs local database
+
+ChatGPT discussion - prompt engineering:
+	certain attributes used, e.g. reps, sets
+
+AI Generate: Similar page to manual
+
+
+Equipments options:
+No equip
+Free weights
+Bench
+Weight machines
+Dumbbells
+Barbells
+Resistance bands
+
+Most options are extra - assume users is always online, is at the gym
+
+Next:
+Juan -
+	Finish home page with buttons
+Manuel -
+	Get exercises table created, fill with exercises and workouts
+Ethan -
+	Finish settings
+	Prompt generation
+Misha -
+	Finish AI page design
+
+AI Attributes:
+Name
+Description
+Sets
+Reps
+Difficulty

@@ -1,0 +1,54 @@
+This document will briefly cover how to use the ItemVisualiser to view workouts and to
+filter the result. Note the document will often reference searchWorkout.java, the first file
+to use the functions:
+
+- On the page where you want to view the documents, it is suggested to use a scroll view to allow
+  for flexibility in the views. In search workout, we call the scroll view, and create a new
+  linearLayout and add it to the scrollview. When working with scroll views, only one child can
+  be attached, so we add everything to this linearLayout.
+
+ - Depending on the situation, you may want results to be shown already. If so, after the scroll
+   view declaration, we get a string of all workouts. In searchWorkout.java, we set the filter as
+   null, but this can be changed. See the function for more info.
+
+- If the results are null, we need to show this to the user, so a a function is called that sets
+  the scroll view to have a view telling the user theres no workouts.
+    - Note this broke when moving some functions around - will fix at a later date.
+
+- Now we have data, we can organise it and start showing it to the user. The loop in searchWorkout
+  simply get each JSONObject of the array, and sends it as part of a functions addDetails, used
+  to present the workouts.
+  - The parameters for addDetails are as follows:
+    - The JSON itself contains the data.
+    - The context of which the data relates to, often just "this"
+    - The layout where we want the workout view to be attached to - often the child of the scroll view.
+    - A string telling the function what buttons to add to the popups if needed.
+    - The layout of the popups - used to show workouts.
+
+- The onClick function is generally the same, but has a call to the runFilter function that applies a
+  given filter to the JSON data. It also includes some of the parameters for addDetails.
+
+
+
+
+===================================================================================================
+
+Details for the ItemVisualiser are below:
+
+addDetails:
+- The main function for the file, starts by creating a view for a workout and setting the data to
+  the data proved in the JSON parameter.
+- Sets an onClickListener for the layout that opens the popup to show exercises for the given workout.
+
+updateWorkouts:
+- A sub-function used to get JSON data and decide what to do with it.
+
+runFilter:
+- Creates a filter statement used by the code the filter data out.
+
+showEmpty:
+- Used to show a message if the query returns null.
+
+Any other functions are likely used to declare buttons. Since all exercise / workout views are the
+same, button calls were not able to be set globally. Instead, a string parameter tells the code
+what buttons to add, if any. This was the best way to make the system as separate as possible.

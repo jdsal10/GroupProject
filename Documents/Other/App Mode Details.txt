@@ -1,0 +1,21 @@
+App Mode Details:
+
+App has 3 modes of operating:
+
+Full Online:
+- Full access to the database, AI and workout recordings.
+
+Annomnous Online:
+- No AI (?) and databsae, but workouts are not recorded and some parts of the app are not accesible (settings, history etc)
+- No login
+
+Offline:
+- No access to the AI, or online database - has access to offline databse that has some workouts.
+- No login
+
+Key Coding Points:
+Inside Main, there is a function call that tests if the app can connect to the database and sets the Session status as given. This is used to check whether the app is online. When the app is attempting to perform an online action, the app can test if connected is true. For example, when the app first boots up, the system can check here if the user is online. If not, login is greyed out. For now, simple if statements can be used to disable parts of the app beofre they load for the user, but more efficient systems can be investigated. 
+
+Note that anonnous is a seperate check, but if offline, is overiden anyway. This is coded in a similar way, where if clicked, a session stauts is updated. When a user logs in as anomnous, AI features are disabled.
+
+NOTE THAT THE CHECK ONLY HAPPENS ONCE FOR DATABSE CHECKS! IT CAN BE IMPLEMENT BY CHECKING IF THERES A CONNECTION EVERYTIME IT NEEDS TO MAKE A CALL, OR EVERY TIME IT CHANGES VIEWS!

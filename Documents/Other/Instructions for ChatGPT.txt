@@ -1,0 +1,22 @@
+How to use the chatGPT Java class I wrote:
+
+1. Create an executor service
+2. Call executor.execute() with a lambda that calls ChatGPT_Client.chatGPT() with the input text
+++ For safety and quality reasons, do the following after you are done with the output:
+3. Call executor.shutdown()
+4. Wait for the executor to finish
+
+Example:
+    ExecutorService executor = Executors.newSingleThreadExecutor();
+    executor.execute(() -> {
+        try {
+            output.append(ChatGPT_Client.chatGPT("Hello"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    });
+
+    executor.shutdown();
+    while (!executor.isTerminated()) {
+        // Wait for the executor to finish
+    }
