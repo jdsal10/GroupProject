@@ -57,7 +57,7 @@ public class DBHelper {
                     email +
                     "';";
 
-            // Execute the SQL query
+            // Execute the SQL query`
             System.out.println(sql);
             return DBConnection.executeQuery(sql);
         } catch (Exception e) {

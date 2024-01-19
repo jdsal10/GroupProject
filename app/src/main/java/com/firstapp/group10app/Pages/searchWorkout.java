@@ -1,8 +1,5 @@
 package com.firstapp.group10app.Pages;
 
-
-import static com.firstapp.group10app.Other.ItemVisualiser.addSearchButtons;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.Other.ItemVisualiser;
@@ -10,7 +7,6 @@ import com.firstapp.group10app.Other.ItemVisualiser;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.firstapp.group10app.DB.DBHelper;
-import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -39,7 +34,6 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_workout);
-
 
         scrollView = findViewById(R.id.resultSearchWorkout);
         workoutLayout = new LinearLayout(this);
@@ -98,17 +92,15 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
                 workoutLayout.removeAllViews();
                 ItemVisualiser.runFilter(durationText.getText().toString(), difficultyText.getText().toString(),
                         targetMuscleText.getText().toString(), this, workoutLayout, scrollView, "search", R.layout.activity_exercise_popup);
-                LinearLayout containerView = new LinearLayout(this);
-                containerView.setOrientation(LinearLayout.VERTICAL);
+
                 if (workoutLayout.getParent() != null) {
                     ((ViewGroup) workoutLayout.getParent()).removeView(workoutLayout);
                 }
 
-                containerView.addView(workoutLayout);
-
                 // Add the container view to scrollView
                 scrollView.removeAllViews();
-                scrollView.addView(containerView);
+                scrollView.addView(workoutLayout);
+
             } catch (SQLException | JSONException e) {
                 throw new RuntimeException(e);
             }
