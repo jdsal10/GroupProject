@@ -39,6 +39,9 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
 
         Button sendEmail = findViewById(R.id.passwordChange);
         sendEmail.setOnClickListener(this);
+
+        Button backToLogin = findViewById(R.id.backToLogin);
+        backToLogin.setOnClickListener(this);
     }
 
     @Override
@@ -73,6 +76,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                 throw new RuntimeException(e);
             }
         } else if (id == R.id.backToLogin) {
+            System.out.println("Detected");
             startActivity(new Intent(ForgotPassword.this, Login.class));
 
         }

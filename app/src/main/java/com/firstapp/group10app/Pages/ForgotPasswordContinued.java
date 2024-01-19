@@ -31,6 +31,9 @@ public class ForgotPasswordContinued extends AppCompatActivity implements View.O
         passwordchangeconfirm = findViewById(R.id.passwordChange);
         passwordchangeconfirm.setOnClickListener(this);
 
+        Button backToLogin = findViewById(R.id.backToLogin);
+        backToLogin.setOnClickListener(this);
+
         Bundle data = getIntent().getExtras();
         if (data != null) {
             email = data.getString("email");

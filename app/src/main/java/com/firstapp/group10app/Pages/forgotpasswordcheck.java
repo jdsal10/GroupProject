@@ -33,6 +33,9 @@ public class forgotpasswordcheck extends AppCompatActivity implements View.OnCli
         Button codeConfirm = findViewById(R.id.codeConfirm);
         codeConfirm.setOnClickListener(this);
 
+        Button backToLogin = findViewById(R.id.backToLogin);
+        backToLogin.setOnClickListener(this);
+
         Bundle data = getIntent().getExtras();
         if (data != null) {
             email = data.getString("email");

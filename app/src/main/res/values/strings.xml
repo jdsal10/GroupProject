@@ -180,6 +180,7 @@
 with your account and we will send you an email with further instructions.</string>
     <string name="hintEmail">Email</string>
     <string name="sendEmail">Send Email</string>
+    <string name="backToLogin">Login</string>
 
 <!--    Password Reset Check-->
     <string name="codeResent">Code has been resent</string>
