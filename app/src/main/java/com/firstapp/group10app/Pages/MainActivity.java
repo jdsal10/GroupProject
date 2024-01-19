@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button goToSitemapButton = findViewById(R.id.goToSitemap);
         goToSitemapButton.setOnClickListener(this);
 
-        // TEMP CODE TO CHECK CONNECTION
+        // Test database connection
         Session.dbStatus = DBConnection.testConnection();
         
         // Default value.
