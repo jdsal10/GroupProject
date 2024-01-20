@@ -27,7 +27,7 @@ public class Home extends AppCompatActivity implements NavigationBarView.OnItemS
         Button tempButton = findViewById(R.id.TEMPWORK);
         tempButton.setOnClickListener(this);
 
-        if((!Session.dbStatus) || (!Session.signedIn)){
+            if((!Session.dbStatus) || (!Session.signedIn)){
             bottomNavigationView.getMenu().findItem(R.id.goSettings).setEnabled(false);
             bottomNavigationView.getMenu().findItem(R.id.goStats).setEnabled(false);
         }
