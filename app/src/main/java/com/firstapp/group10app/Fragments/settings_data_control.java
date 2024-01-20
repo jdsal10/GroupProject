@@ -234,8 +234,7 @@ public class settings_data_control extends Fragment implements View.OnClickListe
             DBHelper.clearData("Height");
             heightValue.setText("");
         } else if (id == R.id.updateHeight) {
-            if (Validator.weightValid(heightValue.getText().toString(), heightSpin.getSelectedItem().toString())) {
-                // Need to check for trims here
+            if (Validator.heightValid(heightValue.getText().toString(), heightSpin.getSelectedItem().toString())) {
                 DBHelper.updateData("Height", heightValue.getText().toString() + " " + heightSpin.getSelectedItem().toString());
             } else {
                 heightValue.setError("Invalid format!");

@@ -9,33 +9,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.R;
 import com.google.android.material.navigation.NavigationBarView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.sql.SQLException;
 
 public class searchWorkout extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
     private LinearLayout workoutLayout;
     private EditText durationText, difficultyText, targetMuscleText;
-    private ScrollView workoutScrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_workout);
 
-        workoutScrollView = findViewById(R.id.resultSearchWorkout);
+        ScrollView workoutScrollView = findViewById(R.id.resultSearchWorkout);
 
         workoutLayout = new LinearLayout(this);
         workoutLayout.setOrientation(LinearLayout.VERTICAL);
