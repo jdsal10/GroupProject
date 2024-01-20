@@ -28,18 +28,19 @@ import java.sql.SQLException;
 public class searchWorkout extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
     private LinearLayout workoutLayout;
     private EditText durationText, difficultyText, targetMuscleText;
-    private ScrollView scrollView;
+    private ScrollView workoutScrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_workout);
 
-        scrollView = findViewById(R.id.resultSearchWorkout);
+        workoutScrollView = findViewById(R.id.resultSearchWorkout);
+
         workoutLayout = new LinearLayout(this);
         workoutLayout.setOrientation(LinearLayout.VERTICAL);
 
-        scrollView.addView(workoutLayout);
+        workoutScrollView.addView(workoutLayout);
 
         durationText = findViewById(R.id.durationInput);
         difficultyText = findViewById(R.id.difficultyInput);
@@ -52,17 +53,7 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
         bottomNavigationView.setOnItemSelectedListener(this);
 
         try {
-            String input = DBHelper.getAllWorkouts(null);
-
-            if (input == null) {
-                ItemVisualiser.showEmpty(workoutLayout);
-            } else {
-                JSONArray jsonArray = new JSONArray(input);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject workoutObject = jsonArray.getJSONObject(i);
-                    ItemVisualiser.addDetails(workoutObject, this, workoutLayout, "search", R.layout.activity_exercise_popup);
-                }
-            }
+            ItemVisualiser.startWorkoutGeneration(null, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -91,15 +82,7 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
             try {
                 workoutLayout.removeAllViews();
                 ItemVisualiser.runFilter(durationText.getText().toString(), difficultyText.getText().toString(),
-                        targetMuscleText.getText().toString(), this, workoutLayout, scrollView, "search", R.layout.activity_exercise_popup);
-
-                if (workoutLayout.getParent() != null) {
-                    ((ViewGroup) workoutLayout.getParent()).removeView(workoutLayout);
-                }
-
-                // Add the container view to scrollView
-                scrollView.removeAllViews();
-                scrollView.addView(workoutLayout);
+                        targetMuscleText.getText().toString(), this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
 
             } catch (SQLException | JSONException e) {
                 throw new RuntimeException(e);

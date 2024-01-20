@@ -13,7 +13,7 @@
         android:text="@string/exercisePopupTitle" />
 
     <ScrollView
-        android:id="@+id/exerciseMainView"
+        android:id="@+id/exerciseScrollView"
         android:layout_weight="5"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
