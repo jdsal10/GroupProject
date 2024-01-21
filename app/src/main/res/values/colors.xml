@@ -5,6 +5,10 @@
     <!--    <color name="dark_blue">#b</color>-->
     
     <color name="top_grey">#EEEBEB</color>
+    <color name="pinkBtnStart">#F56BD2</color>
+    <color name="pinkBtnEnd">#A20BBD</color>
+    <color name="orangeBtnStart">#EBF39B73</color>
+    <color name="orangeBtnEnd">#F38524</color>
 
     <!-- The color of the * symbol for required fields -->
     <color name="red_required">#FF0000</color>
