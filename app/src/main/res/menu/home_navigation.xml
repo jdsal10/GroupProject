@@ -7,6 +7,7 @@
     <item
         android:id="@+id/goSettings"
         android:title="@string/settingsItem"
+        android:icon="@drawable/settings"
         />
     <item
         android:id="@+id/goStats"

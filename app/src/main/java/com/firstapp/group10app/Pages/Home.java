@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -16,6 +17,9 @@ import com.google.android.material.navigation.NavigationBarView;
 public class Home extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // For now, a check should run at the start of each file for DB connection.
+        Session.dbStatus = DBConnection.testConnection();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -27,25 +31,23 @@ public class Home extends AppCompatActivity implements NavigationBarView.OnItemS
         Button tempButton = findViewById(R.id.TEMPWORK);
         tempButton.setOnClickListener(this);
 
-        if((!Session.dbStatus) || (!Session.signedIn)){
+        if ((!Session.dbStatus) || (!Session.signedIn)) {
             bottomNavigationView.getMenu().findItem(R.id.goSettings).setEnabled(false);
             bottomNavigationView.getMenu().findItem(R.id.goStats).setEnabled(false);
         }
     }
 
     @Override
-    public boolean onNavigationItemSelected (MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.goSettings) {
+        if (id == R.id.goSettings) {
             startActivity(new Intent(getApplicationContext(), Settings.class));
             return true;
-        }
-        else if(id == R.id.goStats) {
+        } else if (id == R.id.goStats) {
             //Code to navigate to stats
             return true;
-        }
-        else if(id == R.id.goHome) {
-            startActivity(new Intent(getApplicationContext(),Home.class));
+        } else if (id == R.id.goHome) {
+            startActivity(new Intent(getApplicationContext(), Home.class));
             return true;
         }
         return true;
@@ -54,7 +56,7 @@ public class Home extends AppCompatActivity implements NavigationBarView.OnItemS
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if(id == R.id.TEMPWORK) {
+        if (id == R.id.TEMPWORK) {
             startActivity(new Intent(Home.this, createOrSearch.class));
         }
     }

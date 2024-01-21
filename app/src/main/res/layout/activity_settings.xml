@@ -57,12 +57,13 @@
             android:id="@+id/goDataControl"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/dataControlButtonTitle">
-
+            android:text="@string/dataControlButtonTitle"
+            android:layout_marginStart="25dp">
         </Button>
 
         <Button
             android:id="@+id/goAccessibility"
+            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/accessibilityButtonTitle">
@@ -71,6 +72,7 @@
 
         <Button
             android:id="@+id/goAccount"
+            android:layout_marginStart="20dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/accountButtonTitle">
