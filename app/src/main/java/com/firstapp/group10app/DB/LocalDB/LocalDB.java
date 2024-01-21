@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+// TODO: read and see how to use this class
 public class LocalDB extends SQLiteOpenHelper {
     public static final String USER_TABLE = "USER_TABLE";
 
@@ -43,7 +44,7 @@ public class LocalDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put("Email", workoutModel.getEmail());
+//        cv.put("Email", workoutModel.getEmail());
 
         return true;
     }
