@@ -39,11 +39,11 @@ public class LocalDB extends SQLiteOpenHelper {
 
     }
 
-    public boolean addUser(UserModel userModel) {
+    public boolean addUser(WorkoutModel workoutModel) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put("Email", userModel.getEmail());
+        cv.put("Email", workoutModel.getEmail());
 
         return true;
     }
