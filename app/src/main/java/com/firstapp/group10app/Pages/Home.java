@@ -17,7 +17,9 @@ import com.google.android.material.navigation.NavigationBarView;
 public class Home extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // For now, a check should run at the start of each file for DB connection.
         Session.dbStatus = DBConnection.testConnection();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
