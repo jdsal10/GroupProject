@@ -104,8 +104,7 @@ public class DBHelper {
 
         String out = "SELECT\n" +
                 "  JSON_ARRAYAGG(\n" +
-                "    JSON_OBJECT(\n" +
-                "      'WorkoutID', w.WorkoutID,\n" +
+                "    JSON_OBx`tID', w.WorkoutID,\n" +
                 "      'WorkoutName', w.WorkoutName,\n" +
                 "      'WorkoutDuration', w.WorkoutDuration,\n" +
                 "      'TargetMuscleGroup', w.TargetMuscleGroup,\n" +
@@ -150,6 +149,47 @@ public class DBHelper {
         }
 
         return "";
+    }
+
+    public String getUserWorkouts(String filter) throws SQLException {
+        DBConnection d = new DBConnection();
+        String st = "SELECT\n" +
+                "  JSON_ARRAYAGG(\n" +
+                "    JSON_OBJECT(\n" +
+                "      'WorkoutID', w.WorkoutID,\n" +
+                "      'WorkoutName', w.WorkoutName,\n" +
+                "      'WorkoutDuration', w.WorkoutDuration,\n" +
+                "      'TargetMuscleGroup', w.TargetMuscleGroup,\n" +
+                "      'Equipment', w.Equipment,\n" +
+                "      'Difficulty', w.Difficulty,\n" +
+                "      'Exercises', (\n" +
+                "        SELECT JSON_ARRAYAGG(\n" +
+                "          JSON_OBJECT(\n" +
+                "            'ExerciseID', e.ExerciseID,\n" +
+                "            'ExerciseName', e.ExerciseName,\n" +
+                "            'Description', e.Description,\n" +
+                "            'Illustration', e.Illustration,\n" +
+                "            'TargetMuscleGroup', e.TargetMuscleGroup,\n" +
+                "            'Equipment', e.Equipment,\n" +
+                "            'Difficulty', e.Difficulty\n" +
+                "          )\n" +
+                "        )\n" +
+                "        FROM HealthData.ExerciseWorkoutPairs ewp\n" +
+                "        JOIN HealthData.Exercises e ON ewp.ExerciseID = e.ExerciseID\n" +
+                "        WHERE ewp.WorkoutID = w.WorkoutID\n" +
+                "      )\n" +
+                "    )\n" +
+                "  ) AS Result\n" +
+                "FROM\n" +
+                "  HealthData.Workouts w\n" +
+                "WHERE w.WorkoutID IN (\n" +
+                "  SELECT uwh.WorkoutID\n" +
+                "  FROM HealthData.UserWorkoutHistory uwh\n" +
+                "  WHERE uwh.Email = '" + filter + "'\n" +
+                ");\n";
+
+        ResultSet out = d.executeQuery(st);
+        return out.getString("Result");
     }
 }
 

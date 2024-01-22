@@ -79,7 +79,7 @@
     <string name="allergiesTitle">Allergies</string>
     <string name="reasonsTitle">Reasons</string>
     <string name="heightHint">eg. 178</string>
-    <string name="updateValue">Update</string>
+    <string name="updateValue">Update All</string>
     <string name="clearValue">Clear</string>
 
     <!-- Main Navigation Bar -->
@@ -182,7 +182,7 @@ with your account and we will send you an email with further instructions.</stri
     <string name="sendEmail">Send Email</string>
     <string name="backToLogin">Login</string>
 
-<!--    Password Reset Check-->
+    <!--    Password Reset Check-->
     <string name="codeResent">Code has been resent</string>
     <!--    Password Reset Continued-->
     <string name="resetContinueTitle">Enter your new password:</string>
