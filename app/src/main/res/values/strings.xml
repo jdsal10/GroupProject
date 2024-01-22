@@ -79,7 +79,7 @@
     <string name="allergiesTitle">Allergies</string>
     <string name="reasonsTitle">Reasons</string>
     <string name="heightHint">eg. 178</string>
-    <string name="updateValue">Update</string>
+    <string name="updateValue">Update All</string>
     <string name="clearValue">Clear</string>
 
     <!-- Main Navigation Bar -->

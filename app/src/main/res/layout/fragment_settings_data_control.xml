@@ -11,7 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,20 +30,21 @@
                 android:text="@string/DOBTitle"
                 android:textSize="25sp" />
 
-
-            <Button
-                android:id="@+id/updateDOB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/updateValue"
-                tools:ignore="DuplicateSpeakableTextCheck" />
-
             <Button
                 android:id="@+id/clearDOB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/clearValue"
                 tools:ignore="DuplicateSpeakableTextCheck" />
+
+            <Button
+                android:id="@+id/updateAllValues"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/updateValue"
+                android:layout_gravity="end"
+                tools:ignore="DuplicateSpeakableTextCheck" />
+
 
         </LinearLayout>
 
@@ -57,6 +62,10 @@
                 android:inputType="date" />
         </LinearLayout>
 
+    </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -73,11 +82,11 @@
                 android:textSize="25sp" />
 
 
-            <Button
-                android:id="@+id/updateSex"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/updateValue" />
+<!--            <Button-->
+<!--                android:id="@+id/updateSex"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/updateValue" />-->
 
             <Button
                 android:id="@+id/clearSex"
@@ -85,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/clearValue" />
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,6 +106,8 @@
                 android:layout_height="50dp"
                 android:entries="@array/sex" />
         </LinearLayout>
+</LinearLayout>
+</LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -113,11 +124,11 @@
                 android:text="@string/weightTitle"
                 android:textSize="25sp" />
 
-            <Button
-                android:id="@+id/updateWeight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/updateValue" />
+<!--            <Button-->
+<!--                android:id="@+id/updateWeight"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/updateValue" />-->
 
             <Button
                 android:id="@+id/clearWeight"
@@ -165,11 +176,11 @@
                 android:textSize="25sp" />
 
 
-            <Button
-                android:id="@+id/updateHeight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/updateValue" />
+<!--            <Button-->
+<!--                android:id="@+id/updateHeight"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/updateValue" />-->
 
             <Button
                 android:id="@+id/clearHeight"
@@ -215,11 +226,11 @@
                 android:text="@string/allergiesTitle"
                 android:textSize="25sp" />
 
-            <Button
-                android:id="@+id/updateAllergies"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/updateValue" />
+<!--            <Button-->
+<!--                android:id="@+id/updateAllergies"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/updateValue" />-->
 
             <Button
                 android:id="@+id/clearAllergies"
@@ -260,11 +271,11 @@
                 android:textSize="25sp" />
 
 
-            <Button
-                android:id="@+id/updateReasons"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/updateValue" />
+<!--            <Button-->
+<!--                android:id="@+id/updateReasons"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/updateValue" />-->
 
             <Button
                 android:id="@+id/clearReasons"

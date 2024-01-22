@@ -104,8 +104,7 @@ public class DBHelper {
 
         String out = "SELECT\n" +
                 "  JSON_ARRAYAGG(\n" +
-                "    JSON_OBJECT(\n" +
-                "      'WorkoutID', w.WorkoutID,\n" +
+                "    JSON_OBx`tID', w.WorkoutID,\n" +
                 "      'WorkoutName', w.WorkoutName,\n" +
                 "      'WorkoutDuration', w.WorkoutDuration,\n" +
                 "      'TargetMuscleGroup', w.TargetMuscleGroup,\n" +
