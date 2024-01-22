@@ -47,7 +47,7 @@ public class Home extends AppCompatActivity implements NavigationBarView.OnItemS
             //Code to navigate to stats
             return true;
         } else if (id == R.id.goHome) {
-            startActivity(new Intent(getApplicationContext(), Home.class));
+            startActivity(new Intent(getApplicationContext(), workout_option.class));
             return true;
         }
         return true;
