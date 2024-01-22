@@ -37,9 +37,7 @@ public class settings_data_control extends Fragment implements View.OnClickListe
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        dobAddTextChangedListener();
-    }
+        super.onCreate(savedInstanceState);}
 
 
     private void dobAddTextChangedListener() {
@@ -203,6 +201,8 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         allergiesClear.setOnClickListener(this);
 
         reasonsClear.setOnClickListener(this);
+        dobAddTextChangedListener();
+
 
         // Declares an array of the users details.
         String currentUser = Session.userEmail;
