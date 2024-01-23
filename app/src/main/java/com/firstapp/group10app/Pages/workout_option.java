@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
 import com.firstapp.group10app.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class workout_option extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener, NavigationBarView.OnItemSelectedListener {
@@ -44,6 +45,10 @@ public class workout_option extends AppCompatActivity implements CompoundButton.
         // Set Views
         aiView = findViewById(R.id.aiView);
         manualView = findViewById(R.id.manualView);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.goToWorkouts);
+        bottomNavigationView.setOnItemSelectedListener(this);
     }
 
 
