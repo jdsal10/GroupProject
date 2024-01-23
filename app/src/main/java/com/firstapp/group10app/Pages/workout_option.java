@@ -41,6 +41,7 @@ public class workout_option extends AppCompatActivity implements CompoundButton.
         AISelect.setOnCheckedChangeListener(this);
         manualSelect.setOnCheckedChangeListener(this);
 
+        // Set Views
         aiView = findViewById(R.id.aiView);
         manualView = findViewById(R.id.manualView);
     }
@@ -48,14 +49,13 @@ public class workout_option extends AppCompatActivity implements CompoundButton.
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        // If ensure only one is selected at once
         if (isChecked) {
             if (buttonView.getId() == R.id.toggleAI) {
-                System.out.println("AI SELECT");
                 manualView.setVisibility(View.GONE);
                 aiView.setVisibility(View.VISIBLE);
 
             } else if (buttonView.getId() == R.id.toggleManual) {
-                System.out.println("MAN SELECT");
                 aiView.setVisibility(View.GONE);
                 manualView.setVisibility(View.VISIBLE);
             }
@@ -70,20 +70,23 @@ public class workout_option extends AppCompatActivity implements CompoundButton.
         } else if (id == R.id.goToCreate) {
             // Update with correct file when created!
             startActivity(new Intent(workout_option.this, Home.class));
+        } else if (id == R.id.goToAI) {
+//            Add when Misha's code is merged
+//            startActivity(new Intent(workout_option.this, ));
         }
     }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.goSettings) {
-            startActivity(new Intent(getApplicationContext(), Settings.class));
-            return true;
-        } else if (id == R.id.goStats) {
-            return true;
-            //Code for stats
-        } else if (id == R.id.goHome) {
+        if (id == R.id.goToHome) {
             startActivity(new Intent(getApplicationContext(), Home.class));
+            return true;
+        } else if (id == R.id.goToWorkouts) {
+            startActivity(new Intent(getApplicationContext(), workout_option.class));
+            return true;
+        } else if (id == R.id.goToHistory) {
+            // Code for history.
             return true;
         }
         return true;

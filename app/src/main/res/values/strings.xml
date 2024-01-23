@@ -84,8 +84,8 @@
 
     <!-- Main Navigation Bar -->
     <string name="homeItem">Home</string>
-    <string name="settingsItem">Settings</string>
-    <string name="statisticsItem">Statistics</string>
+    <string name="workoutsItem">Workouts</string>
+    <string name="historyItem">History</string>
 
     <!--    Settings - Data Control-->
     <string-array name="weightUnits">
