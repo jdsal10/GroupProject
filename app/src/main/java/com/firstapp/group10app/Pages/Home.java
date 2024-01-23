@@ -14,7 +14,7 @@ import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class Home extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
+public class Home extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // For now, a check should run at the start of each file for DB connection.
@@ -25,40 +25,29 @@ public class Home extends AppCompatActivity implements NavigationBarView.OnItemS
 
         // Declare bottom taskbar
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
-        bottomNavigationView.setSelectedItemId(R.id.goHome);
+        bottomNavigationView.setSelectedItemId(R.id.goToHome);
         bottomNavigationView.setOnItemSelectedListener(this);
 
-        Button tempButton = findViewById(R.id.TEMPWORK);
-        tempButton.setOnClickListener(this);
-
         if ((!Session.dbStatus) || (!Session.signedIn)) {
-            bottomNavigationView.getMenu().findItem(R.id.goSettings).setEnabled(false);
-            bottomNavigationView.getMenu().findItem(R.id.goStats).setEnabled(false);
+            bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setEnabled(false);
+//            Enable when history active
+//            bottomNavigationView.getMenu().findItem(R.id.).setEnabled(false);
         }
     }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.goSettings) {
-            startActivity(new Intent(getApplicationContext(), Settings.class));
+        if (id == R.id.goToHome) {
+            startActivity(new Intent(getApplicationContext(), Home.class));
             return true;
-        } else if (id == R.id.goStats) {
-            //Code to navigate to stats
+        } else if (id == R.id.goToWorkouts) {
             startActivity(new Intent(getApplicationContext(), workout_option.class));
             return true;
-        } else if (id == R.id.goHome) {
-            startActivity(new Intent(getApplicationContext(), Home.class));
+        } else if (id == R.id.goToHistory) {
+            // Code for history.
             return true;
         }
         return true;
-    }
-
-    @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        if (id == R.id.TEMPWORK) {
-            startActivity(new Intent(Home.this, createOrSearch.class));
-        }
     }
 }

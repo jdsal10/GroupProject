@@ -30,7 +30,7 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
 
         // Navigation view declaration.
         BottomNavigationView settingNav = findViewById(R.id.mainNavigation);
-        settingNav.setSelectedItemId(R.id.goSettings);
+//        settingNav.setSelectedItemId();
         settingNav.setOnItemSelectedListener(this);
 
         // Button declaration.
@@ -47,14 +47,14 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.goSettings) {
-            startActivity(new Intent(getApplicationContext(), Settings.class));
-            return true;
-        } else if (id == R.id.goStats) {
-            return true;
-            //Code for stats
-        } else if (id == R.id.goHome) {
+        if (id == R.id.goToHome) {
             startActivity(new Intent(getApplicationContext(), Home.class));
+            return true;
+        } else if (id == R.id.goToWorkouts) {
+            startActivity(new Intent(getApplicationContext(), workout_option.class));
+            return true;
+        } else if (id == R.id.goToHistory) {
+            // Code for history.
             return true;
         }
         return true;

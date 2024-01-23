@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,27 +25,27 @@
                 android:id="@+id/toggleAI"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
+                android:layout_marginStart="1dp"
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/workout_toggle_background"
                 android:button="@null"
                 android:gravity="center"
-                android:text="AI" />
+                android:text="@string/aiToggle" />
 
             <RadioButton
                 android:id="@+id/toggleManual"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="1dp"
-                android:layout_marginRight="1dp"
+                android:layout_marginEnd="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/workout_toggle_background"
                 android:button="@null"
                 android:gravity="center"
-                android:text="Manual" />
+                android:text="@string/manualToggle" />
         </RadioGroup>
     </LinearLayout>
 
@@ -53,9 +54,9 @@
         android:id="@+id/manualView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="20sp"
         android:layout_weight="1.5"
         android:gravity="center"
-        android:layout_marginTop="20sp"
         android:orientation="vertical">
 
         <TextView
@@ -120,7 +121,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="50sp"
             android:layout_marginBottom="20sp"
-            android:text="AI Generation"
+            android:text="@string/aiTitle"
             android:textSize="36sp"
             android:textStyle="bold" />
 
@@ -128,15 +129,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Generate a workout using AI that tailors to your personal preferenence."
+            android:text="@string/aiDescription"
             android:textSize="18sp" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:id="@+id/goToAI"
             android:layout_marginTop="20sp"
             android:gravity="center"
-            android:text="Begin" />
+            android:text="@string/aiBegin" />
     </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/mainNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemBackground="@color/white"
+        app:menu="@menu/home_navigation" />
 </LinearLayout>
