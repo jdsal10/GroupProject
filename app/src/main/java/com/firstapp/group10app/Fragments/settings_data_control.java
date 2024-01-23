@@ -37,7 +37,8 @@ public class settings_data_control extends Fragment implements View.OnClickListe
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);}
+        super.onCreate(savedInstanceState);
+    }
 
 
     private void dobAddTextChangedListener() {
@@ -75,6 +76,7 @@ public class settings_data_control extends Fragment implements View.OnClickListe
             }
         });
     }
+
     public void updateValues(ArrayList<String> info) {
         // Debug output
         System.out.println(info.toString());
@@ -87,8 +89,7 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         if (tempWeight == null || TextUtils.isEmpty(tempWeight) || tempWeight.equals("")) {
             weightSpin.setSelection(0);
             weightValue.setText("");
-        }
-        else {
+        } else {
             String weightUnits = info.get(1).split(" ")[1];
             weightValue.setText(info.get(1).split(" ")[0]);
 
@@ -106,8 +107,7 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         if (tempHeight == null || TextUtils.isEmpty(tempHeight) || tempHeight.equals("")) {
             heightSpin.setSelection(0);
             heightValue.setText("");
-        }
-        else {
+        } else {
             String heightUnits = info.get(2).split(" ")[1];
             heightValue.setText(info.get(2).split(" ")[0]);
 
@@ -254,11 +254,11 @@ public class settings_data_control extends Fragment implements View.OnClickListe
             } else {
                 heightValue.setError("Invalid format!");
             }
-                DBHelper.updateData("Sex", sexSpin.getSelectedItem().toString());
+            DBHelper.updateData("Sex", sexSpin.getSelectedItem().toString());
 
-                DBHelper.updateData("HealthCondition", allergiesValue.getText().toString());
+            DBHelper.updateData("HealthCondition", allergiesValue.getText().toString());
 
-                DBHelper.updateData("ReasonForDownloading", reasonSpin.getSelectedItem().toString());
+            DBHelper.updateData("ReasonForDownloading", reasonSpin.getSelectedItem().toString());
 
         }
 

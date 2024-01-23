@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
     android:orientation="vertical">
@@ -35,14 +39,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/clearValue"
-                tools:ignore="DuplicateSpeakableTextCheck" />
-
-            <Button
-                android:id="@+id/updateAllValues"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/updateValue"
-                android:layout_gravity="end"
                 tools:ignore="DuplicateSpeakableTextCheck" />
 
 
@@ -297,4 +293,12 @@
                 android:entries="@array/reasons" />
         </LinearLayout>
     </LinearLayout>
+
 </ScrollView>
+<Button
+android:id="@+id/updateAllValues"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:text="@string/updateValue"
+tools:ignore="DuplicateSpeakableTextCheck" />
+</LinearLayout>
