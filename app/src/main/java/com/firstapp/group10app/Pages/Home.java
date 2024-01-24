@@ -28,11 +28,14 @@ public class Home extends AppCompatActivity implements NavigationBarView.OnItemS
         bottomNavigationView.setSelectedItemId(R.id.goToHome);
         bottomNavigationView.setOnItemSelectedListener(this);
 
-        if ((!Session.dbStatus) || (!Session.signedIn)) {
-            bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setEnabled(false);
-//            Enable when history active
-//            bottomNavigationView.getMenu().findItem(R.id.).setEnabled(false);
-        }
+
+        // Seems to crash
+
+//        if ((!Session.dbStatus) || (!Session.signedIn)) {
+//            bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setEnabled(false);
+////            Enable when history active
+////            bottomNavigationView.getMenu().findItem(R.id.).setEnabled(false);
+//        }
     }
 
     @Override
