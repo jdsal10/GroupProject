@@ -71,6 +71,26 @@ public class LocalDB {
         return itemIds;
     }
 
+    public void updateExercise(int exerciseID, String exerciseName, String description, String illustration, String targetMuscleGroup, String equipment, int difficulty) {
+        ContentValues values = new ContentValues();
+        values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_EXERCISE_NAME, exerciseName);
+        values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_DESCRIPTION, description);
+        values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_ILLUSTRATION, illustration);
+        values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_TARGET_MUSCLE_GROUP, targetMuscleGroup);
+        values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_EQUIPMENT, equipment);
+        values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_DIFFICULTY, difficulty);
+
+        String selection = ExerciseContract.ExerciseEntry._ID + " = ?";
+        String[] selectionArgs = {String.valueOf(exerciseID)};
+
+        int count = db.update(
+                ExerciseContract.ExerciseEntry.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs
+        );
+    }
+
     public void insertWorkout(int duration, String muscleGroup, String equipment, int difficulty) {
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
@@ -171,13 +191,19 @@ public class LocalDB {
         insertWorkout(30, "Sample muscle group", "Sample equipment", 1);
 
         // Get the IDs of the inserted Exercise and Workout
-        List exerciseIds = readExercise("Sample muscle group");
-        List workoutIds = readWorkout("Sample muscle group");
+        List<Long> exerciseIds = readExercise("Sample muscle group");
+        List<Long> workoutIds = readWorkout("Sample muscle group");
 
         // Check if the IDs were retrieved successfully
         if (!exerciseIds.isEmpty() && !workoutIds.isEmpty()) {
+            long exerciseId = exerciseIds.get(0);
+            long workoutId = workoutIds.get(0);
+
+            int exerciseIdInt = (int) exerciseId;
+            int workoutIdInt = (int) workoutId;
+
             // Insert a sample row into the ExerciseWorkoutPair table
-            insertExerciseWorkoutPair((int) exerciseIds.get(0), (int) workoutIds.get(0));
+            insertExerciseWorkoutPair(exerciseIdInt, workoutIdInt);
         }
     }
 
@@ -194,10 +220,17 @@ public class LocalDB {
             Log.d("Workout Data", "ID: " + id);
         }
 
+        long workoutId = (long) workoutIds.get(0);
+        int workoutIdInt = (int) workoutId;
+
         // Print data from ExerciseWorkoutPair table
-        List exerciseWorkoutPairIds = readExerciseWorkoutPair((int) workoutIds.get(0));
+        List<Long> exerciseWorkoutPairIds = readExerciseWorkoutPair(workoutIdInt);
         for (Object id : exerciseWorkoutPairIds) {
             Log.d("ExerciseWorkoutPair Data", "ID: " + id);
         }
+    }
+
+    public void close() {
+        dbHelper.close();
     }
 }
