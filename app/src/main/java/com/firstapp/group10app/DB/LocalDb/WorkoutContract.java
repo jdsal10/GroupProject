@@ -2,13 +2,11 @@ package com.firstapp.group10app.DB.LocalDb;
 
 import android.provider.BaseColumns;
 
-//    private int workoutID;
-//    private String workoutName;
-//    private int workoutDuration;
-//    private String targetMuscleGroup;
-//    private String equipment;
-//    private int difficulty;
-
+/**
+ * This class is used to define the ExerciseWorkoutPair table
+ * <p>
+ * To create this class, I used the <a href="https://developer.android.com/training/data-storage/sqlite">Android Studio documentation</a>
+ */
 public final class WorkoutContract {
     // To prevent someone from accidentally instantiating the contract class,
     // make the constructor private.

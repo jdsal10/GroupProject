@@ -12,6 +12,11 @@ import com.firstapp.group10app.DB.LocalDb.WorkoutContract.WorkoutEntry;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is used to interact with the database (This may be combined with DbHelper in the future)
+ * <p>
+ * To create this class, I used the <a href="https://developer.android.com/training/data-storage/sqlite">Android Studio documentation</a>
+ */
 public class LocalDb {
     DbHelper dbHelper;
     SQLiteDatabase db;
