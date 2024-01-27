@@ -1,7 +1,5 @@
 package com.firstapp.group10app.Pages;
 
-import static com.google.android.material.internal.ContextUtils.getActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -59,16 +57,27 @@ public class SitemapActivity extends AppCompatActivity {
 
         // LocalDB
         addText("LocalDB Test");
-        Button localDbButton = new Button(this);
-        localDbButton.setText("Insert & Print Sample Data");
-        localDbButton.setTextSize(15);
-        localDbButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.5f));
-        layout.addView(localDbButton);
+        Button insertButton = new Button(this);
+        Button printButton = new Button(this);
+        insertButton.setText("Insert Sample Data");
+        printButton.setText("Print Data");
+        insertButton.setTextSize(15);
+        printButton.setTextSize(15);
+        insertButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.5f));
+        printButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.5f));
+        layout.addView(insertButton);
+        layout.addView(printButton);
 
-        localDbButton.setOnClickListener(new View.OnClickListener() {
+        insertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 localDBInsert();
+            }
+        });
+
+        printButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 localDBPrint();
             }
         });
@@ -172,6 +181,12 @@ public class SitemapActivity extends AppCompatActivity {
 
     private void localDBPrint() {
         localDB.printDataForDebugging();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        localDB.close();
     }
 
     private final boolean chatGPT_switch2 = false;
