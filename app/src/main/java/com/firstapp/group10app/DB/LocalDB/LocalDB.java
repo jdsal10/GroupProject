@@ -13,23 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LocalDB {
-    DbHelper exerciseDbHelper;
-    DbHelper workoutDbHelper;
-    DbHelper exerciseWorkoutPairDbHelper;
-
-    SQLiteDatabase db1;
-    SQLiteDatabase db2;
-    SQLiteDatabase db3;
+    DbHelper dbHelper;
+    SQLiteDatabase db;
 
     public LocalDB(Context context) {
-        exerciseDbHelper = new DbHelper(context, "Exercise.db");
-        workoutDbHelper = new DbHelper(context, "Workout.db");
-        exerciseWorkoutPairDbHelper = new DbHelper(context, "ExerciseWorkoutPair.db");
+        dbHelper = new DbHelper(context);
 
         // Gets the data repository in write mode
-        db1 = exerciseDbHelper.getWritableDatabase();
-        db2 = workoutDbHelper.getWritableDatabase();
-        db3 = exerciseWorkoutPairDbHelper.getWritableDatabase();
+        db = dbHelper.getWritableDatabase();
     }
 
     public void insertExercise(String exerciseName, String description, String illustration, String targetMuscleGroup, String equipment, int difficulty) {
@@ -41,7 +32,7 @@ public class LocalDB {
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_EQUIPMENT, equipment);
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_DIFFICULTY, difficulty);
 
-        long newRowId = db1.insert(ExerciseContract.ExerciseEntry.TABLE_NAME, null, values);
+        long newRowId = db.insert(ExerciseContract.ExerciseEntry.TABLE_NAME, null, values);
     }
 
     public List readExercise(String targetMuscleGroup) {
@@ -60,7 +51,7 @@ public class LocalDB {
 
         String sortOrder = ExerciseContract.ExerciseEntry.COLUMN_NAME_EXERCISE_NAME + " DESC";
 
-        Cursor cursor = db1.query(
+        Cursor cursor = db.query(
                 ExerciseContract.ExerciseEntry.TABLE_NAME,
                 projection,
                 selection,
@@ -89,7 +80,7 @@ public class LocalDB {
         values.put(WorkoutEntry.COLUMN_NAME_DIFFICULTY, difficulty);
 
         // Insert the new row, returning the primary key value of the new row
-        long newRowId = db2.insert(WorkoutEntry.TABLE_NAME, null, values);
+        long newRowId = db.insert(WorkoutEntry.TABLE_NAME, null, values);
     }
 
     public List readWorkout(String muscleGroup) {
@@ -111,7 +102,7 @@ public class LocalDB {
         String sortOrder =
                 WorkoutEntry.COLUMN_NAME_DURATION + " DESC";
 
-        Cursor cursor = db2.query(
+        Cursor cursor = db.query(
                 WorkoutEntry.TABLE_NAME,   // The table to query
                 projection,             // The array of columns to return (pass null to get all)
                 selection,              // The columns for the WHERE clause
@@ -137,7 +128,7 @@ public class LocalDB {
         values.put(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_EXERCISE_ID, exerciseID);
         values.put(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_WORKOUT_ID, workoutID);
 
-        long newRowId = db3.insert(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.TABLE_NAME, null, values);
+        long newRowId = db.insert(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.TABLE_NAME, null, values);
     }
 
     public List readExerciseWorkoutPair(int workoutID) {
@@ -152,7 +143,7 @@ public class LocalDB {
 
         String sortOrder = ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry._ID + " DESC";
 
-        Cursor cursor = db3.query(
+        Cursor cursor = db.query(
                 ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.TABLE_NAME,
                 projection,
                 selection,
