@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.ChatGPT.ChatGPT_Client;
-import com.firstapp.group10app.DB.LocalDB.LocalDB;
+import com.firstapp.group10app.DB.LocalDb.LocalDb;
 import com.firstapp.group10app.R;
 
 import java.util.concurrent.ExecutorService;
@@ -18,7 +18,7 @@ import java.util.concurrent.Executors;
 
 public class SitemapActivity extends AppCompatActivity {
     private LinearLayout layout;
-    private LocalDB localDB;
+    private LocalDb localDB;
     private final boolean chatGPT_switch1 = false;
 
 
@@ -175,7 +175,7 @@ public class SitemapActivity extends AppCompatActivity {
     }
 
     private void localDBInsert() {
-        localDB = new LocalDB(this);
+        localDB = new LocalDb(this);
         localDB.insertSampleData();
     }
 
