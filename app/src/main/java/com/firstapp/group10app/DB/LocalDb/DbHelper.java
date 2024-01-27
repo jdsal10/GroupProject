@@ -1,4 +1,4 @@
-package com.firstapp.group10app.DB.LocalDB;
+package com.firstapp.group10app.DB.LocalDb;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

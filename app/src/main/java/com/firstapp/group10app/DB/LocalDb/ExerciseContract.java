@@ -1,4 +1,4 @@
-package com.firstapp.group10app.DB.LocalDB;
+package com.firstapp.group10app.DB.LocalDb;
 
 import android.provider.BaseColumns;
 
@@ -19,7 +19,7 @@ public final class ExerciseContract {
         public static final String COLUMN_NAME_DIFFICULTY = "difficulty";
     }
 
-    protected static final String SQL_CREATE_ENTRIES =
+    static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + ExerciseEntry.TABLE_NAME + " (" +
                     ExerciseEntry._ID + " INTEGER PRIMARY KEY," +
                     ExerciseEntry.COLUMN_NAME_EXERCISE_NAME + " TEXT," +
@@ -29,6 +29,6 @@ public final class ExerciseContract {
                     ExerciseEntry.COLUMN_NAME_EQUIPMENT + " TEXT," +
                     ExerciseEntry.COLUMN_NAME_DIFFICULTY + " INTEGER)";
 
-    protected static final String SQL_DELETE_ENTRIES =
+    static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + ExerciseEntry.TABLE_NAME;
 }

@@ -1,4 +1,4 @@
-package com.firstapp.group10app.DB.LocalDB;
+package com.firstapp.group10app.DB.LocalDb;
 
 
 import android.content.ContentValues;
@@ -7,16 +7,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.firstapp.group10app.DB.LocalDB.WorkoutContract.WorkoutEntry;
+import com.firstapp.group10app.DB.LocalDb.WorkoutContract.WorkoutEntry;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LocalDB {
+public class LocalDb {
     DbHelper dbHelper;
     SQLiteDatabase db;
 
-    public LocalDB(Context context) {
+    public LocalDb(Context context) {
         dbHelper = new DbHelper(context);
 
         // Gets the data repository in write mode
@@ -35,7 +35,7 @@ public class LocalDB {
         long newRowId = db.insert(ExerciseContract.ExerciseEntry.TABLE_NAME, null, values);
     }
 
-    public List readExercise(String targetMuscleGroup) {
+    public List<Long> readExercise(String targetMuscleGroup) {
         String[] projection = {
                 ExerciseContract.ExerciseEntry._ID,
                 ExerciseContract.ExerciseEntry.COLUMN_NAME_EXERCISE_NAME,
@@ -61,7 +61,7 @@ public class LocalDB {
                 sortOrder
         );
 
-        List itemIds = new ArrayList<>();
+        List<Long> itemIds = new ArrayList<>();
         while (cursor.moveToNext()) {
             long itemId = cursor.getLong(cursor.getColumnIndexOrThrow(ExerciseContract.ExerciseEntry._ID));
             itemIds.add(itemId);
@@ -103,7 +103,7 @@ public class LocalDB {
         long newRowId = db.insert(WorkoutEntry.TABLE_NAME, null, values);
     }
 
-    public List readWorkout(String muscleGroup) {
+    public List<Long> readWorkout(String muscleGroup) {
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = {
@@ -132,7 +132,7 @@ public class LocalDB {
                 sortOrder               // The sort order
         );
 
-        List itemIds = new ArrayList<>();
+        List<Long> itemIds = new ArrayList<>();
         while (cursor.moveToNext()) {
             long itemId = cursor.getLong(
                     cursor.getColumnIndexOrThrow(WorkoutEntry._ID));
@@ -151,7 +151,7 @@ public class LocalDB {
         long newRowId = db.insert(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.TABLE_NAME, null, values);
     }
 
-    public List readExerciseWorkoutPair(int workoutID) {
+    public List<Long> readExerciseWorkoutPair(int workoutID) {
         String[] projection = {
                 ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry._ID,
                 ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_EXERCISE_ID,
@@ -173,7 +173,7 @@ public class LocalDB {
                 sortOrder
         );
 
-        List itemIds = new ArrayList<>();
+        List<Long> itemIds = new ArrayList<>();
         while (cursor.moveToNext()) {
             long itemId = cursor.getLong(cursor.getColumnIndexOrThrow(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry._ID));
             itemIds.add(itemId);
@@ -209,18 +209,18 @@ public class LocalDB {
 
     public void printDataForDebugging() {
         // Print data from Exercise table
-        List exerciseIds = readExercise("Sample muscle group");
+        List<Long> exerciseIds = readExercise("Sample muscle group");
         for (Object id : exerciseIds) {
             Log.d("Exercise Data", "ID: " + id);
         }
 
         // Print data from Workout table
-        List workoutIds = readWorkout("Sample muscle group");
+        List<Long> workoutIds = readWorkout("Sample muscle group");
         for (Object id : workoutIds) {
             Log.d("Workout Data", "ID: " + id);
         }
 
-        long workoutId = (long) workoutIds.get(0);
+        long workoutId = workoutIds.get(0);
         int workoutIdInt = (int) workoutId;
 
         // Print data from ExerciseWorkoutPair table
