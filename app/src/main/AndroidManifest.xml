@@ -17,7 +17,7 @@
         android:theme="@style/Theme.Group10App"
         tools:targetApi="31">
         <activity
-            android:name=".Pages.workouts_ai"
+            android:name=".Pages.workout_option"
             android:exported="false" />
         <activity
             android:name=".Pages.exerciseView"

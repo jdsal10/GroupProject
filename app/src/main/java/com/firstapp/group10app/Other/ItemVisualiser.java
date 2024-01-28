@@ -22,14 +22,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ItemVisualiser {
-    static ScrollView parentView;
-    static View dialogView;
-
     static LinearLayout box;
+    static Context cThis;
+    static LinearLayout workoutLayout;
 
-    public static void addDetails(JSONObject details, Context context, LinearLayout layout, String buttonType, int test) {
-        LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public static void addDetails(JSONObject details, String buttonType, int popupID, int exerciseScrollID) {
+        LayoutInflater inflate = (LayoutInflater) cThis.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         box = (LinearLayout) inflate.inflate(R.layout.activity_workout_view, null);
+
         TextView nameView = box.findViewById(R.id.workoutNameView);
         TextView durationView = box.findViewById(R.id.workoutDurationView);
         TextView muscleView = box.findViewById(R.id.workoutMuscleView);
@@ -47,26 +47,25 @@ public class ItemVisualiser {
 
         String exerciseList = details.optString("Exercises");
 
-
         // Adds to a linear layout.
-        layout.addView(box);
-        dialogView = inflate.inflate(test, null);
+        workoutLayout.addView(box);
 
         // For now, clicking on a workout shows the exercises - may make easier later.
         box.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            AlertDialog.Builder builder = new AlertDialog.Builder(cThis);
 
-            View newDialogView = inflate.inflate(test, null);
-            builder.setView(newDialogView);
+            View popupView = inflate.inflate(popupID, null);
+            builder.setView(popupView);
             AlertDialog alertDialog = builder.create();
-            ScrollView exerciseMainView = newDialogView.findViewById(R.id.exerciseMainView);
+            ScrollView exerciseMainView = popupView.findViewById(exerciseScrollID);
+
             exerciseMainView.removeAllViews();
 
             if (buttonType.equals("search")) {
-                addSearchButtons(newDialogView, context, alertDialog);
+                addSearchButtons(popupView, alertDialog);
             }
 
-            LinearLayout exerciseLayout = new LinearLayout(context);
+            LinearLayout exerciseLayout = new LinearLayout(cThis);
             exerciseLayout.setOrientation(LinearLayout.VERTICAL);
 
             // Creates a layout containing the exercise boxes.
@@ -113,12 +112,13 @@ public class ItemVisualiser {
         });
     }
 
-    public static void addSearchButtons(View v, Context context, AlertDialog popup) {
-        Button b = v.findViewById(R.id.selectWorkout);
-        b.setOnClickListener(v1 -> {
+    public static void addSearchButtons(View v, AlertDialog popup) {
+        Button selectWorkout = v.findViewById(R.id.selectWorkout);
+        selectWorkout.setOnClickListener(v1 -> {
             JSONObject workoutObject;
             String out = DBHelper.getAllWorkouts("WHERE w.WorkoutID = '" + box.getId() + "'");
             JSONArray jsonArray;
+
             try {
                 jsonArray = new JSONArray(out);
                 workoutObject = jsonArray.getJSONObject(0);
@@ -128,69 +128,75 @@ public class ItemVisualiser {
 
             Session.selectedWorkout = workoutObject;
             System.out.println("Current workout: " + Session.selectedWorkout.toString());
-            context.startActivity(new Intent(context, MainActivity.class));
+            cThis.startActivity(new Intent(cThis, MainActivity.class));
         });
 
         Button closeWorkout = v.findViewById(R.id.closeExercise);
-        closeWorkout.setOnClickListener(v12 -> popup.dismiss());
+        closeWorkout.setOnClickListener(v1 -> popup.dismiss());
         }
 
-    public static void updateWorkouts(String filter, Context context, LinearLayout layout, ScrollView view, String buttonType, int test) throws JSONException {
-        String input = DBHelper.getAllWorkouts(filter);
-        parentView = view;
+    public static void startWorkoutGeneration(String data, Context context, LinearLayout layout, String buttonType, int popupID, int exerciseScrollID) throws JSONException {
+        cThis = context;
+        workoutLayout = layout;
 
-        if (input == null) {
-            showEmpty(layout);
+        if (data == null) {
+            showEmpty();
         } else {
-            JSONArray jsonArray = new JSONArray(input);
+            JSONArray jsonArray = new JSONArray(data);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject workoutObject = jsonArray.getJSONObject(i);
-                addDetails(workoutObject, context, layout, buttonType, test);
+                addDetails(workoutObject, buttonType, popupID, exerciseScrollID);
             }
         }
     }
 
-    public static void runFilter(String duration, String difficulty, String targetMuscle, Context context, LinearLayout layout, ScrollView sv, String buttonType, int test) throws SQLException, JSONException {
-        ArrayList<String> toFilter = new ArrayList<>();
-        parentView = sv;
-        layout.removeAllViews();
-        parentView.removeAllViews();
-        StringBuilder filter = new StringBuilder();
-        filter.append("WHERE");
-        if ((!(duration.length() == 0))) {
-            toFilter.add(" w.WorkoutDuration = '" + duration + "'");
-        }
+    // Commented due to function moved locally - requires testing
 
-        if ((!(difficulty.length() == 0))) {
-            toFilter.add(" w.Difficulty = '" + difficulty + "'");
-        }
+//    public static void runFilter(String duration, String difficulty, String targetMuscle, Context context, LinearLayout layout, String buttonType, int popupID, int exerciseScrollID) throws SQLException, JSONException {
+//        cThis = context;
+//        workoutLayout = layout;
+//        ArrayList<String> toFilter = new ArrayList<>();
+//        workoutLayout.removeAllViews();
+//        StringBuilder filter = new StringBuilder();
+//        filter.append("WHERE");
+//        if ((!(duration.length() == 0))) {
+//            toFilter.add(" w.WorkoutDuration = '" + duration + "'");
+//        }
+//
+//        if ((!(difficulty.length() == 0))) {
+//            toFilter.add(" w.Difficulty = '" + difficulty + "'");
+//        }
+//
+//        if ((!(targetMuscle.length() == 0))) {
+//            toFilter.add(" w.TargetMuscleGroup = '" + targetMuscle + "'");
+//        }
+//
+//        if (toFilter.size() == 0) {
+//            startWorkoutGeneration(null, cThis, layout, buttonType, popupID, exerciseScrollID);
+//        } else {
+//            for (int i = 0; i < toFilter.size() - 1; i++) {
+//                filter.append(toFilter.get(i)).append(" AND");
+//            }
+//
+//            filter.append(toFilter.get(toFilter.size() - 1));
+//
+//            String newFilter = filter.toString();
+//
+//            startWorkoutGeneration(newFilter, cThis, layout, buttonType, popupID, exerciseScrollID);
+//        }
+//    }
 
-        if ((!(targetMuscle.length() == 0))) {
-            toFilter.add(" w.TargetMuscleGroup = '" + targetMuscle + "'");
-        }
-
-        if (toFilter.size() == 0) {
-            updateWorkouts(null, context, layout, parentView, buttonType, test);
-        } else {
-            for (int i = 0; i < toFilter.size() - 1; i++) {
-                filter.append(toFilter.get(i)).append(" AND");
-            }
-            filter.append(toFilter.get(toFilter.size() - 1));
-
-            String newFilter = filter.toString();
-
-            updateWorkouts(newFilter, context, layout, parentView, buttonType, test);
-        }
-    }
-
-    public static void showEmpty(LinearLayout layout) {
-        TextView empty = new TextView(layout.getContext());
+    public static void showEmpty() {
+        TextView empty = new TextView(workoutLayout.getContext());
         empty.setGravity(1);
 
         empty.setText("No workouts were found");
 
-        layout.removeAllViews();
-        layout.addView(empty);
+        workoutLayout.removeAllViews();
+        workoutLayout.addView(empty);
     }
 
+
+    // ALL BUTTON FUNCTIONS SHOULD BE DECLARD BELOW, WITH THE INPUTS BEING THE VIEW. CONTEXT AND
+    // DIALOG GENERATED
 }

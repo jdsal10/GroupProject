@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/goHome"
-        android:title="@string/homeItem"
-        />
+        android:id="@+id/goToHome"
+        android:title="@string/homeItem" />
     <item
-        android:id="@+id/goSettings"
-        android:title="@string/settingsItem"
-        />
+        android:id="@+id/goToWorkouts"
+        android:title="@string/workoutsItem" />
     <item
-        android:id="@+id/goStats"
-        android:title="@string/statisticsItem"
-        />
+        android:id="@+id/goToHistory"
+        android:title="@string/historyItem" />
 </menu>
