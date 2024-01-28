@@ -50,6 +50,73 @@ public class DBHelper {
         }
     }
 
+    public static void insertWorkout(String[] values) {
+        try {
+            StringBuilder sql = new StringBuilder();
+            sql.append("INSERT INTO HealthData.Workouts (");
+            System.out.println(Arrays.toString(values));
+            System.out.println(Arrays.toString(Index.WORKOUT_DETAILS));
+
+            System.out.println(values.length);
+            System.out.println(Index.WORKOUT_DETAILS.length);
+            for (int i = 0; i < values.length; i++) {
+                sql.append(Index.WORKOUT_DETAILS[i]);
+                sql.append(", ");
+            }
+
+            sql.deleteCharAt(sql.length() - 2);
+            sql.append(") VALUES (");
+
+            for (String field : values) {
+                sql.append("'");
+                sql.append(field);
+                sql.append("', ");
+            }
+
+            sql.deleteCharAt(sql.length() - 2);
+            sql.append(");");
+
+            System.out.println(sql);
+            DBConnection d = new DBConnection();
+            d.executeStatement(sql.toString());
+
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void insertExercise(String[] values) {
+        try {
+            StringBuilder sql = new StringBuilder();
+            sql.append("INSERT INTO HealthData.Exercises (");
+
+            for (int i = 0; i < values.length; i++) {
+                sql.append(Index.EXERCISE_DETAILS[i]);
+                sql.append(", ");
+            }
+
+            sql.deleteCharAt(sql.length() - 2);
+            sql.append(") VALUES (");
+
+            for (String field : values) {
+                sql.append("'");
+                sql.append(field);
+                sql.append("', ");
+            }
+
+            sql.deleteCharAt(sql.length() - 2);
+            sql.append(");");
+
+            System.out.println(sql);
+            DBConnection.executeStatement(sql.toString());
+
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static ResultSet getUser(String email) {
         try {
             // Create and SQL query
