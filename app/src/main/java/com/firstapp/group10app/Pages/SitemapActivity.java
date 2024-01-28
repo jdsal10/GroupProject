@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.ChatGPT.ChatGPT_Client;
-import com.firstapp.group10app.DB.LocalDb.LocalDb;
+//import com.firstapp.group10app.DB.LocalDb.LocalDb;
 import com.firstapp.group10app.R;
 
 import java.util.concurrent.ExecutorService;
@@ -18,7 +18,7 @@ import java.util.concurrent.Executors;
 
 public class SitemapActivity extends AppCompatActivity {
     private LinearLayout layout;
-    private LocalDb localDB;
+//    private LocalDb localDB;
     private final boolean chatGPT_switch1 = false;
 
 
@@ -78,7 +78,7 @@ public class SitemapActivity extends AppCompatActivity {
         printButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                localDBPrint();
+//                localDBPrint();
             }
         });
     }
@@ -175,18 +175,18 @@ public class SitemapActivity extends AppCompatActivity {
     }
 
     private void localDBInsert() {
-        localDB = new LocalDb(this);
-        localDB.insertSampleData();
+//        localDB = new LocalDb(this);
+//        localDB.insertSampleData();
     }
 
-    private void localDBPrint() {
-        localDB.printDataForDebugging();
-    }
+//    private void localDBPrint() {
+//        localDB.printDataForDebugging();
+//    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        localDB.close();
+//        localDB.close();
     }
 
     private final boolean chatGPT_switch2 = false;
