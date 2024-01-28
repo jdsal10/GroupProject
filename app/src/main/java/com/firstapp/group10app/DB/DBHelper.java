@@ -1,10 +1,13 @@
 package com.firstapp.group10app.DB;
 
+import static com.firstapp.group10app.DB.DBConnection.conn;
+
 import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.Other.Session;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 
 public class DBHelper {
@@ -50,7 +53,7 @@ public class DBHelper {
         }
     }
 
-    public static void insertWorkout(String[] values) {
+    public static Integer insertWorkout(String[] values) {
         try {
             StringBuilder sql = new StringBuilder();
             sql.append("INSERT INTO HealthData.Workouts (");
@@ -77,16 +80,24 @@ public class DBHelper {
             sql.append(");");
 
             System.out.println(sql);
-            DBConnection d = new DBConnection();
-            d.executeStatement(sql.toString());
+            Integer id = null;
+            Statement st = conn.createStatement();
+            Integer test = st.executeUpdate(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 
-        }
-        catch (Exception e) {
+            ResultSet rs = st.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            rs.close();
+
+            return id;
+
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void insertExercise(String[] values) {
+    public static void insertExercise(String[] values, int workoutID) {
         try {
             StringBuilder sql = new StringBuilder();
             sql.append("INSERT INTO HealthData.Exercises (");
@@ -109,10 +120,19 @@ public class DBHelper {
             sql.append(");");
 
             System.out.println(sql);
-            DBConnection.executeStatement(sql.toString());
+            Integer id = null;
+            Statement st = conn.createStatement();
+            Integer test = st.executeUpdate(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 
-        }
-        catch (Exception e) {
+            ResultSet rs = st.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            rs.close();
+
+            DBConnection db = new DBConnection();
+            db.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUE (" + workoutID + ", " + id + ");");
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

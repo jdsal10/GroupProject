@@ -119,17 +119,17 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Nav
         workoutDetails[3] = workoutData.getString("Equipment");
         workoutDetails[4] = workoutData.getString("Difficulty");
 
-        DBHelper.insertWorkout(workoutDetails);
+        Integer id = DBHelper.insertWorkout(workoutDetails);
 
         System.out.println(Arrays.toString(workoutDetails));
 
         String exerciseList = workoutData.getString("exercises");
 
-        exerciseCreate(exerciseList);
+        exerciseCreate(exerciseList, id);
 
     }
 
-    public void exerciseCreate(String data) throws JSONException {
+    public void exerciseCreate(String data, Integer id) throws JSONException {
         JSONArray exerciseArray = new JSONArray(data);
         JSONObject individualExercise;
         String[] exerciseData = new String[5];
@@ -141,7 +141,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Nav
             exerciseData[3] = individualExercise.getString("Equipment");
             exerciseData[4] = individualExercise.getString("Difficulty");
 
-            DBHelper.insertExercise(exerciseData);
+            DBHelper.insertExercise(exerciseData, id);
             System.out.println(Arrays.toString(exerciseData));
         }
     }
