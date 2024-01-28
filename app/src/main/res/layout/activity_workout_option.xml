@@ -18,8 +18,20 @@
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:background="@drawable/workout_toggle_outline"
-            android:checkedButton="@+id/toggleAI"
+            android:checkedButton="@+id/toggleManual"
             android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/toggleManual"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/workout_toggle_background"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/manualToggle" />
 
             <RadioButton
                 android:id="@+id/toggleAI"
@@ -33,19 +45,6 @@
                 android:button="@null"
                 android:gravity="center"
                 android:text="@string/aiToggle" />
-
-            <RadioButton
-                android:id="@+id/toggleManual"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="1dp"
-                android:layout_marginEnd="1dp"
-                android:layout_marginBottom="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/workout_toggle_background"
-                android:button="@null"
-                android:gravity="center"
-                android:text="@string/manualToggle" />
         </RadioGroup>
     </LinearLayout>
 
@@ -57,8 +56,7 @@
         android:layout_marginTop="20sp"
         android:layout_weight="1.5"
         android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -113,7 +111,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
