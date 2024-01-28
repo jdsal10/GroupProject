@@ -11,6 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
+import com.firstapp.group10app.Other.onlineChecks;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -49,6 +50,8 @@ public class workout_option extends AppCompatActivity implements CompoundButton.
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
         bottomNavigationView.setSelectedItemId(R.id.goToWorkouts);
         bottomNavigationView.setOnItemSelectedListener(this);
+
+        onlineChecks.checkNavigationBar(bottomNavigationView);
     }
 
 

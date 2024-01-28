@@ -15,7 +15,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import com.firstapp.group10app.Other.onlineChecks;
 import com.firstapp.group10app.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import org.json.JSONException;
@@ -46,9 +48,10 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
         Button filterWorkout = findViewById(R.id.filterWorkouts);
         filterWorkout.setOnClickListener(this);
 
-        NavigationBarView bottomNavigationView = findViewById(R.id.mainNavigation);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
         bottomNavigationView.setOnItemSelectedListener(this);
 
+        onlineChecks.checkNavigationBar(bottomNavigationView);
         try {
             String data = DBHelper.getAllWorkouts(null);
             ItemVisualiser.startWorkoutGeneration(data, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);

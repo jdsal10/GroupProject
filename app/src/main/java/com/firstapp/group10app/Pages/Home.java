@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.Other.Session;
+import com.firstapp.group10app.Other.onlineChecks;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -17,6 +18,7 @@ public class Home extends AppCompatActivity implements NavigationBarView.OnItemS
     protected void onCreate(Bundle savedInstanceState) {
         // For now, a check should run at the start of each file for DB connection.
         Session.dbStatus = DBConnection.testConnection();
+        System.out.println("STATUS: " + Session.dbStatus);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -26,14 +28,8 @@ public class Home extends AppCompatActivity implements NavigationBarView.OnItemS
         bottomNavigationView.setSelectedItemId(R.id.goToHome);
         bottomNavigationView.setOnItemSelectedListener(this);
 
-
-        // Seems to crash
-
-//        if ((!Session.dbStatus) || (!Session.signedIn)) {
-//            bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setEnabled(false);
-////            Enable when history active
-////            bottomNavigationView.getMenu().findItem(R.id.).setEnabled(false);
-//        }
+        // Checks if the view should be disabled.
+        onlineChecks.checkNavigationBar(bottomNavigationView);
     }
 
     @Override
