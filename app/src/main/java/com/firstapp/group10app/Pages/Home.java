@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.DB.DBHelper;
+import com.firstapp.group10app.Other.JSONToDB;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Other.onlineChecks;
 import com.firstapp.group10app.R;
@@ -55,96 +56,12 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Nav
             startActivity(new Intent(getApplicationContext(), workout_option.class));
             return true;
         } else if (id == R.id.goToHistory) {
-            try {
-                splitFunctionTest();
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
             return true;
         }
         return true;
     }
 
-    public void splitFunctionTest() throws JSONException {
-        String data = "{\n" +
-                "\"WorkoutName\": \"Full Body HIIT\",\n" +
-                "\"WorkoutDuration\": 1.5,\n" +
-                "\"TargetMuscleGroup\": \"Full Body\",\n" +
-                "\"Equipment\": \"None\",\n" +
-                "\"Difficulty\": 1,\n" +
-                "\"exercises\": [\n" +
-                "{\n" +
-                "\"ExerciseName\": \"Jumping Jacks\",\n" +
-                "\"Description\": \"Perform jumping jacks for 1 minute.\",\n" +
-                "\"TargetMuscleGroup\": \"Cardio\",\n" +
-                "\"Equipment\": \"None\",\n" +
-                "\"Difficulty\": 1" +
-                "},\n" +
-                "{\n" +
-                "\"ExerciseName\": \"Push-ups\",\n" +
-                "\"Description\": \"Do 3 sets of 15 push-ups.\",\n" +
-                "\"TargetMuscleGroup\": \"Chest, Shoulders, Triceps\",\n" +
-                "\"Equipment\": \"None\",\n" +
-                "\"Difficulty\": 2" +
-                "},\n" +
-                "{\n" +
-                "\"ExerciseName\": \"Bodyweight Squats\",\n" +
-                "\"Description\": \"Perform 4 sets of 20 bodyweight squats.\",\n" +
-                "\"TargetMuscleGroup\": \"Legs\",\n" +
-                "\"Equipment\": \"None\",\n" +
-                "\"Difficulty\": 1" +
-                "},\n" +
-                "{\n" +
-                "\"ExerciseName\": \"Plank\",\n" +
-                "\"Description\": \"Hold a plank position for 2 minutes.\",\n" +
-                "\"TargetMuscleGroup\": \"Core\",\n" +
-                "\"Equipment\": \"None\",\n" +
-                "\"Difficulty\": 3" +
-                "},\n" +
-                "{\n" +
-                "\"ExerciseName\": \"Burpees\",\n" +
-                "\"Description\": \"Complete 3 sets of 10 burpees.\",\n" +
-                "\"TargetMuscleGroup\": \"Full Body\",\n" +
-                "\"Equipment\": \"None\",\n" +
-                "\"Difficulty\": 3" +
-                "}\n" +
-                "]\n" +
-                "}";
 
-        JSONObject workoutData = new JSONObject(data);
-        String[] workoutDetails = new String[5];
-        workoutDetails[0] = workoutData.getString("WorkoutName");
-        workoutDetails[1] = workoutData.getString("WorkoutDuration");
-        workoutDetails[2] = workoutData.getString("TargetMuscleGroup");
-        workoutDetails[3] = workoutData.getString("Equipment");
-        workoutDetails[4] = workoutData.getString("Difficulty");
-
-        Integer id = DBHelper.insertWorkout(workoutDetails);
-
-        System.out.println(Arrays.toString(workoutDetails));
-
-        String exerciseList = workoutData.getString("exercises");
-
-        exerciseCreate(exerciseList, id);
-
-    }
-
-    public void exerciseCreate(String data, Integer id) throws JSONException {
-        JSONArray exerciseArray = new JSONArray(data);
-        JSONObject individualExercise;
-        String[] exerciseData = new String[5];
-        for(int i = 0; i < exerciseArray.length(); i++ ){
-            individualExercise = exerciseArray.getJSONObject(i);
-            exerciseData[0] = individualExercise.getString("ExerciseName");
-            exerciseData[1] = individualExercise.getString("Description");
-            exerciseData[2] = individualExercise.getString("TargetMuscleGroup");
-            exerciseData[3] = individualExercise.getString("Equipment");
-            exerciseData[4] = individualExercise.getString("Difficulty");
-
-            DBHelper.insertExercise(exerciseData, id);
-            System.out.println(Arrays.toString(exerciseData));
-        }
-    }
 
 
         @Override
@@ -152,7 +69,51 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Nav
         int id = v.getId();
         if (id == R.id.TEMPWORK) {
             try {
-                splitFunctionTest();
+                String testData = "{\n" +
+                        "\"WorkoutName\": \"Full Body HIIT\",\n" +
+                        "\"WorkoutDuration\": 1.5,\n" +
+                        "\"TargetMuscleGroup\": \"Full Body\",\n" +
+                        "\"Equipment\": \"None\",\n" +
+                        "\"Difficulty\": 1,\n" +
+                        "\"exercises\": [\n" +
+                        "{\n" +
+                        "\"ExerciseName\": \"Jumping Jacks\",\n" +
+                        "\"Description\": \"Perform jumping jacks for 1 minute.\",\n" +
+                        "\"TargetMuscleGroup\": \"Cardio\",\n" +
+                        "\"Equipment\": \"None\",\n" +
+                        "\"Difficulty\": 1" +
+                        "},\n" +
+                        "{\n" +
+                        "\"ExerciseName\": \"Push-ups\",\n" +
+                        "\"Description\": \"Do 3 sets of 15 push-ups.\",\n" +
+                        "\"TargetMuscleGroup\": \"Chest, Shoulders, Triceps\",\n" +
+                        "\"Equipment\": \"None\",\n" +
+                        "\"Difficulty\": 2" +
+                        "},\n" +
+                        "{\n" +
+                        "\"ExerciseName\": \"Bodyweight Squats\",\n" +
+                        "\"Description\": \"Perform 4 sets of 20 bodyweight squats.\",\n" +
+                        "\"TargetMuscleGroup\": \"Legs\",\n" +
+                        "\"Equipment\": \"None\",\n" +
+                        "\"Difficulty\": 1" +
+                        "},\n" +
+                        "{\n" +
+                        "\"ExerciseName\": \"Plank\",\n" +
+                        "\"Description\": \"Hold a plank position for 2 minutes.\",\n" +
+                        "\"TargetMuscleGroup\": \"Core\",\n" +
+                        "\"Equipment\": \"None\",\n" +
+                        "\"Difficulty\": 3" +
+                        "},\n" +
+                        "{\n" +
+                        "\"ExerciseName\": \"Burpees\",\n" +
+                        "\"Description\": \"Complete 3 sets of 10 burpees.\",\n" +
+                        "\"TargetMuscleGroup\": \"Full Body\",\n" +
+                        "\"Equipment\": \"None\",\n" +
+                        "\"Difficulty\": 3" +
+                        "}\n" +
+                        "]\n" +
+                        "}";
+                JSONToDB.splitFunctionTest(testData);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
