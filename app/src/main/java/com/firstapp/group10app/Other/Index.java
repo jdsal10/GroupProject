@@ -15,4 +15,6 @@ public class Index {
     public static int CONDITIONS = 7;
     public static int REASONS = 8;
     public static String[] USER_DETAILS = {"Email", "PreferredName", "Password", "DOB", "Weight", "Height", "Sex", "HealthCondition", "ReasonForDownloading"};
+    public static String[] WORKOUT_DETAILS = {"WorkoutName", "WorkoutDuration", "TargetMuscleGroup", "Equipment", "Difficulty"};
+    public static String[] EXERCISE_DETAILS = {"ExerciseName", "Description", "TargetMuscleGroup", "Equipment", "Difficulty"};
 }

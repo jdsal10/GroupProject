@@ -29,14 +29,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button goToSitemapButton = findViewById(R.id.goToSitemap);
         goToSitemapButton.setOnClickListener(this);
 
-        // Tests the database connection - used for offline.
+        // Test database connection
         Session.dbStatus = DBConnection.testConnection();
-        
+
         // Default value.
         Session.signedIn = false;
 
         // If the connection false, disable the login.
-        if(!Session.dbStatus) {
+        if (!Session.dbStatus) {
             goToLoginButton.setEnabled(false);
             goToLoginButton.setAlpha(.5f);
         }
@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(MainActivity.this, Home.class));
         } else if (id == R.id.goToSitemap) {
             startActivity(new Intent(MainActivity.this, SitemapActivity.class));
+        } else if (id == R.id.goToRegister) {
+            startActivity(new Intent(MainActivity.this, Registration.class));
         }
     }
 }

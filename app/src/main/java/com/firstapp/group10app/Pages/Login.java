@@ -52,11 +52,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             try {
                 DBHelper db = new DBHelper();
                 if (db.checkUser(EmailText, PasswordText)) {
-                    Toast.makeText(Login.this, "LOGIN SUCCESSFULL!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "Welcome \n" + EmailText + " ! ", Toast.LENGTH_SHORT).show();
                     Session.userEmail = EmailText;
+                    Session.signedIn = true;
                     startActivity(new Intent(getApplicationContext(), Home.class));
                 } else {
-                    Toast.makeText(Login.this, "LOGIN FAILED!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "Login Failed. Check your details!", Toast.LENGTH_SHORT).show();
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
