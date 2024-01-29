@@ -12,6 +12,7 @@ public class JSONToDB {
     public static void splitFunctionTest(String data) throws JSONException {
         JSONObject workoutData = new JSONObject(data);
         String[] workoutDetails = new String[5];
+
         workoutDetails[0] = workoutData.getString("WorkoutName");
         workoutDetails[1] = workoutData.getString("WorkoutDuration");
         workoutDetails[2] = workoutData.getString("TargetMuscleGroup");
@@ -31,6 +32,7 @@ public class JSONToDB {
         JSONArray exerciseArray = new JSONArray(data);
         JSONObject individualExercise;
         String[] exerciseData = new String[5];
+
         for (int i = 0; i < exerciseArray.length(); i++) {
             individualExercise = exerciseArray.getJSONObject(i);
             exerciseData[0] = individualExercise.getString("ExerciseName");
