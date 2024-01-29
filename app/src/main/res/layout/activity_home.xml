@@ -1,36 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Pages.Home">
-    <Button
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="GO TO WORKOUTS - TEMP"
-        android:id="@+id/TEMPWORK">
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1">
 
-    </Button>
+        <Button
+            android:id="@+id/TEMPWORK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GO TO WORKOUTS - TEMP">
+        </Button>
 
-<!--     Update when layout introduced-->
-<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--        android:id="@+id/mainNavigation"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        app:itemBackground="@color/white"-->
-<!--        app:menu="@menu/home_navigation" />-->
+        <Button
+            android:layout_width="40dp"
+            android:id="@+id/goToSettings"
+            android:layout_height="40dp"
+            android:background="@drawable/settings"
+            android:maxHeight="10sp" />
+    </LinearLayout>
+    <!--     Update when layout introduced-->
+    <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+    <!--        android:id="@+id/mainNavigation"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        app:itemBackground="@color/white"-->
+    <!--        app:menu="@menu/home_navigation" />-->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/mainNavigation"
         android:layout_width="match_parent"
         android:layout_height="75dp"
+        app:itemBackground="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/home_navigation"
-        app:itemBackground="@color/white"
-        />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:menu="@menu/home_navigation"/>
+</LinearLayout>

@@ -118,6 +118,7 @@ public class ItemVisualiser {
             JSONObject workoutObject;
             String out = DBHelper.getAllWorkouts("WHERE w.WorkoutID = '" + box.getId() + "'");
             JSONArray jsonArray;
+
             try {
                 jsonArray = new JSONArray(out);
                 workoutObject = jsonArray.getJSONObject(0);
@@ -134,15 +135,14 @@ public class ItemVisualiser {
         closeWorkout.setOnClickListener(v1 -> popup.dismiss());
         }
 
-    public static void startWorkoutGeneration(String filter, Context context, LinearLayout layout, String buttonType, int popupID, int exerciseScrollID) throws JSONException {
+    public static void startWorkoutGeneration(String data, Context context, LinearLayout layout, String buttonType, int popupID, int exerciseScrollID) throws JSONException {
         cThis = context;
         workoutLayout = layout;
-        String input = DBHelper.getAllWorkouts(filter);
 
-        if (input == null) {
+        if (data == null) {
             showEmpty();
         } else {
-            JSONArray jsonArray = new JSONArray(input);
+            JSONArray jsonArray = new JSONArray(data);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject workoutObject = jsonArray.getJSONObject(i);
                 addDetails(workoutObject, buttonType, popupID, exerciseScrollID);
@@ -150,39 +150,41 @@ public class ItemVisualiser {
         }
     }
 
-    public static void runFilter(String duration, String difficulty, String targetMuscle, Context context, LinearLayout layout, String buttonType, int popupID, int exerciseScrollID) throws SQLException, JSONException {
-        cThis = context;
-        workoutLayout = layout;
-        ArrayList<String> toFilter = new ArrayList<>();
-        workoutLayout.removeAllViews();
-        StringBuilder filter = new StringBuilder();
-        filter.append("WHERE");
-        if ((!(duration.length() == 0))) {
-            toFilter.add(" w.WorkoutDuration = '" + duration + "'");
-        }
+    // Commented due to function moved locally - requires testing
 
-        if ((!(difficulty.length() == 0))) {
-            toFilter.add(" w.Difficulty = '" + difficulty + "'");
-        }
-
-        if ((!(targetMuscle.length() == 0))) {
-            toFilter.add(" w.TargetMuscleGroup = '" + targetMuscle + "'");
-        }
-
-        if (toFilter.size() == 0) {
-            startWorkoutGeneration(null, cThis, layout, buttonType, popupID, exerciseScrollID);
-        } else {
-            for (int i = 0; i < toFilter.size() - 1; i++) {
-                filter.append(toFilter.get(i)).append(" AND");
-            }
-
-            filter.append(toFilter.get(toFilter.size() - 1));
-
-            String newFilter = filter.toString();
-
-            startWorkoutGeneration(newFilter, cThis, layout, buttonType, popupID, exerciseScrollID);
-        }
-    }
+//    public static void runFilter(String duration, String difficulty, String targetMuscle, Context context, LinearLayout layout, String buttonType, int popupID, int exerciseScrollID) throws SQLException, JSONException {
+//        cThis = context;
+//        workoutLayout = layout;
+//        ArrayList<String> toFilter = new ArrayList<>();
+//        workoutLayout.removeAllViews();
+//        StringBuilder filter = new StringBuilder();
+//        filter.append("WHERE");
+//        if ((!(duration.length() == 0))) {
+//            toFilter.add(" w.WorkoutDuration = '" + duration + "'");
+//        }
+//
+//        if ((!(difficulty.length() == 0))) {
+//            toFilter.add(" w.Difficulty = '" + difficulty + "'");
+//        }
+//
+//        if ((!(targetMuscle.length() == 0))) {
+//            toFilter.add(" w.TargetMuscleGroup = '" + targetMuscle + "'");
+//        }
+//
+//        if (toFilter.size() == 0) {
+//            startWorkoutGeneration(null, cThis, layout, buttonType, popupID, exerciseScrollID);
+//        } else {
+//            for (int i = 0; i < toFilter.size() - 1; i++) {
+//                filter.append(toFilter.get(i)).append(" AND");
+//            }
+//
+//            filter.append(toFilter.get(toFilter.size() - 1));
+//
+//            String newFilter = filter.toString();
+//
+//            startWorkoutGeneration(newFilter, cThis, layout, buttonType, popupID, exerciseScrollID);
+//        }
+//    }
 
     public static void showEmpty() {
         TextView empty = new TextView(workoutLayout.getContext());
