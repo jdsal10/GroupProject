@@ -79,13 +79,13 @@
     <string name="allergiesTitle">Allergies</string>
     <string name="reasonsTitle">Reasons</string>
     <string name="heightHint">eg. 178</string>
-    <string name="updateValue">Update</string>
+    <string name="updateValue">Update All</string>
     <string name="clearValue">Clear</string>
 
     <!-- Main Navigation Bar -->
     <string name="homeItem">Home</string>
-    <string name="settingsItem">Settings</string>
-    <string name="statisticsItem">Statistics</string>
+    <string name="workoutsItem">Workouts</string>
+    <string name="historyItem">History</string>
 
     <!--    Settings - Data Control-->
     <string-array name="weightUnits">
@@ -112,6 +112,8 @@
         <item>I want to lose weight</item>
         <item>I want to gain weight</item>
         <item>I want to maintain my weight</item>
+
+        <item name="updateAllValues">Update all values</item>
 
     </string-array>
 
@@ -182,7 +184,7 @@ with your account and we will send you an email with further instructions.</stri
     <string name="sendEmail">Send Email</string>
     <string name="backToLogin">Login</string>
 
-<!--    Password Reset Check-->
+    <!--    Password Reset Check-->
     <string name="codeResent">Code has been resent</string>
     <!--    Password Reset Continued-->
     <string name="resetContinueTitle">Enter your new password:</string>
@@ -196,4 +198,13 @@ with your account and we will send you an email with further instructions.</stri
     <string name="resetConfirmCodeHint">Code</string>
     <string name="resetConfirmTryAgain">Try Again</string>
     <string name="resetConfirmConfirm">Confirm</string>
+
+    <!--    Workout Options AI - note this is unnecessary if directly implemented here-->
+    <string name="aiTitle">AI Generation</string>
+    <string name="aiDescription">Generate a workout using AI that tailors to your personal preference.</string>
+    <string name="aiBegin">Begin</string>
+
+    <string name="aiToggle">AI</string>
+    <string name="manualToggle">Manual</string>
+
 </resources>

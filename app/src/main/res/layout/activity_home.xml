@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Pages.Home">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="vertical"
-        android:background="@color/top_grey"
-        android:padding="5dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Home Page"
-            android:textSize="25sp"
-            android:layout_marginLeft="20sp"
-            android:textColor="@color/black"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20sp"
-            android:text="Welcome!" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1">
 
+        <Button
+            android:id="@+id/TEMPWORK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GO TO WORKOUTS - TEMP">
+        </Button>
+
+        <Button
+            android:layout_width="40dp"
+            android:id="@+id/goToSettings"
+            android:layout_height="40dp"
+            android:background="@drawable/settings"
+            android:maxHeight="10sp" />
     </LinearLayout>
 
     <ScrollView
@@ -175,11 +176,10 @@
         android:id="@+id/mainNavigation"
         android:layout_width="match_parent"
         android:layout_height="75dp"
+        app:itemBackground="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/home_navigation"
-        app:itemBackground="@color/white"
-        />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:menu="@menu/home_navigation"/>
+</LinearLayout>

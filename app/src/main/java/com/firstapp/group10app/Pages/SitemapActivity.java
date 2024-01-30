@@ -2,17 +2,15 @@ package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.ChatGPT.ChatGPT_Client;
+//import com.firstapp.group10app.DB.LocalDb.LocalDb;
 import com.firstapp.group10app.R;
 
 import java.util.concurrent.ExecutorService;
@@ -20,6 +18,7 @@ import java.util.concurrent.Executors;
 
 public class SitemapActivity extends AppCompatActivity {
     private LinearLayout layout;
+//    private LocalDb localDB;
     private final boolean chatGPT_switch1 = false;
 
 
@@ -35,18 +34,13 @@ public class SitemapActivity extends AppCompatActivity {
         separateElements();
 
         // Sprint 1 pages
-        addText("Sprint 1 Pages");
+        addText("Pages");
         addButton("MainActivity", MainActivity.class);
         addButton("Registration Page", Registration.class);
         addButton("Login Page", Login.class);
         addButton("Forgot Password Page", ForgotPassword.class);
         addButton("Forgot Password Check Page", forgotpasswordcheck.class);
         addButton("Forgot Password Continued Page", ForgotPasswordContinued.class);
-
-        separateElements();
-
-        // Sprint 2 pages
-        addText("Sprint 2 Pages");
         addButton("Home Page", Home.class);
         addButton("Workouts Page", Workouts.class);
         addButton("Settings Page", Settings.class);
@@ -60,6 +54,33 @@ public class SitemapActivity extends AppCompatActivity {
         } else {
             addText("ChatGPT functionality is disabled to prevent loss of credits.");
         }
+
+        // LocalDB
+        addText("LocalDB Test");
+        Button insertButton = new Button(this);
+        Button printButton = new Button(this);
+        insertButton.setText("Insert Sample Data");
+        printButton.setText("Print Data");
+        insertButton.setTextSize(15);
+        printButton.setTextSize(15);
+        insertButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.5f));
+        printButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.5f));
+        layout.addView(insertButton);
+        layout.addView(printButton);
+
+        insertButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                localDBInsert();
+            }
+        });
+
+        printButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                localDBPrint();
+            }
+        });
     }
 
     private void addText(String text) {
@@ -151,6 +172,21 @@ public class SitemapActivity extends AppCompatActivity {
         View view = new View(this);
         view.setMinimumHeight(70);
         layout.addView(view);
+    }
+
+    private void localDBInsert() {
+//        localDB = new LocalDb(this);
+//        localDB.insertSampleData();
+    }
+
+//    private void localDBPrint() {
+//        localDB.printDataForDebugging();
+//    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        localDB.close();
     }
 
     private final boolean chatGPT_switch2 = false;

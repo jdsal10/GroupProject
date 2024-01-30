@@ -9,55 +9,114 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DBConnection;
+import com.firstapp.group10app.DB.DBHelper;
+import com.firstapp.group10app.Other.JSONToDB;
 import com.firstapp.group10app.Other.Session;
+import com.firstapp.group10app.Other.onlineChecks;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class Home extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.sql.ResultSet;
+import java.util.Arrays;
+
+public class Home extends AppCompatActivity implements View.OnClickListener, NavigationBarView.OnItemSelectedListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // For now, a check should run at the start of each file for DB connection.
         Session.dbStatus = DBConnection.testConnection();
+        System.out.println("STATUS: " + Session.dbStatus);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        Button b = findViewById(R.id.TEMPWORK);
+        b.setOnClickListener(this);
+
         // Declare bottom taskbar
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
-        bottomNavigationView.setSelectedItemId(R.id.goHome);
+        bottomNavigationView.setSelectedItemId(R.id.goToHome);
         bottomNavigationView.setOnItemSelectedListener(this);
 
-        Button tempButton = findViewById(R.id.TEMPWORK);
-        tempButton.setOnClickListener(this);
-
-        if ((!Session.dbStatus) || (!Session.signedIn)) {
-            bottomNavigationView.getMenu().findItem(R.id.goSettings).setEnabled(false);
-            bottomNavigationView.getMenu().findItem(R.id.goStats).setEnabled(false);
-        }
+        // Checks if the view should be disabled.
+        onlineChecks.checkNavigationBar(bottomNavigationView);
     }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.goSettings) {
-            startActivity(new Intent(getApplicationContext(), Settings.class));
-            return true;
-        } else if (id == R.id.goStats) {
-            //Code to navigate to stats
-            return true;
-        } else if (id == R.id.goHome) {
+        if (id == R.id.goToHome) {
             startActivity(new Intent(getApplicationContext(), Home.class));
+            return true;
+        } else if (id == R.id.goToWorkouts) {
+            startActivity(new Intent(getApplicationContext(), workout_option.class));
+            return true;
+        } else if (id == R.id.goToHistory) {
             return true;
         }
         return true;
     }
 
-    @Override
+
+
+
+        @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.TEMPWORK) {
-            startActivity(new Intent(Home.this, createOrSearch.class));
+            try {
+                String testData = "{\n" +
+                        "\"WorkoutName\": \"Full Body HIIT\",\n" +
+                        "\"WorkoutDuration\": 1.5,\n" +
+                        "\"TargetMuscleGroup\": \"Full Body\",\n" +
+                        "\"Equipment\": \"None\",\n" +
+                        "\"Difficulty\": 1,\n" +
+                        "\"exercises\": [\n" +
+                        "{\n" +
+                        "\"ExerciseName\": \"Jumping Jacks\",\n" +
+                        "\"Description\": \"Perform jumping jacks for 1 minute.\",\n" +
+                        "\"TargetMuscleGroup\": \"Cardio\",\n" +
+                        "\"Equipment\": \"None\",\n" +
+                        "\"Difficulty\": 1" +
+                        "},\n" +
+                        "{\n" +
+                        "\"ExerciseName\": \"Push-ups\",\n" +
+                        "\"Description\": \"Do 3 sets of 15 push-ups.\",\n" +
+                        "\"TargetMuscleGroup\": \"Chest, Shoulders, Triceps\",\n" +
+                        "\"Equipment\": \"None\",\n" +
+                        "\"Difficulty\": 2" +
+                        "},\n" +
+                        "{\n" +
+                        "\"ExerciseName\": \"Bodyweight Squats\",\n" +
+                        "\"Description\": \"Perform 4 sets of 20 bodyweight squats.\",\n" +
+                        "\"TargetMuscleGroup\": \"Legs\",\n" +
+                        "\"Equipment\": \"None\",\n" +
+                        "\"Difficulty\": 1" +
+                        "},\n" +
+                        "{\n" +
+                        "\"ExerciseName\": \"Plank\",\n" +
+                        "\"Description\": \"Hold a plank position for 2 minutes.\",\n" +
+                        "\"TargetMuscleGroup\": \"Core\",\n" +
+                        "\"Equipment\": \"None\",\n" +
+                        "\"Difficulty\": 3" +
+                        "},\n" +
+                        "{\n" +
+                        "\"ExerciseName\": \"Burpees\",\n" +
+                        "\"Description\": \"Complete 3 sets of 10 burpees.\",\n" +
+                        "\"TargetMuscleGroup\": \"Full Body\",\n" +
+                        "\"Equipment\": \"None\",\n" +
+                        "\"Difficulty\": 3" +
+                        "}\n" +
+                        "]\n" +
+                        "}";
+                JSONToDB.splitFunctionTest(testData);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

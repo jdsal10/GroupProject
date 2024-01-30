@@ -22,11 +22,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ItemVisualiser {
-    static LinearLayout box;
+    static LinearLayout box, workoutLayout;
     static Context cThis;
-    static LinearLayout workoutLayout;
+    static int exerciseID, popID;
 
-    public static void addDetails(JSONObject details, String buttonType, int popupID, int exerciseScrollID) {
+    public static void addDetails(JSONObject details, String buttonType) {
         LayoutInflater inflate = (LayoutInflater) cThis.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         box = (LinearLayout) inflate.inflate(R.layout.activity_workout_view, null);
 
@@ -54,10 +54,10 @@ public class ItemVisualiser {
         box.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(cThis);
 
-            View popupView = inflate.inflate(popupID, null);
+            View popupView = inflate.inflate(popID, null);
             builder.setView(popupView);
             AlertDialog alertDialog = builder.create();
-            ScrollView exerciseMainView = popupView.findViewById(exerciseScrollID);
+            ScrollView exerciseMainView = popupView.findViewById(exerciseID);
 
             exerciseMainView.removeAllViews();
 
@@ -112,75 +112,20 @@ public class ItemVisualiser {
         });
     }
 
-    public static void addSearchButtons(View v, AlertDialog popup) {
-        Button selectWorkout = v.findViewById(R.id.selectWorkout);
-        selectWorkout.setOnClickListener(v1 -> {
-            JSONObject workoutObject;
-            String out = DBHelper.getAllWorkouts("WHERE w.WorkoutID = '" + box.getId() + "'");
-            JSONArray jsonArray;
-            try {
-                jsonArray = new JSONArray(out);
-                workoutObject = jsonArray.getJSONObject(0);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-
-            Session.selectedWorkout = workoutObject;
-            System.out.println("Current workout: " + Session.selectedWorkout.toString());
-            cThis.startActivity(new Intent(cThis, MainActivity.class));
-        });
-
-        Button closeWorkout = v.findViewById(R.id.closeExercise);
-        closeWorkout.setOnClickListener(v1 -> popup.dismiss());
-        }
-
-    public static void startWorkoutGeneration(String filter, Context context, LinearLayout layout, String buttonType, int popupID, int exerciseScrollID) throws JSONException {
+    public static void startWorkoutGeneration(String data, Context context, LinearLayout layout, String buttonType, int popupID, int exerciseScrollID) throws JSONException {
         cThis = context;
         workoutLayout = layout;
-        String input = DBHelper.getAllWorkouts(filter);
+        exerciseID = exerciseScrollID;
+        popID = popupID;
 
-        if (input == null) {
+        if (data == null) {
             showEmpty();
         } else {
-            JSONArray jsonArray = new JSONArray(input);
+            JSONArray jsonArray = new JSONArray(data);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject workoutObject = jsonArray.getJSONObject(i);
-                addDetails(workoutObject, buttonType, popupID, exerciseScrollID);
+                addDetails(workoutObject, buttonType);
             }
-        }
-    }
-
-    public static void runFilter(String duration, String difficulty, String targetMuscle, Context context, LinearLayout layout, String buttonType, int popupID, int exerciseScrollID) throws SQLException, JSONException {
-        cThis = context;
-        workoutLayout = layout;
-        ArrayList<String> toFilter = new ArrayList<>();
-        workoutLayout.removeAllViews();
-        StringBuilder filter = new StringBuilder();
-        filter.append("WHERE");
-        if ((!(duration.length() == 0))) {
-            toFilter.add(" w.WorkoutDuration = '" + duration + "'");
-        }
-
-        if ((!(difficulty.length() == 0))) {
-            toFilter.add(" w.Difficulty = '" + difficulty + "'");
-        }
-
-        if ((!(targetMuscle.length() == 0))) {
-            toFilter.add(" w.TargetMuscleGroup = '" + targetMuscle + "'");
-        }
-
-        if (toFilter.size() == 0) {
-            startWorkoutGeneration(null, cThis, layout, buttonType, popupID, exerciseScrollID);
-        } else {
-            for (int i = 0; i < toFilter.size() - 1; i++) {
-                filter.append(toFilter.get(i)).append(" AND");
-            }
-
-            filter.append(toFilter.get(toFilter.size() - 1));
-
-            String newFilter = filter.toString();
-
-            startWorkoutGeneration(newFilter, cThis, layout, buttonType, popupID, exerciseScrollID);
         }
     }
 
@@ -195,6 +140,30 @@ public class ItemVisualiser {
     }
 
 
-    // ALL BUTTON FUNCTIONS SHOULD BE DECLARD BELOW, WITH THE INPUTS BEING THE VIEW. CONTEXT AND
+    // ALL BUTTON FUNCTIONS SHOULD BE DECLARED BELOW, WITH THE INPUTS BEING THE VIEW. CONTEXT AND
     // DIALOG GENERATED
+
+
+    public static void addSearchButtons(View v, AlertDialog popup) {
+        Button selectWorkout = v.findViewById(R.id.selectWorkout);
+        selectWorkout.setOnClickListener(v1 -> {
+            JSONObject workoutObject;
+            String out = DBHelper.getAllWorkouts("WHERE w.WorkoutID = '" + box.getId() + "'");
+            JSONArray jsonArray;
+
+            try {
+                jsonArray = new JSONArray(out);
+                workoutObject = jsonArray.getJSONObject(0);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
+            Session.selectedWorkout = workoutObject;
+            System.out.println("Current workout: " + Session.selectedWorkout.toString());
+            cThis.startActivity(new Intent(cThis, MainActivity.class));
+        });
+
+        Button closeWorkout = v.findViewById(R.id.closeExercise);
+        closeWorkout.setOnClickListener(v1 -> popup.dismiss());
+    }
 }

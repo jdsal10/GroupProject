@@ -4,7 +4,9 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +27,7 @@ public class settings_data_control extends Fragment implements View.OnClickListe
 
     // Declared variables
     EditText dobValue, weightValue, heightValue, allergiesValue;
-    Button dobUpdate, weightUpdate, heightUpdate, sexUpdate, allergiesUpdate, reasonsUpdate;
+    Button updateAll;
     Button dobClear, weightClear, heightClear, sexClear, allergiesClear, reasonsClear;
     Spinner weightSpin, heightSpin, sexSpin, reasonSpin;
 
@@ -36,6 +38,43 @@ public class settings_data_control extends Fragment implements View.OnClickListe
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+
+    private void dobAddTextChangedListener() {
+        dobValue.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            int ind, ind1 = 0;
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                // Calculates "-" after year
+                if (s.length() == 4 && ind == 0) {
+                    dobValue.setText(String.format("%s-", s));
+                    dobValue.setSelection(s.length() + 1);
+                    ind = 1;
+                } else if (s.length() < 4 && ind == 1) {
+                    ind = 0;
+                }
+
+                // Calculates "-" after month
+                if (s.length() == 7 && ind1 == 0) {
+                    dobValue.setText(String.format("%s-", s));
+                    dobValue.setSelection(s.length() + 1);
+                    ind1 = 1;
+                } else if (s.length() < 7 && ind1 == 1) {
+                    ind1 = 0;
+                }
+            }
+        });
     }
 
     public void updateValues(ArrayList<String> info) {
@@ -50,8 +89,7 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         if (tempWeight == null || TextUtils.isEmpty(tempWeight) || tempWeight.equals("")) {
             weightSpin.setSelection(0);
             weightValue.setText("");
-        }
-        else {
+        } else {
             String weightUnits = info.get(1).split(" ")[1];
             weightValue.setText(info.get(1).split(" ")[0]);
 
@@ -69,8 +107,7 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         if (tempHeight == null || TextUtils.isEmpty(tempHeight) || tempHeight.equals("")) {
             heightSpin.setSelection(0);
             heightValue.setText("");
-        }
-        else {
+        } else {
             String heightUnits = info.get(2).split(" ")[1];
             heightValue.setText(info.get(2).split(" ")[0]);
 
@@ -126,14 +163,10 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         View rootView = inflater.inflate(R.layout.fragment_settings_data_control, container, false);
 
         // Initialises the widgets
-
+        updateAll = rootView.findViewById(R.id.updateAllValues);
+        updateAll.setOnClickListener(this);
         // Initialise the update buttons.
-        dobUpdate = rootView.findViewById(R.id.updateDOB);
-        weightUpdate = rootView.findViewById(R.id.updateWeight);
-        heightUpdate = rootView.findViewById(R.id.updateHeight);
-        sexUpdate = rootView.findViewById(R.id.updateSex);
-        allergiesUpdate = rootView.findViewById(R.id.updateAllergies);
-        reasonsUpdate = rootView.findViewById(R.id.updateReasons);
+
 
         // Initialise all spinners.
         weightSpin = rootView.findViewById(R.id.weightUnitSpinner);
@@ -158,22 +191,18 @@ public class settings_data_control extends Fragment implements View.OnClickListe
 
         // Sets onClickListener for the buttons.
         dobClear.setOnClickListener(this);
-        dobUpdate.setOnClickListener(this);
 
         weightClear.setOnClickListener(this);
-        weightUpdate.setOnClickListener(this);
 
         heightClear.setOnClickListener(this);
-        heightUpdate.setOnClickListener(this);
 
         sexClear.setOnClickListener(this);
-        sexUpdate.setOnClickListener(this);
 
         allergiesClear.setOnClickListener(this);
-        allergiesUpdate.setOnClickListener(this);
 
         reasonsClear.setOnClickListener(this);
-        reasonsUpdate.setOnClickListener(this);
+        dobAddTextChangedListener();
+
 
         // Declares an array of the users details.
         String currentUser = Session.userEmail;
@@ -208,61 +237,58 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         if (id == R.id.clearDOB) {
             DBHelper.clearData("DOB");
             dobValue.setText("");
-        } else if (id == R.id.updateDOB) {
+        } else if (id == R.id.updateAllValues) {
             if (Validator.dobValid(dobValue.getText().toString())) {
                 DBHelper.updateData("DOB", dobValue.getText().toString());
             } else {
                 dobValue.setError("Invalid format!");
             }
-        }
-
-        // Modify Weight
-        else if (id == R.id.clearWeight) {
-            DBHelper.clearData("Weight");
-            weightValue.setText("");
-        } else if (id == R.id.updateWeight) {
             if (Validator.weightValid(weightValue.getText().toString(), weightSpin.getSelectedItem().toString())) {
                 DBHelper.updateData("Weight", weightValue.getText().toString() + " " + weightSpin.getSelectedItem().toString());
             } else {
                 weightValue.setError("Invalid format!");
             }
 
+            if (Validator.heightValid(heightValue.getText().toString(), heightSpin.getSelectedItem().toString())) {
+                DBHelper.updateData("Height", heightValue.getText().toString() + " " + heightSpin.getSelectedItem().toString());
+            } else {
+                heightValue.setError("Invalid format!");
+            }
+            DBHelper.updateData("Sex", sexSpin.getSelectedItem().toString());
+
+            DBHelper.updateData("HealthCondition", allergiesValue.getText().toString());
+
+            DBHelper.updateData("ReasonForDownloading", reasonSpin.getSelectedItem().toString());
+
+        }
+
+        // Modify Weight
+        else if (id == R.id.clearWeight) {
+            DBHelper.clearData("Weight");
+            weightValue.setText("");
         }
 
         // Modify Height
         else if (id == R.id.clearHeight) {
             DBHelper.clearData("Height");
             heightValue.setText("");
-        } else if (id == R.id.updateHeight) {
-            if (Validator.heightValid(heightValue.getText().toString(), heightSpin.getSelectedItem().toString())) {
-                DBHelper.updateData("Height", heightValue.getText().toString() + " " + heightSpin.getSelectedItem().toString());
-            } else {
-                heightValue.setError("Invalid format!");
-            }
         }
-
         // Modify Sex
         else if (id == R.id.clearSex) {
             DBHelper.clearData("Sex");
             sexSpin.setSelection(0);
-        } else if (id == R.id.updateSex) {
-            DBHelper.updateData("Sex", sexSpin.getSelectedItem().toString());
         }
 
         // Modify Allergies
         else if (id == R.id.clearAllergies) {
             DBHelper.clearData("HealthCondition");
             allergiesValue.setText("");
-        } else if (id == R.id.updateAllergies) {
-            DBHelper.updateData("HealthCondition", allergiesValue.getText().toString());
         }
 
         // Modify Reasons
         else if (id == R.id.clearReasons) {
             DBHelper.clearData("ReasonForDownloading");
             reasonSpin.setSelection(0);
-        } else if (id == R.id.updateReasons) {
-            DBHelper.updateData("ReasonForDownloading", reasonSpin.getSelectedItem().toString());
         }
     }
 
