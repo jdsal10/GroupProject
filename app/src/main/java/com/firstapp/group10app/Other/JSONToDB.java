@@ -16,7 +16,7 @@ public class JSONToDB {
         workoutDetails[0] = workoutData.getString("WorkoutName");
         workoutDetails[1] = workoutData.getString("WorkoutDuration");
         workoutDetails[2] = workoutData.getString("TargetMuscleGroup");
-        workoutDetails[3] = workoutData.getString("Equipment");
+        workoutDetails[3] = workoutData.getString("Equipmentx");
         workoutDetails[4] = workoutData.getString("Difficulty");
 
         Integer id = DBHelper.insertWorkout(workoutDetails);

@@ -26,7 +26,7 @@ public class ItemVisualiser {
     static Context cThis;
     static int exerciseID, popID;
 
-    public static void addDetails(JSONObject details, String buttonType+) {
+    public static void addDetails(JSONObject details, String buttonType) {
         LayoutInflater inflate = (LayoutInflater) cThis.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         box = (LinearLayout) inflate.inflate(R.layout.activity_workout_view, null);
 
@@ -54,7 +54,7 @@ public class ItemVisualiser {
         box.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(cThis);
 
-            View popupView = inflate.inflate(popupID, null);
+            View popupView = inflate.inflate(popID, null);
             builder.setView(popupView);
             AlertDialog alertDialog = builder.create();
             ScrollView exerciseMainView = popupView.findViewById(exerciseID);
