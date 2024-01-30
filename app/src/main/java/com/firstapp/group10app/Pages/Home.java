@@ -1,10 +1,16 @@
 package com.firstapp.group10app.Pages;
 
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,11 +26,17 @@ import com.google.android.material.navigation.NavigationBarView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.sql.ResultSet;
 import java.util.Arrays;
 
-public class Home extends AppCompatActivity implements View.OnClickListener, NavigationBarView.OnItemSelectedListener {
+public class Home extends AppCompatActivity implements View.OnClickListener, NavigationBarView.OnItemSelectedListener, SensorEventListener {
+    private SensorManager sensorManager;
+    private Sensor accelerometer;
+    private int totalStepsCount;
+    private TextView stepView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // For now, a check should run at the start of each file for DB connection.
@@ -44,6 +56,49 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Nav
 
         // Checks if the view should be disabled.
         onlineChecks.checkNavigationBar(bottomNavigationView);
+
+        stepView = findViewById(R.id.stepTemp);
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        if (sensorManager != null) {
+            accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Reactive the sensor
+        if (accelerometer != null) {
+            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(this);
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        float[] values = event.values;
+        float x = values[0];
+        float y = values[1];
+        float z = values[2];
+
+        // Calculate acceleration.
+        float acceleration = (float) Math.sqrt(x * x + y * y + z * z);
+
+        if (acceleration > 25) {
+            totalStepsCount++;
+            System.out.println("Steps: " + totalStepsCount);
+            stepView.setText("Steps: " + totalStepsCount);
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 
     @Override
@@ -62,9 +117,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Nav
     }
 
 
-
-
-        @Override
+    @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.TEMPWORK) {
