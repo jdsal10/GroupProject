@@ -12,26 +12,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DBConnection;
-import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Other.JSONToDB;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Other.onlineChecks;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.firstapp.group10app.Other.*;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.sql.ResultSet;
-import java.util.Arrays;
-
-public class Home extends AppCompatActivity implements View.OnClickListener, NavigationBarView.OnItemSelectedListener, SensorEventListener {
+public class Home extends AppCompatActivity implements View.OnClickListener, NavigationBarView.OnItemSelectedListener {
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private int totalStepsCount;
@@ -57,48 +52,9 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Nav
         // Checks if the view should be disabled.
         onlineChecks.checkNavigationBar(bottomNavigationView);
 
-        stepView = findViewById(R.id.stepTemp);
-
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        if (sensorManager != null) {
-            accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Reactive the sensor
-        if (accelerometer != null) {
-            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        sensorManager.unregisterListener(this);
-    }
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        float[] values = event.values;
-        float x = values[0];
-        float y = values[1];
-        float z = values[2];
-
-        // Calculate acceleration.
-        float acceleration = (float) Math.sqrt(x * x + y * y + z * z);
-
-        if (acceleration > 25) {
-            totalStepsCount++;
-            System.out.println("Steps: " + totalStepsCount);
-            stepView.setText("Steps: " + totalStepsCount);
-        }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+//        stepView = findViewById(R.id.stepTemp);
+//
+//        stepCounter s = new stepCounter();
     }
 
     @Override
@@ -166,7 +122,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Nav
                         "}\n" +
                         "]\n" +
                         "}";
-                JSONToDB.splitFunctionTest(testData);
+                JSONToDB.insertWorkout(testData);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
