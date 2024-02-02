@@ -37,6 +37,9 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Nav
         Button b = findViewById(R.id.TEMPWORK);
         b.setOnClickListener(this);
 
+        Button settingsbtn = findViewById(R.id.goToSettings);
+        settingsbtn.setOnClickListener(this);
+
         // Declare bottom taskbar
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
         bottomNavigationView.setSelectedItemId(R.id.goToHome);
@@ -67,56 +70,8 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Nav
         @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.TEMPWORK) {
-            try {
-                String testData = "{\n" +
-                        "\"WorkoutName\": \"Full Body HIIT\",\n" +
-                        "\"WorkoutDuration\": 1.5,\n" +
-                        "\"TargetMuscleGroup\": \"Full Body\",\n" +
-                        "\"Equipment\": \"None\",\n" +
-                        "\"Difficulty\": 1,\n" +
-                        "\"exercises\": [\n" +
-                        "{\n" +
-                        "\"ExerciseName\": \"Jumping Jacks\",\n" +
-                        "\"Description\": \"Perform jumping jacks for 1 minute.\",\n" +
-                        "\"TargetMuscleGroup\": \"Cardio\",\n" +
-                        "\"Equipment\": \"None\",\n" +
-                        "\"Difficulty\": 1" +
-                        "},\n" +
-                        "{\n" +
-                        "\"ExerciseName\": \"Push-ups\",\n" +
-                        "\"Description\": \"Do 3 sets of 15 push-ups.\",\n" +
-                        "\"TargetMuscleGroup\": \"Chest, Shoulders, Triceps\",\n" +
-                        "\"Equipment\": \"None\",\n" +
-                        "\"Difficulty\": 2" +
-                        "},\n" +
-                        "{\n" +
-                        "\"ExerciseName\": \"Bodyweight Squats\",\n" +
-                        "\"Description\": \"Perform 4 sets of 20 bodyweight squats.\",\n" +
-                        "\"TargetMuscleGroup\": \"Legs\",\n" +
-                        "\"Equipment\": \"None\",\n" +
-                        "\"Difficulty\": 1" +
-                        "},\n" +
-                        "{\n" +
-                        "\"ExerciseName\": \"Plank\",\n" +
-                        "\"Description\": \"Hold a plank position for 2 minutes.\",\n" +
-                        "\"TargetMuscleGroup\": \"Core\",\n" +
-                        "\"Equipment\": \"None\",\n" +
-                        "\"Difficulty\": 3" +
-                        "},\n" +
-                        "{\n" +
-                        "\"ExerciseName\": \"Burpees\",\n" +
-                        "\"Description\": \"Complete 3 sets of 10 burpees.\",\n" +
-                        "\"TargetMuscleGroup\": \"Full Body\",\n" +
-                        "\"Equipment\": \"None\",\n" +
-                        "\"Difficulty\": 3" +
-                        "}\n" +
-                        "]\n" +
-                        "}";
-                JSONToDB.splitFunctionTest(testData);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
+        if (id == R.id.goToSettings) {
+            startActivity(new Intent(Home.this, Settings.class));
         }
     }
 }
