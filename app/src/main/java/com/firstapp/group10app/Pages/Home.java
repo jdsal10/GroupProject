@@ -59,6 +59,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Nav
             startActivity(new Intent(getApplicationContext(), workout_option.class));
             return true;
         } else if (id == R.id.goToHistory) {
+            startActivity(new Intent(getApplicationContext(), History.class));
             return true;
         }
         return true;
