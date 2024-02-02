@@ -239,7 +239,7 @@ public class DBHelper {
         return "";
     }
 
-    public String getUserWorkouts(String filter) throws SQLException {
+    public static String getUserWorkouts(String filter) throws SQLException {
         DBConnection d = new DBConnection();
         String st = "SELECT\n" +
                 "  JSON_ARRAYAGG(\n" +
@@ -275,9 +275,19 @@ public class DBHelper {
                 "  FROM HealthData.UserWorkoutHistory uwh\n" +
                 "  WHERE uwh.Email = '" + filter + "'\n" +
                 ");\n";
+        System.out.println("hello" + st);
+
 
         ResultSet out = d.executeQuery(st);
-        return out.getString("Result");
+        try {
+            if (out.next()) {
+                return out.getString("Result");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error processing ResultSet", e);
+        }
+
+        return "";
     }
 }
 
