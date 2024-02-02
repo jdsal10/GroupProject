@@ -22,9 +22,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class settings_data_control extends Fragment implements View.OnClickListener {
-
-    // UNITS FOR WEIGHT CURRENTLY FAILS!
-
     // Declared variables
     EditText dobValue, weightValue, heightValue, allergiesValue;
     Button updateAll;
@@ -55,7 +52,6 @@ public class settings_data_control extends Fragment implements View.OnClickListe
 
             @Override
             public void afterTextChanged(Editable s) {
-
                 // Calculates "-" after year
                 if (s.length() == 4 && ind == 0) {
                     dobValue.setText(String.format("%s-", s));

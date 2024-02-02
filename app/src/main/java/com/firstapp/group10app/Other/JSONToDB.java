@@ -9,14 +9,14 @@ import org.json.JSONObject;
 import java.util.Arrays;
 
 public class JSONToDB {
-    public static void splitFunctionTest(String data) throws JSONException {
+    public static void insertWorkout(String data) throws JSONException {
         JSONObject workoutData = new JSONObject(data);
         String[] workoutDetails = new String[5];
 
         workoutDetails[0] = workoutData.getString("WorkoutName");
         workoutDetails[1] = workoutData.getString("WorkoutDuration");
         workoutDetails[2] = workoutData.getString("TargetMuscleGroup");
-        workoutDetails[3] = workoutData.getString("Equipmentx");
+        workoutDetails[3] = workoutData.getString("Equipment");
         workoutDetails[4] = workoutData.getString("Difficulty");
 
         Integer id = DBHelper.insertWorkout(workoutDetails);
@@ -25,10 +25,10 @@ public class JSONToDB {
 
         String exerciseList = workoutData.getString("exercises");
 
-        exerciseCreate(exerciseList, id);
+        insertExercise(exerciseList, id);
     }
 
-    public static void exerciseCreate(String data, Integer id) throws JSONException {
+    public static void insertExercise(String data, Integer id) throws JSONException {
         JSONArray exerciseArray = new JSONArray(data);
         JSONObject individualExercise;
         String[] exerciseData = new String[5];
