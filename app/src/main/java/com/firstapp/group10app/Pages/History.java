@@ -6,18 +6,42 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
+import com.firstapp.group10app.DB.DBHelper;
+import com.firstapp.group10app.Other.ItemVisualiser;
+import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Other.onlineChecks;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class History extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
+    private LinearLayout historyLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
+        ScrollView historyScrollView = findViewById(R.id.historyElements);
+
+
+        historyLayout = new LinearLayout(this);
+        historyLayout.setOrientation(LinearLayout.VERTICAL);
+
+        historyScrollView.addView(historyLayout);
+
+        try {
+            //gets the workouts user has done, specific to the user
+            String HistoryJSON = DBHelper.getUserWorkouts(Session.userEmail);
+            ItemVisualiser.startWorkoutGeneration(HistoryJSON, this, historyLayout, "tt", R.layout.historypopup, R.id.popupHistory);
+            System.out.println(HistoryJSON);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
 
         // Declare bottom taskbar
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);

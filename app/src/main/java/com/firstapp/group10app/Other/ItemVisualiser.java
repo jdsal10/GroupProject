@@ -123,8 +123,10 @@ public class ItemVisualiser {
         } else {
             JSONArray jsonArray = new JSONArray(data);
             for (int i = 0; i < jsonArray.length(); i++) {
+                System.out.println("testing");
                 JSONObject workoutObject = jsonArray.getJSONObject(i);
                 addDetails(workoutObject, buttonType);
+
             }
         }
     }
