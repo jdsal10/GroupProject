@@ -1,0 +1,52 @@
+Meeting 11 - 29.01.2024
+
+This week we've done the following
+Ethan:
+- Prompt generation (everything is saved in Documents/Mockups directory)
+- Uploaded the exercises and workout to tiDB successfully
+- Suggestinos: to change dificulty to easy/medium/hard or 1, 2, 3
+
+Manu:
+- Nothing that week
+
+Juan:
+- Focusing on other work
+
+Nikola:
+- Created the local DB
+
+
+What we might want to do:
+Ethan
+- Work on the Settings page UI
+- Manage the code for the online DB
+
+Nikola:
+- Publish screenshots of Nike activity - mockup of history
+- Fix the local DB error
+- Populate the local DB with exercises
+- Meet with Misha to finish the Workout pages including UI
+- Use the session file to decide which DB to connect to
+
+Manu:
+- Populating the online DB with data
+- work with Juan on History page
+
+Juan:
+- work on the History page
+
+Misha:
+- work on the Workouts page with me
+- and the AI Workouts page alone
+
+Everyone:
+- change the difficulty to easy/medium/hard
+- Must code a function to verify JSON files
+
+
+What should go on the poster (by the 16th of Feb):
+- chatGPT functionality (personalized workouts created using generative AI with care for users)
+- workout generation (works even without chatGPT)
+- anonymity and privacy in mind (users are allowed to decide how and what, if any, data we have for them)
+* make it look nice
+* start thinking about what we demo version we can demonstrate (by the 1st of March)
