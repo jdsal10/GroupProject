@@ -22,11 +22,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ItemVisualiser {
-    static LinearLayout box;
+    static LinearLayout box, workoutLayout;
     static Context cThis;
-    static LinearLayout workoutLayout;
+    static int exerciseID, popID;
 
-    public static void addDetails(JSONObject details, String buttonType, int popupID, int exerciseScrollID) {
+    public static void addDetails(JSONObject details, String buttonType) {
         LayoutInflater inflate = (LayoutInflater) cThis.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         box = (LinearLayout) inflate.inflate(R.layout.activity_workout_view, null);
 
@@ -54,10 +54,10 @@ public class ItemVisualiser {
         box.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(cThis);
 
-            View popupView = inflate.inflate(popupID, null);
+            View popupView = inflate.inflate(popID, null);
             builder.setView(popupView);
             AlertDialog alertDialog = builder.create();
-            ScrollView exerciseMainView = popupView.findViewById(exerciseScrollID);
+            ScrollView exerciseMainView = popupView.findViewById(exerciseID);
 
             exerciseMainView.removeAllViews();
 
@@ -112,6 +112,40 @@ public class ItemVisualiser {
         });
     }
 
+    public static void startWorkoutGeneration(String data, Context context, LinearLayout layout, String buttonType, int popupID, int exerciseScrollID) throws JSONException {
+        cThis = context;
+        workoutLayout = layout;
+        exerciseID = exerciseScrollID;
+        popID = popupID;
+
+        if (data == null) {
+            showEmpty();
+        } else {
+            JSONArray jsonArray = new JSONArray(data);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                System.out.println("testing");
+                JSONObject workoutObject = jsonArray.getJSONObject(i);
+                addDetails(workoutObject, buttonType);
+
+            }
+        }
+    }
+
+    public static void showEmpty() {
+        TextView empty = new TextView(workoutLayout.getContext());
+        empty.setGravity(1);
+
+        empty.setText("No workouts were found");
+
+        workoutLayout.removeAllViews();
+        workoutLayout.addView(empty);
+    }
+
+
+    // ALL BUTTON FUNCTIONS SHOULD BE DECLARED BELOW, WITH THE INPUTS BEING THE VIEW. CONTEXT AND
+    // DIALOG GENERATED
+
+
     public static void addSearchButtons(View v, AlertDialog popup) {
         Button selectWorkout = v.findViewById(R.id.selectWorkout);
         selectWorkout.setOnClickListener(v1 -> {
@@ -133,70 +167,5 @@ public class ItemVisualiser {
 
         Button closeWorkout = v.findViewById(R.id.closeExercise);
         closeWorkout.setOnClickListener(v1 -> popup.dismiss());
-        }
-
-    public static void startWorkoutGeneration(String data, Context context, LinearLayout layout, String buttonType, int popupID, int exerciseScrollID) throws JSONException {
-        cThis = context;
-        workoutLayout = layout;
-
-        if (data == null) {
-            showEmpty();
-        } else {
-            JSONArray jsonArray = new JSONArray(data);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject workoutObject = jsonArray.getJSONObject(i);
-                addDetails(workoutObject, buttonType, popupID, exerciseScrollID);
-            }
-        }
     }
-
-    // Commented due to function moved locally - requires testing
-
-//    public static void runFilter(String duration, String difficulty, String targetMuscle, Context context, LinearLayout layout, String buttonType, int popupID, int exerciseScrollID) throws SQLException, JSONException {
-//        cThis = context;
-//        workoutLayout = layout;
-//        ArrayList<String> toFilter = new ArrayList<>();
-//        workoutLayout.removeAllViews();
-//        StringBuilder filter = new StringBuilder();
-//        filter.append("WHERE");
-//        if ((!(duration.length() == 0))) {
-//            toFilter.add(" w.WorkoutDuration = '" + duration + "'");
-//        }
-//
-//        if ((!(difficulty.length() == 0))) {
-//            toFilter.add(" w.Difficulty = '" + difficulty + "'");
-//        }
-//
-//        if ((!(targetMuscle.length() == 0))) {
-//            toFilter.add(" w.TargetMuscleGroup = '" + targetMuscle + "'");
-//        }
-//
-//        if (toFilter.size() == 0) {
-//            startWorkoutGeneration(null, cThis, layout, buttonType, popupID, exerciseScrollID);
-//        } else {
-//            for (int i = 0; i < toFilter.size() - 1; i++) {
-//                filter.append(toFilter.get(i)).append(" AND");
-//            }
-//
-//            filter.append(toFilter.get(toFilter.size() - 1));
-//
-//            String newFilter = filter.toString();
-//
-//            startWorkoutGeneration(newFilter, cThis, layout, buttonType, popupID, exerciseScrollID);
-//        }
-//    }
-
-    public static void showEmpty() {
-        TextView empty = new TextView(workoutLayout.getContext());
-        empty.setGravity(1);
-
-        empty.setText("No workouts were found");
-
-        workoutLayout.removeAllViews();
-        workoutLayout.addView(empty);
-    }
-
-
-    // ALL BUTTON FUNCTIONS SHOULD BE DECLARD BELOW, WITH THE INPUTS BEING THE VIEW. CONTEXT AND
-    // DIALOG GENERATED
 }
