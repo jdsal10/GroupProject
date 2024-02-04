@@ -1,0 +1,29 @@
+I am a 37 year old who weighs 78 kg.
+
+Generate a workout in exact same JSON format of (WorkoutName, WorkoutDuration (in hours), TargetMuscleGroup, Equipment, Difficulty (easy medium or hard), exercises (ExerciseName, Description, TargetMuscleGroup, Equipment, Difficulty (1easy medium hard))). output only the JSON
+The workout needs to focus on my abs and takes no longer than 1 hour. Addtional info is that: knee injury
+
+==============================================================
+Refined Version:
+
+Key:
+[] = optional data
+
+Some info about a user: [37 years old] [67 kg] [M] [Knee injury] [Wants to lose weight].
+
+Generate a workout in exact same JSON format of (WorkoutName, WorkoutDuration (in hours), TargetMuscleGroup, Equipment, Difficulty (easy medium or hard), exercises (ExerciseName, Description, TargetMuscleGroup, Equipment, Difficulty (1easy medium hard))). output only the JSON
+
+Some info about the required workout: [ < 40 minutes] [abs] [easy]
+
+Additional Info: Does not like pressups.
+
+If you cannot generate a workout or there is not enough info, return "unsure"
+=====================================================================
+
+Pros:
+- Workout generated seems detailed, with enough exercises
+- Does indeed only return the JSON with the correct details
+
+Cons:
+- Duration is returned as decimal - may need to do some conversion to handle this.
+- Currently is not able to return unsure

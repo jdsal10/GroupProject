@@ -11,6 +11,8 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
+import com.firstapp.group10app.Other.Session;
+import com.firstapp.group10app.Other.onlineChecks;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -21,6 +23,7 @@ public class workout_option extends AppCompatActivity implements CompoundButton.
     public RadioButton manualSelect;
     public LinearLayout aiView, manualView;
     public Button goCreate, goSearch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +49,16 @@ public class workout_option extends AppCompatActivity implements CompoundButton.
         aiView = findViewById(R.id.aiView);
         manualView = findViewById(R.id.manualView);
 
+        // If the user is not signed in / anonymous, they do not access to the AI.
+        if ((!Session.dbStatus) || (!Session.signedIn)) {
+            AISelect.setEnabled(false);
+        }
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
         bottomNavigationView.setSelectedItemId(R.id.goToWorkouts);
         bottomNavigationView.setOnItemSelectedListener(this);
+
+        onlineChecks.checkNavigationBar(bottomNavigationView);
     }
 
 

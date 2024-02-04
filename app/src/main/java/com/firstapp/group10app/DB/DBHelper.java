@@ -1,10 +1,13 @@
 package com.firstapp.group10app.DB;
 
+import static com.firstapp.group10app.DB.DBConnection.conn;
+
 import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.Other.Session;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 
 public class DBHelper {
@@ -45,6 +48,90 @@ public class DBHelper {
             // Execute the SQL query
             System.out.println(sql);
             DBConnection.executeStatement(sql.toString());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Integer insertWorkout(String[] values) {
+        try {
+            StringBuilder sql = new StringBuilder();
+            sql.append("INSERT INTO HealthData.Workouts (");
+            System.out.println(Arrays.toString(values));
+            System.out.println(Arrays.toString(Index.WORKOUT_DETAILS));
+
+            System.out.println(values.length);
+            System.out.println(Index.WORKOUT_DETAILS.length);
+            for (int i = 0; i < values.length; i++) {
+                sql.append(Index.WORKOUT_DETAILS[i]);
+                sql.append(", ");
+            }
+
+            sql.deleteCharAt(sql.length() - 2);
+            sql.append(") VALUES (");
+
+            for (String field : values) {
+                sql.append("'");
+                sql.append(field);
+                sql.append("', ");
+            }
+
+            sql.deleteCharAt(sql.length() - 2);
+            sql.append(");");
+
+            System.out.println(sql);
+            Integer id = null;
+            Statement st = conn.createStatement();
+            Integer test = st.executeUpdate(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+
+            ResultSet rs = st.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            rs.close();
+
+            return id;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void insertExercise(String[] values, int workoutID) {
+        try {
+            StringBuilder sql = new StringBuilder();
+            sql.append("INSERT INTO HealthData.Exercises (");
+
+            for (int i = 0; i < values.length; i++) {
+                sql.append(Index.EXERCISE_DETAILS[i]);
+                sql.append(", ");
+            }
+
+            sql.deleteCharAt(sql.length() - 2);
+            sql.append(") VALUES (");
+
+            for (String field : values) {
+                sql.append("'");
+                sql.append(field);
+                sql.append("', ");
+            }
+
+            sql.deleteCharAt(sql.length() - 2);
+            sql.append(");");
+
+            System.out.println(sql);
+            Integer id = null;
+            Statement st = conn.createStatement();
+            Integer test = st.executeUpdate(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+
+            ResultSet rs = st.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            rs.close();
+
+            DBConnection db = new DBConnection();
+            db.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUE (" + workoutID + ", " + id + ");");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -152,7 +239,7 @@ public class DBHelper {
         return "";
     }
 
-    public String getUserWorkouts(String filter) throws SQLException {
+    public static String getUserWorkouts(String filter) throws SQLException {
         DBConnection d = new DBConnection();
         String st = "SELECT\n" +
                 "  JSON_ARRAYAGG(\n" +
@@ -188,9 +275,19 @@ public class DBHelper {
                 "  FROM HealthData.UserWorkoutHistory uwh\n" +
                 "  WHERE uwh.Email = '" + filter + "'\n" +
                 ");\n";
+        System.out.println("hello" + st);
+
 
         ResultSet out = d.executeQuery(st);
-        return out.getString("Result");
+        try {
+            if (out.next()) {
+                return out.getString("Result");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error processing ResultSet", e);
+        }
+
+        return "";
     }
 }
 
