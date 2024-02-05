@@ -103,7 +103,6 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
 
             try {
                 if (toFilter.size() == 0) {
-                    System.out.println("size null");
                     String newData = DBHelper.getAllWorkouts(null);
                     ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
                 } else {
