@@ -138,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="Fitness goal (lose weight, etc)"
+                android:text="Additional Details"
                 android:textSize="20sp" />
 
             <LinearLayout
@@ -147,14 +147,14 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <Spinner
-                    android:id="@+id/difficultySpinner"
+                <EditText
+                    android:id="@+id/username"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-
-                    android:spinnerMode="dropdown" />
+                    android:layout_height="75dp"
+                    android:layout_gravity="center"
+                    android:hint="Your additional needs"
+                    android:inputType="textMultiLine"
+                    android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>
 
