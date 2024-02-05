@@ -1,52 +1,56 @@
 package com.firstapp.group10app.Pages;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.DB.DBHelper;
-import com.firstapp.group10app.Other.JSONToDB;
+import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Other.onlineChecks;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+public class History extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
+    private LinearLayout historyLayout;
 
-import java.sql.ResultSet;
-import java.util.Arrays;
-
-public class Home extends AppCompatActivity implements View.OnClickListener, NavigationBarView.OnItemSelectedListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // For now, a check should run at the start of each file for DB connection.
-        Session.dbStatus = DBConnection.testConnection();
-        System.out.println("STATUS: " + Session.dbStatus);
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_history);
 
-        Button b = findViewById(R.id.TEMPWORK);
-        b.setOnClickListener(this);
+        ScrollView historyScrollView = findViewById(R.id.historyElements);
 
-        Button settingsbtn = findViewById(R.id.goToSettings);
-        settingsbtn.setOnClickListener(this);
+
+        historyLayout = new LinearLayout(this);
+        historyLayout.setOrientation(LinearLayout.VERTICAL);
+
+        historyScrollView.addView(historyLayout);
+
+        try {
+            //gets the workouts user has done, specific to the user
+            String HistoryJSON = DBHelper.getUserWorkouts(Session.userEmail);
+            ItemVisualiser.startWorkoutGeneration(HistoryJSON, this, historyLayout, "tt", R.layout.historypopup, R.id.popupHistory);
+            System.out.println(HistoryJSON);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
 
         // Declare bottom taskbar
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
-        bottomNavigationView.setSelectedItemId(R.id.goToHome);
+        bottomNavigationView.setSelectedItemId(R.id.goToHistory);
         bottomNavigationView.setOnItemSelectedListener(this);
 
         // Checks if the view should be disabled.
         onlineChecks.checkNavigationBar(bottomNavigationView);
+
     }
 
     @Override
@@ -59,20 +63,8 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Nav
             startActivity(new Intent(getApplicationContext(), workout_option.class));
             return true;
         } else if (id == R.id.goToHistory) {
-            startActivity(new Intent(getApplicationContext(), History.class));
             return true;
         }
         return true;
-    }
-
-
-
-
-        @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        if (id == R.id.goToSettings) {
-            startActivity(new Intent(Home.this, Settings.class));
-        }
     }
 }
