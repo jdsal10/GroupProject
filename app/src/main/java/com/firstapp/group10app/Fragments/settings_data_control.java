@@ -22,11 +22,11 @@ import java.util.ArrayList;
 public class settings_data_control extends Fragment implements View.OnClickListener {
     // Declared variables
     static TextView dobValue;
-    TextView weightValue;
-    TextView heightValue;
-    TextView allergiesValue;
+    static TextView weightValue;
+    static TextView heightValue;
+    static TextView allergiesValue;
     static TextView sexValue;
-    TextView reasonValue;
+    static TextView reasonsValue;
     Button updateAll;
     Button dobModify, weightModify, heightModify, sexModify, allergiesModify, reasonsModify;
     ArrayList<String> details;
@@ -86,37 +86,17 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         // Updates the view value of weight and its units.
         String tempWeight = info.get(1);
         if (tempWeight == null || TextUtils.isEmpty(tempWeight) || tempWeight.equals("")) {
-//            weightSpin.setSelection(0);
             weightValue.setText("");
         } else {
-//            String weightUnits = info.get(1).split(" ")[1];
             weightValue.setText(info.get(1));
-
-//            if (weightUnits == null) {
-//                weightSpin.setSelection(0);
-//            } else if (weightUnits.equals("kg")) {
-//                weightSpin.setSelection(1);
-//            } else if (weightUnits.equals("lbs")) {
-//                weightSpin.setSelection(2);
-//            }
         }
 
         // Updates the view value of height and its units.
         String tempHeight = info.get(2);
         if (tempHeight == null || TextUtils.isEmpty(tempHeight) || tempHeight.equals("")) {
-//            heightSpin.setSelection(0);
             heightValue.setText("");
         } else {
-//            String heightUnits = info.get(2).split(" ")[1];
             heightValue.setText(info.get(2));
-
-//            if (heightUnits == null) {
-//                heightSpin.setSelection(0);
-//            } else if (heightUnits.equals("cm")) {
-//                heightSpin.setSelection(1);
-//            } else if (heightUnits.equals("inch")) {
-//                heightSpin.setSelection(2);
-//            }
         }
 
         // Updates the units for sex.
@@ -124,19 +104,15 @@ public class settings_data_control extends Fragment implements View.OnClickListe
 
         switch (selectedSex) {
             case "":
-//                sexSpin.setSelection(0);
                 sexValue.setText("");
                 break;
             case "M":
-//                sexSpin.setSelection(1);
                 sexValue.setText("Male");
                 break;
             case "F":
-//                sexSpin.setSelection(2);
                 sexValue.setText("Female");
                 break;
             case "O":
-//                sexSpin.setSelection(3);
                 sexValue.setText("Other");
                 break;
         }
@@ -146,19 +122,15 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         // Updates "reason for downloading"
         switch (info.get(5)) {
             case "":
-//                reasonSpin.setSelection(0);
                 break;
             case "I want to lose weight":
-//                reasonSpin.setSelection(1);
-                reasonValue.setText("I want to lose weight");
+                reasonsValue.setText("I want to lose weight");
                 break;
             case "I want to gain weight":
-//                reasonSpin.setSelection(2);
-                reasonValue.setText("I want to gain weight");
+                reasonsValue.setText("I want to gain weight");
                 break;
             case "I want to maintain my weight":
-//                reasonSpin.setSelection(3);
-                reasonValue.setText("I want to maintain my weight");
+                reasonsValue.setText("I want to maintain my weight");
                 break;
         }
     }
@@ -167,18 +139,6 @@ public class settings_data_control extends Fragment implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_settings_data_control, container, false);
-
-        // Initialises the widgets
-        updateAll = rootView.findViewById(R.id.updateAllValues);
-        updateAll.setOnClickListener(this);
-        // Initialise the update buttons.
-
-
-        // Initialise all spinners.
-//        weightSpin = rootView.findViewById(R.id.weightUnitSpinner);
-//        heightSpin = rootView.findViewById(R.id.heightUnitSpinner);
-//        sexSpin = rootView.findViewById(R.id.sexValue);
-//        reasonSpin = rootView.findViewById(R.id.reasonSpin);
 
         // Initialise the clear buttons
         dobModify = rootView.findViewById(R.id.modifyDOB);
@@ -192,12 +152,10 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         dobValue = rootView.findViewById(R.id.DOBValue);
         weightValue = rootView.findViewById(R.id.weightValue);
         heightValue = rootView.findViewById(R.id.heightValue);
-//        reasonSpin = rootView.findViewById(R.id.reasonSpin);
-//        reasonSpin.setSelected(true);
         allergiesValue = rootView.findViewById(R.id.allergiesValue);
         allergiesValue.setSelected(true);
         sexValue = rootView.findViewById(R.id.sexValue);
-        reasonValue = rootView.findViewById(R.id.reasonValue);
+        reasonsValue = rootView.findViewById(R.id.reasonValue);
 
         // Sets onClickListener for the buttons.
         dobModify.setOnClickListener(this);
@@ -211,7 +169,6 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         allergiesModify.setOnClickListener(this);
 
         reasonsModify.setOnClickListener(this);
-//        dobAddTextChangedListener();
 
         // Declares an array of the users details.
         String currentUser = Session.userEmail;
@@ -254,81 +211,40 @@ public class settings_data_control extends Fragment implements View.OnClickListe
             modify_data customDialog = new modify_data(getContext(), new String[]{"Weight", weightValue.getText().toString()});
             customDialog.show();
         }
-
-        // Modify DOB
-//        if (id == R.id.clearDOB) {
-//            DBHelper.clearData("DOB");
-//            dobValue.setText("");
-//        } else if (id == R.id.updateAllValues) {
-//            if (Validator.dobValid(dobValue.getText().toString())) {
-//                DBHelper.updateData("DOB", dobValue.getText().toString());
-//            } else {
-//                dobValue.setError("Invalid format!");
-//            }
-//            if (Validator.weightValid(weightValue.getText().toString(), weightSpin.getSelectedItem().toString())) {
-//                DBHelper.updateData("Weight", weightValue.getText().toString() + " " + weightSpin.getSelectedItem().toString());
-//            } else {
-//                weightValue.setError("Invalid format!");
-//            }
-//
-//            if (Validator.heightValid(heightValue.getText().toString(), heightSpin.getSelectedItem().toString())) {
-//                DBHelper.updateData("Height", heightValue.getText().toString() + " " + heightSpin.getSelectedItem().toString());
-//            } else {
-//                heightValue.setError("Invalid format!");
-//            }
-//            DBHelper.updateData("Sex", sexSpin.getSelectedItem().toString());
-//
-//            DBHelper.updateData("HealthCondition", allergiesValue.getText().toString());
-//
-//            DBHelper.updateData("ReasonForDownloading", reasonSpin.getSelectedItem().toString());
-//
-//        }
-
-        // Modify Weight
-//        else if (id == R.id.clearWeight) {
-//            DBHelper.clearData("Weight");
-//            weightValue.setText("");
-//        }
-//
-//        // Modify Height
-//        else if (id == R.id.clearHeight) {
-//            DBHelper.clearData("Height");
-//            heightValue.setText("");
-//        }
-//        // Modify Sex
-//        else if (id == R.id.clearSex) {
-//            DBHelper.clearData("Sex");
-//            sexSpin.setSelection(0);
-//        }
-//
-//        // Modify Allergies
-//        else if (id == R.id.clearAllergies) {
-//            DBHelper.clearData("HealthCondition");
-//            allergiesValue.setText("");
-//        }
-//
-//        // Modify Reasons
-//        else if (id == R.id.clearReasons) {
-//            DBHelper.clearData("ReasonForDownloading");
-//            reasonSpin.setSelection(0);
-//        }
+        else if (id == R.id.modifyHeight) {
+            modify_data customDialog = new modify_data(getContext(), new String[]{"Height", heightValue.getText().toString()});
+            customDialog.show();
+        }
+        else if (id == R.id.modifyAllergies) {
+            modify_data customDialog = new modify_data(getContext(), new String[]{"Allergies", allergiesValue.getText().toString()});
+            customDialog.show();
+        }
+        else if (id == R.id.modifyReasons) {
+            modify_data customDialog = new modify_data(getContext(), new String[]{"Reasons", reasonsValue.getText().toString()});
+            customDialog.show();
+        }
     }
 
     public static void updateValue(String valueTitle, String newValue) {
-        if(valueTitle.equals("DOB")) {
-            dobValue.setText(newValue);
-        }
-        else if (valueTitle.equals("Sex")) {
-//            if(newValue.equals("Male")) {
-//                sexValue.setText("Male");
-//            }
-//            else if(newValue.equals("Female")) {
-//                sexValue.setText("Female");
-//            }
-//            else if(newValue.equals("O")) {
-//                sexValue.setText("Other");
-//            }
-            sexValue.setText(newValue);
+        switch (valueTitle) {
+            case "DOB":
+                dobValue.setText(newValue);
+                break;
+            case "Sex":
+                sexValue.setText(newValue);
+                break;
+            case "Weight":
+                weightValue.setText(newValue);
+                break;
+            case "Height":
+                heightValue.setText(newValue);
+                break;
+            case "Allergies":
+                allergiesValue.setText(newValue);
+                break;
+            case "Reasons":
+                reasonsValue.setText(newValue);
+                break;
         }
     }
 }

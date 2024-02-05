@@ -5,6 +5,8 @@ import com.firstapp.group10app.Fragments.settings_data_control;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -31,6 +33,38 @@ public class modify_data extends Dialog implements View.OnClickListener {
         thingToUpdate = data[0];
         updateValue = data[1];
     }
+    private void dobAddTextChangedListener(EditText edit) {
+        edit.addTextChangedListener(new TextWatcher() {
+            int ind, ind1 = 0;
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Calculates "-" after year
+                if (s.length() == 4 && ind == 0) {
+                    edit.setText(String.format("%s-", s));
+                    edit.setSelection(s.length() + 1);
+                    ind = 1;
+                } else if (s.length() < 4 && ind == 1) {
+                    ind = 0;
+                }
+
+                // Calculates "-" after month
+                if (s.length() == 7 && ind1 == 0) {
+                    edit.setText(String.format("%s-", s));
+                    edit.setSelection(s.length() + 1);
+                    ind1 = 1;
+                } else if (s.length() < 7 && ind1 == 1) {
+                    ind1 = 0;
+                }
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +77,10 @@ public class modify_data extends Dialog implements View.OnClickListener {
             case "DOB":
                 edit = new EditText(getContext());
                 area.addView(edit);
+                dobAddTextChangedListener(edit);
                 edit.setText(updateValue);
                 break;
+
             case "Sex": {
                 dropdown = new Spinner(getContext());
                 String[] spinnerEntries = {"Male", "Female", "Other", ""};
@@ -52,16 +88,15 @@ public class modify_data extends Dialog implements View.OnClickListener {
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 dropdown.setAdapter(adapter);
                 area.addView(dropdown);
-                System.out.println(updateValue);
 
                 switch (updateValue) {
-                    case "M":
+                    case "Male":
                         dropdown.setSelection(0);
                         break;
-                    case "F":
+                    case "Female":
                         dropdown.setSelection(1);
                         break;
-                    case "O":
+                    case "Other":
                         dropdown.setSelection(2);
                         break;
                     default:
@@ -75,25 +110,89 @@ public class modify_data extends Dialog implements View.OnClickListener {
                 String[] spinnerEntries = {"kg", "lbs", ""};
                 String[] weightValues = updateValue.split(" ");
                 edit = new EditText(getContext());
-                edit.setText(weightValues[0]);
+                if (weightValues.length > 0) {
+                    edit.setText(weightValues[0]);
+                }
                 area.addView(edit);
+                dropdown = new Spinner(getContext());
+                area.addView(dropdown);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, spinnerEntries);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                dropdown.setAdapter(adapter);
 
-                if (weightValues[1] == null) {
+
+                if (weightValues.length < 2) {
                     dropdown.setSelection(2);
                 } else {
-
-                    dropdown = new Spinner(getContext());
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, spinnerEntries);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    dropdown.setAdapter(adapter);
-                    area.addView(dropdown);
-
                     switch (weightValues[1]) {
                         case "kg":
                             dropdown.setSelection(0);
                             break;
                         case "lbs":
                             dropdown.setSelection(1);
+                            break;
+                    }
+                }
+                break;
+            }
+
+            case "Height": {
+                String[] spinnerEntries = {"cm", "inch", ""};
+                String[] heightValues = updateValue.split(" ");
+                edit = new EditText(getContext());
+                if (heightValues.length > 0) {
+                    edit.setText(heightValues[0]);
+                }
+                area.addView(edit);
+                dropdown = new Spinner(getContext());
+                area.addView(dropdown);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, spinnerEntries);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                dropdown.setAdapter(adapter);
+
+                if (heightValues.length < 2) {
+                    dropdown.setSelection(2);
+                } else {
+                    switch (heightValues[1]) {
+                        case "cm":
+                            dropdown.setSelection(0);
+                            break;
+                        case "inch":
+                            dropdown.setSelection(1);
+                            break;
+                    }
+                }
+                break;
+            }
+
+            case "Allergies": {
+                edit = new EditText(getContext());
+                area.addView(edit);
+                edit.setText(updateValue);
+                break;
+            }
+
+            case "Reasons": {
+                String[] spinnerEntries = {"I want to lose weight", "I want to gain weight", "I want to maintain my weight", ""};
+                String reasonsValues = updateValue;
+                dropdown = new Spinner(getContext());
+                area.addView(dropdown);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, spinnerEntries);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                dropdown.setAdapter(adapter);
+
+                if (updateValue.equals("")) {
+                    dropdown.setSelection(3);
+                } else {
+                    switch (reasonsValues) {
+                        case "I want to lose weight":
+                            dropdown.setSelection(0);
+                            break;
+                        case "I want to gain weight":
+                            dropdown.setSelection(1);
+                            break;
+                        case "I want to maintain my weight":
+                            dropdown.setSelection(2);
                             break;
                     }
                 }
@@ -113,7 +212,11 @@ public class modify_data extends Dialog implements View.OnClickListener {
         if (id == R.id.confirmUpdate) {
             switch (thingToUpdate) {
                 case "DOB":
-                    if (Validator.dobValid(edit.getText().toString())) {
+                    if (edit.getText().toString().equals("")) {
+                        DBHelper.updateData("DOB", "");
+                        settings_data_control.updateValue("DOB", "");
+                        dismiss();
+                    } else if (Validator.dobValid(edit.getText().toString())) {
                         DBHelper.updateData("DOB", edit.getText().toString());
                         settings_data_control.updateValue("DOB", edit.getText().toString());
                         dismiss();
@@ -121,41 +224,102 @@ public class modify_data extends Dialog implements View.OnClickListener {
                         edit.setError("Invalid format!");
                     }
                     break;
+
                 case "Sex":
                     if (dropdown.getSelectedItem().equals("Male")) {
                         DBHelper.updateData("Sex", "M");
+                        settings_data_control.updateValue("Sex", dropdown.getSelectedItem().toString());
+                        dismiss();
                     } else if (dropdown.getSelectedItem().equals("Female")) {
                         DBHelper.updateData("Sex", "F");
+                        settings_data_control.updateValue("Sex", dropdown.getSelectedItem().toString());
+                        dismiss();
                     } else if (dropdown.getSelectedItem().equals("Other")) {
                         DBHelper.updateData("Sex", "O");
+                        settings_data_control.updateValue("Sex", dropdown.getSelectedItem().toString());
+                        dismiss();
+                    } else {
+                        edit.setError("Invalid format!");
                     }
 
-                    settings_data_control.updateValue("Sex", dropdown.getSelectedItem().toString());
-                    dismiss();
                     break;
+
                 case "Weight":
-                    if (Validator.weightValid(edit.getText().toString(), dropdown.getSelectedItem().toString())) {
+                    if (edit.getText().toString().equals("") && dropdown.getSelectedItem().toString().equals("")) {
+                        DBHelper.updateData("Weight", "");
+                        settings_data_control.updateValue("Weight", "");
+                        dismiss();
+                    } else if (Validator.weightValid(edit.getText().toString(), dropdown.getSelectedItem().toString())) {
                         DBHelper.updateData("Weight", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
                         settings_data_control.updateValue("Weight", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
+                    } else {
+                        edit.setError("Invalid format!");
                     }
                     break;
+
+                case "Height":
+                    if (edit.getText().toString().equals("") && dropdown.getSelectedItem().toString().equals("")) {
+                        DBHelper.updateData("Height", "");
+                        settings_data_control.updateValue("Height", "");
+                        dismiss();
+                    } else if (Validator.heightValid(edit.getText().toString(), dropdown.getSelectedItem().toString())) {
+                        DBHelper.updateData("Height", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
+                        settings_data_control.updateValue("Height", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
+                    } else {
+                        edit.setError("Invalid format!");
+                    }
+                    break;
+
+                case "Allergies":
+                    if (edit.getText().toString().equals("")) {
+                        DBHelper.updateData("HealthCondition", "");
+                        settings_data_control.updateValue("Allergies", "");
+                        dismiss();
+                    } else {
+                        DBHelper.updateData("HealthCondition", edit.getText().toString());
+                        settings_data_control.updateValue("Allergies", edit.getText().toString());
+                        dismiss();
+                    }
+                    break;
+
+
+                case "Reasons":
+                    if (dropdown.getSelectedItem().toString().equals("")) {
+                        DBHelper.updateData("ReasonForDownloading", "");
+                        settings_data_control.updateValue("Reasons", "");
+                        dismiss();
+                    } else {
+                        DBHelper.updateData("ReasonForDownloading", dropdown.getSelectedItem().toString());
+                        settings_data_control.updateValue("Reasons", dropdown.getSelectedItem().toString());
+                        dismiss();
+                        break;
+                    }
             }
         } else if (id == R.id.clearUpdate) {
             switch (thingToUpdate) {
                 case "DOB":
                     DBHelper.updateData("DOB", "");
                     settings_data_control.updateValue("DOB", "");
-
                     break;
                 case "Sex":
                     DBHelper.updateData("Sex", "");
                     settings_data_control.updateValue("Sex", "");
-
                     break;
                 case "Weight":
-                    DBHelper.updateData("Sex", "");
+                    DBHelper.updateData("Weight", "");
                     settings_data_control.updateValue("Weight", "");
-
+                    break;
+                case "Height":
+                    DBHelper.updateData("Height", "");
+                    settings_data_control.updateValue("Height", "");
+                    break;
+                case "Allergies":
+                    DBHelper.updateData("HealthCondition", "");
+                    settings_data_control.updateValue("Allergies", "");
+                    break;
+                case "Reasons":
+                    DBHelper.updateData("ReasonForDownloading", "");
+                    settings_data_control.updateValue("Reasons", "");
                     break;
             }
             dismiss();

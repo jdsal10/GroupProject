@@ -3,19 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp">
 
             <LinearLayout
                 android:id="@+id/dobLayout"
@@ -40,7 +30,6 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:hint="@string/dobHint"
                     android:importantForAutofill="no" />
 
                 <Button
@@ -112,13 +101,6 @@
                     android:layout_gravity="center_vertical"
                     tools:ignore="SpeakableTextPresentCheck" />
 
-<!--                <Spinner-->
-<!--                    android:id="@+id/weightUnitSpinner"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_marginEnd="8dp"-->
-<!--                    android:entries="@array/weightUnits" />-->
-
                 <Button
                     android:id="@+id/modifyWeight"
                     style="?android:attr/borderlessButtonStyle"
@@ -151,15 +133,7 @@
                     android:layout_weight="1"
                     android:layout_gravity="center_vertical"
                     android:textSize="25sp"
-                    android:importantForAutofill="no"
-                    android:inputType="numberDecimal" />
-
-<!--                <Spinner-->
-<!--                    android:id="@+id/heightUnitSpinner"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="50dp"-->
-<!--                    android:layout_marginEnd="8dp"-->
-<!--                    android:entries="@array/heightUnits" />-->
+                    android:importantForAutofill="no" />
 
                 <Button
                     android:id="@+id/modifyHeight"
@@ -241,7 +215,8 @@
                     android:marqueeRepeatLimit="marquee_forever"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <Button
                     android:id="@+id/modifyReasons"
@@ -256,14 +231,3 @@
 
         </LinearLayout>
 
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/updateAllValues"
-        android:layout_width="match_parent"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="10dp"
-        android:layout_height="wrap_content"
-        android:text="@string/updateValue"
-        tools:ignore="DuplicateSpeakableTextCheck" />
-</LinearLayout>
