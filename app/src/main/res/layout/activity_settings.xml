@@ -37,6 +37,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="1dp"
                 android:layout_marginEnd="1dp"
+                android:layout_marginStart="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/workout_toggle_background"
@@ -78,7 +79,6 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_weight="6"
-        android:background="@drawable/border"
         tools:layout="@layout/fragment_settings_data_control">
 
     </androidx.fragment.app.FragmentContainerView>

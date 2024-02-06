@@ -20,8 +20,7 @@ import com.firstapp.group10app.Other.Validator;
 import com.firstapp.group10app.R;
 
 public class modify_data extends Dialog implements View.OnClickListener {
-    String thingToUpdate;
-    String updateValue;
+    String thingToUpdate, updateValue;
     EditText edit;
     Spinner dropdown;
 

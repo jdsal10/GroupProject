@@ -21,13 +21,7 @@ import java.util.ArrayList;
 
 public class settings_data_control extends Fragment implements View.OnClickListener {
     // Declared variables
-    static TextView dobValue;
-    static TextView weightValue;
-    static TextView heightValue;
-    static TextView allergiesValue;
-    static TextView sexValue;
-    static TextView reasonsValue;
-    Button updateAll;
+    static TextView dobValue, weightValue, heightValue, allergiesValue, sexValue, reasonsValue;
     Button dobModify, weightModify, heightModify, sexModify, allergiesModify, reasonsModify;
     ArrayList<String> details;
 
