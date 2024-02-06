@@ -241,7 +241,6 @@ public class modify_data extends Dialog implements View.OnClickListener {
                     } else {
                         edit.setError("Invalid format!");
                     }
-
                     break;
 
                 case "Weight":
@@ -292,8 +291,8 @@ public class modify_data extends Dialog implements View.OnClickListener {
                         DBHelper.updateData("ReasonForDownloading", dropdown.getSelectedItem().toString());
                         settings_data_control.updateValue("Reasons", dropdown.getSelectedItem().toString());
                         dismiss();
-                        break;
                     }
+                    break;
             }
         } else if (id == R.id.clearUpdate) {
             switch (thingToUpdate) {

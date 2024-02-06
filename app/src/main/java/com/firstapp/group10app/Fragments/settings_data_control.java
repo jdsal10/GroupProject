@@ -40,46 +40,7 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         super.onCreate(savedInstanceState);
     }
 
-
-//    private void dobAddTextChangedListener() {
-//        dobValue.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//            }
-//
-//            int ind, ind1 = 0;
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                // Calculates "-" after year
-//                if (s.length() == 4 && ind == 0) {
-//                    dobValue.setText(String.format("%s-", s));
-//                    dobValue.setSelection(s.length() + 1);
-//                    ind = 1;
-//                } else if (s.length() < 4 && ind == 1) {
-//                    ind = 0;
-//                }
-//
-//                // Calculates "-" after month
-//                if (s.length() == 7 && ind1 == 0) {
-//                    dobValue.setText(String.format("%s-", s));
-//                    dobValue.setSelection(s.length() + 1);
-//                    ind1 = 1;
-//                } else if (s.length() < 7 && ind1 == 1) {
-//                    ind1 = 0;
-//                }
-//            }
-//        });
-//    }
-
     public void updateValues(ArrayList<String> info) {
-        // Debug output
-        System.out.println(info.toString());
-
         // Since DOB is a regular value, no formatting is required
         dobValue.setText(info.get(0));
 
@@ -136,8 +97,7 @@ public class settings_data_control extends Fragment implements View.OnClickListe
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_settings_data_control, container, false);
 
         // Initialise the clear buttons
@@ -153,21 +113,15 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         weightValue = rootView.findViewById(R.id.weightValue);
         heightValue = rootView.findViewById(R.id.heightValue);
         allergiesValue = rootView.findViewById(R.id.allergiesValue);
-        allergiesValue.setSelected(true);
         sexValue = rootView.findViewById(R.id.sexValue);
         reasonsValue = rootView.findViewById(R.id.reasonValue);
 
         // Sets onClickListener for the buttons.
         dobModify.setOnClickListener(this);
-
         weightModify.setOnClickListener(this);
-
         heightModify.setOnClickListener(this);
-
         sexModify.setOnClickListener(this);
-
         allergiesModify.setOnClickListener(this);
-
         reasonsModify.setOnClickListener(this);
 
         // Declares an array of the users details.
