@@ -72,12 +72,12 @@
     <string name="accountButtonTitle">Account</string>
 
     <!-- Data Control (Fragment) -->
-    <string name="DOBTitle">DOB</string>
-    <string name="sexTitle">Sex</string>
-    <string name="weightTitle">Weight</string>
-    <string name="heightTitle">Height</string>
-    <string name="allergiesTitle">Allergies</string>
-    <string name="reasonsTitle">Reasons</string>
+    <string name="DOBTitle">DOB:</string>
+    <string name="sexTitle">Sex:</string>
+    <string name="weightTitle">Weight:</string>
+    <string name="heightTitle">Height:</string>
+    <string name="allergiesTitle">Allergies:</string>
+    <string name="reasonsTitle">Reasons:</string>
     <string name="heightHint">eg. 178</string>
     <string name="updateValue">Update All</string>
     <string name="clearValue">Clear</string>
