@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SETTINGS"
+        android:textStyle="bold"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:textSize="40sp">
@@ -57,12 +58,14 @@
                 android:button="@null"
                 android:gravity="center"
                 android:text="@string/accessibilityButtonTitle" />
+
             <RadioButton
                 android:id="@+id/goAccount"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="1dp"
                 android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/workout_toggle_background"
@@ -73,6 +76,7 @@
     </LinearLayout>
 
     <androidx.fragment.app.FragmentContainerView
+        android:layout_gravity="center_vertical"
         android:id="@+id/settingsBody"
         android:layout_width="match_parent"
         android:layout_height="0dp"

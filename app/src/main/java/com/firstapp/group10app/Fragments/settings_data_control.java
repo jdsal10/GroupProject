@@ -118,7 +118,9 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         allergiesModify.setOnClickListener(this);
         reasonsModify.setOnClickListener(this);
 
+        // Sets the fields as selected so the text auto scrolls.
         allergiesValue.setSelected(true);
+        reasonsValue.setSelected(true);
 
         // Declares an array of the users details.
         String currentUser = Session.userEmail;

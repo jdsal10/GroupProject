@@ -1,5 +1,7 @@
 package com.firstapp.group10app.Pages;
 
+import static android.text.InputType.TYPE_CLASS_NUMBER;
+
 import com.firstapp.group10app.Fragments.settings_data_control;
 
 import android.app.Dialog;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Other.Validator;
@@ -23,6 +26,7 @@ public class modify_data extends Dialog implements View.OnClickListener {
     String thingToUpdate, updateValue;
     EditText edit;
     Spinner dropdown;
+    TextView description;
 
     public modify_data(Context context, String[] data) {
         super(context);
@@ -32,15 +36,18 @@ public class modify_data extends Dialog implements View.OnClickListener {
         thingToUpdate = data[0];
         updateValue = data[1];
     }
+
     private void dobAddTextChangedListener(EditText edit) {
         edit.addTextChangedListener(new TextWatcher() {
             int ind, ind1 = 0;
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -71,16 +78,21 @@ public class modify_data extends Dialog implements View.OnClickListener {
         setContentView(R.layout.activity_modify_data);
 
         LinearLayout area = findViewById(R.id.modificationArea);
+        description = findViewById(R.id.updateDescription);
 
         switch (thingToUpdate) {
             case "DOB":
+                description.append("date of birth.");
                 edit = new EditText(getContext());
+                edit.setWidth(description.getWidth());
+                edit.setInputType(TYPE_CLASS_NUMBER);   // Need to confirm
                 area.addView(edit);
                 dobAddTextChangedListener(edit);
                 edit.setText(updateValue);
                 break;
 
             case "Sex": {
+                description.append("sex.");
                 dropdown = new Spinner(getContext());
                 String[] spinnerEntries = {"Male", "Female", "Other", ""};
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, spinnerEntries);
@@ -106,9 +118,12 @@ public class modify_data extends Dialog implements View.OnClickListener {
             }
 
             case "Weight": {
+                description.append("weight.");
                 String[] spinnerEntries = {"kg", "lbs", ""};
                 String[] weightValues = updateValue.split(" ");
                 edit = new EditText(getContext());
+                edit.setWidth(description.getWidth());
+                edit.setInputType(TYPE_CLASS_NUMBER);   // Need to confirm
                 if (weightValues.length > 0) {
                     edit.setText(weightValues[0]);
                 }
@@ -136,9 +151,12 @@ public class modify_data extends Dialog implements View.OnClickListener {
             }
 
             case "Height": {
+                description.append("height.");
                 String[] spinnerEntries = {"cm", "inch", ""};
                 String[] heightValues = updateValue.split(" ");
                 edit = new EditText(getContext());
+                edit.setWidth(description.getWidth());
+                edit.setInputType(TYPE_CLASS_NUMBER);   // Need to confirm
                 if (heightValues.length > 0) {
                     edit.setText(heightValues[0]);
                 }
@@ -165,13 +183,16 @@ public class modify_data extends Dialog implements View.OnClickListener {
             }
 
             case "Allergies": {
+                description.append("allergies.");
                 edit = new EditText(getContext());
+                edit.setWidth(description.getWidth());
                 area.addView(edit);
                 edit.setText(updateValue);
                 break;
             }
 
             case "Reasons": {
+                description.append("reasons.");
                 String[] spinnerEntries = {"I want to lose weight", "I want to gain weight", "I want to maintain my weight", ""};
                 String reasonsValues = updateValue;
                 dropdown = new Spinner(getContext());
@@ -203,6 +224,9 @@ public class modify_data extends Dialog implements View.OnClickListener {
 
         Button clear = findViewById(R.id.clearUpdate);
         clear.setOnClickListener(this);
+
+        Button cancel = findViewById(R.id.cancelUpdate);
+        cancel.setOnClickListener(this);
     }
 
     @Override
@@ -243,15 +267,13 @@ public class modify_data extends Dialog implements View.OnClickListener {
                     break;
 
                 case "Weight":
-                    if(edit.getText().toString().equals("") && !dropdown.getSelectedItem().toString().equals("")) {
+                    if (edit.getText().toString().equals("") && !dropdown.getSelectedItem().toString().equals("")) {
                         edit.setError("Invalid format!");
-                    }
-                    else if (edit.getText().toString().equals("") && dropdown.getSelectedItem().toString().equals("")) {
+                    } else if (edit.getText().toString().equals("") && dropdown.getSelectedItem().toString().equals("")) {
                         DBHelper.updateData("Weight", "");
                         settings_data_control.updateValue("Weight", "");
                         dismiss();
                     } else if (Validator.weightValid(edit.getText().toString(), dropdown.getSelectedItem().toString())) {
-                        System.out.println("ISVALID!");
                         DBHelper.updateData("Weight", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
                         settings_data_control.updateValue("Weight", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
                         dismiss();
@@ -261,10 +283,9 @@ public class modify_data extends Dialog implements View.OnClickListener {
                     break;
 
                 case "Height":
-                    if(edit.getText().toString().equals("") && !dropdown.getSelectedItem().toString().equals("")) {
+                    if (edit.getText().toString().equals("") && !dropdown.getSelectedItem().toString().equals("")) {
                         edit.setError("Invalid format!");
-                    }
-                    else if (edit.getText().toString().equals("") && dropdown.getSelectedItem().toString().equals("")) {
+                    } else if (edit.getText().toString().equals("") && dropdown.getSelectedItem().toString().equals("")) {
                         DBHelper.updateData("Height", "");
                         settings_data_control.updateValue("Height", "");
                         dismiss();
@@ -288,7 +309,6 @@ public class modify_data extends Dialog implements View.OnClickListener {
                         dismiss();
                     }
                     break;
-
 
                 case "Reasons":
                     if (dropdown.getSelectedItem().toString().equals("")) {
@@ -329,6 +349,8 @@ public class modify_data extends Dialog implements View.OnClickListener {
                     settings_data_control.updateValue("Reasons", "");
                     break;
             }
+            dismiss();
+        } else if (id == R.id.cancelUpdate) {
             dismiss();
         }
     }
