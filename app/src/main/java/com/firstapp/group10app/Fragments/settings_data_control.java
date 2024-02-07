@@ -118,6 +118,8 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         allergiesModify.setOnClickListener(this);
         reasonsModify.setOnClickListener(this);
 
+        allergiesValue.setSelected(true);
+
         // Declares an array of the users details.
         String currentUser = Session.userEmail;
         details = new ArrayList<>();

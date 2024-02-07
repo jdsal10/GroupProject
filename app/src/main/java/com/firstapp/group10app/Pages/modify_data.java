@@ -243,26 +243,35 @@ public class modify_data extends Dialog implements View.OnClickListener {
                     break;
 
                 case "Weight":
-                    if (edit.getText().toString().equals("") && dropdown.getSelectedItem().toString().equals("")) {
+                    if(edit.getText().toString().equals("") && !dropdown.getSelectedItem().toString().equals("")) {
+                        edit.setError("Invalid format!");
+                    }
+                    else if (edit.getText().toString().equals("") && dropdown.getSelectedItem().toString().equals("")) {
                         DBHelper.updateData("Weight", "");
                         settings_data_control.updateValue("Weight", "");
                         dismiss();
                     } else if (Validator.weightValid(edit.getText().toString(), dropdown.getSelectedItem().toString())) {
+                        System.out.println("ISVALID!");
                         DBHelper.updateData("Weight", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
                         settings_data_control.updateValue("Weight", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
+                        dismiss();
                     } else {
                         edit.setError("Invalid format!");
                     }
                     break;
 
                 case "Height":
-                    if (edit.getText().toString().equals("") && dropdown.getSelectedItem().toString().equals("")) {
+                    if(edit.getText().toString().equals("") && !dropdown.getSelectedItem().toString().equals("")) {
+                        edit.setError("Invalid format!");
+                    }
+                    else if (edit.getText().toString().equals("") && dropdown.getSelectedItem().toString().equals("")) {
                         DBHelper.updateData("Height", "");
                         settings_data_control.updateValue("Height", "");
                         dismiss();
                     } else if (Validator.heightValid(edit.getText().toString(), dropdown.getSelectedItem().toString())) {
                         DBHelper.updateData("Height", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
                         settings_data_control.updateValue("Height", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
+                        dismiss();
                     } else {
                         edit.setError("Invalid format!");
                     }
