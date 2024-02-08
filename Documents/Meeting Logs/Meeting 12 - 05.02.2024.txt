@@ -1,0 +1,41 @@
+Manu:
+- Working on the SQL
+- Discussed with Juan the History page
+
+Ethan and Juan:
+- Started the History page
+
+Juan:
+- Fixed the settings button link
+
+Nikola:
+- Started the poster
+	- Uploaded a mockup
+
+Misha:
+- Worked on the Workouts page
+	- Changed the layout
+	- Used my (Nikola) implementation of GPT and Ethan's promp generation to create workouts
+
+
+What we might want to do:
+Ethan
+- Work on the Settings page UI
+
+Nikola:
+- Publish screenshots of Nike activity - mockup of history
+- Fix the local DB error
+- Meet with Misha to finish the Workout pages including UI (meet on the 8th at 10:00)
+- Share the canva poster with manu's uni email
+
+Misha:
+- Meet with Nikola to finishe the Workout pages including UI (meet on the 8th at 10:00)
+
+Manu:
+- Finish populating the online DB with data
+- Continue working with Juan on the History page
+- Help with the poster
+
+Juan:
+- Continue working with Juan on the History page
+- Find his Canva profile details, so that I can share the poster with him, and he can contributes
