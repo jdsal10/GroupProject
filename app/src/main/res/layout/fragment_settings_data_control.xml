@@ -34,7 +34,7 @@
             android:textSize="20sp"
             android:importantForAutofill="no" />
 
-        <Button
+        <TextView
             android:id="@+id/modifyDOB"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
@@ -73,7 +73,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
-        <Button
+        <TextView
             android:id="@+id/modifySex"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
@@ -116,7 +116,7 @@
             android:importantForAutofill="no"
             tools:ignore="SpeakableTextPresentCheck" />
 
-        <Button
+        <TextView
             android:id="@+id/modifyWeight"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
@@ -156,7 +156,7 @@
             android:importantForAutofill="no"
             android:textSize="20sp" />
 
-        <Button
+        <TextView
             android:id="@+id/modifyHeight"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
@@ -206,7 +206,7 @@
             android:textSize="20sp"
             tools:ignore="SpeakableTextPresentCheck" />
 
-        <Button
+        <TextView
             android:id="@+id/modifyAllergies"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
@@ -254,7 +254,7 @@
             android:textSize="20sp"
             tools:ignore="SpeakableTextPresentCheck" />
 
-        <Button
+        <TextView
             android:id="@+id/modifyReasons"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
