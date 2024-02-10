@@ -1,5 +1,7 @@
 package com.firstapp.group10app.Pages;
 
+import static java.security.AccessController.getContext;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DBHelper;
@@ -26,9 +28,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class searchWorkout extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
-    private LinearLayout workoutLayout;
+    private static LinearLayout workoutLayout;
     private EditText durationText, difficultyText, targetMuscleText;
 
+    public searchWorkout() {
+        ScrollView workoutScrollView = findViewById(R.id.resultSearchWorkout);
+
+        workoutLayout = new LinearLayout(this);
+        workoutLayout.setOrientation(LinearLayout.VERTICAL);
+
+        workoutScrollView.addView(workoutLayout);
+
+
+        Button filterWorkout = findViewById(R.id.openFilter);
+        filterWorkout.setOnClickListener(this);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
+        bottomNavigationView.setOnItemSelectedListener(this);
+
+        onlineChecks.checkNavigationBar(bottomNavigationView);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +60,8 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
 
         workoutScrollView.addView(workoutLayout);
 
-        durationText = findViewById(R.id.durationInput);
-        difficultyText = findViewById(R.id.difficultyInput);
-        targetMuscleText = findViewById(R.id.targetMuscleInput);
 
-        Button filterWorkout = findViewById(R.id.filterWorkouts);
+        Button filterWorkout = findViewById(R.id.openFilter);
         filterWorkout.setOnClickListener(this);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
@@ -79,47 +95,48 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.filterWorkouts) {
-
-            String durationString = durationText.getText().toString();
-            String difficultyString = difficultyText.getText().toString();
-            String targetMuscleString = targetMuscleText.getText().toString();
-
-            ArrayList<String> toFilter = new ArrayList<>();
-            workoutLayout.removeAllViews();
-            StringBuilder filter = new StringBuilder();
-            filter.append("WHERE");
-            if ((!(durationString.length() == 0))) {
-                toFilter.add(" w.WorkoutDuration = '" + durationString + "'");
-            }
-
-            if ((!(difficultyString.length() == 0))) {
-                toFilter.add(" w.Difficulty = '" + difficultyString + "'");
-            }
-
-            if ((!(targetMuscleString.length() == 0))) {
-                toFilter.add(" w.TargetMuscleGroup = '" + targetMuscleString + "'");
-            }
-
-            try {
-                if (toFilter.size() == 0) {
-                    String newData = DBHelper.getAllWorkouts(null);
-                    ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
-                } else {
-                    for (int i = 0; i < toFilter.size() - 1; i++) {
-                        filter.append(toFilter.get(i)).append(" AND");
-                    }
-
-                    filter.append(toFilter.get(toFilter.size() - 1));
-
-                    String newFilter = filter.toString();
-                    String newData = DBHelper.getAllWorkouts(newFilter);
-                    ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
-                }
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
+        if (id == R.id.openFilter) {
+            workout_filter customDialog = new workout_filter(this);
+            customDialog.show();
         }
     }
 
+    public void applyChange(String duration, String difficulty, String target) {
+        ArrayList<String> toFilter = new ArrayList<>();
+        workoutLayout.removeAllViews();
+        StringBuilder filter = new StringBuilder();
+        filter.append("WHERE");
+        if ((!(duration.length() == 0))) {
+            toFilter.add(" w.WorkoutDuration = '" + duration + "'");
+        }
+
+        if ((!(difficulty.length() == 0))) {
+            toFilter.add(" w.Difficulty = '" + difficulty + "'");
+        }
+
+        if ((!(target.length() == 0))) {
+            toFilter.add(" w.TargetMuscleGroup = '" + target + "'");
+        }
+
+        try {
+            if (toFilter.size() == 0) {
+                String newData = DBHelper.getAllWorkouts(null);
+                ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
+            } else {
+                for (int i = 0; i < toFilter.size() - 1; i++) {
+                    filter.append(toFilter.get(i)).append(" AND");
+                }
+
+                filter.append(toFilter.get(toFilter.size() - 1));
+
+                String newFilter = filter.toString();
+                String newData = DBHelper.getAllWorkouts(newFilter);
+                ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+
+
+        }
+    }
 }
