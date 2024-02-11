@@ -24,14 +24,16 @@ import org.json.JSONException;
 import java.util.ArrayList;
 
 public class searchWorkout extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
-    private LinearLayout workoutLayout;
+    private static LinearLayout workoutLayout;
     String duration, difficulty, target;
+    workout_filter customDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_workout);
         Intent intent = getIntent();
+        customDialog = new workout_filter(this, duration, difficulty, target);
         if (intent != null && getIntent().hasExtra("duration") && getIntent().hasExtra("difficulty") && getIntent().hasExtra("targetMuscle")) {
             String durationString = getIntent().getStringExtra("duration");
             String difficultyString = getIntent().getStringExtra("difficulty");
@@ -96,11 +98,11 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.openFilter) {
-            workout_filter customDialog = new workout_filter(this, duration, difficulty, target);
+            workout_filter.setValue();
             customDialog.show();
         }
     }
-
+public void g
     public void applyChange(String duration, String difficulty, String target) {
         ArrayList<String> toFilter = new ArrayList<>();
         workoutLayout.removeAllViews();
@@ -123,7 +125,7 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
         try {
             if (toFilter.size() == 0) {
                 String newData = DBHelper.getAllWorkouts(null);
-                ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
+                ItemVisualiser.startWorkoutGeneration(newData, workoutLayout.getContext(), workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
             } else {
                 for (int i = 0; i < toFilter.size() - 1; i++) {
                     filter.append(toFilter.get(i)).append(" AND");
@@ -134,7 +136,7 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
                 String newFilter = filter.toString();
                 System.out.println(newFilter);
                 String newData = DBHelper.getAllWorkouts(newFilter);
-                ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
+                ItemVisualiser.startWorkoutGeneration(newData, workoutLayout.getContext(), workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
             }
         } catch (JSONException e) {
             throw new RuntimeException(e);

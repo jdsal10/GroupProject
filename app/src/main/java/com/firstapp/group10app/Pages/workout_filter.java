@@ -14,9 +14,12 @@ import android.widget.Spinner;
 import com.firstapp.group10app.R;
 
 public class workout_filter extends Dialog implements View.OnClickListener {
-    Spinner difficulty, duration;
+    static Spinner difficulty;
+    Spinner duration;
     EditText target;
-    String durationValue, difficultyValue, targetValue;
+    String durationValue;
+    static String difficultyValue;
+    String targetValue;
 
     public workout_filter(Context context, String duration, String difficulty, String target) {
         super(context);
@@ -42,21 +45,6 @@ public class workout_filter extends Dialog implements View.OnClickListener {
         adapterDifficulty.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         difficulty.setAdapter(adapterDifficulty);
 
-        if(difficultyValue != null) {
-            System.out.println(difficultyValue);
-            switch (difficultyValue) {
-                case "Any":
-                    difficulty.setSelection(0);
-                    break;
-                case "Easy":
-                    difficulty.setSelection(1);
-                    break;
-                case "Medium":
-                    difficulty.setSelection(2);
-                    break;
-            }
-        }
-
         // Sets values for duration
         duration = findViewById(R.id.durationInput);
         ArrayAdapter<CharSequence> adapterDuration = ArrayAdapter.createFromResource(
@@ -77,7 +65,7 @@ public class workout_filter extends Dialog implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.applyFilter) {
-            String durationString = duration.getSelectedItem().toString();
+           /* String durationString = duration.getSelectedItem().toString();
             String difficultyString = difficulty.getSelectedItem().toString();
             String targetMuscleString = target.getText().toString();
 
@@ -85,8 +73,25 @@ public class workout_filter extends Dialog implements View.OnClickListener {
             intent.putExtra("duration", durationString);
             intent.putExtra("difficulty", difficultyString);
             intent.putExtra("targetMuscle", targetMuscleString);
-            getContext().startActivity(intent);
+            getContext().startActivity(intent);*/
             hide();
+        }
+    }
+
+    public static void setValue() {
+        if(difficultyValue != null) {
+            System.out.println("SELECTED: " + difficultyValue);
+            switch (difficultyValue) {
+                case "Any":
+                    difficulty.setSelection(0);
+                    break;
+                case "Easy":
+                    difficulty.setSelection(1);
+                    break;
+                case "Medium":
+                    difficulty.setSelection(2);
+                    break;
+            }
         }
     }
 }
