@@ -212,13 +212,19 @@ with your account and we will send you an email with further instructions.</stri
         <item>Hard</item>
     </string-array>
 
-<!--    Duration-->
+    <!--    Duration-->
     <string-array name="duration">
         <item>Less than 10 minutes</item>
         <item>10 – 30</item>
         <item>30 – 50</item>
         <item>50 – 70</item>
         <item>70 – 90</item>
-        <item>More than 70 minutes</item>
+        <item>More than 90 minutes</item>
+    </string-array>
+
+    <!--    Target Muscle Group-->
+    <string-array name="targetMuscleGroup">
+        <item>Any</item>
+        <item>Abs</item>
     </string-array>
 </resources>
