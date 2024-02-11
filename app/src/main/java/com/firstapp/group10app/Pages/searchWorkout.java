@@ -61,6 +61,7 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
         bottomNavigationView.setOnItemSelectedListener(this);
+        bottomNavigationView.setSelectedItemId(R.id.goToWorkouts);
 
         onlineChecks.checkNavigationBar(bottomNavigationView);
     }
