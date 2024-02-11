@@ -147,13 +147,10 @@
     <string name="createTitle">Create</string>
     <string name="createButtonDescription">For experienced users who want to tailor their workout.</string>
 
-    <!--    Search Workouts-->
-    <string name="searchDifficulty">Difficulty</string>
-    <string name="searchDifficultyHint">Integer</string>
-    <string name="searchDuration">Duration</string>
-    <string name="searchDurationHint">Integer</string>
-    <string name="searchTarget">Target Muscle Group</string>
-    <string name="searchTargetHint">Text</string>
+    <!--    Filter Workouts-->
+    <string name="searchDifficulty">Difficulty:</string>
+    <string name="searchDuration">Duration:</string>
+    <string name="searchTarget">Target Muscle Group:</string>
     <string name="searchFilter">Filter</string>
 
     <!--    Search Popup -->
@@ -207,25 +204,21 @@ with your account and we will send you an email with further instructions.</stri
     <string name="aiToggle">AI</string>
     <string name="manualToggle">Manual</string>
 
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    
-<!--    Difficulty -->
+    <!--    Difficulty -->
     <string-array name="difficulty">
+        <item>Any</item>
         <item>Easy</item>
         <item>Medium</item>
         <item>Hard</item>
+    </string-array>
+
+<!--    Duration-->
+    <string-array name="duration">
+        <item>Less than 10 minutes</item>
+        <item>10 – 30</item>
+        <item>30 – 50</item>
+        <item>50 – 70</item>
+        <item>70 – 90</item>
+        <item>More than 70 minutes</item>
     </string-array>
 </resources>
