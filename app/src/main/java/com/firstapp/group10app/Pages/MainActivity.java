@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Default value.
         Session.signedIn = false;
-//
+        
+        // Used to add test data
 //        try {
 //            addData();
 //        } catch (JSONException e) {

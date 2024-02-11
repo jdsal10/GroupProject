@@ -50,7 +50,6 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
         }
     }
 
-
     private void initializeLayout() {
         ScrollView workoutScrollView = findViewById(R.id.resultSearchWorkout);
         workoutLayout = new LinearLayout(this);

@@ -35,7 +35,7 @@ public class workout_filter extends AlertDialog implements View.OnClickListener 
         // Sets values for difficulty
         difficulty = findViewById(R.id.difficultyInput);
         ArrayAdapter<CharSequence> adapterDifficulty = ArrayAdapter.createFromResource(
-                getContext(), // Use the context passed to the constructor
+                getContext(),
                 R.array.difficulty,
                 android.R.layout.simple_spinner_item
         );
@@ -46,7 +46,7 @@ public class workout_filter extends AlertDialog implements View.OnClickListener 
         // Sets values for duration
         duration = findViewById(R.id.durationInput);
         ArrayAdapter<CharSequence> adapterDuration = ArrayAdapter.createFromResource(
-                getContext(), // Use the context passed to the constructor
+                getContext(),
                 R.array.duration,
                 android.R.layout.simple_spinner_item
         );
@@ -57,7 +57,7 @@ public class workout_filter extends AlertDialog implements View.OnClickListener 
         // Sets values for target muscle group
         target = findViewById(R.id.targetMuscleInput);
         ArrayAdapter<CharSequence> adapterTarget = ArrayAdapter.createFromResource(
-                getContext(), // Use the context passed to the constructor
+                getContext(),
                 R.array.targetMuscleGroup,
                 android.R.layout.simple_spinner_item
         );
