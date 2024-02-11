@@ -36,7 +36,6 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
             difficultyString = getIntent().getStringExtra("difficulty");
             durationString = getIntent().getStringExtra("duration");
             targetString = getIntent().getStringExtra("targetMuscle");
-            System.out.println("VALUES1: " + difficultyString + " " +durationString + " " + targetString);
 
             initializeLayout();
             applyChange(difficultyString, durationString, targetString);
@@ -88,6 +87,7 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
         int id = v.getId();
         if (id == R.id.openFilter) {
             customDialog = new workout_filter(this, difficultyString, durationString, targetString);
+            customDialog.getWindow().setWindowAnimations(R.style.filterAnimations); // Apply animation style
             customDialog.show();
             customDialog.setValue(difficultyString, durationString, targetString);
         }

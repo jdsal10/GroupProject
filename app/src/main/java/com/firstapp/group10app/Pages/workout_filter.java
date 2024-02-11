@@ -1,6 +1,6 @@
 package com.firstapp.group10app.Pages;
 
-import android.app.Dialog;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,13 +14,12 @@ import android.widget.Spinner;
 
 import com.firstapp.group10app.R;
 
-public class workout_filter extends Dialog implements View.OnClickListener {
-   // MAY NEED STATIC!
+public class workout_filter extends AlertDialog implements View.OnClickListener {
     Spinner difficulty, duration, target;
     String durationValue, difficultyValue, targetValue;
 
     public workout_filter(Context context, String difficulty, String duration, String target) {
-        super(context);
+        super(context, R.style.filterCorners);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         durationValue = duration;
         difficultyValue = difficulty;
@@ -36,7 +35,7 @@ public class workout_filter extends Dialog implements View.OnClickListener {
         // Sets values for difficulty
         difficulty = findViewById(R.id.difficultyInput);
         ArrayAdapter<CharSequence> adapterDifficulty = ArrayAdapter.createFromResource(
-                getContext(),
+                getContext(), // Use the context passed to the constructor
                 R.array.difficulty,
                 android.R.layout.simple_spinner_item
         );
@@ -47,7 +46,7 @@ public class workout_filter extends Dialog implements View.OnClickListener {
         // Sets values for duration
         duration = findViewById(R.id.durationInput);
         ArrayAdapter<CharSequence> adapterDuration = ArrayAdapter.createFromResource(
-                getContext(),
+                getContext(), // Use the context passed to the constructor
                 R.array.duration,
                 android.R.layout.simple_spinner_item
         );
@@ -58,24 +57,25 @@ public class workout_filter extends Dialog implements View.OnClickListener {
         // Sets values for target muscle group
         target = findViewById(R.id.targetMuscleInput);
         ArrayAdapter<CharSequence> adapterTarget = ArrayAdapter.createFromResource(
-                getContext(),
+                getContext(), // Use the context passed to the constructor
                 R.array.targetMuscleGroup,
                 android.R.layout.simple_spinner_item
         );
 
-        adapterDifficulty.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterTarget.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         target.setAdapter(adapterTarget);
         Window window = getWindow();
         if (window != null) {
             WindowManager.LayoutParams params = window.getAttributes();
             params.gravity = Gravity.BOTTOM;
-            params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+            params.width = (getContext().getResources().getDisplayMetrics().widthPixels);
             params.height = (int) (getContext().getResources().getDisplayMetrics().heightPixels * 0.5);
             window.setAttributes(params);
         }
         Button applyFilter = findViewById(R.id.applyFilter);
         applyFilter.setOnClickListener(this);
     }
+
 
     @Override
     public void onClick(View v) {
