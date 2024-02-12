@@ -147,13 +147,10 @@
     <string name="createTitle">Create</string>
     <string name="createButtonDescription">For experienced users who want to tailor their workout.</string>
 
-    <!--    Search Workouts-->
-    <string name="searchDifficulty">Difficulty</string>
-    <string name="searchDifficultyHint">Integer</string>
-    <string name="searchDuration">Duration</string>
-    <string name="searchDurationHint">Integer</string>
-    <string name="searchTarget">Target Muscle Group</string>
-    <string name="searchTargetHint">Text</string>
+    <!--    Filter Workouts-->
+    <string name="searchDifficulty">Difficulty:</string>
+    <string name="searchDuration">Duration:</string>
+    <string name="searchTarget">Target Muscle Group:</string>
     <string name="searchFilter">Filter</string>
 
     <!--    Search Popup -->
@@ -207,4 +204,27 @@ with your account and we will send you an email with further instructions.</stri
     <string name="aiToggle">AI</string>
     <string name="manualToggle">Manual</string>
 
+    <!--    Difficulty -->
+    <string-array name="difficulty">
+        <item>Any</item>
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
+
+    <!--    Duration-->
+    <string-array name="duration">
+        <item>Less than 10 minutes</item>
+        <item>10 – 30</item>
+        <item>30 – 50</item>
+        <item>50 – 70</item>
+        <item>70 – 90</item>
+        <item>More than 90 minutes</item>
+    </string-array>
+
+    <!--    Target Muscle Group-->
+    <string-array name="targetMuscleGroup">
+        <item>Any</item>
+        <item>Abs</item>
+    </string-array>
 </resources>

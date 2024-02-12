@@ -18,8 +18,12 @@
         android:theme="@style/Theme.Group10App"
         tools:targetApi="31">
         <activity
-            android:name=".Pages.WorkoutAi"
+            android:name=".Pages.workout_filter"
             android:exported="false" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_settings" />
         <activity
             android:name=".Pages.History"
             android:exported="false" />

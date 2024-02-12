@@ -18,9 +18,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 public class ItemVisualiser {
     static LinearLayout box, workoutLayout;
     static Context cThis;

@@ -11,7 +11,7 @@ Key:
 
 Some info about a user: [37 years old] [67 kg] [M] [Knee injury] [Wants to lose weight].
 
-Generate a workout in exact same JSON format of (WorkoutName, WorkoutDuration (in hours), TargetMuscleGroup, Equipment, Difficulty (easy medium or hard), exercises (ExerciseName, Description, TargetMuscleGroup, Equipment, Difficulty (1easy medium hard))). output only the JSON
+Generate a workout in exact same JSON format of (WorkoutName, WorkoutDuration (in minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), exercises (ExerciseName, Description, TargetMuscleGroup, Equipment, Difficulty (1easy medium hard))). output only the JSON
 
 Some info about the required workout: [ < 40 minutes] [abs] [easy]
 
