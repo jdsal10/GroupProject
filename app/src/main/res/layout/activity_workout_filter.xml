@@ -8,19 +8,19 @@
     tools:context=".Pages.workout_filter">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="Filter"
+        android:text="@string/filterTitle"
         android:textSize="40sp"
         android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/difficultyLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -40,12 +40,11 @@
         <Spinner
             android:id="@+id/difficultyInput"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_weight="0.2"
             android:importantForAutofill="no"
             android:textSize="25sp"
             tools:ignore="DuplicateSpeakableTextCheck" />
-
     </LinearLayout>
 
     <View
@@ -65,7 +64,6 @@
 
         <TextView
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="25dp"
@@ -77,8 +75,8 @@
         <Spinner
             android:id="@+id/durationInput"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_weight="0.2"
             android:importantForAutofill="no"
             android:textSize="25sp"
             tools:ignore="DuplicateSpeakableTextCheck" />
@@ -113,7 +111,7 @@
         <Spinner
             android:id="@+id/targetMuscleInput"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginStart="16dp"
             android:layout_weight="1"
             android:importantForAutofill="no"
@@ -129,6 +127,6 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/background"
-        android:text="Confirm" />
+        android:text="@string/confirmFilter" />
 
 </LinearLayout>

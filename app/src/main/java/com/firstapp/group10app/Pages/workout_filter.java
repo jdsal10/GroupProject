@@ -42,6 +42,7 @@ public class workout_filter extends AlertDialog implements View.OnClickListener 
 
         adapterDifficulty.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         difficulty.setAdapter(adapterDifficulty);
+        difficulty.setSelection(0);
 
         // Sets values for duration
         duration = findViewById(R.id.durationInput);
@@ -53,6 +54,7 @@ public class workout_filter extends AlertDialog implements View.OnClickListener 
 
         adapterDuration.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         duration.setAdapter(adapterDuration);
+        duration.setSelection(0);
 
         // Sets values for target muscle group
         target = findViewById(R.id.targetMuscleInput);
@@ -64,6 +66,8 @@ public class workout_filter extends AlertDialog implements View.OnClickListener 
 
         adapterTarget.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         target.setAdapter(adapterTarget);
+        target.setSelection(0);
+
         Window window = getWindow();
         if (window != null) {
             WindowManager.LayoutParams params = window.getAttributes();
@@ -72,6 +76,7 @@ public class workout_filter extends AlertDialog implements View.OnClickListener 
             params.height = (int) (getContext().getResources().getDisplayMetrics().heightPixels * 0.5);
             window.setAttributes(params);
         }
+
         Button applyFilter = findViewById(R.id.applyFilter);
         applyFilter.setOnClickListener(this);
     }
@@ -113,23 +118,26 @@ public class workout_filter extends AlertDialog implements View.OnClickListener 
 
         if (durationValue != null) {
             switch (durationValue) {
-                case "Less than 10 minutes":
+                case "Any" :
                     duration.setSelection(0);
                     break;
-                case "10 – 30":
+                case "Less than 10 minutes":
                     duration.setSelection(1);
                     break;
-                case "30 – 50":
+                case "10 – 30":
                     duration.setSelection(2);
                     break;
-                case "50 – 70":
+                case "30 – 50":
                     duration.setSelection(3);
                     break;
-                case "70 – 90":
+                case "50 – 70":
                     duration.setSelection(4);
                     break;
-                case "More than 90 minutes":
+                case "70 – 90":
                     duration.setSelection(5);
+                    break;
+                case "More than 90 minutes":
+                    duration.setSelection(6);
                     break;
             }
         }

@@ -141,7 +141,7 @@
     <string name="deleteAccountConfirm">Confirm</string>
 
     <!--    createOrSearch-->
-    <string name="searchTitle">Search</string>
+    <string name="searchTitleOption">Search</string>
     <string name="searchButtonDescription">For new users who want to grab and go with a workout.</string>
 
     <string name="createTitle">Create</string>
@@ -214,6 +214,7 @@ with your account and we will send you an email with further instructions.</stri
 
     <!--    Duration-->
     <string-array name="duration">
+        <item>Any</item>
         <item>Less than 10 minutes</item>
         <item>10 – 30</item>
         <item>30 – 50</item>
@@ -227,4 +228,14 @@ with your account and we will send you an email with further instructions.</stri
         <item>Any</item>
         <item>Abs</item>
     </string-array>
+
+    <!--    Filter-->
+    <string name="confirmFilter">Confirm</string>
+    <string name="filterTitle">Filter</string>
+
+    <!--    Search Workout-->
+    <string name="searchTitle">Search Workout</string>
+
+<!--    No Workouts Found-->
+<string name="noWorkouts">No workouts were found</string>
 </resources>

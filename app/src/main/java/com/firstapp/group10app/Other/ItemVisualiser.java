@@ -36,11 +36,11 @@ public class ItemVisualiser {
         box.setId(details.optInt("WorkoutID"));
 
         // Sets the textViews to the appropriate details.
-        nameView.setText("Workout Name: " + details.optString("WorkoutName", ""));
-        durationView.setText("Workout Duration: " + details.optString("WorkoutDuration", ""));
-        muscleView.setText("Target Muscle Group: " + details.optString("TargetMuscleGroup", ""));
-        equipmentView.setText("Equipment: " + details.optString("Equipment", ""));
-        difficultyView.setText("Difficulty: " + details.optString("Difficulty", ""));
+        nameView.setText(String.format("Workout Name: %s", details.optString("WorkoutName", "")));
+        durationView.setText(String.format("Workout Duration: %s", details.optString("WorkoutDuration", "")));
+        muscleView.setText(String.format("Target Muscle Group: %s", details.optString("TargetMuscleGroup", "")));
+        equipmentView.setText(String.format("Equipment: %s", details.optString("Equipment", "")));
+        difficultyView.setText(String.format("Difficulty: %s", details.optString("Difficulty", "")));
 
         String exerciseList = details.optString("Exercises");
 
@@ -93,12 +93,12 @@ public class ItemVisualiser {
                 TextView exerciseEquipmentView = exerciseBox.findViewById(R.id.exerciseEquipmentView);
                 TextView exerciseDifficultyView = exerciseBox.findViewById(R.id.exerciseDifficultyView);
 
-                exerciseNameView.setText("Exercise Name: " + workoutObject.optString("ExerciseName", ""));
-                exerciseDescriptionView.setText("Exercise Description: " + workoutObject.optString("Description", ""));
-                exerciseIllustrationView.setText("Exercise Illustration: " + workoutObject.optString("Illustration", ""));
-                exerciseTargetMuscleGroupView.setText("Exercise Target Group: " + workoutObject.optString("TargetMuscleGroup", ""));
-                exerciseEquipmentView.setText("Exercise Equipment: " + workoutObject.optString("Equipment", ""));
-                exerciseDifficultyView.setText("Exercise Difficulty: " + workoutObject.optString("Difficulty", ""));
+                exerciseNameView.setText(String.format("Exercise Name: %s", workoutObject.optString("ExerciseName", "")));
+                exerciseDescriptionView.setText(String.format("Exercise Description: %s", workoutObject.optString("Description", "")));
+                exerciseIllustrationView.setText(String.format("Exercise Illustration: %s", workoutObject.optString("Illustration", "")));
+                exerciseTargetMuscleGroupView.setText(String.format("Exercise Target Group: %s", workoutObject.optString("TargetMuscleGroup", "")));
+                exerciseEquipmentView.setText(String.format("Exercise Equipment: %s", workoutObject.optString("Equipment", "")));
+                exerciseDifficultyView.setText(String.format("Exercise Difficulty: %s", workoutObject.optString("Difficulty", "")));
 
                 exerciseLayout.addView(exerciseBox);
             }
@@ -133,6 +133,9 @@ public class ItemVisualiser {
         empty.setGravity(1);
 
         empty.setText("No workouts were found");
+
+//        Resource linking not working:
+//        empty.setText("@strings/noWorkouts");
 
         workoutLayout.removeAllViews();
         workoutLayout.addView(empty);
