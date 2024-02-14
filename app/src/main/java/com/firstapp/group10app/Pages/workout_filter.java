@@ -73,18 +73,22 @@ public class workout_filter extends AlertDialog implements View.OnClickListener 
             WindowManager.LayoutParams params = window.getAttributes();
             params.gravity = Gravity.BOTTOM;
             params.width = (getContext().getResources().getDisplayMetrics().widthPixels);
-            params.height = (int) (getContext().getResources().getDisplayMetrics().heightPixels * 0.5);
+            params.height = (int) (getContext().getResources().getDisplayMetrics().heightPixels * 0.55);
             window.setAttributes(params);
         }
 
         Button applyFilter = findViewById(R.id.applyFilter);
         applyFilter.setOnClickListener(this);
+
+        Button clearFilter = findViewById(R.id.clearFilter);
+        clearFilter.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.applyFilter) {
+        int id = v.getId();
+        if (id == R.id.applyFilter) {
             String durationString = duration.getSelectedItem().toString();
             String difficultyString = difficulty.getSelectedItem().toString();
             String targetMuscleString = target.getSelectedItem().toString();
@@ -93,6 +97,14 @@ public class workout_filter extends AlertDialog implements View.OnClickListener 
             intent.putExtra("duration", durationString);
             intent.putExtra("difficulty", difficultyString);
             intent.putExtra("targetMuscle", targetMuscleString);
+            getContext().startActivity(intent);
+            dismiss();
+        }
+        else if(id == R.id.clearFilter) {
+            Intent intent = new Intent(getContext(), searchWorkout.class);
+            intent.putExtra("duration", "Any");
+            intent.putExtra("difficulty", "Any");
+            intent.putExtra("targetMuscle", "Any");
             getContext().startActivity(intent);
             dismiss();
         }

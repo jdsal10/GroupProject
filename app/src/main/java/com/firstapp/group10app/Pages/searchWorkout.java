@@ -33,7 +33,7 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_workout);
         Intent intent = getIntent();
-*        if (intent != null && getIntent().hasExtra("duration") && getIntent().hasExtra("difficulty") && getIntent().hasExtra("targetMuscle")) {
+        if (intent != null && getIntent().hasExtra("duration") && getIntent().hasExtra("difficulty") && getIntent().hasExtra("targetMuscle")) {
             difficultyString = getIntent().getStringExtra("difficulty");
             durationString = getIntent().getStringExtra("duration");
             targetString = getIntent().getStringExtra("targetMuscle");

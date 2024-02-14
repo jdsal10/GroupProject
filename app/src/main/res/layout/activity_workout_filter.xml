@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/round_corners"
     android:orientation="vertical"
     tools:context=".Pages.workout_filter">
@@ -119,14 +119,30 @@
             android:textSize="25sp" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/applyFilter"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/background"
-        android:text="@string/confirmFilter" />
+        android:orientation="vertical">
 
+        <Button
+            android:id="@+id/applyFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/background"
+            android:text="@string/confirmFilter" />
+
+        <Button
+            android:id="@+id/clearFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background"
+            android:text="Clear Filter" />
+    </LinearLayout>
 </LinearLayout>

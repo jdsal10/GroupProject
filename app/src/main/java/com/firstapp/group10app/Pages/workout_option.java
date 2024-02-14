@@ -18,7 +18,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class workout_option extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener, NavigationBarView.OnItemSelectedListener {
-
     public RadioButton AISelect, manualSelect;
     public LinearLayout aiView, manualView;
     public Button goCreate, goSearch;
@@ -60,7 +59,6 @@ public class workout_option extends AppCompatActivity implements CompoundButton.
         onlineChecks.checkNavigationBar(bottomNavigationView);
     }
 
-
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         // If ensure only one is selected at once
@@ -74,6 +72,7 @@ public class workout_option extends AppCompatActivity implements CompoundButton.
             }
         }
     }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
