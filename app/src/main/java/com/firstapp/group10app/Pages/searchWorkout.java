@@ -33,8 +33,7 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_workout);
         Intent intent = getIntent();
-        System.out.println("DATA!");
-        if (intent != null && getIntent().hasExtra("duration") && getIntent().hasExtra("difficulty") && getIntent().hasExtra("targetMuscle")) {
+*        if (intent != null && getIntent().hasExtra("duration") && getIntent().hasExtra("difficulty") && getIntent().hasExtra("targetMuscle")) {
             difficultyString = getIntent().getStringExtra("difficulty");
             durationString = getIntent().getStringExtra("duration");
             targetString = getIntent().getStringExtra("targetMuscle");
@@ -55,7 +54,7 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
 
     private void initializeLayout() {
         ScrollView workoutScrollView = findViewById(R.id.resultSearchWorkout);
-        workoutLayout = new LinearLayout(this);
+        workoutLayout = new LinearLayout(getApplicationContext());
         workoutLayout.setOrientation(LinearLayout.VERTICAL);
         workoutScrollView.addView(workoutLayout);
 
@@ -64,7 +63,7 @@ public class searchWorkout extends AppCompatActivity implements NavigationBarVie
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
         bottomNavigationView.setOnItemSelectedListener(this);
-        bottomNavigationView.setSelectedItemId(R.id.goToWorkouts);
+        bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setChecked(true);
 
         onlineChecks.checkNavigationBar(bottomNavigationView);
     }
