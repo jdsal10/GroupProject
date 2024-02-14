@@ -41,10 +41,9 @@ public class Workouts extends AppCompatActivity implements View.OnClickListener 
         if (AI) {
             if (v.getId() == R.id.generateButton) {
                 // Missing variables from workouts_ai working on finishing the ai page
-                additionalInfo = findViewById(R.id.additionalInfo);
-                additionalInfoText = additionalInfo.getText().toString();
+                //additionalInfo = findViewById(R.id.additionalInfo);
+                //additionalInfoText = additionalInfo.getText().toString();
                 StringBuilder output = new StringBuilder(); // Raw String given back by gpt (JSON? Discuss with Nik)
-
 
                 // Unfinished input: Variables from the workouts_ai page need to be linked
                 String input = "Key:\n" +
