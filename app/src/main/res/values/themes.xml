@@ -12,4 +12,14 @@
 
     <style name="Theme.Group10App" parent="Base.Theme.Group10App" />
 
+    <style name="filterAnimations">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_down</item>
+    </style>
+
+    <style name="filterCorners" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/round_corners</item>
+    </style>
+
+
 </resources>

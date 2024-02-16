@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.firstapp.group10app.DB.DBHelper;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 public class settings_data_control extends Fragment implements View.OnClickListener {
     // Declared variables
     static TextView dobValue, weightValue, heightValue, allergiesValue, sexValue, reasonsValue;
-    Button dobModify, weightModify, heightModify, sexModify, allergiesModify, reasonsModify;
+    LinearLayout dobModify, weightModify, heightModify, sexModify, allergiesModify, reasonsModify;
     ArrayList<String> details;
 
     public settings_data_control() {
@@ -95,12 +96,12 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         View rootView = inflater.inflate(R.layout.fragment_settings_data_control, container, false);
 
         // Initialise the clear buttons
-        dobModify = rootView.findViewById(R.id.modifyDOB);
-        weightModify = rootView.findViewById(R.id.modifyWeight);
-        heightModify = rootView.findViewById(R.id.modifyHeight);
-        sexModify = rootView.findViewById(R.id.modifySex);
-        allergiesModify = rootView.findViewById(R.id.modifyAllergies);
-        reasonsModify = rootView.findViewById(R.id.modifyReasons);
+        dobModify = rootView.findViewById(R.id.dobLayout);
+        weightModify = rootView.findViewById(R.id.weightLayout);
+        heightModify = rootView.findViewById(R.id.heightLayout);
+        sexModify = rootView.findViewById(R.id.sexLayout);
+        allergiesModify = rootView.findViewById(R.id.allergiesLayout);
+        reasonsModify = rootView.findViewById(R.id.reasonsLayout);
 
         // Initialize the value fields.
         dobValue = rootView.findViewById(R.id.DOBValue);
