@@ -18,9 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class workout_option extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener, NavigationBarView.OnItemSelectedListener {
-
-    public RadioButton AISelect;
-    public RadioButton manualSelect;
+    public RadioButton AISelect, manualSelect;
     public LinearLayout aiView, manualView;
     public Button goCreate, goSearch;
 
@@ -61,7 +59,6 @@ public class workout_option extends AppCompatActivity implements CompoundButton.
         onlineChecks.checkNavigationBar(bottomNavigationView);
     }
 
-
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         // If ensure only one is selected at once
@@ -69,7 +66,6 @@ public class workout_option extends AppCompatActivity implements CompoundButton.
             if (buttonView.getId() == R.id.toggleAI) {
                 manualView.setVisibility(View.GONE);
                 aiView.setVisibility(View.VISIBLE);
-
             } else if (buttonView.getId() == R.id.toggleManual) {
                 aiView.setVisibility(View.GONE);
                 manualView.setVisibility(View.VISIBLE);
@@ -84,7 +80,7 @@ public class workout_option extends AppCompatActivity implements CompoundButton.
             startActivity(new Intent(workout_option.this, searchWorkout.class));
         } else if (id == R.id.goToCreate) {
             // Update with correct file when created!
-            startActivity(new Intent(workout_option.this, workout_ai.class));
+           startActivity(new Intent(workout_option.this, create_workout.class));
         } else if (id == R.id.goToAI) {
             // Unsure if this is the correct file
             startActivity(new Intent(workout_option.this, Workouts.class));
@@ -101,7 +97,7 @@ public class workout_option extends AppCompatActivity implements CompoundButton.
             startActivity(new Intent(getApplicationContext(), workout_option.class));
             return true;
         } else if (id == R.id.goToHistory) {
-            // Code for history.
+            startActivity(new Intent(getApplicationContext(), History.class));
             return true;
         }
         return true;

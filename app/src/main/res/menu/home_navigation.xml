@@ -2,11 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/goToHome"
-        android:title="@string/homeItem" />
+        android:title="@string/homeItem"
+        android:icon="@drawable/home"/>
     <item
         android:id="@+id/goToWorkouts"
+        android:icon="@drawable/workout"
         android:title="@string/workoutsItem" />
     <item
         android:id="@+id/goToHistory"
-        android:title="@string/historyItem" />
+        android:title="@string/historyItem"
+        android:icon="@drawable/history"/>
 </menu>
