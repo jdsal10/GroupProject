@@ -17,15 +17,18 @@ import com.firstapp.group10app.R;
 public class workout_filter extends AlertDialog implements View.OnClickListener {
     Spinner difficulty, duration, target;
     String durationValue, difficultyValue, targetValue;
+    private FilterChangeListener filterChangeListener;
+    Context context;
 
-    public workout_filter(Context context, String difficulty, String duration, String target) {
-        super(context, R.style.filterCorners);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        durationValue = duration;
-        difficultyValue = difficulty;
-        targetValue = target;
 
+    public workout_filter(Context context) {
+        super(context);
+        this.context = context;
+        this.difficultyValue = "Any";
+        this.durationValue = "Any";
+        this.targetValue = "Any";
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,24 +92,32 @@ public class workout_filter extends AlertDialog implements View.OnClickListener 
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.applyFilter) {
+
             String durationString = duration.getSelectedItem().toString();
             String difficultyString = difficulty.getSelectedItem().toString();
             String targetMuscleString = target.getSelectedItem().toString();
 
-            Intent intent = new Intent(getContext(), searchWorkout.class);
-            intent.putExtra("duration", durationString);
-            intent.putExtra("difficulty", difficultyString);
-            intent.putExtra("targetMuscle", targetMuscleString);
-            getContext().startActivity(intent);
+            if (filterChangeListener != null) {
+                System.out.println("UPD!");
+                filterChangeListener.onFilterChanged(difficultyString, durationString, targetMuscleString);
+            }
+
             dismiss();
+//            dismiss();
+//
+//            Intent intent = new Intent(getContext(), searchWorkout.class);
+//            intent.putExtra("duration", durationString);
+//            intent.putExtra("difficulty", difficultyString);
+//            intent.putExtra("targetMuscle", targetMuscleString);
+//            getContext().startActivity(intent);
         }
         else if(id == R.id.clearFilter) {
             Intent intent = new Intent(getContext(), searchWorkout.class);
             intent.putExtra("duration", "Any");
             intent.putExtra("difficulty", "Any");
             intent.putExtra("targetMuscle", "Any");
-            getContext().startActivity(intent);
             dismiss();
+            getContext().startActivity(intent);
         }
     }
 
@@ -166,5 +177,11 @@ public class workout_filter extends AlertDialog implements View.OnClickListener 
             }
         }
 
+    }
+    public interface FilterChangeListener {
+        void onFilterChanged(String difficulty, String duration, String target);
+    }
+    public void setFilterChangeListener(FilterChangeListener listener) {
+        this.filterChangeListener = listener;
     }
 }
