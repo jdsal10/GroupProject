@@ -236,6 +236,6 @@ with your account and we will send you an email with further instructions.</stri
     <!--    Search Workout-->
     <string name="searchTitle">Search Workout</string>
 
-<!--    No Workouts Found-->
-<string name="noWorkouts">No workouts were found</string>
+    <!--    No Workouts Found-->
+    <string name="noWorkouts">No workouts were found</string>
 </resources>
