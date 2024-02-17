@@ -152,27 +152,27 @@ public class settings_data_control extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         int id = v.getId();
 
-        if(id == R.id.modifyDOB) {
+        if(id == R.id.dobLayout) {
             modify_data customDialog = new modify_data(getContext(), new String[]{"DOB", dobValue.getText().toString()});
             customDialog.show();
         }
-        else if (id == R.id.modifySex) {
+        else if (id == R.id.sexLayout) {
             modify_data customDialog = new modify_data(getContext(), new String[]{"Sex", sexValue.getText().toString()});
             customDialog.show();
         }
-        else if (id == R.id.modifyWeight) {
+        else if (id == R.id.weightLayout) {
             modify_data customDialog = new modify_data(getContext(), new String[]{"Weight", weightValue.getText().toString()});
             customDialog.show();
         }
-        else if (id == R.id.modifyHeight) {
+        else if (id == R.id.heightLayout) {
             modify_data customDialog = new modify_data(getContext(), new String[]{"Height", heightValue.getText().toString()});
             customDialog.show();
         }
-        else if (id == R.id.modifyAllergies) {
+        else if (id == R.id.allergiesLayout) {
             modify_data customDialog = new modify_data(getContext(), new String[]{"Allergies", allergiesValue.getText().toString()});
             customDialog.show();
         }
-        else if (id == R.id.modifyReasons) {
+        else if (id == R.id.reasonsLayout) {
             modify_data customDialog = new modify_data(getContext(), new String[]{"Reasons", reasonsValue.getText().toString()});
             customDialog.show();
         }

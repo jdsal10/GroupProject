@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,7 @@ public class ItemVisualiser {
     static LinearLayout box, workoutLayout;
     static Context cThis;
     static int exerciseID, popID;
+    static AlertDialog builder;
 
     public static void addDetails(JSONObject details, String buttonType) {
         LayoutInflater inflate = (LayoutInflater) cThis.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -61,6 +63,8 @@ public class ItemVisualiser {
             View popupView = inflate.inflate(popID, null);
             builder.setView(popupView);
             AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
             ScrollView exerciseMainView = popupView.findViewById(exerciseID);
 
             exerciseMainView.removeAllViews();
@@ -152,7 +156,6 @@ public class ItemVisualiser {
         } else {
             JSONArray jsonArray = new JSONArray(data);
             for (int i = 0; i < jsonArray.length(); i++) {
-                System.out.println("testing");
                 JSONObject workoutObject = jsonArray.getJSONObject(i);
                 addDetails(workoutObject, buttonType);
 

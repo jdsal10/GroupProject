@@ -8,8 +8,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -84,12 +87,13 @@ public class modify_data extends Dialog implements View.OnClickListener {
             case "DOB":
                 description.append("date of birth.");
                 edit = new EditText(getContext());
-                edit.setWidth(description.getWidth());
-                edit.setInputType(TYPE_CLASS_NUMBER);   // Need to confirm
+                edit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                edit.setInputType(InputType.TYPE_CLASS_NUMBER);
                 area.addView(edit);
                 dobAddTextChangedListener(edit);
                 edit.setText(updateValue);
                 break;
+
 
             case "Sex": {
                 description.append("sex.");
@@ -122,8 +126,8 @@ public class modify_data extends Dialog implements View.OnClickListener {
                 String[] spinnerEntries = {"kg", "lbs", ""};
                 String[] weightValues = updateValue.split(" ");
                 edit = new EditText(getContext());
-                edit.setWidth(description.getWidth());
-                edit.setInputType(TYPE_CLASS_NUMBER);   // Need to confirm
+                edit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                edit.setInputType(TYPE_CLASS_NUMBER);
                 if (weightValues.length > 0) {
                     edit.setText(weightValues[0]);
                 }
@@ -154,15 +158,26 @@ public class modify_data extends Dialog implements View.OnClickListener {
                 description.append("height.");
                 String[] spinnerEntries = {"cm", "inch", ""};
                 String[] heightValues = updateValue.split(" ");
+
+                // Create a horizontal LinearLayout to hold the EditText and Spinner
+                LinearLayout horizontalLayout = new LinearLayout(getContext());
+                horizontalLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                horizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+                // EditText for height value
                 edit = new EditText(getContext());
-                edit.setWidth(description.getWidth());
-                edit.setInputType(TYPE_CLASS_NUMBER);   // Need to confirm
+                edit.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+                edit.setInputType(InputType.TYPE_CLASS_NUMBER);
                 if (heightValues.length > 0) {
                     edit.setText(heightValues[0]);
                 }
-                area.addView(edit);
+                horizontalLayout.addView(edit);
+
+                // Spinner for unit selection
                 dropdown = new Spinner(getContext());
-                area.addView(dropdown);
+                LinearLayout.LayoutParams dropdownParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dropdownParams.gravity = Gravity.CENTER_VERTICAL;
+                dropdown.setLayoutParams(dropdownParams);
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, spinnerEntries);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 dropdown.setAdapter(adapter);
@@ -179,13 +194,19 @@ public class modify_data extends Dialog implements View.OnClickListener {
                             break;
                     }
                 }
+
+                horizontalLayout.addView(dropdown);
+
+                // Add the horizontal layout to the parent area
+                area.addView(horizontalLayout);
                 break;
             }
+
 
             case "Allergies": {
                 description.append("allergies.");
                 edit = new EditText(getContext());
-                edit.setWidth(description.getWidth());
+                edit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 area.addView(edit);
                 edit.setText(updateValue);
                 break;
