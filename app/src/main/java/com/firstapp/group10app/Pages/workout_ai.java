@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -14,10 +15,16 @@ import android.widget.Toast;
 
 import com.firstapp.group10app.R;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class workout_ai extends AppCompatActivity implements View.OnClickListener {
     LinearLayout page1, page2;
+    Spinner muscleGroupSpinner, durationSpinner, difficultySpinner;
+    TextView mainGoalEdit;
+    EditText equipmentAnswer, mainGoalAnswer, injuriesAnswer, additionalInfoAnswer;
+    String muscleGroupAnswer, durationAnswer, difficultyAnswer;
     TextView generateButton, continueButton;
 
     @Override
@@ -26,10 +33,12 @@ public class workout_ai extends AppCompatActivity implements View.OnClickListene
         setContentView(R.layout.activity_workout_ai);
         continueButton = findViewById(R.id.continueButton);
         generateButton = findViewById(R.id.generateWorkoutButton);
+
         page1 = findViewById(R.id.page1);
         page2 = findViewById(R.id.page2);
         page1.setVisibility(View.VISIBLE);
         page2.setVisibility(View.GONE);
+        mainGoalEdit = findViewById(R.id.mainGoalTitle);
         continueButton.setOnClickListener(this);
         generateButton.setOnClickListener(this);
         populateSpinners();
@@ -40,14 +49,37 @@ public class workout_ai extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.continueButton) {
+            // To move the variables to the 2nd button
+            muscleGroupAnswer = muscleGroupSpinner.getSelectedItem().toString();
+            durationAnswer = durationSpinner.getSelectedItem().toString();
+            difficultyAnswer = difficultySpinner.getSelectedItem().toString();
+            equipmentAnswer = findViewById(R.id.equipmentInputLabel);
+
+            mainGoalEdit.setText(equipmentAnswer.getText().toString());
+
             page1.setVisibility(View.GONE);
             page2.setVisibility(View.VISIBLE);
+
+
 
             continueButton.setVisibility(View.GONE);
             generateButton.setVisibility(View.VISIBLE);
 
         } else {   // If button == GenerateButton
+            page2.setVisibility(View.GONE);
             page1.setVisibility(View.VISIBLE);
+
+            continueButton.setVisibility(View.VISIBLE); //Temp to navigate back
+            generateButton.setVisibility(View.GONE);
+
+            mainGoalAnswer = findViewById(R.id.mainGoalEdit);
+            injuriesAnswer = findViewById(R.id.injuriesEdit);
+            additionalInfoAnswer = findViewById(R.id.additionalInfoEdit);
+            equipmentAnswer.setText(mainGoalAnswer.getText().toString()+ injuriesAnswer.getText().toString()
+                    + additionalInfoAnswer.getText().toString());
+
+
+
         }
     }
 
@@ -58,9 +90,9 @@ public class workout_ai extends AppCompatActivity implements View.OnClickListene
         ArrayList<String> durationList = new ArrayList<>();
         ArrayList<String> difficultyList = new ArrayList<>();
 
-        Spinner muscleGroupSpinner = findViewById(R.id.muscleGroupSpinner);
-        Spinner durationSpinner = findViewById(R.id.durationSpinner);
-        Spinner difficultySpinner = findViewById(R.id.difficultySpinner);
+        muscleGroupSpinner = findViewById(R.id.muscleGroupSpinner);
+        durationSpinner = findViewById(R.id.durationSpinner);
+        difficultySpinner = findViewById(R.id.difficultySpinner);
         insertIntoSpinners(muscleGroupList, durationList, difficultyList);
 
         muscleGroupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

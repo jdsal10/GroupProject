@@ -109,7 +109,7 @@
                 android:textSize="20sp" />
 
             <LinearLayout
-                android:id="@+id/equipmentInputLayout"
+                android:id="@+id/difficultyInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
@@ -130,7 +130,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="0dp"
             android:orientation="vertical">
 
             <TextView
@@ -140,21 +140,16 @@
                 android:text="Using equipment? List it here!"
                 android:textSize="20sp" />
 
-            <LinearLayout
-                android:id="@+id/difficultyInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/equipment"
-                    android:layout_width="match_parent"
-                    android:layout_height="75dp"
-                    android:layout_gravity="center"
-                    android:hint="List it here"
-                    android:inputType="textMultiLine"
-                    android:textSize="20sp" />
-            </LinearLayout>
+            <EditText
+                android:id="@+id/equipmentInputLabel"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_gravity="center"
+                android:hint="List it here"
+                android:inputType="textMultiLine"
+                android:textSize="20sp" />
+
         </LinearLayout>
 
         <!--        <LinearLayout-->
@@ -258,35 +253,35 @@
         </LinearLayout>
 
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/buttons"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_weight="0.1"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/continueButton"
-                android:layout_width="161dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/background"
-                android:text="Continue"
-                android:visibility="visible"/>
-
-            <Button
-                android:id="@+id/generateWorkoutButton"
-                android:layout_width="161dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/background"
-                android:text="Generate Workout"
-                android:visibility="gone"/>
-
-
-        </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_weight="0.1"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/continueButton"
+            android:layout_width="161dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/background"
+            android:text="Continue"
+            android:visibility="visible"/>
+
+        <Button
+            android:id="@+id/generateWorkoutButton"
+            android:layout_width="161dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/background"
+            android:text="Generate Workout"
+            android:visibility="gone"/>
+
+
+    </LinearLayout>
+</LinearLayout>
