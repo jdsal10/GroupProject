@@ -30,6 +30,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.firstapp.group10app.DB.DBHelper;
+import com.firstapp.group10app.Other.JSONToDB;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -50,6 +51,8 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
     LinearLayout p1;
     LinearLayout p2;
     Spinner target;
+
+    ArrayList<JSONObject> addedExercises;
 
 
     @Override
@@ -182,7 +185,7 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
         boolean[] toggles = new boolean[jsonArray.length()];
 
         // For every exercise, we create a box containing the details.
-        ArrayList<JSONObject> addedExercises = new ArrayList<>();
+        addedExercises = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject workoutObject;
 
@@ -239,10 +242,10 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
             exerciseCombo.setOnClickListener(v -> {
                 if (toggles[index]) {
                     t.setBackgroundColor(Color.TRANSPARENT);
-                    addedExercises.add(workoutObject);
+                    addedExercises.remove(workoutObject);
                 } else {
                     t.setBackgroundColor(Color.BLACK);
-                    addedExercises.remove(workoutObject);
+                    addedExercises.add(workoutObject);
                 }
                 toggles[index] = !toggles[index];
             });
@@ -358,13 +361,47 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
 
                 showExerciseText(dialogView);
             }
-            else {
-                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            }
 
+            Button cancelCreation = dialogView.findViewById(R.id.cancelCreation);
+            Button confirmCreation = dialogView.findViewById(R.id.confirmCreation);
+
+            cancelCreation.setOnClickListener(v1 -> alertDialog.dismiss());
+
+            confirmCreation.setOnClickListener(v12 -> {
+                String correctDifficulty = selected.substring(0,1).toUpperCase() + selected.substring(1).toLowerCase();
+                createJSON(name.getText().toString(), duration.getText().toString(), target.getSelectedItem().toString(), equipment.getText().toString(), correctDifficulty, addedExercises);
+            });
         alertDialog.show();
     }
 
+    public void createJSON(String name, String duration, String target, String equipment, String difficulty, ArrayList<JSONObject> exercises) {
+        JSONObject newWorkout = new JSONObject();
+
+        try {
+            newWorkout.put("WorkoutName", name);
+            newWorkout.put("WorkoutDuration", duration);
+            newWorkout.put("TargetMuscleGroup", target);
+            newWorkout.put("Equipment", equipment);
+            newWorkout.put("Difficulty", difficulty);
+
+            JSONArray list = new JSONArray();
+            for (JSONObject e : exercises) {
+                list.put(e);
+            }
+
+            newWorkout.put("Exercises", list);
+
+            System.out.println(newWorkout);
+
+            JSONToDB.insertWorkout(newWorkout);
+
+            // Will take user to currentWorkout page when done!
+            startActivity(new Intent(this, workout_option.class));
+
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
     private void enableBorder(View v) {
         Drawable[] layers = new Drawable[2];
 
@@ -400,8 +437,6 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
     }
 
     public void showExerciseText(View d) {
-        String newData = DBHelper.getAllExercises();
-
         LinearLayout s = d.findViewById(R.id.dataHolder);
 
         // Linear layout to hold all layouts.;
@@ -410,10 +445,9 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
 
         // Creates a layout containing the exercise boxes.
         JSONArray jsonArray;
-        try {
-            jsonArray = new JSONArray(newData);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
+        jsonArray = new JSONArray();
+        for (JSONObject exercise : addedExercises) {
+            jsonArray.put(exercise);
         }
 
         // For every exercise, we create a box containing the details.
@@ -427,6 +461,7 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
             }
 
             LinearLayout textHolder = new LinearLayout(this);
+            textHolder.setOrientation(LinearLayout.VERTICAL);
 
             TextView exerciseNameText= new TextView(this);
             TextView exerciseDescriptionText= new TextView(this);
@@ -446,11 +481,24 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
             textHolder.addView(exerciseEquipmentText);
             textHolder.addView(exerciseDifficultyText);
 
-
             exerciseHolder.addView(textHolder);
+
+            View view = new View(this);
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    1
+            );
+
+            layoutParams.setMargins(10, 10, 10, 10);
+
+            view.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+
+            view.setLayoutParams(layoutParams);
+
+            exerciseHolder.addView(view);
         }
 
-        // Adds the Linear layout containing all boxes to the scroll view.
         exerciseHolder.setPadding(10, 10, 10, 10);
         s.addView(exerciseHolder);
     }
