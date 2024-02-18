@@ -1,15 +1,18 @@
 package com.firstapp.group10app.Other;
 
+import static com.firstapp.group10app.DB.DBHelper.linkExercise;
+
 import com.firstapp.group10app.DB.DBHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class JSONToDB {
-    public static void insertWorkout(JSONObject data) throws JSONException {
+    public static void insertWorkout(JSONObject data, ArrayList<String> exerciseID) throws JSONException {
         String[] workoutDetails = new String[5];
 
         workoutDetails[0] = data.getString("WorkoutName");
@@ -22,26 +25,8 @@ public class JSONToDB {
 
         System.out.println(Arrays.toString(workoutDetails));
 
-        String exerciseList = data.getString("Exercises");
-
-        insertExercise(exerciseList, id);
-    }
-
-    public static void insertExercise(String data, Integer id) throws JSONException {
-        JSONArray exerciseArray = new JSONArray(data);
-        JSONObject individualExercise;
-        String[] exerciseData = new String[5];
-
-        for (int i = 0; i < exerciseArray.length(); i++) {
-            individualExercise = exerciseArray.getJSONObject(i);
-            exerciseData[0] = individualExercise.getString("ExerciseName");
-            exerciseData[1] = individualExercise.getString("Description");
-            exerciseData[2] = individualExercise.getString("TargetMuscleGroup");
-            exerciseData[3] = individualExercise.getString("Equipment");
-            exerciseData[4] = individualExercise.getString("Difficulty");
-
-            DBHelper.insertExercise(exerciseData, id);
-            System.out.println(Arrays.toString(exerciseData));
-        }
-    }
+        for (String e : exerciseID) {
+            int eid = Integer.parseInt(e);
+        linkExercise(id, eid);
+    }}
 }
