@@ -6,24 +6,22 @@ import static android.view.View.VISIBLE;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,13 +38,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class create_workout extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
     String selected = "easy";
     View easy, medium, hard;
     EditText name, duration, equipment;
     TextView durationTitle;
     Drawable border;
-    Button cancel, continue1;
+    Button cancel, continue1, continue2, back;
+    LinearLayout p1;
+    LinearLayout p2;
+    Spinner target;
 
 
     @Override
@@ -60,7 +63,6 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
         name = findViewById(R.id.workoutNameInput);
         duration = findViewById(R.id.workoutDurationInput);
         equipment = findViewById(R.id.workoutEquipmentInput);
-        Spinner target;
 
         easy = findViewById(R.id.easySelect);
         medium = findViewById(R.id.mediumSelect);
@@ -68,6 +70,9 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
 
         cancel = findViewById(R.id.createWorkoutCancel);
         continue1 = findViewById(R.id.createWorkoutContinue1);
+        back = findViewById(R.id.backWorkout);
+        continue2 = findViewById(R.id.createWorkoutContinue2);
+
         target = findViewById(R.id.workoutTargetInput);
         ArrayAdapter<CharSequence> adapterTarget = ArrayAdapter.createFromResource(
                 this,
@@ -88,6 +93,11 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
 
         cancel.setOnClickListener(this);
         continue1.setOnClickListener(this);
+        back.setOnClickListener(this);
+        continue2.setOnClickListener(this);
+
+        p1 = findViewById(R.id.page1);
+        p2 = findViewById(R.id.page2);
 
         setListeners();
 
@@ -172,7 +182,7 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
         boolean[] toggles = new boolean[jsonArray.length()];
 
         // For every exercise, we create a box containing the details.
-        System.out.println("SIZXE + " + jsonArray.length());
+        ArrayList<JSONObject> addedExercises = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject workoutObject;
 
@@ -188,7 +198,6 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
             View t = exerciseCombo.findViewById(R.id.checkBox);
 
             LinearLayout exerciseBox = exerciseCombo.findViewById(R.id.exerciseDetails);
-            int correctHeight = exerciseBox.getHeight();
 
             LinearLayout.LayoutParams correctParam = new LinearLayout.LayoutParams(
                     100,
@@ -196,8 +205,6 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
             );
 
             t.setLayoutParams(correctParam);
-
-            System.out.println("HEHE: " + t.getHeight());
 
             TextView exerciseNameView = exerciseBox.findViewById(R.id.exerciseNameView);
             TextView exerciseDescriptionView = exerciseBox.findViewById(R.id.exerciseDescriptionView);
@@ -229,23 +236,19 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
             final int index = i;
 
 
-            exerciseCombo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (toggles[index]) {
-                        t.setBackgroundColor(Color.TRANSPARENT);
-                    } else {
-                        t.setBackgroundColor(Color.BLACK);
-                    }
-                    toggles[index] = !toggles[index];
+            exerciseCombo.setOnClickListener(v -> {
+                if (toggles[index]) {
+                    t.setBackgroundColor(Color.TRANSPARENT);
+                    addedExercises.add(workoutObject);
+                } else {
+                    t.setBackgroundColor(Color.BLACK);
+                    addedExercises.remove(workoutObject);
                 }
+                toggles[index] = !toggles[index];
             });
 
-
             exerciseHolder.addView(exerciseCombo);
-
         }
-
 
         // Adds the Linear layout containing all boxes to the scroll view.
         exerciseHolder.setPadding(0, 0, 0, 10);
@@ -289,9 +292,6 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
             if ((name.getText().toString().length() == 0) || (duration.getText().toString().length() == 0) || (equipment.getText().toString().length() == 0)) {
                 System.out.println("STOP IN LAW");
             } else {
-                LinearLayout p1 = findViewById(R.id.page1);
-                LinearLayout p2 = findViewById(R.id.page2);
-
                 p1.setVisibility(GONE);
                 p2.setVisibility(VISIBLE);
 
@@ -300,7 +300,69 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
         } else if (id == R.id.createWorkoutCancel) {
             // Maybe add popup to prevent user losing progress.
             startActivity(new Intent(this, workout_option.class));
+        } else if (id == R.id.backWorkout) {
+            p2.setVisibility(GONE);
+            p1.setVisibility(VISIBLE);
+        } else if (id == R.id.createWorkoutContinue2) {
+            finalCheck();
         }
+    }
+
+    public void finalCheck(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+
+        View dialogView = inflater.inflate(R.layout.confirm_create_workout, null);
+        builder.setView(dialogView);
+        AlertDialog alertDialog = builder.create();
+
+            LinearLayout v = dialogView.findViewById(R.id.dataHolder);
+            if (v != null) {
+                LinearLayout l = new LinearLayout(this);
+                l.setOrientation(LinearLayout.VERTICAL);
+
+                TextView workoutName = new TextView(this);
+                TextView workoutDuration = new TextView(this);
+                TextView workoutTarget = new TextView(this);
+                TextView workoutEquipment = new TextView(this);
+                TextView workoutDifficulty = new TextView(this);
+
+                workoutName.setText(String.format("Workout Name: %s", String.format(name.getText().toString())));
+                workoutDuration.setText(String.format("Workout Duration: %s", String.format(duration.getText().toString())));
+                workoutTarget.setText(String.format("Workout Target: %s", String.format(target.getSelectedItem().toString())));
+                workoutEquipment.setText(String.format("Workout Equipment: %s", String.format(equipment.getText().toString())));
+                workoutDifficulty.setText(String.format("Workout Difficulty: %s", String.format(selected)));
+
+                l.addView(workoutName);
+                l.addView(workoutDuration);
+                l.addView(workoutTarget);
+                l.addView(workoutEquipment);
+                l.addView(workoutDifficulty);
+
+                v.addView(l);
+
+                View view = new View(this);
+
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        1
+                );
+
+                layoutParams.setMargins(10, 10, 10, 10);
+
+                view.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+
+                view.setLayoutParams(layoutParams);
+
+                v.addView(view);
+
+                showExerciseText(dialogView);
+            }
+            else {
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            }
+
+        alertDialog.show();
     }
 
     private void enableBorder(View v) {
@@ -337,6 +399,61 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
         return drawable;
     }
 
+    public void showExerciseText(View d) {
+        String newData = DBHelper.getAllExercises();
+
+        LinearLayout s = d.findViewById(R.id.dataHolder);
+
+        // Linear layout to hold all layouts.;
+        LinearLayout exerciseHolder = new LinearLayout(this);
+        exerciseHolder.setOrientation(LinearLayout.VERTICAL);
+
+        // Creates a layout containing the exercise boxes.
+        JSONArray jsonArray;
+        try {
+            jsonArray = new JSONArray(newData);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        // For every exercise, we create a box containing the details.
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject workoutObject;
+
+            try {
+                workoutObject = jsonArray.getJSONObject(i);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
+            LinearLayout textHolder = new LinearLayout(this);
+
+            TextView exerciseNameText= new TextView(this);
+            TextView exerciseDescriptionText= new TextView(this);
+            TextView exerciseTargetMuscleGroupText = new TextView(this);
+            TextView exerciseEquipmentText = new TextView(this);
+            TextView exerciseDifficultyText = new TextView(this);
+
+            exerciseNameText.setText(String.format(String.format("Exercise Name: %s", workoutObject.optString("ExerciseName", ""))));
+            exerciseDescriptionText.setText(String.format("Exercise Description: %s", workoutObject.optString("Description", "")));
+            exerciseTargetMuscleGroupText.setText(String.format("Exercise Target Group: %s", workoutObject.optString("TargetMuscleGroup", "")));
+            exerciseEquipmentText.setText(String.format("Exercise Equipment: %s", workoutObject.optString("Equipment", "")));
+            exerciseDifficultyText.setText(String.format("Exercise Difficulty: %s", workoutObject.optString("Difficulty")));
+
+            textHolder.addView(exerciseNameText);
+            textHolder.addView(exerciseDescriptionText);
+            textHolder.addView(exerciseTargetMuscleGroupText);
+            textHolder.addView(exerciseEquipmentText);
+            textHolder.addView(exerciseDifficultyText);
+
+
+            exerciseHolder.addView(textHolder);
+        }
+
+        // Adds the Linear layout containing all boxes to the scroll view.
+        exerciseHolder.setPadding(10, 10, 10, 10);
+        s.addView(exerciseHolder);
+    }
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
