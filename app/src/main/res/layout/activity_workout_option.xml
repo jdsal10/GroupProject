@@ -56,7 +56,8 @@
         android:layout_marginTop="20sp"
         android:layout_weight="1.5"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <TextView
             android:layout_width="wrap_content"
@@ -132,10 +133,10 @@
             android:textSize="18sp" />
 
         <Button
+            android:id="@+id/goToAI"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:id="@+id/goToAI"
             android:layout_marginTop="20sp"
             android:gravity="center"
             android:text="@string/aiBegin" />
