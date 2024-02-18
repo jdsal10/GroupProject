@@ -9,21 +9,20 @@ import org.json.JSONObject;
 import java.util.Arrays;
 
 public class JSONToDB {
-    public static void insertWorkout(String data) throws JSONException {
-        JSONObject workoutData = new JSONObject(data);
+    public static void insertWorkout(JSONObject data) throws JSONException {
         String[] workoutDetails = new String[5];
 
-        workoutDetails[0] = workoutData.getString("WorkoutName");
-        workoutDetails[1] = workoutData.getString("WorkoutDuration");
-        workoutDetails[2] = workoutData.getString("TargetMuscleGroup");
-        workoutDetails[3] = workoutData.getString("Equipment");
-        workoutDetails[4] = workoutData.getString("Difficulty");
+        workoutDetails[0] = data.getString("WorkoutName");
+        workoutDetails[1] = data.getString("WorkoutDuration");
+        workoutDetails[2] = data.getString("TargetMuscleGroup");
+        workoutDetails[3] = data.getString("Equipment");
+        workoutDetails[4] = data.getString("Difficulty");
 
         Integer id = DBHelper.insertWorkout(workoutDetails);
 
         System.out.println(Arrays.toString(workoutDetails));
 
-        String exerciseList = workoutData.getString("exercises");
+        String exerciseList = data.getString("Exercises");
 
         insertExercise(exerciseList, id);
     }
