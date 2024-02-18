@@ -13,11 +13,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firstapp.group10app.ChatGPT.ChatGPT_Client;
 import com.firstapp.group10app.R;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class workout_ai extends AppCompatActivity implements View.OnClickListener {
     LinearLayout page1, page2;
@@ -25,6 +28,10 @@ public class workout_ai extends AppCompatActivity implements View.OnClickListene
     TextView mainGoalEdit;
     EditText equipmentAnswer, mainGoalAnswer, injuriesAnswer, additionalInfoAnswer;
     String muscleGroupAnswer, durationAnswer, difficultyAnswer;
+
+    StringBuilder gptOutput;
+
+
     TextView generateButton, continueButton;
 
     @Override
@@ -75,10 +82,18 @@ public class workout_ai extends AppCompatActivity implements View.OnClickListene
             mainGoalAnswer = findViewById(R.id.mainGoalEdit);
             injuriesAnswer = findViewById(R.id.injuriesEdit);
             additionalInfoAnswer = findViewById(R.id.additionalInfoEdit);
-            equipmentAnswer.setText(mainGoalAnswer.getText().toString()+ injuriesAnswer.getText().toString()
-                    + additionalInfoAnswer.getText().toString());
+            equipmentAnswer.setText(gptOutput.toString());
 
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            executor.execute(() -> {
+                try {   // NOT to run yet
+                    gptOutput.append(ChatGPT_Client.chatGPT("Hello how are you?"));   // Feeds gpt the input
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
 
+            executor.shutdown();
 
         }
     }
