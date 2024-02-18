@@ -42,11 +42,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Session.signedIn = false;
         
         // Used to add test data
-//        try {
-//            addData();
-//        } catch (JSONException e) {
-//            throw new RuntimeException(e);
-//        }
 
         // If the connection false, disable the login.
         if (!Session.dbStatus) {
