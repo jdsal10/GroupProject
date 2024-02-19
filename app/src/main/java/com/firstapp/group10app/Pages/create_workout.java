@@ -296,7 +296,9 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
             }
         } else if (id == R.id.createWorkoutContinue1) {
             if ((name.getText().toString().length() == 0) || (duration.getText().toString().length() == 0) || (equipment.getText().toString().length() == 0)) {
-                System.out.println("STOP IN LAW");
+                continue1.setError("Some fields have no info");
+            } else if ((Integer.parseInt(duration.getText().toString()) > 180) || (Integer.parseInt(duration.getText().toString()) == 0)) {
+                duration.setError("Duration must be between 180 and 0!");
             } else {
                 p1.setVisibility(GONE);
                 p2.setVisibility(VISIBLE);

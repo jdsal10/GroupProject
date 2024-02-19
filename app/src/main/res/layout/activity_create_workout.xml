@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:autofillHints="Name"
-                android:inputType="text"
+                android:inputType="number"
                 tools:ignore="LabelFor" />
 
         </LinearLayout>
