@@ -30,7 +30,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.firstapp.group10app.DB.DBHelper;
-import com.firstapp.group10app.Other.JSONToDB;
+import com.firstapp.group10app.Other.*;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -76,6 +76,7 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
         continue2 = findViewById(R.id.createWorkoutContinue2);
 
         target = findViewById(R.id.workoutTargetInput);
+
         ArrayAdapter<CharSequence> adapterTarget = ArrayAdapter.createFromResource(
                 this,
                 R.array.targetMuscleGroup,
@@ -203,12 +204,16 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
 
             LinearLayout exerciseBox = exerciseCombo.findViewById(R.id.exerciseDetails);
 
-            LinearLayout.LayoutParams correctParam = new LinearLayout.LayoutParams(
-                    100,
-                    100
-            );
+            exerciseCombo.post(() -> {
+                int height = exerciseCombo.getHeight();
+                LinearLayout.LayoutParams correctParam = new LinearLayout.LayoutParams(
+                        100,
+                        height
+                );
+                correctParam.setMargins(0, 0, 10, 0);
 
-            t.setLayoutParams(correctParam);
+                t.setLayoutParams(correctParam);
+            });
 
             TextView exerciseNameView = exerciseBox.findViewById(R.id.exerciseNameView);
             TextView exerciseDescriptionView = exerciseBox.findViewById(R.id.exerciseDescriptionView);
@@ -255,6 +260,21 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
             });
 
             exerciseHolder.addView(exerciseCombo);
+
+            View view = new View(this);
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    1
+            );
+
+            layoutParams.setMargins(10, 10, 10, 10);
+
+            view.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+
+            view.setLayoutParams(layoutParams);
+
+            exerciseHolder.addView(view);
         }
 
         // Adds the Linear layout containing all boxes to the scroll view.
@@ -298,8 +318,10 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
         } else if (id == R.id.createWorkoutContinue1) {
             if ((name.getText().toString().length() == 0) || (duration.getText().toString().length() == 0) || (equipment.getText().toString().length() == 0)) {
                 continue1.setError("Some fields have no info");
+
             } else if ((Integer.parseInt(duration.getText().toString()) > 180) || (Integer.parseInt(duration.getText().toString()) == 0)) {
                 duration.setError("Duration must be between 180 and 0!");
+
             } else {
                 p1.setVisibility(GONE);
                 p2.setVisibility(VISIBLE);
@@ -312,13 +334,14 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
         } else if (id == R.id.backWorkout) {
             p2.setVisibility(GONE);
             p1.setVisibility(VISIBLE);
+
         } else if (id == R.id.createWorkoutContinue2) {
-            if(addedExercisesID.isEmpty()) {
+            if (addedExercisesID.isEmpty()) {
                 continue2.setError("At least one workout is needed,");
+            } else {
+                finalCheck();
             }
-            else {
-            finalCheck();
-        }}
+        }
     }
 
     public void finalCheck() {
@@ -330,46 +353,17 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
         AlertDialog alertDialog = builder.create();
 
         LinearLayout v = dialogView.findViewById(R.id.dataHolder);
+
+        String[] data = new String[5];
+        data[0] = name.getText().toString();
+        data[1] = duration.getText().toString();
+        data[2] = target.getSelectedItem().toString();
+        data[3] = equipment.getText().toString();
+        data[4] = selected;
+
+
         if (v != null) {
-            LinearLayout l = new LinearLayout(this);
-            l.setOrientation(LinearLayout.VERTICAL);
-
-            TextView workoutName = new TextView(this);
-            TextView workoutDuration = new TextView(this);
-            TextView workoutTarget = new TextView(this);
-            TextView workoutEquipment = new TextView(this);
-            TextView workoutDifficulty = new TextView(this);
-
-            workoutName.setText(String.format("Workout Name: %s", String.format(name.getText().toString())));
-            workoutDuration.setText(String.format("Workout Duration: %s", String.format(duration.getText().toString())));
-            workoutTarget.setText(String.format("Workout Target: %s", String.format(target.getSelectedItem().toString())));
-            workoutEquipment.setText(String.format("Workout Equipment: %s", String.format(equipment.getText().toString())));
-            workoutDifficulty.setText(String.format("Workout Difficulty: %s", String.format(selected)));
-
-            l.addView(workoutName);
-            l.addView(workoutDuration);
-            l.addView(workoutTarget);
-            l.addView(workoutEquipment);
-            l.addView(workoutDifficulty);
-
-            v.addView(l);
-
-            View view = new View(this);
-
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    1
-            );
-
-            layoutParams.setMargins(10, 10, 10, 10);
-
-            view.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
-
-            view.setLayoutParams(layoutParams);
-
-            v.addView(view);
-
-            showExerciseText(dialogView);
+            itemVisualiserText.showText(this, v, data, addedExercises);
         }
 
         Button cancelCreation = dialogView.findViewById(R.id.cancelCreation);
@@ -393,8 +387,6 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
             newWorkout.put("TargetMuscleGroup", target);
             newWorkout.put("Equipment", equipment);
             newWorkout.put("Difficulty", difficulty);
-
-            System.out.println(newWorkout);
 
             JSONToDB.insertWorkout(newWorkout, exercises);
 

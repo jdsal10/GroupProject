@@ -119,10 +119,8 @@ public class DBHelper {
             sql.deleteCharAt(sql.length() - 2);
             sql.append(");");
 
-            System.out.println(sql);
             Integer id = null;
             Statement st = conn.createStatement();
-            Integer test = st.executeUpdate(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 
             ResultSet rs = st.getGeneratedKeys();
             if (rs.next()) {
@@ -154,7 +152,6 @@ public class DBHelper {
 
     // Returns true if the user exists in the database
     public static boolean checkExists(String email) throws SQLException {
-        System.out.println("CHECKING");
         String st = "SELECT * FROM HealthData.Users WHERE Email = '" +
                 email +
                 "';";
@@ -167,10 +164,11 @@ public class DBHelper {
         DBConnection db = new DBConnection();
         ResultSet result = db.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "' AND Password = '" + password + "'");
         int size = 0;
+
         if (result.last()) {
             size++;
         }
-        System.out.println("TESTING " + size);
+
         return size != 0;
     }
 
@@ -227,8 +225,6 @@ public class DBHelper {
         }
         out += ";";
 
-        System.out.println("SQL: " + out);
-
         ResultSet q = d.executeQuery(out);
 
         try {
@@ -256,13 +252,9 @@ public class DBHelper {
                 "            'Difficulty', e.Difficulty\n" +
                 "          )\n" +
                 "        ) AS Result\n" +
-                "FROM HealthData.ExerciseWorkoutPairs ewp\n" +
-                "JOIN HealthData.Exercises e ON ewp.ExerciseID = e.ExerciseID";
-
+                "FROM HealthData.Exercises e";
 
         out += ";";
-
-        System.out.println("SQL: " + out);
 
         ResultSet q = d.executeQuery(out);
 
@@ -277,7 +269,7 @@ public class DBHelper {
         return "";
     }
 
-    public static String getUserWorkouts(String filter) throws SQLException {
+    public static String getUserWorkouts(String filter) {
         DBConnection d = new DBConnection();
         String st = "SELECT\n" +
                 "  JSON_ARRAYAGG(\n" +
@@ -313,8 +305,6 @@ public class DBHelper {
                 "  FROM HealthData.UserWorkoutHistory uwh\n" +
                 "  WHERE uwh.Email = '" + filter + "'\n" +
                 ");\n";
-        System.out.println("hello" + st);
-
 
         ResultSet out = d.executeQuery(st);
         try {
