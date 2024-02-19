@@ -1,26 +1,21 @@
 package com.firstapp.group10app.Pages;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firstapp.group10app.ChatGPT.ChatGPT_Client;
-import com.firstapp.group10app.R;
+import androidx.appcompat.app.AppCompatActivity;
 
-import org.w3c.dom.Text;
+import com.firstapp.group10app.R;
+import static com.firstapp.group10app.ChatGPT.ChatGPT_Client.chatGPT;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class workout_ai extends AppCompatActivity implements View.OnClickListener {
     LinearLayout page1, page2;
@@ -28,29 +23,25 @@ public class workout_ai extends AppCompatActivity implements View.OnClickListene
     TextView mainGoalEdit;
     EditText equipmentAnswer, mainGoalAnswer, injuriesAnswer, additionalInfoAnswer;
     String muscleGroupAnswer, durationAnswer, difficultyAnswer;
-
-    StringBuilder gptOutput;
-
-
     TextView generateButton, continueButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_ai);
+
         continueButton = findViewById(R.id.continueButton);
         generateButton = findViewById(R.id.generateWorkoutButton);
+        continueButton.setOnClickListener(this);
+        generateButton.setOnClickListener(this);
 
         page1 = findViewById(R.id.page1);
         page2 = findViewById(R.id.page2);
         page1.setVisibility(View.VISIBLE);
         page2.setVisibility(View.GONE);
+
         mainGoalEdit = findViewById(R.id.mainGoalTitle);
-        continueButton.setOnClickListener(this);
-        generateButton.setOnClickListener(this);
         populateSpinners();
-
-
     }
 
     @Override
@@ -67,12 +58,11 @@ public class workout_ai extends AppCompatActivity implements View.OnClickListene
             page1.setVisibility(View.GONE);
             page2.setVisibility(View.VISIBLE);
 
-
-
             continueButton.setVisibility(View.GONE);
             generateButton.setVisibility(View.VISIBLE);
-
         } else {   // If button == GenerateButton
+            // Misha's code
+            /*
             page2.setVisibility(View.GONE);
             page1.setVisibility(View.VISIBLE);
 
@@ -82,22 +72,22 @@ public class workout_ai extends AppCompatActivity implements View.OnClickListene
             mainGoalAnswer = findViewById(R.id.mainGoalEdit);
             injuriesAnswer = findViewById(R.id.injuriesEdit);
             additionalInfoAnswer = findViewById(R.id.additionalInfoEdit);
-            equipmentAnswer.setText(gptOutput.toString());
+            equipmentAnswer.setText(mainGoalAnswer.getText().toString() + injuriesAnswer.getText().toString()
+                    + additionalInfoAnswer.getText().toString());
+             */
 
-            ExecutorService executor = Executors.newSingleThreadExecutor();
-            executor.execute(() -> {
-                try {   // NOT to run yet
-                    gptOutput.append(ChatGPT_Client.chatGPT("Hello how are you?"));   // Feeds gpt the input
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
+            // Nikola's changes
+            mainGoalAnswer = findViewById(R.id.mainGoalEdit);
+            injuriesAnswer = findViewById(R.id.injuriesEdit);
+            additionalInfoAnswer = findViewById(R.id.additionalInfoEdit);
 
-            executor.shutdown();
-
+            try {
+                chatGPT("Hello, chatGPT, how are you?"); // This is a test to see if the chatGPT function works.
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
-
 
     public void populateSpinners() {
         // POPULATE DURATION SPINNER
@@ -163,7 +153,7 @@ public class workout_ai extends AppCompatActivity implements View.OnClickListene
 
     }
 
-    public void insertIntoSpinners(ArrayList muscleList, ArrayList durationList, ArrayList difficultyList) {
+    public void insertIntoSpinners(ArrayList<String> muscleList, ArrayList<String> durationList, ArrayList<String> difficultyList) {
         muscleList.add("Upper Body");
         muscleList.add("Lower Body");
         muscleList.add("Abs");
@@ -178,8 +168,5 @@ public class workout_ai extends AppCompatActivity implements View.OnClickListene
         difficultyList.add("Easy");
         difficultyList.add("Medium");
         difficultyList.add("Hard");
-
     }
-
-
 }

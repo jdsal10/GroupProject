@@ -186,6 +186,9 @@ public class DBHelper {
         DBConnection.executeStatement("DELETE FROM HealthData.Users WHERE Email = '" + email + "'");
     }
 
+    public static void linkExercise(int workoutID, int exerciseID) {
+        DBConnection.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUES ('" + workoutID + "','" + exerciseID + "')");
+    }
     public static String getAllWorkouts(String filter) {
         DBConnection d = new DBConnection();
 
@@ -222,6 +225,41 @@ public class DBHelper {
         if (filter != null) {
             out += filter;
         }
+        out += ";";
+
+        System.out.println("SQL: " + out);
+
+        ResultSet q = d.executeQuery(out);
+
+        try {
+            if (q.next()) {
+                return q.getString("Result");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error processing ResultSet", e);
+        }
+
+        return "";
+    }
+
+    public static String getAllExercises() {
+        DBConnection d = new DBConnection();
+
+        String out = "SELECT JSON_ARRAYAGG(\n" +
+                "          JSON_OBJECT(\n" +
+                "            'ExerciseID', e.ExerciseID,\n" +
+                "            'ExerciseName', e.ExerciseName,\n" +
+                "            'Description', e.Description,\n" +
+                "            'Illustration', e.Illustration,\n" +
+                "            'TargetMuscleGroup', e.TargetMuscleGroup,\n" +
+                "            'Equipment', e.Equipment,\n" +
+                "            'Difficulty', e.Difficulty\n" +
+                "          )\n" +
+                "        ) AS Result\n" +
+                "FROM HealthData.ExerciseWorkoutPairs ewp\n" +
+                "JOIN HealthData.Exercises e ON ewp.ExerciseID = e.ExerciseID";
+
+
         out += ";";
 
         System.out.println("SQL: " + out);

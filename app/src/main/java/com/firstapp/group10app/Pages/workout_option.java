@@ -1,7 +1,5 @@
 package com.firstapp.group10app.Pages;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,6 +8,8 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Other.onlineChecks;
@@ -20,7 +20,7 @@ import com.google.android.material.navigation.NavigationBarView;
 public class workout_option extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener, NavigationBarView.OnItemSelectedListener {
     public RadioButton AISelect, manualSelect;
     public LinearLayout aiView, manualView;
-    public Button goCreate, goSearch;
+    public Button goCreate, goSearch, goAI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +30,12 @@ public class workout_option extends AppCompatActivity implements CompoundButton.
         // Initialise Buttons
         goCreate = findViewById(R.id.goToCreate);
         goSearch = findViewById(R.id.goToSearch);
+        goAI = findViewById(R.id.goToAI);
 
         // Set click listener
         goCreate.setOnClickListener(this);
         goSearch.setOnClickListener(this);
+        goAI.setOnClickListener(this);
 
         // Initialize RadioButtons
         AISelect = findViewById(R.id.toggleAI);
@@ -80,12 +82,11 @@ public class workout_option extends AppCompatActivity implements CompoundButton.
             startActivity(new Intent(workout_option.this, searchWorkout.class));
         } else if (id == R.id.goToCreate) {
             // Update with correct file when created!
-            // create workout class
+            // Using for test purposes
 
-           startActivity(new Intent(workout_option.this, workout_ai.class));
+            startActivity(new Intent(workout_option.this, create_workout.class));
         } else if (id == R.id.goToAI) {
-            // Unsure if this is the correct file
-            startActivity(new Intent(workout_option.this, Workouts.class));
+            startActivity(new Intent(getApplicationContext(), workout_ai.class));
         }
     }
 
