@@ -2,8 +2,13 @@ package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +27,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        View rootLayout = findViewById(android.R.id.content);
+
+        AlphaAnimation fadeInAnimation = new AlphaAnimation(0.0f, 1.0f);
+        fadeInAnimation.setDuration(1000);
+
+        rootLayout.startAnimation(fadeInAnimation);
         Button goToLoginButton = findViewById(R.id.goToLogin);
         goToLoginButton.setOnClickListener(this);
 
@@ -64,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(MainActivity.this, SitemapActivity.class));
         } else if (id == R.id.goToRegister) {
             startActivity(new Intent(MainActivity.this, Registration.class));
+            overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
         }
     }
 
