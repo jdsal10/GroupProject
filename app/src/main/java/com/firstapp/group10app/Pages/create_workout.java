@@ -104,6 +104,7 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
         setListeners();
 
         enableBorder(easy);
+
         border = ContextCompat.getDrawable(this, R.drawable.selected_item);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
@@ -312,8 +313,12 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
             p2.setVisibility(GONE);
             p1.setVisibility(VISIBLE);
         } else if (id == R.id.createWorkoutContinue2) {
+            if(addedExercisesID.isEmpty()) {
+                continue2.setError("At least one workout is needed,");
+            }
+            else {
             finalCheck();
-        }
+        }}
     }
 
     public void finalCheck() {
