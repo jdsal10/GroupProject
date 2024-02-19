@@ -27,7 +27,6 @@ public class ItemVisualiser {
     static LinearLayout box, workoutLayout;
     static Context cThis;
     static int exerciseID, popID;
-    static AlertDialog builder;
 
     public static void addDetails(JSONObject details, String buttonType) {
         LayoutInflater inflate = (LayoutInflater) cThis.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
