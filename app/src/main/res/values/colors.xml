@@ -38,4 +38,5 @@
     <!-- Can You Feel The Love Tonight -->
     <color name="gradient_canYouFeelTheLoveTonight_start">#4568DC</color>
     <color name="gradient_canYouFeelTheLoveTonight_end">#B06AB3</color>
+    <color name="gradient_cYFTLT_complementary">#6db36a</color>
 </resources>
