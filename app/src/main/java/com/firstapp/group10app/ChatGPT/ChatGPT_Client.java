@@ -7,16 +7,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class ChatGPT_Client {
-    private static final String apiKey = "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";
+    private static final String apiKey = "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";
     private static final String model = "gpt-3.5-turbo";
     private static final String url = "https://api.openai.com/v1/chat/completions";
 
     public static String chatGPT(String input) throws Exception {
         // Connect to the API
-        HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
-        con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "application/json");
-        con.setRequestProperty("Authorization", "Bearer " + apiKey);
+        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Authorization", "Bearer " + apiKey);
 
         // Set the request body
         String prompt = "[{\"role\": \"user\", \"content\": \"" + input + "\"}]";
@@ -24,13 +24,13 @@ public class ChatGPT_Client {
         String body = "{\"model\": \"" + model + "\", \"messages\": " + prompt + ", \"max_tokens\": " + maxTokens + "}";
 
         // Send the request
-        con.setDoOutput(true);
-        OutputStreamWriter writer = new OutputStreamWriter(con.getOutputStream());
+        connection.setDoOutput(true);
+        OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
         writer.write(body);
         writer.flush();
 
         // Get the response
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String inputLine;
         StringBuilder responseRaw = new StringBuilder();
         while ((inputLine = in.readLine()) != null) {
