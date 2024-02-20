@@ -2,23 +2,16 @@ package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DBConnection;
-import com.firstapp.group10app.Other.JSONToDB;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
-
-import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -39,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button goToRegisterButton = findViewById(R.id.goToRegister);
         goToRegisterButton.setOnClickListener(this);
 
-        TextView skipText = findViewById(R.id.skipToHome);
+        TextView skipText = findViewById(R.id.anonymous);
         skipText.setOnClickListener(this);
 
         // Temporary button to navigate to the sitemap
@@ -67,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (id == R.id.goToLogin) {
             startActivity(new Intent(MainActivity.this, Login.class));
             overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
-        } else if (id == R.id.skipToHome) {
+        } else if (id == R.id.anonymous) {
             Session.userEmail = null;
             Session.signedIn = false;
             startActivity(new Intent(MainActivity.this, Home.class));
