@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/round_corners"
     android:orientation="vertical"
-    tools:context=".Pages.workout_filter">
+    tools:context=".Pages.WorkoutFilter">
 
     <TextView
         android:layout_width="wrap_content"

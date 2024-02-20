@@ -8,13 +8,12 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Other.*;
-import com.firstapp.group10app.Pages.modify_data;
+import com.firstapp.group10app.Pages.ModifyData;
 import com.firstapp.group10app.R;
 
 import java.sql.ResultSet;
@@ -153,27 +152,27 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         int id = v.getId();
 
         if(id == R.id.dobLayout) {
-            modify_data customDialog = new modify_data(getContext(), new String[]{"DOB", dobValue.getText().toString()});
+            ModifyData customDialog = new ModifyData(getContext(), new String[]{"DOB", dobValue.getText().toString()});
             customDialog.show();
         }
         else if (id == R.id.sexLayout) {
-            modify_data customDialog = new modify_data(getContext(), new String[]{"Sex", sexValue.getText().toString()});
+            ModifyData customDialog = new ModifyData(getContext(), new String[]{"Sex", sexValue.getText().toString()});
             customDialog.show();
         }
         else if (id == R.id.weightLayout) {
-            modify_data customDialog = new modify_data(getContext(), new String[]{"Weight", weightValue.getText().toString()});
+            ModifyData customDialog = new ModifyData(getContext(), new String[]{"Weight", weightValue.getText().toString()});
             customDialog.show();
         }
         else if (id == R.id.heightLayout) {
-            modify_data customDialog = new modify_data(getContext(), new String[]{"Height", heightValue.getText().toString()});
+            ModifyData customDialog = new ModifyData(getContext(), new String[]{"Height", heightValue.getText().toString()});
             customDialog.show();
         }
         else if (id == R.id.allergiesLayout) {
-            modify_data customDialog = new modify_data(getContext(), new String[]{"Allergies", allergiesValue.getText().toString()});
+            ModifyData customDialog = new ModifyData(getContext(), new String[]{"Allergies", allergiesValue.getText().toString()});
             customDialog.show();
         }
         else if (id == R.id.reasonsLayout) {
-            modify_data customDialog = new modify_data(getContext(), new String[]{"Reasons", reasonsValue.getText().toString()});
+            ModifyData customDialog = new ModifyData(getContext(), new String[]{"Reasons", reasonsValue.getText().toString()});
             customDialog.show();
         }
     }
