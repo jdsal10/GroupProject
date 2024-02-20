@@ -41,7 +41,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class create_workout extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
+public class CreateWorkout extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
     String selected = "easy";
     View easy, medium, hard;
     EditText name, duration, equipment;
@@ -330,7 +330,7 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
             }
         } else if (id == R.id.createWorkoutCancel) {
             // Maybe add popup to prevent user losing progress.
-            startActivity(new Intent(this, workout_option.class));
+            startActivity(new Intent(this, WorkoutOption.class));
         } else if (id == R.id.backWorkout) {
             p2.setVisibility(GONE);
             p1.setVisibility(VISIBLE);
@@ -391,7 +391,7 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
             JSONToDB.insertWorkout(newWorkout, exercises);
 
             // Will take user to currentWorkout page when done!
-            startActivity(new Intent(this, workout_option.class));
+            startActivity(new Intent(this, WorkoutOption.class));
 
         } catch (JSONException e) {
             throw new RuntimeException(e);
@@ -506,7 +506,7 @@ public class create_workout extends AppCompatActivity implements NavigationBarVi
             startActivity(new Intent(getApplicationContext(), Home.class));
             return true;
         } else if (id == R.id.goToWorkouts) {
-            startActivity(new Intent(getApplicationContext(), workout_option.class));
+            startActivity(new Intent(getApplicationContext(), WorkoutOption.class));
             return true;
         } else if (id == R.id.goToHistory) {
             startActivity(new Intent(getApplicationContext(), History.class));

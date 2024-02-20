@@ -17,7 +17,7 @@ import static com.firstapp.group10app.ChatGPT.ChatGPT_Client.chatGPT;
 
 import java.util.ArrayList;
 
-public class workout_ai extends AppCompatActivity implements View.OnClickListener {
+public class WorkoutAi extends AppCompatActivity implements View.OnClickListener {
     LinearLayout page1, page2;
     Spinner muscleGroupSpinner, durationSpinner, difficultySpinner;
     TextView mainGoalEdit;
@@ -104,7 +104,7 @@ public class workout_ai extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String item = adapterView.getItemAtPosition(position).toString();
-                Toast.makeText(workout_ai.this, "Selected:" + item, Toast.LENGTH_SHORT).show();
+                Toast.makeText(WorkoutAi.this, "Selected:" + item, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -116,7 +116,7 @@ public class workout_ai extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String item = adapterView.getItemAtPosition(position).toString();
-                Toast.makeText(workout_ai.this, "Selected:" + item, Toast.LENGTH_SHORT).show();
+                Toast.makeText(WorkoutAi.this, "Selected:" + item, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -128,7 +128,7 @@ public class workout_ai extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String item = adapterView.getItemAtPosition(position).toString();
-                Toast.makeText(workout_ai.this, "Selected:" + item, Toast.LENGTH_SHORT).show();
+                Toast.makeText(WorkoutAi.this, "Selected:" + item, Toast.LENGTH_SHORT).show();
             }
 
             @Override

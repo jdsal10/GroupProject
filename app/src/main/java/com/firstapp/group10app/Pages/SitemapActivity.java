@@ -13,9 +13,6 @@ import com.firstapp.group10app.ChatGPT.ChatGPT_Client;
 //import com.firstapp.group10app.DB.LocalDb.LocalDb;
 import com.firstapp.group10app.R;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 public class SitemapActivity extends AppCompatActivity {
     private LinearLayout layout;
 //    private LocalDb localDB;
@@ -39,7 +36,7 @@ public class SitemapActivity extends AppCompatActivity {
         addButton("Registration Page", Registration.class);
         addButton("Login Page", Login.class);
         addButton("Forgot Password Page", ForgotPassword.class);
-        addButton("Forgot Password Check Page", forgotpasswordcheck.class);
+        addButton("Forgot Password Check Page", ForgotPasswordCheck.class);
         addButton("Forgot Password Continued Page", ForgotPasswordContinued.class);
         addButton("Home Page", Home.class);
         addButton("Workouts Page", Workouts.class);

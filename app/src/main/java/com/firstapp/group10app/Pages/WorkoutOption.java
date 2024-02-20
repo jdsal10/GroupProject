@@ -12,12 +12,12 @@ import android.widget.RadioButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.Other.Session;
-import com.firstapp.group10app.Other.onlineChecks;
+import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class workout_option extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener, NavigationBarView.OnItemSelectedListener {
+public class WorkoutOption extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener, NavigationBarView.OnItemSelectedListener {
     public RadioButton AISelect, manualSelect;
     public LinearLayout aiView, manualView;
     public Button goCreate, goSearch, goAI;
@@ -58,7 +58,7 @@ public class workout_option extends AppCompatActivity implements CompoundButton.
         bottomNavigationView.setSelectedItemId(R.id.goToWorkouts);
         bottomNavigationView.setOnItemSelectedListener(this);
 
-        onlineChecks.checkNavigationBar(bottomNavigationView);
+        OnlineChecks.checkNavigationBar(bottomNavigationView);
     }
 
     @Override
@@ -79,14 +79,14 @@ public class workout_option extends AppCompatActivity implements CompoundButton.
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.goToSearch) {
-            startActivity(new Intent(workout_option.this, searchWorkout.class));
+            startActivity(new Intent(WorkoutOption.this, SearchWorkout.class));
         } else if (id == R.id.goToCreate) {
             // Update with correct file when created!
             // Using for test purposes
 
-            startActivity(new Intent(workout_option.this, create_workout.class));
+            startActivity(new Intent(WorkoutOption.this, CreateWorkout.class));
         } else if (id == R.id.goToAI) {
-            startActivity(new Intent(getApplicationContext(), workout_ai.class));
+            startActivity(new Intent(getApplicationContext(), WorkoutAi.class));
         }
     }
 
@@ -97,7 +97,7 @@ public class workout_option extends AppCompatActivity implements CompoundButton.
             startActivity(new Intent(getApplicationContext(), Home.class));
             return true;
         } else if (id == R.id.goToWorkouts) {
-            startActivity(new Intent(getApplicationContext(), workout_option.class));
+            startActivity(new Intent(getApplicationContext(), WorkoutOption.class));
             return true;
         } else if (id == R.id.goToHistory) {
             startActivity(new Intent(getApplicationContext(), History.class));

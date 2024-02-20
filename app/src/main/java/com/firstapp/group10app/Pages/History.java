@@ -1,6 +1,5 @@
 package com.firstapp.group10app.Pages;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,7 +11,7 @@ import android.widget.ScrollView;
 import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.Session;
-import com.firstapp.group10app.Other.onlineChecks;
+import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -49,7 +48,7 @@ public class History extends AppCompatActivity implements NavigationBarView.OnIt
         bottomNavigationView.setOnItemSelectedListener(this);
 
         // Checks if the view should be disabled.
-        onlineChecks.checkNavigationBar(bottomNavigationView);
+        OnlineChecks.checkNavigationBar(bottomNavigationView);
 
     }
 
@@ -60,7 +59,7 @@ public class History extends AppCompatActivity implements NavigationBarView.OnIt
             startActivity(new Intent(getApplicationContext(), Home.class));
             return true;
         } else if (id == R.id.goToWorkouts) {
-            startActivity(new Intent(getApplicationContext(), workout_option.class));
+            startActivity(new Intent(getApplicationContext(), WorkoutOption.class));
             return true;
         } else if (id == R.id.goToHistory) {
             return true;

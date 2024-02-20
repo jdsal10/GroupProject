@@ -14,7 +14,7 @@ import com.firstapp.group10app.R;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class forgotpasswordcheck extends AppCompatActivity implements View.OnClickListener {
+public class ForgotPasswordCheck extends AppCompatActivity implements View.OnClickListener {
     private EditText code;
     private String email;
     ForgotPassword f = new ForgotPassword();
@@ -52,7 +52,7 @@ public class forgotpasswordcheck extends AppCompatActivity implements View.OnCli
         } else if (id == R.id.codeConfirm) {
             try {
                 if (checkCode(code.getText().toString())) {
-                    Intent in = new Intent(forgotpasswordcheck.this, ForgotPasswordContinued.class);
+                    Intent in = new Intent(ForgotPasswordCheck.this, ForgotPasswordContinued.class);
                     in.putExtra("email", email);
                     startActivity(in);
                 } else {
