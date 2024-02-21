@@ -11,8 +11,8 @@ import android.widget.RadioButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Other.OnlineChecks;
+import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -44,6 +44,8 @@ public class WorkoutOption extends AppCompatActivity implements CompoundButton.O
         // Set OnCheckedChangeListener
         AISelect.setOnCheckedChangeListener(this);
         manualSelect.setOnCheckedChangeListener(this);
+        AISelect.setBackground(getDrawable(R.drawable.rounded_button));
+        manualSelect.setBackground(getDrawable(R.drawable.rounded_button_selected));
 
         // Set Views
         aiView = findViewById(R.id.aiView);
@@ -68,9 +70,15 @@ public class WorkoutOption extends AppCompatActivity implements CompoundButton.O
             if (buttonView.getId() == R.id.toggleAI) {
                 manualView.setVisibility(View.GONE);
                 aiView.setVisibility(View.VISIBLE);
+
+                manualSelect.setBackground(getDrawable(R.drawable.rounded_button));
+                AISelect.setBackground(getDrawable(R.drawable.rounded_button_selected));
             } else if (buttonView.getId() == R.id.toggleManual) {
                 aiView.setVisibility(View.GONE);
                 manualView.setVisibility(View.VISIBLE);
+
+                AISelect.setBackground(getDrawable(R.drawable.rounded_button));
+                manualSelect.setBackground(getDrawable(R.drawable.rounded_button_selected));
             }
         }
     }
