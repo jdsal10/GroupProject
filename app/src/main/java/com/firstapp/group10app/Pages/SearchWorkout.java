@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-import com.firstapp.group10app.Other.*;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -23,10 +22,9 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class SearchWorkout extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener, WorkoutFilter.FilterChangeListener  {
+public class SearchWorkout extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener, WorkoutFilter.FilterChangeListener {
     LinearLayout workoutLayout;
     String durationString, difficultyString, targetString;
-    WorkoutFilter customDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,29 +82,28 @@ public class SearchWorkout extends AppCompatActivity implements NavigationBarVie
         }
         return true;
     }
+
     @Override
     public void onFilterChanged(String difficulty, String duration, String target) {
         // Update UI or perform actions based on the new filter values
         System.out.println("CHANGED");
         applyChange(difficulty, duration, target);
     }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.openFilter) {
-            customDialog = new WorkoutFilter(SearchWorkout.this);
             // After creating an instance of workout_filter
             WorkoutFilter customDialog = new WorkoutFilter(this);
-            customDialog.setFilterChangeListener(new WorkoutFilter.FilterChangeListener() {
-                @Override
-                public void onFilterChanged(String difficulty, String duration, String target) {
-                    System.out.println("CHANGED");
-                    applyChange(difficulty, duration, target);                }
-            });
 
-            Objects.requireNonNull(customDialog.getWindow()).setWindowAnimations(R.style.filterAnimations); // Apply animation style
+            customDialog.setFilterChangeListener(this::applyChange);
+
+            Objects.requireNonNull(customDialog.getWindow()).setWindowAnimations(R.style.filterAnimations);
+
             customDialog.show();
             customDialog.setValue(difficultyString, durationString, targetString);
+
         } else if (id == R.id.goToSettings) {
             startActivity(new Intent(SearchWorkout.this, Settings.class));
         }
