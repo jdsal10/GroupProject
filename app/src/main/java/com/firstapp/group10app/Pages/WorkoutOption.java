@@ -2,8 +2,10 @@ package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.transition.Fade;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -68,13 +70,17 @@ public class WorkoutOption extends AppCompatActivity implements CompoundButton.O
         // If ensure only one is selected at once
         if (isChecked) {
             if (buttonView.getId() == R.id.toggleAI) {
+                manualView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_left_out));
                 manualView.setVisibility(View.GONE);
+
+                aiView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_right_in));
                 aiView.setVisibility(View.VISIBLE);
 
-                manualSelect.setBackground(getDrawable(R.drawable.rounded_button));
-                AISelect.setBackground(getDrawable(R.drawable.rounded_button_selected));
             } else if (buttonView.getId() == R.id.toggleManual) {
+                aiView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_right_out));
                 aiView.setVisibility(View.GONE);
+
+                manualView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_left_in));
                 manualView.setVisibility(View.VISIBLE);
 
                 AISelect.setBackground(getDrawable(R.drawable.rounded_button));
@@ -89,9 +95,6 @@ public class WorkoutOption extends AppCompatActivity implements CompoundButton.O
         if (id == R.id.goToSearch) {
             startActivity(new Intent(WorkoutOption.this, SearchWorkout.class));
         } else if (id == R.id.goToCreate) {
-            // Update with correct file when created!
-            // Using for test purposes
-
             startActivity(new Intent(WorkoutOption.this, CreateWorkout.class));
         } else if (id == R.id.goToAI) {
             startActivity(new Intent(getApplicationContext(), WorkoutAi.class));
