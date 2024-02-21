@@ -8,187 +8,205 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@color/top_grey"
-        android:orientation="horizontal"
-        android:padding="5dp">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20sp"
-                android:text="Home Page"
-                android:textColor="@color/black"
-                android:textSize="25sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20sp"
-                android:text="Welcome!" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/stepTemp"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
-
-        <Button
-            android:id="@+id/goToSettings"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/settings"
-            android:clickable="true"
-            android:elevation="1dp"
-            android:focusable="true"
-            android:maxHeight="10sp" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="350dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/pinkshade"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/top_grey"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="3dp">
+            android:padding="10dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Go To Workouts"
-                    android:textSize="23sp"
-                    android:textStyle="bold" />
+                    android:layout_marginLeft="20sp"
+                    android:text="Home Page"
+                    android:textColor="@color/almost_black"
+                    android:textSize="25sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="Go To Workouts"
-                    android:textSize="18dp" />
+                    android:layout_marginLeft="20sp"
+                    android:textColor="@color/almost_black"
+                    android:text="Welcome!" />
+
             </LinearLayout>
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/stepTemp"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
 
-        <LinearLayout
-            android:layout_width="350dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/orangeshade"
-            android:orientation="horizontal"
-            android:padding="3dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Go To Workouts"
-                    android:textSize="23sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="Go To Workouts"
-                    android:textSize="18dp" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/goToSettings"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/settings"
+                android:clickable="true"
+                android:elevation="1dp"
+                android:focusable="true"
+                android:maxHeight="10sp" />
 
         </LinearLayout>
 
 
         <LinearLayout
-            android:layout_width="350dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/orangeshade"
-            android:orientation="horizontal"
-            android:padding="3dp">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6.5"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_width="350dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/pinkshade"
+                android:orientation="horizontal"
+                android:padding="3dp">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Go To Workouts"
-                    android:textSize="23sp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="Go To Workouts"
-                    android:textSize="18dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Go To Workouts"
+                        android:textColor="@color/almost_black"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="Go To Workouts"
+                        android:textColor="@color/almost_black"
+                        android:textSize="18dp" />
+                </LinearLayout>
+
             </LinearLayout>
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/orangeshade"
+                android:orientation="horizontal"
+                android:padding="3dp">
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="350dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/orangeshade"
-            android:orientation="horizontal"
-            android:padding="3dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Go To Workouts"
+                        android:textColor="@color/almost_black"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="Go To Workouts"
+                        android:textColor="@color/almost_black"
+                        android:textSize="18dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_width="350dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/orangeshade"
+                android:orientation="horizontal"
+                android:padding="3dp">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Go To Workouts"
-                    android:textSize="23sp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical">
 
-                <TextView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Go To Workouts"
+                        android:textColor="@color/almost_black"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="Go To Workouts"
+                        android:textColor="@color/almost_black"
+                        android:textSize="18dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/orangeshade"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="Go To Workouts"
-                    android:textSize="18dp" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Go To Workouts"
+                        android:textColor="@color/almost_black"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="Go To Workouts"
+                        android:textColor="@color/almost_black"
+                        android:textSize="18dp" />
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
@@ -204,15 +222,6 @@
         android:visibility="gone">
 
     </Button>
-
-    <!--     Update when layout introduced-->
-    <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-    <!--        android:id="@+id/mainNavigation"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_alignParentBottom="true"-->
-    <!--        app:itemBackground="@color/white"-->
-    <!--        app:menu="@menu/home_navigation" />-->
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
