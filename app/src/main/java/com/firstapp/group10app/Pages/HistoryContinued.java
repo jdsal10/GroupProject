@@ -16,30 +16,29 @@ import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class History extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
-    LinearLayout historyLayout;
+public class HistoryContinued extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
+
+    LinearLayout continuedLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
+        setContentView(R.layout.activity_history_continued);
 
-        ScrollView historyScrollView = findViewById(R.id.historyElements);
+        ScrollView historyContinuedScrollView = findViewById(R.id.historyElementsContinued);
+        continuedLayout = new LinearLayout(this);
+        continuedLayout.setOrientation(LinearLayout.VERTICAL);
 
-        historyLayout = new LinearLayout(this);
-        historyLayout.setOrientation(LinearLayout.VERTICAL);
-
-        historyScrollView.addView(historyLayout);
+        historyContinuedScrollView.addView(continuedLayout);
 
         try {
-            //gets the workouts user has done, specific to the user
-            String HistoryJSON = DBHelper.getUserWorkouts(Session.userEmail);
-            ItemVisualiser.startWorkoutGeneration(HistoryJSON, this, historyLayout, "tt", R.layout.historypopup, R.id.popupHistory);
-            System.out.println(HistoryJSON);
+            // gets the workouts user has done, specific to the user
+            String HistoryContinuedJSON = DBHelper.getUserWorkouts(Session.userEmail);
+            ItemVisualiser.startWorkoutGeneration(HistoryContinuedJSON, this, continuedLayout, "tt", R.layout.historypopup, R.id.popupHistory);
+            System.out.println(HistoryContinuedJSON);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
 
         // Declare bottom taskbar
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
@@ -47,8 +46,7 @@ public class History extends AppCompatActivity implements NavigationBarView.OnIt
         bottomNavigationView.setOnItemSelectedListener(this);
 
         // Checks if the view should be disabled.
-        // OnlineChecks.checkNavigationBar(bottomNavigationView);
-
+        OnlineChecks.checkNavigationBar(bottomNavigationView);
     }
 
     @Override
