@@ -2,9 +2,6 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="URL http://healthapp.com">
-        <State />
-      </entry>
       <entry key="app">
         <State>
           <targetSelectedWithDropDown>
@@ -13,12 +10,12 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\range\.android\avd\Pixel_3a_XL_API_34.avd" />
+                  <value value="C:\Users\nikol\.android\avd\Medium_Phone_API_33.avd" />
                 </Key>
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-01-28T14:09:35.204094Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-02-19T20:16:45.742172100Z" />
         </State>
       </entry>
     </value>

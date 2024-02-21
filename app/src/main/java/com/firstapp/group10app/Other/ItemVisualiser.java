@@ -3,9 +3,14 @@ package com.firstapp.group10app.Other;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -17,9 +22,6 @@ import com.firstapp.group10app.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class ItemVisualiser {
     static LinearLayout box, workoutLayout;
@@ -36,15 +38,18 @@ public class ItemVisualiser {
         TextView equipmentView = box.findViewById(R.id.workoutEquipmentView);
         TextView difficultyView = box.findViewById(R.id.workoutDifficultyView);
 
+        ImageView workoutImage = box.findViewById(R.id.workoutImage);
+
         box.setId(details.optInt("WorkoutID"));
 
         // Sets the textViews to the appropriate details.
-        nameView.setText("Workout Name: " + details.optString("WorkoutName", ""));
-        durationView.setText("Workout Duration: " + details.optString("WorkoutDuration", ""));
-        muscleView.setText("Target Muscle Group: " + details.optString("TargetMuscleGroup", ""));
-        equipmentView.setText("Equipment: " + details.optString("Equipment", ""));
-        difficultyView.setText("Difficulty: " + details.optString("Difficulty", ""));
+        nameView.setText(String.format(details.optString("WorkoutName", "")));
+        durationView.setText("Workout Duration: " + details.optString("WorkoutDuration", "") + " minutes");
+        muscleView.setText(String.format("Target Muscle Group: %s", details.optString("TargetMuscleGroup", "")));
+        equipmentView.setText(String.format("Equipment: %s", details.optString("Equipment", "")));
+        difficultyView.setText(String.format("Difficulty: %s", details.optString("Difficulty", "")));
 
+        workoutImage.setImageResource(R.drawable.workout);
         String exerciseList = details.optString("Exercises");
 
         // Adds to a linear layout.
@@ -57,6 +62,8 @@ public class ItemVisualiser {
             View popupView = inflate.inflate(popID, null);
             builder.setView(popupView);
             AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
             ScrollView exerciseMainView = popupView.findViewById(exerciseID);
 
             exerciseMainView.removeAllViews();
@@ -76,7 +83,7 @@ public class ItemVisualiser {
                 throw new RuntimeException(e);
             }
 
-            // For every exercise, we create a box containing the details.
+// For every exercise, we create a box containing the details.
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject workoutObject;
 
@@ -87,26 +94,51 @@ public class ItemVisualiser {
                 }
 
                 LinearLayout exerciseBox = (LinearLayout) inflate.inflate(R.layout.activity_exercise_view, null);
+
+                // Set margins to the exerciseBox
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+
+                layoutParams.setMargins(0, 0, 0, 10); // left, top, right, bottom
+                exerciseBox.setLayoutParams(layoutParams);
+
                 exerciseMainView.removeView(exerciseBox);
 
                 TextView exerciseNameView = exerciseBox.findViewById(R.id.exerciseNameView);
                 TextView exerciseDescriptionView = exerciseBox.findViewById(R.id.exerciseDescriptionView);
-                TextView exerciseIllustrationView = exerciseBox.findViewById(R.id.exerciseIllustrationView);
                 TextView exerciseTargetMuscleGroupView = exerciseBox.findViewById(R.id.exerciseTargetMuscleGroupView);
                 TextView exerciseEquipmentView = exerciseBox.findViewById(R.id.exerciseEquipmentView);
-                TextView exerciseDifficultyView = exerciseBox.findViewById(R.id.exerciseDifficultyView);
 
-                exerciseNameView.setText("Exercise Name: " + workoutObject.optString("ExerciseName", ""));
-                exerciseDescriptionView.setText("Exercise Description: " + workoutObject.optString("Description", ""));
-                exerciseIllustrationView.setText("Exercise Illustration: " + workoutObject.optString("Illustration", ""));
-                exerciseTargetMuscleGroupView.setText("Exercise Target Group: " + workoutObject.optString("TargetMuscleGroup", ""));
-                exerciseEquipmentView.setText("Exercise Equipment: " + workoutObject.optString("Equipment", ""));
-                exerciseDifficultyView.setText("Exercise Difficulty: " + workoutObject.optString("Difficulty", ""));
+                ImageView exerciseImage = exerciseBox.findViewById(R.id.exerciseImage);
+                View difficultyScale = exerciseBox.findViewById(R.id.difficulty);
 
+                exerciseNameView.setText(String.format(workoutObject.optString("ExerciseName", "")));
+                exerciseDescriptionView.setText(workoutObject.optString("Description", ""));
+                exerciseTargetMuscleGroupView.setText(String.format("Exercise Target Group: %s", workoutObject.optString("TargetMuscleGroup", "")));
+                exerciseEquipmentView.setText(String.format("Exercise Equipment: %s", workoutObject.optString("Equipment", "")));
+
+                exerciseImage.setImageResource(R.drawable.workout);
+                String difficultyValue = workoutObject.optString("Difficulty", "");
+
+                switch (difficultyValue) {
+                    case "Easy":
+                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#00FF00")));
+                        break;
+                    case "Medium":
+                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFF00")));
+                        break;
+                    case "Hard":
+                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF0000")));
+                        break;
+                }
                 exerciseLayout.addView(exerciseBox);
             }
 
+
             // Adds the Linear layout containing all boxes to the scroll view.
+            exerciseLayout.setPadding(0, 0, 0, 10);
             exerciseMainView.addView(exerciseLayout);
             alertDialog.show();
         });
@@ -123,7 +155,6 @@ public class ItemVisualiser {
         } else {
             JSONArray jsonArray = new JSONArray(data);
             for (int i = 0; i < jsonArray.length(); i++) {
-                System.out.println("testing");
                 JSONObject workoutObject = jsonArray.getJSONObject(i);
                 addDetails(workoutObject, buttonType);
 
@@ -136,6 +167,9 @@ public class ItemVisualiser {
         empty.setGravity(1);
 
         empty.setText("No workouts were found");
+
+//        Resource linking not working:
+//        empty.setText("@strings/noWorkouts");
 
         workoutLayout.removeAllViews();
         workoutLayout.addView(empty);

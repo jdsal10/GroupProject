@@ -11,13 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.R;
 
-public class stepCounter extends AppCompatActivity implements SensorEventListener {
+public class StepCounter extends AppCompatActivity implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private int totalStepsCount;
     private TextView stepView;
 
-    public stepCounter() {
+    public StepCounter() {
         System.out.println("Started");
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager != null) {

@@ -7,88 +7,82 @@
     android:orientation="vertical"
     tools:ignore="ButtonStyle">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="-100dp"
-            android:contentDescription="@string/welcomeBackgroundImage"
-            android:foregroundGravity="top"
-            android:paddingLeft="-50dp"
-            android:paddingTop="-10dp"
-            android:paddingRight="-50dp"
-            android:src="@drawable/welcome_circle" />
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:contentDescription="@string/welcomeLogoBackground"
-            android:src="@drawable/logo_background" />
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:contentDescription="@string/welcomeBackgroundImage"
-            android:foregroundGravity="top"
-            android:paddingLeft="-50dp"
-            android:paddingTop="-110dp"
-            android:paddingRight="-50dp"
-            android:src="@drawable/settings" />
-
-    </FrameLayout>
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SETTINGS"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:textSize="40sp">
+    </TextView>
 
     <LinearLayout
-        android:id="@+id/relativelayout"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5">
 
-        <Button
-            android:id="@+id/goDataControl"
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:id="@+id/toggle"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/dataControlButtonTitle"
-            android:layout_marginStart="25dp">
-        </Button>
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/workout_toggle_outline"
+            android:checkedButton="@+id/goDataControl"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/goDataControl"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/workout_toggle_background"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/dataControlButtonTitle" />
 
-        <Button
-            android:id="@+id/goAccessibility"
-            android:layout_marginLeft="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/accessibilityButtonTitle">
+            <RadioButton
+                android:id="@+id/goAccessibility"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/workout_toggle_background"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/accessibilityButtonTitle" />
 
-        </Button>
-
-        <Button
-            android:id="@+id/goAccount"
-            android:layout_marginStart="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/accountButtonTitle">
-
-        </Button>
-
+            <RadioButton
+                android:id="@+id/goAccount"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/workout_toggle_background"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/accountButtonTitle" />
+        </RadioGroup>
     </LinearLayout>
 
     <androidx.fragment.app.FragmentContainerView
+        android:layout_gravity="center_vertical"
         android:id="@+id/settingsBody"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_weight="6"
-        android:background="@drawable/border"
         tools:layout="@layout/fragment_settings_data_control">
 
     </androidx.fragment.app.FragmentContainerView>

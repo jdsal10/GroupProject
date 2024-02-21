@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.firstapp.group10app.R;
 
-public class exerciseView extends AppCompatActivity implements View.OnClickListener {
+public class ExerciseView extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class exerciseView extends AppCompatActivity implements View.OnClickListe
         int id = v.getId();
         if(id == R.id.selectWorkout) {
             // Add workout to session info - potential idea
-            startActivity(new Intent(exerciseView.this, Home.class));
+            startActivity(new Intent(ExerciseView.this, Home.class));
         }
     }
 }

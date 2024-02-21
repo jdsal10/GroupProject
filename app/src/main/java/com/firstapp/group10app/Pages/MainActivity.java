@@ -3,6 +3,7 @@ package com.firstapp.group10app.Pages;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -19,13 +20,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        View rootLayout = findViewById(android.R.id.content);
+
+        AlphaAnimation fadeInAnimation = new AlphaAnimation(0.0f, 1.0f);
+        fadeInAnimation.setDuration(1000);
+
+        rootLayout.startAnimation(fadeInAnimation);
         Button goToLoginButton = findViewById(R.id.goToLogin);
         goToLoginButton.setOnClickListener(this);
 
         Button goToRegisterButton = findViewById(R.id.goToRegister);
         goToRegisterButton.setOnClickListener(this);
 
-        TextView skipText = findViewById(R.id.skipToHome);
+        TextView skipText = findViewById(R.id.anonymous);
         skipText.setOnClickListener(this);
 
         // Temporary button to navigate to the sitemap
@@ -37,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Default value.
         Session.signedIn = false;
+        
+        // Used to add test data
 
         // If the connection false, disable the login.
         if (!Session.dbStatus) {
@@ -51,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (id == R.id.goToLogin) {
             startActivity(new Intent(MainActivity.this, Login.class));
             overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
-        } else if (id == R.id.skipToHome) {
+        } else if (id == R.id.anonymous) {
             Session.userEmail = null;
             Session.signedIn = false;
             startActivity(new Intent(MainActivity.this, Home.class));
@@ -59,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(MainActivity.this, SitemapActivity.class));
         } else if (id == R.id.goToRegister) {
             startActivity(new Intent(MainActivity.this, Registration.class));
+            overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
         }
     }
 }

@@ -9,20 +9,11 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DBConnection;
-import com.firstapp.group10app.DB.DBHelper;
-import com.firstapp.group10app.Other.JSONToDB;
 import com.firstapp.group10app.Other.Session;
-import com.firstapp.group10app.Other.onlineChecks;
+import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.sql.ResultSet;
-import java.util.Arrays;
 
 public class Home extends AppCompatActivity implements View.OnClickListener, NavigationBarView.OnItemSelectedListener {
     @Override
@@ -46,7 +37,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Nav
         bottomNavigationView.setOnItemSelectedListener(this);
 
         // Checks if the view should be disabled.
-        onlineChecks.checkNavigationBar(bottomNavigationView);
+        OnlineChecks.checkNavigationBar(bottomNavigationView);
     }
 
     @Override
@@ -56,7 +47,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Nav
             startActivity(new Intent(getApplicationContext(), Home.class));
             return true;
         } else if (id == R.id.goToWorkouts) {
-            startActivity(new Intent(getApplicationContext(), workout_option.class));
+            startActivity(new Intent(getApplicationContext(), WorkoutOption.class));
             return true;
         } else if (id == R.id.goToHistory) {
             startActivity(new Intent(getApplicationContext(), History.class));

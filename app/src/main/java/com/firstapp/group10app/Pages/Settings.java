@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.firstapp.group10app.Fragments.settings_accessibility;
 import com.firstapp.group10app.Fragments.settings_account;
 import com.firstapp.group10app.Fragments.settings_data_control;
-import com.firstapp.group10app.Other.onlineChecks;
+import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -31,7 +31,6 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
 
         // Navigation view declaration.
         BottomNavigationView settingNav = findViewById(R.id.mainNavigation);
-//        settingNav.setSelectedItemId();
         settingNav.setOnItemSelectedListener(this);
 
         // Button declaration.
@@ -44,8 +43,7 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
         Button accountButton = findViewById(R.id.goAccount);
         accountButton.setOnClickListener(this);
 
-        onlineChecks.checkNavigationBar(settingNav);
-
+        OnlineChecks.checkNavigationBar(settingNav);
     }
 
     @Override
@@ -55,10 +53,10 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
             startActivity(new Intent(getApplicationContext(), Home.class));
             return true;
         } else if (id == R.id.goToWorkouts) {
-            startActivity(new Intent(getApplicationContext(), workout_option.class));
+            startActivity(new Intent(getApplicationContext(), WorkoutOption.class));
             return true;
         } else if (id == R.id.goToHistory) {
-            // Code for history.
+            startActivity(new Intent(getApplicationContext(), History.class));
             return true;
         }
         return true;
