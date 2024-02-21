@@ -20,8 +20,7 @@
         android:id="@+id/mainNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu="@menu/home_navigation"
         app:itemBackground="@color/white"
-        />
+        app:menu="@menu/home_navigation" />
 
 </LinearLayout>

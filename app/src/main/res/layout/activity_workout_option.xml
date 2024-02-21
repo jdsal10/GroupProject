@@ -20,6 +20,7 @@
             android:background="@drawable/workout_toggle_outline"
             android:checkedButton="@+id/toggleManual"
             android:orientation="horizontal">
+
             <RadioButton
                 android:id="@+id/toggleManual"
                 android:layout_width="0dp"

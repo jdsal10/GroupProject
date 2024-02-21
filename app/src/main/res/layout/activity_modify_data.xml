@@ -9,30 +9,29 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="20sp"
+        android:text="Update Data"
         android:textAlignment="center"
-        android:text="Update Data" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/updateDescription"
-        android:textSize="15sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Please enter the new value for ">
-    </TextView>
+        android:text="Please enter the new value for "
+        android:textSize="15sp"></TextView>
 
     <LinearLayout
         android:id="@+id/modificationArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"/>
+        android:orientation="horizontal" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/confirmUpdate"
