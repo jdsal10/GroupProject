@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button goToLoginButton = findViewById(R.id.goToLogin);
         goToLoginButton.setOnClickListener(this);
 
-        Button goToRegisterButton = findViewById(R.id.goToRegister);
+        TextView goToRegisterButton = findViewById(R.id.goToRegister);
         goToRegisterButton.setOnClickListener(this);
 
         TextView skipText = findViewById(R.id.anonymous);
