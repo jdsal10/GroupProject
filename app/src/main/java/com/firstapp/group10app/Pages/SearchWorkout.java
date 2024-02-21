@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-import com.firstapp.group10app.Other.OnlineChecks;
+import com.firstapp.group10app.Other.*;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -66,7 +66,7 @@ public class SearchWorkout extends AppCompatActivity implements NavigationBarVie
         bottomNavigationView.setOnItemSelectedListener(this);
         bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setChecked(true);
 
-        OnlineChecks.checkNavigationBar(bottomNavigationView);
+//        onlineChecks.checkNavigationBar(bottomNavigationView);
     }
 
     @Override
