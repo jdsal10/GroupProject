@@ -194,26 +194,35 @@
             android:layout_marginBottom="10dp"
             android:weightSum="3">
 
-            <View
+            <TextView
+
                 android:id="@+id/easySelect"
-                android:layout_width="0dp"
+                android:text="Easy"
+                android:textStyle="bold"
+                android:gravity="center|center_vertical"
                 android:layout_height="100dp"
                 android:layout_marginEnd="10dp"
+                android:layout_width="0dp"
                 android:layout_weight="1"
                 android:background="@drawable/round_corners" />
 
-            <View
+            <TextView
                 android:id="@+id/mediumSelect"
-                android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-
+                android:text="Medium"
+                android:textStyle="bold"
+                android:gravity="center|center_vertical"
+                android:layout_width="0dp"
                 android:background="@drawable/round_corners" />
 
-            <View
-                android:id="@+id/hardSelect"
+            <TextView
+                android:text="Hard"
+                android:textStyle="bold"
+                android:gravity="center|center_vertical"
                 android:layout_width="0dp"
+                android:id="@+id/hardSelect"
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:background="@drawable/round_corners" />

@@ -43,7 +43,7 @@ import java.util.ArrayList;
 
 public class CreateWorkout extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
     String selected = "easy";
-    View easy, medium, hard;
+    TextView easy, medium, hard;
     EditText name, duration, equipment;
     TextView durationTitle;
     Drawable border;
