@@ -39,6 +39,7 @@ public class SearchWorkout extends AppCompatActivity implements NavigationBarVie
 
             initializeLayout();
             applyChange(difficultyString, durationString, targetString);
+
         } else {
             initializeLayout();
             try {
@@ -86,7 +87,6 @@ public class SearchWorkout extends AppCompatActivity implements NavigationBarVie
     @Override
     public void onFilterChanged(String difficulty, String duration, String target) {
         // Update UI or perform actions based on the new filter values
-        System.out.println("CHANGED");
         applyChange(difficulty, duration, target);
     }
 
