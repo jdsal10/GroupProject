@@ -10,6 +10,7 @@
         <item name="android:textColorPrimary">@color/almost_black</item>
         <item name="android:textColorSecondary">@color/almost_black</item>
         <item name="android:textColorTertiary">@color/almost_black</item>
+        <item name="android:fontFamily">@font/manrope_medium</item>
     </style>
 
     <style name="Theme.Group10App" parent="Base.Theme.Group10App" />
@@ -22,6 +23,5 @@
     <style name="filterCorners" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@drawable/round_corners</item>
     </style>
-
 
 </resources>
