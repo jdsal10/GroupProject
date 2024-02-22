@@ -6,6 +6,7 @@ import static android.view.View.VISIBLE;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -109,6 +110,9 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         p1 = findViewById(R.id.page1);
         p2 = findViewById(R.id.page2);
 
+        p1.setVisibility(VISIBLE);
+        p2.setVisibility(GONE);
+
         setListeners();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
@@ -209,22 +213,19 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
 
             exerciseCombo.post(() -> {
                 int height = exerciseCombo.getHeight();
-                LinearLayout.LayoutParams correctParam = new LinearLayout.LayoutParams(
-                        100,
-                        height
-                );
+                LinearLayout.LayoutParams correctParam = new LinearLayout.LayoutParams(100, height);
                 correctParam.setMargins(0, 0, 10, 0);
 
                 t.setLayoutParams(correctParam);
             });
 
+            ImageView exerciseImage = exerciseBox.findViewById(R.id.exerciseImage);
+            View difficultyScale = exerciseBox.findViewById(R.id.difficulty);
+
             TextView exerciseNameView = exerciseBox.findViewById(R.id.exerciseNameView);
             TextView exerciseDescriptionView = exerciseBox.findViewById(R.id.exerciseDescriptionView);
             TextView exerciseTargetMuscleGroupView = exerciseBox.findViewById(R.id.exerciseTargetMuscleGroupView);
             TextView exerciseEquipmentView = exerciseBox.findViewById(R.id.exerciseEquipmentView);
-
-            ImageView exerciseImage = exerciseBox.findViewById(R.id.exerciseImage);
-            View difficultyScale = exerciseBox.findViewById(R.id.difficulty);
 
             exerciseNameView.setText(String.format(workoutObject.optString("ExerciseName", "")));
             exerciseDescriptionView.setText(workoutObject.optString("Description", ""));
@@ -232,6 +233,20 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
             exerciseEquipmentView.setText(String.format("Exercise Equipment: %s", workoutObject.optString("Equipment", "")));
 
             exerciseImage.setImageResource(R.drawable.workout);
+
+            String difficultyValue = workoutObject.optString("Difficulty", "");
+            switch (difficultyValue) {
+                case "Easy":
+                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#77DD77")));
+                    break;
+                case "Medium":
+                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FDFD96")));
+                    break;
+                case "Hard":
+                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF6961")));
+                    break;
+            }
+
             final int index = i;
 
             exerciseCombo.setOnClickListener(v -> {
@@ -250,30 +265,27 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
 
             exerciseHolder.addView(exerciseCombo);
 
-            View view = new View(this);
+            // Adds space between the different exercises boxes
+            View space = new View(this);
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    1
+                    LinearLayout.LayoutParams.MATCH_PARENT, 1
             );
 
             layoutParams.setMargins(10, 10, 10, 10);
-
-            view.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
-
-            view.setLayoutParams(layoutParams);
-
-            exerciseHolder.addView(view);
+            space.setLayoutParams(layoutParams);
+            exerciseHolder.addView(space);
         }
 
         // Adds the Linear layout containing all boxes to the scroll view.
-        exerciseHolder.setPadding(0, 0, 0, 10);
         s.addView(exerciseHolder);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
+
+        // If the user selects a difficulty, we adjust the border
         if (id == R.id.easySelect && !selected.equals("easy")) {
             selected = "easy";
             enableBorder(easy);
@@ -289,7 +301,10 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
             enableBorder(hard);
             disableBorder(easy);
             disableBorder(medium);
-        } else if (id == R.id.continueBtn && activePage == 1) {
+        }
+
+        // More complex logic for the Continue and Cancel buttons
+        else if (id == R.id.continueBtn && activePage == 1) {
             if ((name.getText().toString().length() == 0) || (duration.getText().toString().length() == 0) || (equipment.getText().toString().length() == 0)) {
                 continueButton.setError("Some fields have no info");
             } else if ((Integer.parseInt(duration.getText().toString()) > 180) || (Integer.parseInt(duration.getText().toString()) == 0)) {
@@ -304,7 +319,7 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         } else if (id == R.id.cancelBtn && activePage == 1) {
             // Maybe add popup to prevent user losing progress.
             startActivity(new Intent(this, WorkoutOption.class));
-        } else if (id == R.id.cancelBtn && activePage == 1 && activePage == 2) {
+        } else if (id == R.id.cancelBtn && activePage == 2) {
             p2.setVisibility(GONE);
             p1.setVisibility(VISIBLE);
             activePage = 1;
