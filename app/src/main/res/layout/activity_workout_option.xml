@@ -69,7 +69,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="@string/searchTitleOption"
-                android:textColor="@color/almost_black"
                 android:textSize="36sp"
                 android:textStyle="bold" />
 
@@ -119,7 +118,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="@string/createTitle"
-                android:textColor="@color/almost_black"
                 android:textSize="36sp"
                 android:textStyle="bold" />
 
@@ -157,7 +155,6 @@
             android:layout_marginTop="50sp"
             android:layout_marginBottom="20sp"
             android:text="@string/aiTitle"
-            android:textColor="@color/almost_black"
             android:textSize="36sp"
             android:textStyle="bold" />
 

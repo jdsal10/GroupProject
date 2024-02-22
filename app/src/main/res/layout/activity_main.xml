@@ -9,7 +9,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1.1"
         android:orientation="horizontal">
 
         <ImageView
@@ -41,7 +41,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="2"
         android:orientation="vertical">
 
         <Button
@@ -63,16 +63,17 @@
             android:layout_marginTop="5dp"
             android:gravity="center_horizontal"
             android:text="@string/welcomeRegister"
-            android:textSize="25sp" />
+            android:textSize="23sp" />
 
         <Button
             android:id="@+id/anonymous"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
-            android:gravity="center_horizontal"
+            android:layout_marginRight="15dp"
             android:text="@string/welcomeAnonymous"
-            android:textStyle="bold"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>
