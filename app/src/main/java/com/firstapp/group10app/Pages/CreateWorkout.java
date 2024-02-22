@@ -3,9 +3,6 @@ package com.firstapp.group10app.Pages;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -30,9 +27,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.DB.DBHelper;
-import com.firstapp.group10app.Other.*;
+import com.firstapp.group10app.Other.JSONToDB;
+import com.firstapp.group10app.Other.itemVisualiserText;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -89,26 +90,30 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         target.setAdapter(adapterTarget);
         target.setSelection(0);
 
-        medium.setBackgroundColor(Color.parseColor("#FFFF00"));
-        hard.setBackgroundColor(Color.parseColor("#FF0000"));
-
+        // Set the on click listeners for the difficulty buttons.
         easy.setOnClickListener(this);
         medium.setOnClickListener(this);
         hard.setOnClickListener(this);
 
+        // Set the background color of the difficulty buttons.
+        easy.setBackgroundColor(Color.parseColor("#77DD77")); // Pastel green (https://www.canva.com/colors/color-meanings/pastel-green/)
+        medium.setBackgroundColor(Color.parseColor("#FDFD96")); // Pastel yellow (https://www.canva.com/colors/color-meanings/pastel-yellow/)
+        hard.setBackgroundColor(Color.parseColor("#FF6961")); // Pastel red (https://www.canva.com/colors/color-meanings/pastel-red/)
+
+        // Set the difficulty buttons border.
+        enableBorder(easy);
+
+        // Set the on click listeners for the other buttons.
         cancel.setOnClickListener(this);
         continue1.setOnClickListener(this);
         back.setOnClickListener(this);
         continue2.setOnClickListener(this);
 
+        // get the linear layouts for the pages.
         p1 = findViewById(R.id.page1);
         p2 = findViewById(R.id.page2);
 
         setListeners();
-
-        enableBorder(easy);
-
-        border = ContextCompat.getDrawable(this, R.drawable.selected_item);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
         bottomNavigationView.setOnItemSelectedListener(this);
@@ -231,21 +236,7 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
             exerciseEquipmentView.setText(String.format("Exercise Equipment: %s", workoutObject.optString("Equipment", "")));
 
             exerciseImage.setImageResource(R.drawable.workout);
-            String difficultyValue = workoutObject.optString("Difficulty", "");
-
-            switch (difficultyValue) {
-                case "Easy":
-                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#00FF00")));
-                    break;
-                case "Medium":
-                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFF00")));
-                    break;
-                case "Hard":
-                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF0000")));
-                    break;
-            }
             final int index = i;
-
 
             exerciseCombo.setOnClickListener(v -> {
                 if (toggles[index]) {
@@ -404,11 +395,11 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         Drawable[] layers = new Drawable[2];
 
         if (v == easy) {
-            layers[0] = createColorDrawable(Color.parseColor("#00FF00"));
+            layers[0] = createColorDrawable(Color.parseColor("#77DD77"));
         } else if (v == medium) {
-            layers[0] = createColorDrawable(Color.parseColor("#FFFF00"));
+            layers[0] = createColorDrawable(Color.parseColor("#FDFD96"));
         } else if (v == hard) {
-            layers[0] = createColorDrawable(Color.parseColor("#FF0000"));
+            layers[0] = createColorDrawable(Color.parseColor("#FF6961"));
         }
 
         layers[1] = border;
@@ -419,11 +410,11 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
 
     private void disableBorder(View v) {
         if (v == easy) {
-            v.setBackgroundColor(Color.parseColor("#00FF00"));
+            v.setBackgroundColor(Color.parseColor("#77DD77"));
         } else if (v == medium) {
-            v.setBackgroundColor(Color.parseColor("#FFFF00"));
+            v.setBackgroundColor(Color.parseColor("#FDFD96"));
         } else if (v == hard) {
-            v.setBackgroundColor(Color.parseColor("#FF0000"));
+            v.setBackgroundColor(Color.parseColor("#FF6961"));
         }
     }
 
