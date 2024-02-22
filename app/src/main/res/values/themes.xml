@@ -2,12 +2,14 @@
     <!-- Base application theme. -->
     <!-- Changed that, because color gradient's didn't work: <style name="Base.Theme.Group10App" parent="Theme.Material3.DayNight.NoActionBar">-->
     <style name="Base.Theme.Group10App" parent="Theme.AppCompat.Light.NoActionBar">
-
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/design_default_color_primary</item>
         <item name="colorPrimaryDark">@color/design_default_color_primary_dark</item>
         <item name="colorAccent">@color/gradient_canYouFeelTheLoveTonight_start</item>
+        <item name="android:textColorPrimary">@color/almost_black</item>
+        <item name="android:textColorSecondary">@color/almost_black</item>
+        <item name="android:textColorTertiary">@color/almost_black</item>
     </style>
 
     <style name="Theme.Group10App" parent="Base.Theme.Group10App" />
