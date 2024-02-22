@@ -6,7 +6,6 @@ import static android.view.View.VISIBLE;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -50,8 +49,9 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
     EditText name, duration, equipment;
     TextView durationTitle;
     Drawable border;
-    Button cancel, continue1, continue2, back;
+    Button cancelButton, continueButton;
     LinearLayout p1, p2;
+    int activePage = 1; // 1 = page 1, 2 = page 2
     Spinner target;
     ArrayList<JSONObject> addedExercises;
     ArrayList<String> addedExercisesID;
@@ -73,10 +73,8 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         medium = findViewById(R.id.mediumSelect);
         hard = findViewById(R.id.hardSelect);
 
-        cancel = findViewById(R.id.createWorkoutCancel);
-        continue1 = findViewById(R.id.createWorkoutContinue1);
-        back = findViewById(R.id.backWorkout);
-        continue2 = findViewById(R.id.createWorkoutContinue2);
+        cancelButton = findViewById(R.id.cancelBtn);
+        continueButton = findViewById(R.id.continueBtn);
 
         target = findViewById(R.id.workoutTargetInput);
 
@@ -104,10 +102,8 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         enableBorder(easy);
 
         // Set the on click listeners for the other buttons.
-        cancel.setOnClickListener(this);
-        continue1.setOnClickListener(this);
-        back.setOnClickListener(this);
-        continue2.setOnClickListener(this);
+        cancelButton.setOnClickListener(this);
+        continueButton.setOnClickListener(this);
 
         // get the linear layouts for the pages.
         p1 = findViewById(R.id.page1);
@@ -278,59 +274,43 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.easySelect) {
-            if (selected == null) {
-                selected = "easy";
-                enableBorder(easy);
-            } else if (!selected.equals("easy")) {
-                selected = "easy";
-                enableBorder(easy);
-                disableBorder(medium);
-                disableBorder(hard);
-            }
-        } else if (id == R.id.mediumSelect) {
-            if (selected == null) {
-                selected = "medium";
-                enableBorder(medium);
-            } else if (!selected.equals("medium")) {
-                selected = "medium";
-                disableBorder(easy);
-                enableBorder(medium);
-                disableBorder(hard);
-            }
-        } else if (id == R.id.hardSelect) {
-            if (selected == null) {
-                selected = "hard";
-                enableBorder(hard);
-            } else if (!selected.equals("hard")) {
-                selected = "hard";
-                disableBorder(easy);
-                disableBorder(medium);
-                enableBorder(hard);
-            }
-        } else if (id == R.id.createWorkoutContinue1) {
+        if (id == R.id.easySelect && !selected.equals("easy")) {
+            selected = "easy";
+            enableBorder(easy);
+            disableBorder(medium);
+            disableBorder(hard);
+        } else if (id == R.id.mediumSelect && !selected.equals("medium")) {
+            selected = "medium";
+            enableBorder(medium);
+            disableBorder(easy);
+            disableBorder(hard);
+        } else if (id == R.id.hardSelect && !selected.equals("hard")) {
+            selected = "hard";
+            enableBorder(hard);
+            disableBorder(easy);
+            disableBorder(medium);
+        } else if (id == R.id.continueBtn && activePage == 1) {
             if ((name.getText().toString().length() == 0) || (duration.getText().toString().length() == 0) || (equipment.getText().toString().length() == 0)) {
-                continue1.setError("Some fields have no info");
-
+                continueButton.setError("Some fields have no info");
             } else if ((Integer.parseInt(duration.getText().toString()) > 180) || (Integer.parseInt(duration.getText().toString()) == 0)) {
                 duration.setError("Duration must be between 180 and 0!");
-
             } else {
                 p1.setVisibility(GONE);
                 p2.setVisibility(VISIBLE);
+                activePage = 2;
 
                 createExerciseView();
             }
-        } else if (id == R.id.createWorkoutCancel) {
+        } else if (id == R.id.cancelBtn && activePage == 1) {
             // Maybe add popup to prevent user losing progress.
             startActivity(new Intent(this, WorkoutOption.class));
-        } else if (id == R.id.backWorkout) {
+        } else if (id == R.id.cancelBtn && activePage == 1 && activePage == 2) {
             p2.setVisibility(GONE);
             p1.setVisibility(VISIBLE);
-
-        } else if (id == R.id.createWorkoutContinue2) {
+            activePage = 1;
+        } else if (id == R.id.continueBtn && activePage == 2) {
             if (addedExercisesID.isEmpty()) {
-                continue2.setError("At least one workout is needed,");
+                continueButton.setError("At least one workout is needed,");
             } else {
                 finalCheck();
             }
@@ -353,7 +333,6 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         data[2] = target.getSelectedItem().toString();
         data[3] = equipment.getText().toString();
         data[4] = selected;
-
 
         if (v != null) {
             itemVisualiserText.showText(this, v, data, addedExercises);
