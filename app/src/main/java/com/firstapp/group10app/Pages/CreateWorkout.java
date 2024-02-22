@@ -28,7 +28,9 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Other.*;
 import com.firstapp.group10app.R;
@@ -509,8 +511,12 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
             startActivity(new Intent(getApplicationContext(), WorkoutOption.class));
             return true;
         } else if (id == R.id.goToHistory) {
-            startActivity(new Intent(getApplicationContext(), History.class));
-            return true;
+            if (!DBConnection.testConnection()) {
+                Toast.makeText(this, "No connection!", Toast.LENGTH_SHORT).show();
+            } else {
+                startActivity(new Intent(getApplicationContext(), History.class));
+                return true;
+            }
         }
         return true;
     }
