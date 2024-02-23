@@ -76,6 +76,7 @@ public class DBHelper {
 
             Integer id = null;
             Statement st = conn.createStatement();
+            Integer test = st.executeUpdate(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 
             ResultSet rs = st.getGeneratedKeys();
             if (rs.next()) {
