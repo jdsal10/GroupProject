@@ -12,8 +12,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.Other.ItemVisualiser;
+import com.firstapp.group10app.Other.JSONToDB;
 import com.firstapp.group10app.R;
 import static com.firstapp.group10app.ChatGPT.ChatGPT_Client.chatGPT;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -87,6 +92,24 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                 e.printStackTrace();
             }
         }
+    }
+
+    // Adds a workout to the database once the user confirms.
+    public void addWorkout(String data) throws JSONException {
+        JSONObject converted = new JSONObject(data);
+        JSONToDB.insertWorkoutAI(converted);
+
+        // Add code to take user to currentWorkout when complete
+    }
+
+    // Shows the workout to the user once generated.
+    public void showWorkout(String data) throws JSONException {
+        LinearLayout workoutLayout = new LinearLayout(this);
+        
+        // Note the code below has buttons in the popup active. Decide if the buttons will be on popup or default page.
+        ItemVisualiser.startWorkoutGeneration(data, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
+
+
     }
 
     public void populateSpinners() {
