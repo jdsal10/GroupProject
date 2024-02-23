@@ -47,7 +47,7 @@ public class ItemVisualiser {
         equipmentView.setText(String.format("Equipment: %s", details.optString("Equipment", "")));
         difficultyView.setText(String.format("Difficulty: %s", details.optString("Difficulty", "")));
 
-        workoutImage.setImageResource(R.drawable.workout);
+        workoutImage.setImageResource(R.drawable.icon_workout);
         String exerciseList = details.optString("Exercises");
 
         // Adds to a linear layout.
@@ -133,7 +133,7 @@ public class ItemVisualiser {
                 exerciseTargetMuscleGroupView.setText(String.format("Exercise Target Group: %s", workoutObject.optString("TargetMuscleGroup", "")));
                 exerciseEquipmentView.setText(String.format("Exercise Equipment: %s", workoutObject.optString("Equipment", "")));
 
-                exerciseImage.setImageResource(R.drawable.workout);
+                exerciseImage.setImageResource(R.drawable.icon_workout);
                 String difficultyValue = workoutObject.optString("Difficulty", "");
 
                 switch (difficultyValue) {

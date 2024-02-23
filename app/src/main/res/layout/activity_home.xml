@@ -50,7 +50,7 @@
                 android:id="@+id/goToSettings"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/settings"
+                android:background="@drawable/icon_settings"
                 android:clickable="true"
                 android:elevation="1dp"
                 android:focusable="true"
@@ -70,7 +70,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/pinkshade"
+                android:background="@drawable/gradient_pink"
                 android:orientation="horizontal"
                 android:padding="3dp">
 
@@ -103,7 +103,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/orangeshade"
+                android:background="@drawable/gradient_orange"
                 android:orientation="horizontal"
                 android:padding="3dp">
 
@@ -137,7 +137,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/orangeshade"
+                android:background="@drawable/gradient_orange"
                 android:orientation="horizontal"
                 android:padding="3dp">
 
@@ -171,7 +171,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/orangeshade"
+                android:background="@drawable/gradient_orange"
                 android:orientation="horizontal"
                 android:padding="3dp">
 

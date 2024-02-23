@@ -42,7 +42,7 @@
             android:paddingLeft="-50dp"
             android:paddingTop="-110dp"
             android:paddingRight="-50dp"
-            android:src="@drawable/app_logo" />
+            android:src="@drawable/icon_app_logo" />
     </FrameLayout>
 
     <LinearLayout
@@ -127,7 +127,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:background="@drawable/background"
+                android:background="@drawable/gradient_background"
                 android:text="@string/loginButton"
                 android:textColor="@color/white"
                 android:textSize="25sp" />

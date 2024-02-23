@@ -236,7 +236,7 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
             exerciseTargetMuscleGroupView.setText(String.format("Exercise Target Group: %s", workoutObject.optString("TargetMuscleGroup", "")));
             exerciseEquipmentView.setText(String.format("Exercise Equipment: %s", workoutObject.optString("Equipment", "")));
 
-            exerciseImage.setImageResource(R.drawable.workout);
+            exerciseImage.setImageResource(R.drawable.icon_workout);
 
             String difficultyValue = workoutObject.optString("Difficulty", "");
 
