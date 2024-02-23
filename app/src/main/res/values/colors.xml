@@ -20,6 +20,7 @@
     <!-- A Lost Memory -->
     <color name="gradient_aLostMemory_start">#de6262</color>
     <color name="gradient_aLostMemory_end">#ffb88c</color>
+    <color name="gradient_aLostMemory_complementary">#3B8585</color>
 
     <!-- Kashmir -->
     <color name="gradient_kashmir_start">#614385</color>
