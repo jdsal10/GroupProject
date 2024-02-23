@@ -10,14 +10,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@color/top_grey"
+        android:orientation="horizontal"
         android:padding="10dp">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -37,11 +39,11 @@
             android:id="@+id/goToSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="View All"
             android:clickable="true"
             android:elevation="1dp"
             android:focusable="true"
-            android:maxHeight="10sp" />
+            android:maxHeight="10sp"
+            android:text="View All" />
 
 
     </LinearLayout>

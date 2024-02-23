@@ -14,6 +14,6 @@
         android:title="@string/historyItem" />
     <item
         android:id="@+id/invisible"
-        android:visible="false"
-        android:title="Hidden" />
+        android:title="Hidden"
+        android:visible="false" />
 </menu>

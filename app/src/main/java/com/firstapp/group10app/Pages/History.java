@@ -35,7 +35,7 @@ public class History extends AppCompatActivity implements NavigationBarView.OnIt
         try {
             //gets the workouts user has done, specific to the user
             String HistoryJSON = DBHelper.getUserWorkouts(Session.userEmail);
-            ItemVisualiser.startWorkoutGeneration(HistoryJSON, this, historyLayout, "tt", R.layout.historypopup, R.id.popupHistory);
+            ItemVisualiser.startWorkoutGeneration(HistoryJSON, this, historyLayout, "tt", R.layout.popup_history, R.id.popupHistory);
             System.out.println(HistoryJSON);
         } catch (Exception e) {
             throw new RuntimeException(e);
