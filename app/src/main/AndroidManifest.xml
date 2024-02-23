@@ -29,10 +29,10 @@
         <activity
             android:name=".Pages.WorkoutFilter"
             android:exported="false" />
-        <activity
-            android:name=".SettingsActivity"
-            android:exported="false"
-            android:label="@string/title_activity_settings" />
+        <!--        <activity-->
+        <!--            android:name=".SettingsActivity"-->
+        <!--            android:exported="false"-->
+        <!--            android:label="@string/title_activity_settings" />-->
         <activity
             android:name=".Pages.History"
             android:exported="false" />
