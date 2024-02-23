@@ -64,7 +64,6 @@
                 android:layout_gravity="center"
                 android:text="@string/loginTitle"
                 android:textAlignment="center"
-                android:textColor="@color/black"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 

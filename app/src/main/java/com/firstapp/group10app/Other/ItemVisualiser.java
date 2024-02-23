@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.media.Image;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -151,7 +149,6 @@ public class ItemVisualiser {
                 }
                 exerciseLayout.addView(exerciseBox);
             }
-
 
             // Adds the Linear layout containing all boxes to the scroll view.
             exerciseLayout.setPadding(0, 0, 0, 10);

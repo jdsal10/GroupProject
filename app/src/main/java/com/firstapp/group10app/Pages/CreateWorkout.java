@@ -3,9 +3,6 @@ package com.firstapp.group10app.Pages;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -28,9 +25,15 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.DB.DBHelper;
-import com.firstapp.group10app.Other.*;
+import com.firstapp.group10app.Other.JSONToDB;
+import com.firstapp.group10app.Other.itemVisualiserText;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -47,8 +50,9 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
     EditText name, duration, equipment;
     TextView durationTitle;
     Drawable border;
-    Button cancel, continue1, continue2, back;
+    Button cancelButton, continueButton;
     LinearLayout p1, p2;
+    int activePage = 1; // 1 = page 1, 2 = page 2
     Spinner target;
     ArrayList<JSONObject> addedExercises;
     ArrayList<String> addedExercisesID;
@@ -70,10 +74,8 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         medium = findViewById(R.id.mediumSelect);
         hard = findViewById(R.id.hardSelect);
 
-        cancel = findViewById(R.id.createWorkoutCancel);
-        continue1 = findViewById(R.id.createWorkoutContinue1);
-        back = findViewById(R.id.backWorkout);
-        continue2 = findViewById(R.id.createWorkoutContinue2);
+        cancelButton = findViewById(R.id.cancelBtn);
+        continueButton = findViewById(R.id.continueBtn);
 
         target = findViewById(R.id.workoutTargetInput);
 
@@ -87,26 +89,31 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         target.setAdapter(adapterTarget);
         target.setSelection(0);
 
-        medium.setBackgroundColor(Color.parseColor("#FFFF00"));
-        hard.setBackgroundColor(Color.parseColor("#FF0000"));
-
+        // Set the on click listeners for the difficulty buttons.
         easy.setOnClickListener(this);
         medium.setOnClickListener(this);
         hard.setOnClickListener(this);
 
-        cancel.setOnClickListener(this);
-        continue1.setOnClickListener(this);
-        back.setOnClickListener(this);
-        continue2.setOnClickListener(this);
+        // Set the background color of the difficulty buttons.
+        easy.setBackgroundColor(Color.parseColor("#77DD77")); // Pastel green (https://www.canva.com/colors/color-meanings/pastel-green/)
+        medium.setBackgroundColor(Color.parseColor("#FDFD96")); // Pastel yellow (https://www.canva.com/colors/color-meanings/pastel-yellow/)
+        hard.setBackgroundColor(Color.parseColor("#FF6961")); // Pastel red (https://www.canva.com/colors/color-meanings/pastel-red/)
 
+        // Set the difficulty buttons border.
+        enableBorder(easy);
+
+        // Set the on click listeners for the other buttons.
+        cancelButton.setOnClickListener(this);
+        continueButton.setOnClickListener(this);
+
+        // get the linear layouts for the pages.
         p1 = findViewById(R.id.page1);
         p2 = findViewById(R.id.page2);
 
+        p1.setVisibility(VISIBLE);
+        p2.setVisibility(GONE);
+
         setListeners();
-
-        enableBorder(easy);
-
-        border = ContextCompat.getDrawable(this, R.drawable.selected_item);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
         bottomNavigationView.setOnItemSelectedListener(this);
@@ -206,22 +213,19 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
 
             exerciseCombo.post(() -> {
                 int height = exerciseCombo.getHeight();
-                LinearLayout.LayoutParams correctParam = new LinearLayout.LayoutParams(
-                        100,
-                        height
-                );
+                LinearLayout.LayoutParams correctParam = new LinearLayout.LayoutParams(100, height);
                 correctParam.setMargins(0, 0, 10, 0);
 
                 t.setLayoutParams(correctParam);
             });
 
+            ImageView exerciseImage = exerciseBox.findViewById(R.id.exerciseImage);
+            View difficultyScale = exerciseBox.findViewById(R.id.difficulty);
+
             TextView exerciseNameView = exerciseBox.findViewById(R.id.exerciseNameView);
             TextView exerciseDescriptionView = exerciseBox.findViewById(R.id.exerciseDescriptionView);
             TextView exerciseTargetMuscleGroupView = exerciseBox.findViewById(R.id.exerciseTargetMuscleGroupView);
             TextView exerciseEquipmentView = exerciseBox.findViewById(R.id.exerciseEquipmentView);
-
-            ImageView exerciseImage = exerciseBox.findViewById(R.id.exerciseImage);
-            View difficultyScale = exerciseBox.findViewById(R.id.difficulty);
 
             exerciseNameView.setText(String.format(workoutObject.optString("ExerciseName", "")));
             exerciseDescriptionView.setText(workoutObject.optString("Description", ""));
@@ -229,21 +233,21 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
             exerciseEquipmentView.setText(String.format("Exercise Equipment: %s", workoutObject.optString("Equipment", "")));
 
             exerciseImage.setImageResource(R.drawable.workout);
-            String difficultyValue = workoutObject.optString("Difficulty", "");
 
+            String difficultyValue = workoutObject.optString("Difficulty", "");
             switch (difficultyValue) {
                 case "Easy":
-                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#00FF00")));
+                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#77DD77")));
                     break;
                 case "Medium":
-                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFF00")));
+                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FDFD96")));
                     break;
                 case "Hard":
-                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF0000")));
+                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF6961")));
                     break;
             }
-            final int index = i;
 
+            final int index = i;
 
             exerciseCombo.setOnClickListener(v -> {
                 if (toggles[index]) {
@@ -261,83 +265,67 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
 
             exerciseHolder.addView(exerciseCombo);
 
-            View view = new View(this);
+            // Adds space between the different exercises boxes
+            View space = new View(this);
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    1
+                    LinearLayout.LayoutParams.MATCH_PARENT, 1
             );
 
             layoutParams.setMargins(10, 10, 10, 10);
-
-            view.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
-
-            view.setLayoutParams(layoutParams);
-
-            exerciseHolder.addView(view);
+            space.setLayoutParams(layoutParams);
+            exerciseHolder.addView(space);
         }
 
         // Adds the Linear layout containing all boxes to the scroll view.
-        exerciseHolder.setPadding(0, 0, 0, 10);
         s.addView(exerciseHolder);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.easySelect) {
-            if (selected == null) {
-                selected = "easy";
-                enableBorder(easy);
-            } else if (!selected.equals("easy")) {
-                selected = "easy";
-                enableBorder(easy);
-                disableBorder(medium);
-                disableBorder(hard);
-            }
-        } else if (id == R.id.mediumSelect) {
-            if (selected == null) {
-                selected = "medium";
-                enableBorder(medium);
-            } else if (!selected.equals("medium")) {
-                selected = "medium";
-                disableBorder(easy);
-                enableBorder(medium);
-                disableBorder(hard);
-            }
-        } else if (id == R.id.hardSelect) {
-            if (selected == null) {
-                selected = "hard";
-                enableBorder(hard);
-            } else if (!selected.equals("hard")) {
-                selected = "hard";
-                disableBorder(easy);
-                disableBorder(medium);
-                enableBorder(hard);
-            }
-        } else if (id == R.id.createWorkoutContinue1) {
-            if ((name.getText().toString().length() == 0) || (duration.getText().toString().length() == 0) || (equipment.getText().toString().length() == 0)) {
-                continue1.setError("Some fields have no info");
 
+        // If the user selects a difficulty, we adjust the border
+        if (id == R.id.easySelect && !selected.equals("easy")) {
+            selected = "easy";
+            enableBorder(easy);
+            disableBorder(medium);
+            disableBorder(hard);
+        } else if (id == R.id.mediumSelect && !selected.equals("medium")) {
+            selected = "medium";
+            enableBorder(medium);
+            disableBorder(easy);
+            disableBorder(hard);
+        } else if (id == R.id.hardSelect && !selected.equals("hard")) {
+            selected = "hard";
+            enableBorder(hard);
+            disableBorder(easy);
+            disableBorder(medium);
+        }
+
+        // More complex logic for the Continue and Cancel buttons
+        else if (id == R.id.continueBtn && activePage == 1) {
+            if ((name.getText().toString().length() == 0) || (duration.getText().toString().length() == 0) || (equipment.getText().toString().length() == 0)) {
+                continueButton.setError("Some fields have no info");
             } else if ((Integer.parseInt(duration.getText().toString()) > 180) || (Integer.parseInt(duration.getText().toString()) == 0)) {
                 duration.setError("Duration must be between 180 and 0!");
-
             } else {
                 p1.setVisibility(GONE);
                 p2.setVisibility(VISIBLE);
+                activePage = 2;
 
                 createExerciseView();
             }
-        } else if (id == R.id.createWorkoutCancel) {
+        } else if (id == R.id.cancelBtn && activePage == 1) {
             // Maybe add popup to prevent user losing progress.
             startActivity(new Intent(this, WorkoutOption.class));
-        } else if (id == R.id.backWorkout) {
+        } else if (id == R.id.cancelBtn && activePage == 2) {
             p2.setVisibility(GONE);
             p1.setVisibility(VISIBLE);
-
-        } else if (id == R.id.createWorkoutContinue2) {
+            activePage = 1;
+        } else if (id == R.id.continueBtn && activePage == 2) {
             if (addedExercisesID.isEmpty()) {
-                continue2.setError("At least one workout is needed,");
+                continueButton.setError("At least one workout is needed,");
             } else {
                 finalCheck();
             }
@@ -360,7 +348,6 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         data[2] = target.getSelectedItem().toString();
         data[3] = equipment.getText().toString();
         data[4] = selected;
-
 
         if (v != null) {
             itemVisualiserText.showText(this, v, data, addedExercises);
@@ -402,11 +389,11 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         Drawable[] layers = new Drawable[2];
 
         if (v == easy) {
-            layers[0] = createColorDrawable(Color.parseColor("#00FF00"));
+            layers[0] = createColorDrawable(Color.parseColor("#77DD77"));
         } else if (v == medium) {
-            layers[0] = createColorDrawable(Color.parseColor("#FFFF00"));
+            layers[0] = createColorDrawable(Color.parseColor("#FDFD96"));
         } else if (v == hard) {
-            layers[0] = createColorDrawable(Color.parseColor("#FF0000"));
+            layers[0] = createColorDrawable(Color.parseColor("#FF6961"));
         }
 
         layers[1] = border;
@@ -417,11 +404,11 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
 
     private void disableBorder(View v) {
         if (v == easy) {
-            v.setBackgroundColor(Color.parseColor("#00FF00"));
+            v.setBackgroundColor(Color.parseColor("#77DD77"));
         } else if (v == medium) {
-            v.setBackgroundColor(Color.parseColor("#FFFF00"));
+            v.setBackgroundColor(Color.parseColor("#FDFD96"));
         } else if (v == hard) {
-            v.setBackgroundColor(Color.parseColor("#FF0000"));
+            v.setBackgroundColor(Color.parseColor("#FF6961"));
         }
     }
 
@@ -509,8 +496,12 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
             startActivity(new Intent(getApplicationContext(), WorkoutOption.class));
             return true;
         } else if (id == R.id.goToHistory) {
-            startActivity(new Intent(getApplicationContext(), History.class));
-            return true;
+            if (!DBConnection.testConnection()) {
+                Toast.makeText(this, "No connection!", Toast.LENGTH_SHORT).show();
+            } else {
+                startActivity(new Intent(getApplicationContext(), History.class));
+                return true;
+            }
         }
         return true;
     }
