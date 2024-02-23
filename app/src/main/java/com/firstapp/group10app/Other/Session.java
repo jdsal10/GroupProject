@@ -7,11 +7,8 @@ import org.json.JSONObject;
  */
 public class Session {
     public static String userEmail;
-
     public static boolean dbStatus;
-
     public static JSONObject selectedWorkout;
-
     public static Boolean signedIn;
 
     public Session(String userEmail) {
@@ -22,9 +19,15 @@ public class Session {
         return userEmail;
     }
 
-    public boolean getDBStatus() {return dbStatus;}
+    public boolean getDBStatus() {
+        return dbStatus;
+    }
 
-    public JSONObject getSelectedWorkout() {return selectedWorkout;}
+    public JSONObject getSelectedWorkout() {
+        return selectedWorkout;
+    }
 
-    public boolean isSignedIn() {return signedIn;}
+    public boolean isSignedIn() {
+        return signedIn;
+    }
 }

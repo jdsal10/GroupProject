@@ -180,6 +180,7 @@ public class DBHelper {
     public static void linkExercise(int workoutID, int exerciseID) {
         DBConnection.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUES ('" + workoutID + "','" + exerciseID + "')");
     }
+
     public static String getAllWorkouts(String filter) {
         DBConnection d = new DBConnection();
 

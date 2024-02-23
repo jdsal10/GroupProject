@@ -1,11 +1,5 @@
 package com.firstapp.group10app.Pages;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.firstapp.group10app.DB.DBConnection;
-import com.firstapp.group10app.DB.DBHelper;
-import com.firstapp.group10app.Other.ItemVisualiser;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -15,6 +9,11 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.firstapp.group10app.DB.DBConnection;
+import com.firstapp.group10app.DB.DBHelper;
+import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -86,7 +85,8 @@ public class SearchWorkout extends AppCompatActivity implements NavigationBarVie
             } else {
                 startActivity(new Intent(getApplicationContext(), History.class));
                 return true;
-            }}
+            }
+        }
         return true;
     }
 

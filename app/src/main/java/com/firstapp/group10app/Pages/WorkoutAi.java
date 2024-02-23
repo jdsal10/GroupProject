@@ -1,5 +1,7 @@
 package com.firstapp.group10app.Pages;
 
+import static com.firstapp.group10app.ChatGPT.ChatGPT_Client.chatGPT;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.JSONToDB;
 import com.firstapp.group10app.R;
-import static com.firstapp.group10app.ChatGPT.ChatGPT_Client.chatGPT;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -108,7 +109,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
 
         // Unsure if this is correct - confirm with Misha
         page2.addView(workoutLayout);
-        
+
         // Note the code below has buttons in the popup active. Decide if the buttons will be on popup or default page.
         ItemVisualiser.startWorkoutGeneration(data, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
 

@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.ChatGPT.ChatGPT_Client;
 import com.firstapp.group10app.R;
 
 import java.util.concurrent.ExecutorService;
@@ -20,7 +19,6 @@ public class Workouts extends AppCompatActivity implements View.OnClickListener 
     private boolean AI; // true if in AI mode, false if in manual mode
     private EditText additionalInfo; // Additional info box where the user types
     private String additionalInfoText;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +69,8 @@ public class Workouts extends AppCompatActivity implements View.OnClickListener 
                 });
 
                 executor.shutdown();
-
-
             }
         }
     }
-
 }
 
