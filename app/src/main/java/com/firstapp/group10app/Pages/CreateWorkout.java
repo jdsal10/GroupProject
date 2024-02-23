@@ -99,7 +99,7 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         medium.setBackgroundColor(Color.parseColor("#FDFD96")); // Pastel yellow (https://www.canva.com/colors/color-meanings/pastel-yellow/)
         hard.setBackgroundColor(Color.parseColor("#FF6961")); // Pastel red (https://www.canva.com/colors/color-meanings/pastel-red/)
 
-        // Set the difficulty buttons border.
+        // Set the default difficulty buttons border.
         enableBorder(easy);
 
         // Set the on click listeners for the other buttons.
@@ -113,6 +113,7 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         p1.setVisibility(VISIBLE);
         p2.setVisibility(GONE);
 
+        // Sets listeners for difficultly views.
         setListeners();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
@@ -176,10 +177,10 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
     public void createExerciseView() {
         String newData = DBHelper.getAllExercises();
 
-        ScrollView s = findViewById(R.id.exerciseSelector);
-        s.removeAllViews();
+        ScrollView exerciseScroll = findViewById(R.id.exerciseSelector);
+        exerciseScroll.removeAllViews();
 
-        // Linear layout to hold all layouts.;
+        // Linear layout to hold all layouts.
         LinearLayout exerciseHolder = new LinearLayout(this);
         exerciseHolder.setOrientation(LinearLayout.VERTICAL);
 
@@ -192,9 +193,11 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         }
         boolean[] toggles = new boolean[jsonArray.length()];
 
-        // For every exercise, we create a box containing the details.
+        // We use arrays to hold details of the chosen exercises.
         addedExercises = new ArrayList<>();
         addedExercisesID = new ArrayList<>();
+
+        // For every exercise, we create a box containing the details.
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject workoutObject;
 
@@ -207,16 +210,17 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
             LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             LinearLayout exerciseCombo = (LinearLayout) inflater.inflate(R.layout.exercise_combo, null);
 
-            View t = exerciseCombo.findViewById(R.id.checkBox);
+            View selectedExerciseToggle = exerciseCombo.findViewById(R.id.checkBox);
 
             LinearLayout exerciseBox = exerciseCombo.findViewById(R.id.exerciseDetails);
 
+            // Sets correct measurements for toggles.
             exerciseCombo.post(() -> {
                 int height = exerciseCombo.getHeight();
                 LinearLayout.LayoutParams correctParam = new LinearLayout.LayoutParams(100, height);
                 correctParam.setMargins(0, 0, 10, 0);
 
-                t.setLayoutParams(correctParam);
+                selectedExerciseToggle.setLayoutParams(correctParam);
             });
 
             ImageView exerciseImage = exerciseBox.findViewById(R.id.exerciseImage);
@@ -235,6 +239,8 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
             exerciseImage.setImageResource(R.drawable.workout);
 
             String difficultyValue = workoutObject.optString("Difficulty", "");
+
+            // Declares background colours.
             switch (difficultyValue) {
                 case "Easy":
                     difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#77DD77")));
@@ -249,13 +255,14 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
 
             final int index = i;
 
+            // Allows toggle to update, as well as arrays.
             exerciseCombo.setOnClickListener(v -> {
                 if (toggles[index]) {
-                    t.setBackgroundColor(Color.TRANSPARENT);
+                    selectedExerciseToggle.setBackgroundColor(Color.TRANSPARENT);
                     addedExercisesID.remove(workoutObject.optString("ExerciseID", ""));
                     addedExercises.remove(workoutObject);
                 } else {
-                    t.setBackgroundColor(Color.BLACK);
+                    selectedExerciseToggle.setBackgroundColor(Color.BLACK);
                     addedExercises.add(workoutObject);
                     addedExercisesID.add(workoutObject.optString("ExerciseID", ""));
 
@@ -278,7 +285,7 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         }
 
         // Adds the Linear layout containing all boxes to the scroll view.
-        s.addView(exerciseHolder);
+        exerciseScroll.addView(exerciseHolder);
     }
 
     @Override
@@ -340,7 +347,7 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         builder.setView(dialogView);
         AlertDialog alertDialog = builder.create();
 
-        LinearLayout v = dialogView.findViewById(R.id.dataHolder);
+        LinearLayout finalVersionHolder = dialogView.findViewById(R.id.dataHolder);
 
         String[] data = new String[5];
         data[0] = name.getText().toString();
@@ -349,8 +356,9 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         data[3] = equipment.getText().toString();
         data[4] = selected;
 
-        if (v != null) {
-            itemVisualiserText.showText(this, v, data, addedExercises);
+        // Continues if there is data.
+        if (finalVersionHolder != null) {
+            itemVisualiserText.showText(this, finalVersionHolder, data, addedExercises);
         }
 
         Button cancelCreation = dialogView.findViewById(R.id.cancelCreation);
@@ -359,7 +367,10 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         cancelCreation.setOnClickListener(v1 -> alertDialog.dismiss());
 
         confirmCreation.setOnClickListener(v12 -> {
+            // Lowercase's difficulty.
             String correctDifficulty = selected.substring(0, 1).toUpperCase() + selected.substring(1).toLowerCase();
+
+            // Creates the workout.
             createJSON(name.getText().toString(), duration.getText().toString(), target.getSelectedItem().toString(), equipment.getText().toString(), correctDifficulty, addedExercisesID);
         });
         alertDialog.show();
@@ -417,73 +428,6 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         drawable.setShape(GradientDrawable.RECTANGLE);
         drawable.setColor(color);
         return drawable;
-    }
-
-    public void showExerciseText(View d) {
-        LinearLayout s = d.findViewById(R.id.dataHolder);
-
-        // Linear layout to hold all layouts.;
-        LinearLayout exerciseHolder = new LinearLayout(this);
-        exerciseHolder.setOrientation(LinearLayout.VERTICAL);
-
-        // Creates a layout containing the exercise boxes.
-        JSONArray jsonArray;
-        jsonArray = new JSONArray();
-        for (JSONObject exercise : addedExercises) {
-            jsonArray.put(exercise);
-        }
-
-        // For every exercise, we create a box containing the details.
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject workoutObject;
-
-            try {
-                workoutObject = jsonArray.getJSONObject(i);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-
-            LinearLayout textHolder = new LinearLayout(this);
-            textHolder.setOrientation(LinearLayout.VERTICAL);
-
-            TextView exerciseNameText = new TextView(this);
-            TextView exerciseDescriptionText = new TextView(this);
-            TextView exerciseTargetMuscleGroupText = new TextView(this);
-            TextView exerciseEquipmentText = new TextView(this);
-            TextView exerciseDifficultyText = new TextView(this);
-
-            exerciseNameText.setText(String.format(String.format("Exercise Name: %s", workoutObject.optString("ExerciseName", ""))));
-            exerciseDescriptionText.setText(String.format("Exercise Description: %s", workoutObject.optString("Description", "")));
-            exerciseTargetMuscleGroupText.setText(String.format("Exercise Target Group: %s", workoutObject.optString("TargetMuscleGroup", "")));
-            exerciseEquipmentText.setText(String.format("Exercise Equipment: %s", workoutObject.optString("Equipment", "")));
-            exerciseDifficultyText.setText(String.format("Exercise Difficulty: %s", workoutObject.optString("Difficulty")));
-
-            textHolder.addView(exerciseNameText);
-            textHolder.addView(exerciseDescriptionText);
-            textHolder.addView(exerciseTargetMuscleGroupText);
-            textHolder.addView(exerciseEquipmentText);
-            textHolder.addView(exerciseDifficultyText);
-
-            exerciseHolder.addView(textHolder);
-
-            View view = new View(this);
-
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    1
-            );
-
-            layoutParams.setMargins(10, 10, 10, 10);
-
-            view.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
-
-            view.setLayoutParams(layoutParams);
-
-            exerciseHolder.addView(view);
-        }
-
-        exerciseHolder.setPadding(10, 10, 10, 10);
-        s.addView(exerciseHolder);
     }
 
     @Override
