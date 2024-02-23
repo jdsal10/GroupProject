@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/workoutName"
-            android:textSize="25sp"
+            android:textSize="@dimen/font_size_larger"
             android:textStyle="bold" />
 
         <TextView
@@ -30,7 +30,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/workoutDuration"
-            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
@@ -38,7 +37,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/workoutTarget"
-            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
@@ -46,7 +44,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/workoutEquipment"
-            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
@@ -54,7 +51,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/workoutDifficulty"
-            android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>
