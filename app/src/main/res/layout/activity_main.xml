@@ -51,7 +51,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="50dp"
             android:layout_marginRight="15dp"
-            android:background="@drawable/gradient_background"
+            android:background="@drawable/solid_background_tetradic1"
             android:text="@string/loginTitle"
             android:textColor="@color/white"
             android:textSize="25sp" />

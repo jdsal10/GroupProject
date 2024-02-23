@@ -1,6 +1,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="@color/gradient_cYFTLT_complementary" />
+    <solid android:color="@color/gradient_aLostMemory_tetradic2" />
     <corners android:bottomRightRadius="8dp"
         android:bottomLeftRadius="8dp"
         android:topRightRadius="8dp"

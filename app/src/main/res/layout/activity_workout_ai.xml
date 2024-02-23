@@ -268,7 +268,7 @@
             android:layout_height="70dp"
             android:layout_gravity="center"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/gradient_background"
+            android:background="@drawable/solid_background_tetradic1"
             android:text="Continue"
             android:visibility="visible" />
 
@@ -278,7 +278,7 @@
             android:layout_height="70dp"
             android:layout_gravity="center"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/gradient_background"
+            android:background="@drawable/solid_background_tetradic1"
             android:text="Generate Workout"
             android:visibility="gone" />
 

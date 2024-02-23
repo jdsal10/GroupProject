@@ -4,7 +4,6 @@
         android:angle="45"
         android:endColor="@color/gradient_aLostMemory_end"
         android:startColor="@color/gradient_aLostMemory_start" />
-    <solid android:color="#3B8585" />
     <!--    <gradient-->
     <!--        android:angle="45"-->
     <!--        android:endColor="#B06AB3"-->

@@ -101,7 +101,7 @@
             android:layout_margin="5dp"
             android:gravity="center"
             android:text="OR"
-            android:textColor="@color/gradient_cYFTLT_complementary2"
+            android:textColor="@color/gradient_aLostMemory_tetradic1"
             android:textSize="32sp"
             android:textStyle="italic" />
 
