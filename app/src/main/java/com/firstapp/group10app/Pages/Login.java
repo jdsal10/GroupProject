@@ -20,11 +20,9 @@ import java.sql.SQLException;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
     private EditText Email, Password;
-    private String EmailText, PasswordText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        createTestUser();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -46,14 +44,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.loginButton) {
-            EmailText = Email.getText().toString();
-            PasswordText = Password.getText().toString();
-            System.out.println("TESTING TEXT : " + EmailText + "TESTING PASSWORD: " + PasswordText);
+            String emailText = Email.getText().toString();
+            String passwordText = Password.getText().toString();
+            System.out.println("TESTING TEXT : " + emailText + "TESTING PASSWORD: " + passwordText);
             try {
                 DBHelper db = new DBHelper();
-                if (db.checkUser(EmailText, PasswordText)) {
-                    Toast.makeText(Login.this, "Welcome \n" + EmailText + " ! ", Toast.LENGTH_SHORT).show();
-                    Session.userEmail = EmailText;
+                if (db.checkUser(emailText, passwordText)) {
+                    Toast.makeText(Login.this, "Welcome \n" + emailText + " ! ", Toast.LENGTH_SHORT).show();
+                    Session.userEmail = emailText;
                     Session.signedIn = true;
                     startActivity(new Intent(getApplicationContext(), Home.class));
                 } else {
