@@ -83,6 +83,9 @@ public class WorkoutOption extends AppCompatActivity implements CompoundButton.O
 
                     aiView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_right_in));
                     aiView.setVisibility(View.VISIBLE);
+
+                    AISelect.setBackground(AppCompatResources.getDrawable(this, R.drawable.rounded_button_selected));
+                    manualSelect.setBackground(AppCompatResources.getDrawable(this, R.drawable.rounded_button));
                 }
 
             } else if (buttonView.getId() == R.id.toggleManual) {
