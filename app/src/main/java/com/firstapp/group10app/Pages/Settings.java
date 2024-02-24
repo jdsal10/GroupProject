@@ -46,6 +46,9 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
         accountButton.setOnClickListener(this);
 
         OnlineChecks.checkNavigationBar(settingNav);
+
+        // Sets nothing as selected
+        settingNav.setSelectedItemId(R.id.invisible);
     }
 
     @Override

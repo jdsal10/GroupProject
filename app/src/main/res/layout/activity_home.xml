@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20sp"
                     android:text="Home Page"
-                    android:textSize="25sp" />
+                    android:textSize="@dimen/font_size_larger" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
                 android:id="@+id/goToSettings"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/settings"
+                android:background="@drawable/icon_settings"
                 android:clickable="true"
                 android:elevation="1dp"
                 android:focusable="true"
@@ -70,7 +70,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/pinkshade"
+                android:background="@drawable/solid_background_tetradic1"
                 android:orientation="horizontal"
                 android:padding="3dp">
 
@@ -85,7 +85,8 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="10dp"
                         android:text="Go To Workouts"
-                        android:textSize="23sp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_large"
                         android:textStyle="bold" />
 
                     <TextView
@@ -93,7 +94,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:text="Go To Workouts"
-                        android:textSize="18dp" />
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_small" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -103,7 +105,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/orangeshade"
+                android:background="@drawable/gradient_background"
                 android:orientation="horizontal"
                 android:padding="3dp">
 
@@ -118,7 +120,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="10dp"
                         android:text="Go To Workouts"
-                        android:textSize="23sp"
+                        android:textSize="@dimen/font_size_large"
                         android:textStyle="bold" />
 
                     <TextView
@@ -126,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:text="Go To Workouts"
-                        android:textSize="18dp" />
+                        android:textSize="@dimen/font_size_small" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -137,7 +139,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/orangeshade"
+                android:background="@drawable/gradient_background"
                 android:orientation="horizontal"
                 android:padding="3dp">
 
@@ -152,7 +154,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="10dp"
                         android:text="Go To Workouts"
-                        android:textSize="23sp"
+                        android:textSize="@dimen/font_size_large"
                         android:textStyle="bold" />
 
                     <TextView
@@ -160,7 +162,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:text="Go To Workouts"
-                        android:textSize="18dp" />
+                        android:textSize="@dimen/font_size_small" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -171,7 +173,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/orangeshade"
+                android:background="@drawable/gradient_background"
                 android:orientation="horizontal"
                 android:padding="3dp">
 
@@ -186,7 +188,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="10dp"
                         android:text="Go To Workouts"
-                        android:textSize="23sp"
+                        android:textSize="@dimen/font_size_large"
                         android:textStyle="bold" />
 
                     <TextView
@@ -194,7 +196,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:text="Go To Workouts"
-                        android:textSize="18dp" />
+                        android:textSize="@dimen/font_size_small" />
                 </LinearLayout>
 
             </LinearLayout>

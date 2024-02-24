@@ -76,6 +76,7 @@ public class DBHelper {
 
             Integer id = null;
             Statement st = conn.createStatement();
+            Integer test = st.executeUpdate(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 
             ResultSet rs = st.getGeneratedKeys();
             if (rs.next()) {
@@ -179,6 +180,7 @@ public class DBHelper {
     public static void linkExercise(int workoutID, int exerciseID) {
         DBConnection.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUES ('" + workoutID + "','" + exerciseID + "')");
     }
+
     public static String getAllWorkouts(String filter) {
         DBConnection d = new DBConnection();
 

@@ -42,7 +42,6 @@ public class ForgotPasswordCheck extends AppCompatActivity implements View.OnCli
         }
     }
 
-
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -61,8 +60,7 @@ public class ForgotPasswordCheck extends AppCompatActivity implements View.OnCli
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-        }
-        else if (id == R.id.backToLogin) {
+        } else if (id == R.id.backToLogin) {
             startActivity(new Intent(getApplicationContext(), Login.class));
 
         }

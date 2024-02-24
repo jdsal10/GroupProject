@@ -6,31 +6,28 @@ import static com.firstapp.group10app.Other.Validator.passwordValidator;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.content.*;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.fragment.app.Fragment;
+
 import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.MainActivity;
-import com.firstapp.group10app.Pages.Settings;
 import com.firstapp.group10app.R;
 
 import java.sql.SQLException;
 
-public class settings_account extends Fragment implements View.OnClickListener{
+public class settings_account extends Fragment implements View.OnClickListener {
 
     Button deleteAccount, changePassword;
+
     public settings_account() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +38,7 @@ public class settings_account extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView =  inflater.inflate(R.layout.fragment_settings_account, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_settings_account, container, false);
 
         deleteAccount = rootView.findViewById(R.id.deleteAccountButton);
         deleteAccount.setOnClickListener(this);
@@ -55,10 +52,9 @@ public class settings_account extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if(id == R.id.deleteAccountButton) {
-        showConfirmation();
-        }
-        else if(id == R.id.changePasswordSignedIn) {
+        if (id == R.id.deleteAccountButton) {
+            showConfirmation();
+        } else if (id == R.id.changePasswordSignedIn) {
             changePassword();
         }
     }
@@ -78,14 +74,13 @@ public class settings_account extends Fragment implements View.OnClickListener{
             String password = passwordDelete.getText().toString();
             DBHelper db = new DBHelper();
             try {
-                if(db.checkUser(Session.userEmail, password)) {
+                if (db.checkUser(Session.userEmail, password)) {
                     System.out.println("CONFIRM DELETION!");
                     // Add logic for deletion below - requires integration to workouts.
                     db.deleteUser(Session.userEmail);
 
                     startActivity(new Intent(requireContext(), MainActivity.class));
-                }
-                else {
+                } else {
                     passwordDelete.setError("Incorrect password used.");
 //                    alertDialog.dismiss();
                 }
@@ -117,16 +112,13 @@ public class settings_account extends Fragment implements View.OnClickListener{
             String np2 = newPassword2.getText().toString();
             DBHelper db = new DBHelper();
             try {
-                if(!db.checkUser(Session.userEmail, cp)) {
+                if (!db.checkUser(Session.userEmail, cp)) {
                     currentPassword.setError("Incorrect Password");
-                }
-                else if(!np1.equals(np2)) {
+                } else if (!np1.equals(np2)) {
                     newPassword1.setError("The passwords do not match");
-                }
-                else if (!passwordValid(np1)) {
+                } else if (!passwordValid(np1)) {
                     newPassword1.setError(passwordValidator(np1));
-                }
-                else {
+                } else {
                     DBHelper.updateData("Password", np1);
                     alertDialog.dismiss();
                 }

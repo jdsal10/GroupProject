@@ -21,7 +21,6 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="8dp"
             android:text="@string/DOBTitle"
-            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
@@ -31,8 +30,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="end|center"
-            android:importantForAutofill="no"
-            android:textSize="20sp" />
+            android:importantForAutofill="no"/>
 
         <TextView
             android:id="@+id/modifyDOB"
@@ -40,7 +38,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=">"
-            android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -62,7 +59,6 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="8dp"
             android:text="@string/sexTitle"
-            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
@@ -70,8 +66,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="end|center"
-            android:textSize="20sp" />
+            android:gravity="end|center" />
 
         <TextView
             android:id="@+id/modifySex"
@@ -79,7 +74,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=">"
-            android:textSize="20sp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -113,7 +107,6 @@
             android:layout_weight="1"
             android:gravity="end|center"
             android:importantForAutofill="no"
-            android:textSize="20sp"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
@@ -122,7 +115,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=">"
-            android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -144,7 +136,6 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="8dp"
             android:text="@string/heightTitle"
-            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
@@ -153,8 +144,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="end|center"
-            android:importantForAutofill="no"
-            android:textSize="20sp" />
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/modifyHeight"
@@ -162,7 +152,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=">"
-            android:textSize="20sp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -185,7 +174,6 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="8dp"
             android:text="@string/allergiesTitle"
-            android:textSize="20sp"
             android:textStyle="bold" />
 
 
@@ -203,7 +191,6 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:textSize="20sp"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
@@ -212,7 +199,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=">"
-            android:textSize="20sp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -235,7 +221,6 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="8dp"
             android:text="@string/reasonsTitle"
-            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
@@ -251,7 +236,6 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:textSize="20sp"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView

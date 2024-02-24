@@ -1,17 +1,17 @@
 package com.firstapp.group10app.Pages;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Other.ItemVisualiser;
-import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Other.OnlineChecks;
+import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -34,7 +34,7 @@ public class HistoryContinued extends AppCompatActivity implements NavigationBar
         try {
             // gets the workouts user has done, specific to the user
             String HistoryContinuedJSON = DBHelper.getUserWorkouts(Session.userEmail);
-            ItemVisualiser.startWorkoutGeneration(HistoryContinuedJSON, this, continuedLayout, "tt", R.layout.historypopup, R.id.popupHistory);
+            ItemVisualiser.startWorkoutGeneration(HistoryContinuedJSON, this, continuedLayout, "tt", R.layout.popup_history, R.id.popupHistory);
             System.out.println(HistoryContinuedJSON);
         } catch (Exception e) {
             throw new RuntimeException(e);

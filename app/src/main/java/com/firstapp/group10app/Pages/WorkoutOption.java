@@ -2,7 +2,6 @@ package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.transition.Fade;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -83,6 +82,9 @@ public class WorkoutOption extends AppCompatActivity implements CompoundButton.O
 
                     aiView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_right_in));
                     aiView.setVisibility(View.VISIBLE);
+
+                    AISelect.setBackground(AppCompatResources.getDrawable(this, R.drawable.rounded_button_selected));
+                    manualSelect.setBackground(AppCompatResources.getDrawable(this, R.drawable.rounded_button));
                 }
 
             } else if (buttonView.getId() == R.id.toggleManual) {

@@ -37,9 +37,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@color/gradient_cYFTLT_complementary"
                 android:button="@null"
                 android:gravity="center"
-                android:background="@color/gradient_cYFTLT_complementary"
                 android:text="@string/aiToggle"
                 android:textSize="18sp" />
         </RadioGroup>
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@drawable/customborder"
+            android:background="@drawable/border_rounded_corners"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -101,7 +101,7 @@
             android:layout_margin="5dp"
             android:gravity="center"
             android:text="OR"
-            android:textColor="@color/gradient_cYFTLT_complementary2"
+            android:textColor="@color/gradient_aLostMemory_tetradic1"
             android:textSize="32sp"
             android:textStyle="italic" />
 
@@ -109,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@drawable/customborder"
+            android:background="@drawable/border_rounded_corners"
             android:gravity="center"
             android:orientation="vertical">
 

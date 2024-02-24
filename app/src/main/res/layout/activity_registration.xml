@@ -355,7 +355,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
             android:layout_weight="0.5"
-            android:background="@drawable/background"
+            android:background="@drawable/solid_background_tetradic1"
             android:text="@string/next"
             android:textColor="@color/white" />
     </LinearLayout>

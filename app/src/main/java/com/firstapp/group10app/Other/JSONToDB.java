@@ -27,8 +27,9 @@ public class JSONToDB {
 
         for (String e : exerciseID) {
             int eid = Integer.parseInt(e);
-        linkExercise(id, eid);
-    }}
+            linkExercise(id, eid);
+        }
+    }
 
 
     public static void insertWorkoutAI(JSONObject data) throws JSONException {
@@ -64,7 +65,7 @@ public class JSONToDB {
             System.out.println(Arrays.toString(exerciseData));
         }
     }
-      }
+}
 
 
 
