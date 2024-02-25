@@ -5,55 +5,52 @@
     android:background="@drawable/round_corners"
     android:orientation="horizontal"
     android:padding="16dp">
-     <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/workoutImage"
-            android:contentDescription="Image" />
 
-        <LinearLayout
+    <ImageView
+        android:id="@+id/workoutImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:contentDescription="Image" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/workoutNameView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="@string/workoutName"
+            android:textSize="@dimen/font_size_larger"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/workoutNameView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/workoutName"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/workoutDurationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/workoutDuration"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/workoutDurationView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/workoutDuration"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/workoutMuscleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/workoutTarget"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/workoutMuscleView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/workoutTarget"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/workoutEquipmentView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/workoutEquipment"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/workoutEquipmentView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/workoutEquipment"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/workoutDifficultyView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/workoutDifficulty"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/workoutDifficultyView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/workoutDifficulty"
+            android:textStyle="bold" />
+    </LinearLayout>
 </LinearLayout>

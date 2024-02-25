@@ -13,18 +13,17 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="8dp"
-            android:text="@string/changePasswordTitle"
-            android:textSize="25sp" />
+            android:layout_weight="1"
+            android:text="@string/changePasswordTitle" />
 
         <Button
             android:id="@+id/changePasswordSignedIn"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="55dp"
+            android:layout_weight="1"
             android:text="@string/changePasswordButton" />
 
     </LinearLayout>
@@ -35,18 +34,17 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="8dp"
-            android:text="@string/deleteAccountText"
-            android:textSize="25sp" />
+            android:layout_weight="1"
+            android:text="@string/deleteAccountText" />
 
         <Button
             android:id="@+id/deleteAccountButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="55dp"
+            android:layout_weight="1"
             android:text="@string/deleteAccountButton" />
 
     </LinearLayout>

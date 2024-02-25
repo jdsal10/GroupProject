@@ -57,11 +57,6 @@ public class DBHelper {
         try {
             StringBuilder sql = new StringBuilder();
             sql.append("INSERT INTO HealthData.Workouts (");
-            System.out.println(Arrays.toString(values));
-            System.out.println(Arrays.toString(Index.WORKOUT_DETAILS));
-
-            System.out.println(values.length);
-            System.out.println(Index.WORKOUT_DETAILS.length);
             for (int i = 0; i < values.length; i++) {
                 sql.append(Index.WORKOUT_DETAILS[i]);
                 sql.append(", ");
@@ -79,7 +74,6 @@ public class DBHelper {
             sql.deleteCharAt(sql.length() - 2);
             sql.append(");");
 
-            System.out.println(sql);
             Integer id = null;
             Statement st = conn.createStatement();
             Integer test = st.executeUpdate(sql.toString(), Statement.RETURN_GENERATED_KEYS);
@@ -143,7 +137,6 @@ public class DBHelper {
                     "';";
 
             // Execute the SQL query`
-            System.out.println(sql);
             return DBConnection.executeQuery(sql);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -187,6 +180,7 @@ public class DBHelper {
     public static void linkExercise(int workoutID, int exerciseID) {
         DBConnection.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUES ('" + workoutID + "','" + exerciseID + "')");
     }
+
     public static String getAllWorkouts(String filter) {
         DBConnection d = new DBConnection();
 

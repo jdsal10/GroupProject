@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
-    <solid android:color="@color/gradient_cYFTLT_complementary" />
+    <gradient
+        android:angle="45"
+        android:endColor="@color/gradient_aLostMemory_end"
+        android:startColor="@color/gradient_aLostMemory_start" />
 </shape>

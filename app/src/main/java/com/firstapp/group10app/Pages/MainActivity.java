@@ -29,23 +29,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button goToLoginButton = findViewById(R.id.goToLogin);
         goToLoginButton.setOnClickListener(this);
 
-        Button goToRegisterButton = findViewById(R.id.goToRegister);
+        TextView goToRegisterButton = findViewById(R.id.goToRegister);
         goToRegisterButton.setOnClickListener(this);
 
         TextView skipText = findViewById(R.id.anonymous);
         skipText.setOnClickListener(this);
-
-        // Temporary button to navigate to the sitemap
-        Button goToSitemapButton = findViewById(R.id.goToSitemap);
-        goToSitemapButton.setOnClickListener(this);
 
         // Test database connection
         Session.dbStatus = DBConnection.testConnection();
 
         // Default value.
         Session.signedIn = false;
-        
-        // Used to add test data
 
         // If the connection false, disable the login.
         if (!Session.dbStatus) {
@@ -64,8 +58,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Session.userEmail = null;
             Session.signedIn = false;
             startActivity(new Intent(MainActivity.this, Home.class));
-        } else if (id == R.id.goToSitemap) {
-            startActivity(new Intent(MainActivity.this, SitemapActivity.class));
         } else if (id == R.id.goToRegister) {
             startActivity(new Intent(MainActivity.this, Registration.class));
             overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);

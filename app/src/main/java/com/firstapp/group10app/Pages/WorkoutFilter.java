@@ -20,7 +20,6 @@ public class WorkoutFilter extends AlertDialog implements View.OnClickListener {
     private FilterChangeListener filterChangeListener;
     Context context;
 
-
     public WorkoutFilter(Context context) {
         super(context);
         this.context = context;
@@ -28,7 +27,6 @@ public class WorkoutFilter extends AlertDialog implements View.OnClickListener {
         this.durationValue = "Any";
         this.targetValue = "Any";
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +85,6 @@ public class WorkoutFilter extends AlertDialog implements View.OnClickListener {
         clearFilter.setOnClickListener(this);
     }
 
-
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -103,15 +100,7 @@ public class WorkoutFilter extends AlertDialog implements View.OnClickListener {
             }
 
             dismiss();
-//            dismiss();
-//
-//            Intent intent = new Intent(getContext(), searchWorkout.class);
-//            intent.putExtra("duration", durationString);
-//            intent.putExtra("difficulty", difficultyString);
-//            intent.putExtra("targetMuscle", targetMuscleString);
-//            getContext().startActivity(intent);
-        }
-        else if(id == R.id.clearFilter) {
+        } else if (id == R.id.clearFilter) {
             Intent intent = new Intent(getContext(), SearchWorkout.class);
             intent.putExtra("duration", "Any");
             intent.putExtra("difficulty", "Any");
@@ -141,7 +130,7 @@ public class WorkoutFilter extends AlertDialog implements View.OnClickListener {
 
         if (durationValue != null) {
             switch (durationValue) {
-                case "Any" :
+                case "Any":
                     duration.setSelection(0);
                     break;
                 case "Less than 10 minutes":
@@ -178,9 +167,11 @@ public class WorkoutFilter extends AlertDialog implements View.OnClickListener {
         }
 
     }
+
     public interface FilterChangeListener {
         void onFilterChanged(String difficulty, String duration, String target);
     }
+
     public void setFilterChangeListener(FilterChangeListener listener) {
         this.filterChangeListener = listener;
     }

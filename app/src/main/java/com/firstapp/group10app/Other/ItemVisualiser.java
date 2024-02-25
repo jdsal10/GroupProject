@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.media.Image;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -44,16 +42,32 @@ public class ItemVisualiser {
 
         // Sets the textViews to the appropriate details.
         nameView.setText(String.format(details.optString("WorkoutName", "")));
-        durationView.setText("Workout Duration: " + details.optString("WorkoutDuration", "") + " minutes");
+        durationView.setText(String.format("Workout Duration: %s minutes", details.optString("WorkoutDuration", "")));
         muscleView.setText(String.format("Target Muscle Group: %s", details.optString("TargetMuscleGroup", "")));
         equipmentView.setText(String.format("Equipment: %s", details.optString("Equipment", "")));
         difficultyView.setText(String.format("Difficulty: %s", details.optString("Difficulty", "")));
 
-        workoutImage.setImageResource(R.drawable.workout);
+        workoutImage.setImageResource(R.drawable.icon_workout);
         String exerciseList = details.optString("Exercises");
 
         // Adds to a linear layout.
         workoutLayout.addView(box);
+
+        // Creates a block
+        View view = new View(cThis);
+
+        LinearLayout.LayoutParams layoutParamsView = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                1
+        );
+
+        layoutParamsView.setMargins(10, 10, 10, 10);
+
+        view.setBackgroundColor(cThis.getResources().getColor(android.R.color.darker_gray));
+
+        view.setLayoutParams(layoutParamsView);
+
+        workoutLayout.addView(view);
 
         // For now, clicking on a workout shows the exercises - may make easier later.
         box.setOnClickListener(v -> {
@@ -83,7 +97,7 @@ public class ItemVisualiser {
                 throw new RuntimeException(e);
             }
 
-// For every exercise, we create a box containing the details.
+            // For every exercise, we create a box containing the details.
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject workoutObject;
 
@@ -119,7 +133,7 @@ public class ItemVisualiser {
                 exerciseTargetMuscleGroupView.setText(String.format("Exercise Target Group: %s", workoutObject.optString("TargetMuscleGroup", "")));
                 exerciseEquipmentView.setText(String.format("Exercise Equipment: %s", workoutObject.optString("Equipment", "")));
 
-                exerciseImage.setImageResource(R.drawable.workout);
+                exerciseImage.setImageResource(R.drawable.icon_workout);
                 String difficultyValue = workoutObject.optString("Difficulty", "");
 
                 switch (difficultyValue) {
@@ -135,7 +149,6 @@ public class ItemVisualiser {
                 }
                 exerciseLayout.addView(exerciseBox);
             }
-
 
             // Adds the Linear layout containing all boxes to the scroll view.
             exerciseLayout.setPadding(0, 0, 0, 10);

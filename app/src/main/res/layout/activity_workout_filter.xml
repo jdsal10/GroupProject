@@ -41,7 +41,7 @@
             android:id="@+id/difficultyInput"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_weight="0.2"
+            android:layout_weight="1"
             android:importantForAutofill="no"
             android:textSize="25sp"
             tools:ignore="DuplicateSpeakableTextCheck" />
@@ -76,7 +76,7 @@
             android:id="@+id/durationInput"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_weight="0.2"
+            android:layout_weight="1"
             android:importantForAutofill="no"
             android:textSize="25sp"
             tools:ignore="DuplicateSpeakableTextCheck" />
@@ -131,7 +131,6 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/background"
             android:text="@string/confirmFilter" />
 
         <Button
@@ -142,7 +141,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/background"
             android:text="Clear Filter" />
     </LinearLayout>
 </LinearLayout>

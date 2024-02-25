@@ -9,7 +9,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <ImageView
@@ -35,61 +35,44 @@
             android:layout_gravity="center"
             android:contentDescription="@string/welcomeBackgroundImage"
             android:foregroundGravity="top"
-            android:src="@drawable/app_logo" />
+            android:src="@drawable/icon_app_logo" />
     </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="2"
+        android:gravity="center"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/goToLogin"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginRight="25dp"
-            android:background="@drawable/background"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/solid_background_tetradic1"
             android:text="@string/loginTitle"
             android:textColor="@color/white"
-            android:textSize="25sp" />
-
-        <Button
-            android:id="@+id/goToRegister"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="25dp"
-            android:text="@string/registrationTitle"
-            android:textSize="25sp" />
+            android:textSize="@dimen/font_size_larger" />
 
         <TextView
-            android:id="@+id/anonymous"
+            android:id="@+id/goToRegister"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="15dp"
-            android:layout_weight="1.5"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:gravity="center_horizontal"
-            android:text="@string/welcomeAnonymous"
-            android:textColor="@color/gradient_cYFTLT_complementary"
-            android:textSize="25sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:visibility="gone">
+            android:text="@string/welcomeRegister" />
 
         <Button
-            android:id="@+id/goToSitemap"
+            android:id="@+id/anonymous"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:text="@string/sitemap"
-            android:textSize="30sp" />
+            android:layout_height="100dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:text="@string/welcomeAnonymous"
+            android:textSize="@dimen/font_size_larger"
+            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

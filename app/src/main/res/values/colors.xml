@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
+    <color name="almost_black">#FF1A1A1A</color>
+    <color name="dark_grey">#FF333333</color>
     <color name="white">#FFFFFFFF</color>
-    <!--    <color name="dark_blue">#b</color>-->
-    
+
     <color name="top_grey">#EEEBEB</color>
     <color name="pinkBtnStart">#F56BD2</color>
     <color name="pinkBtnEnd">#A20BBD</color>
@@ -18,6 +19,9 @@
     <!-- A Lost Memory -->
     <color name="gradient_aLostMemory_start">#de6262</color>
     <color name="gradient_aLostMemory_end">#ffb88c</color>
+    <!-- https://paletton.com/#uid=7000u0khTrS7UJXc+xNm5nvqriU -->
+    <color name="gradient_aLostMemory_tetradic1">#3B8585</color>
+    <color name="gradient_aLostMemory_tetradic2">#4EB24E</color>
 
     <!-- Kashmir -->
     <color name="gradient_kashmir_start">#614385</color>
@@ -39,4 +43,5 @@
     <color name="gradient_canYouFeelTheLoveTonight_start">#4568DC</color>
     <color name="gradient_canYouFeelTheLoveTonight_end">#B06AB3</color>
     <color name="gradient_cYFTLT_complementary">#6db36a</color>
+    <color name="gradient_cYFTLT_complementary2">#961ee1</color>
 </resources>

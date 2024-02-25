@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.Fragments.settings_accessibility;
 import com.firstapp.group10app.Fragments.settings_account;
 import com.firstapp.group10app.Fragments.settings_data_control;
@@ -44,6 +46,9 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
         accountButton.setOnClickListener(this);
 
         OnlineChecks.checkNavigationBar(settingNav);
+
+        // Sets nothing as selected
+        settingNav.setSelectedItemId(R.id.invisible);
     }
 
     @Override
@@ -56,8 +61,12 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
             startActivity(new Intent(getApplicationContext(), WorkoutOption.class));
             return true;
         } else if (id == R.id.goToHistory) {
-            startActivity(new Intent(getApplicationContext(), History.class));
-            return true;
+            if (!DBConnection.testConnection()) {
+                Toast.makeText(this, "No connection!", Toast.LENGTH_SHORT).show();
+            } else {
+                startActivity(new Intent(getApplicationContext(), History.class));
+                return true;
+            }
         }
         return true;
     }

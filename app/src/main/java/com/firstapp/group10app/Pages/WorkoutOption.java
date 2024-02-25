@@ -4,15 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 
-import com.firstapp.group10app.Other.Session;
+import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.Other.OnlineChecks;
+import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -44,6 +48,8 @@ public class WorkoutOption extends AppCompatActivity implements CompoundButton.O
         // Set OnCheckedChangeListener
         AISelect.setOnCheckedChangeListener(this);
         manualSelect.setOnCheckedChangeListener(this);
+        AISelect.setBackground(getDrawable(R.drawable.rounded_button));
+        manualSelect.setBackground(getDrawable(R.drawable.rounded_button_selected));
 
         // Set Views
         aiView = findViewById(R.id.aiView);
@@ -66,11 +72,30 @@ public class WorkoutOption extends AppCompatActivity implements CompoundButton.O
         // If ensure only one is selected at once
         if (isChecked) {
             if (buttonView.getId() == R.id.toggleAI) {
-                manualView.setVisibility(View.GONE);
-                aiView.setVisibility(View.VISIBLE);
+                if ((!Session.signedIn) || (!DBConnection.testConnection())) {
+                    Toast.makeText(this, "No connection!", Toast.LENGTH_SHORT).show();
+                    // Need to add capability to enable somehow.
+                    // AISelect.setEnabled(false);
+                } else {
+                    manualView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_left_out));
+                    manualView.setVisibility(View.GONE);
+
+                    aiView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_right_in));
+                    aiView.setVisibility(View.VISIBLE);
+
+                    AISelect.setBackground(AppCompatResources.getDrawable(this, R.drawable.rounded_button_selected));
+                    manualSelect.setBackground(AppCompatResources.getDrawable(this, R.drawable.rounded_button));
+                }
+
             } else if (buttonView.getId() == R.id.toggleManual) {
+                aiView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_right_out));
                 aiView.setVisibility(View.GONE);
+
+                manualView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_left_in));
                 manualView.setVisibility(View.VISIBLE);
+
+                AISelect.setBackground(AppCompatResources.getDrawable(this, R.drawable.rounded_button));
+                manualSelect.setBackground(AppCompatResources.getDrawable(this, R.drawable.rounded_button_selected));
             }
         }
     }
@@ -81,12 +106,13 @@ public class WorkoutOption extends AppCompatActivity implements CompoundButton.O
         if (id == R.id.goToSearch) {
             startActivity(new Intent(WorkoutOption.this, SearchWorkout.class));
         } else if (id == R.id.goToCreate) {
-            // Update with correct file when created!
-            // Using for test purposes
-
             startActivity(new Intent(WorkoutOption.this, CreateWorkout.class));
         } else if (id == R.id.goToAI) {
-            startActivity(new Intent(getApplicationContext(), WorkoutAi.class));
+            if ((!Session.signedIn) || (!DBConnection.testConnection())) {
+                Toast.makeText(this, "No connection!", Toast.LENGTH_SHORT).show();
+            } else {
+                startActivity(new Intent(getApplicationContext(), WorkoutAi.class));
+            }
         }
     }
 

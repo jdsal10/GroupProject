@@ -29,6 +29,7 @@ import javax.mail.internet.MimeMessage;
 
 public class ForgotPassword extends AppCompatActivity implements View.OnClickListener {
     private EditText emailToSend;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
