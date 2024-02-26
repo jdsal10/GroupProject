@@ -84,7 +84,7 @@ public class workout_option extends AppCompatActivity implements CompoundButton.
             // Update with correct file when created!
             // Using for test purposes
 
-            startActivity(new Intent(workout_option.this, create_workout.class));
+            startActivity(new Intent(workout_option.this, workout_ai.class));
         } else if (id == R.id.goToAI) {
             startActivity(new Intent(getApplicationContext(), workout_ai.class));
         }
