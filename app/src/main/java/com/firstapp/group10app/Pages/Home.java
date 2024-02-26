@@ -5,40 +5,28 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DBConnection;
-import com.firstapp.group10app.DB.DBHelper;
-import com.firstapp.group10app.Other.JSONToDB;
+import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.Other.Session;
-import com.firstapp.group10app.Other.onlineChecks;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.sql.ResultSet;
-import java.util.Arrays;
 
 public class Home extends AppCompatActivity implements View.OnClickListener, NavigationBarView.OnItemSelectedListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // For now, a check should run at the start of each file for DB connection.
         Session.dbStatus = DBConnection.testConnection();
-        System.out.println("STATUS: " + Session.dbStatus);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Button b = findViewById(R.id.TEMPWORK);
-        b.setOnClickListener(this);
-
-        Button settingsbtn = findViewById(R.id.goToSettings);
-        settingsbtn.setOnClickListener(this);
+        Button goSettings = findViewById(R.id.goToSettings);
+        goSettings.setOnClickListener(this);
 
         // Declare bottom taskbar
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
@@ -46,7 +34,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Nav
         bottomNavigationView.setOnItemSelectedListener(this);
 
         // Checks if the view should be disabled.
-        onlineChecks.checkNavigationBar(bottomNavigationView);
+        OnlineChecks.checkNavigationBar(bottomNavigationView);
     }
 
     @Override
@@ -56,19 +44,21 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Nav
             startActivity(new Intent(getApplicationContext(), Home.class));
             return true;
         } else if (id == R.id.goToWorkouts) {
-            startActivity(new Intent(getApplicationContext(), workout_option.class));
+            startActivity(new Intent(getApplicationContext(), WorkoutOption.class));
             return true;
         } else if (id == R.id.goToHistory) {
-            startActivity(new Intent(getApplicationContext(), History.class));
-            return true;
+            // Checks if theres a connection to db. If not, ignores request.
+            if (!DBConnection.testConnection()) {
+                Toast.makeText(this, "No connection!", Toast.LENGTH_SHORT).show();
+            } else {
+                startActivity(new Intent(getApplicationContext(), History.class));
+                return true;
+            }
         }
         return true;
     }
 
-
-
-
-        @Override
+    @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.goToSettings) {

@@ -2,8 +2,6 @@ package com.firstapp.group10app.Pages;
 
 import static android.text.InputType.TYPE_CLASS_NUMBER;
 
-import com.firstapp.group10app.Fragments.settings_data_control;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -22,16 +20,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.firstapp.group10app.DB.DBHelper;
+import com.firstapp.group10app.Fragments.settings_data_control;
 import com.firstapp.group10app.Other.Validator;
 import com.firstapp.group10app.R;
 
-public class modify_data extends Dialog implements View.OnClickListener {
+public class ModifyData extends Dialog implements View.OnClickListener {
     String thingToUpdate, updateValue;
     EditText edit;
     Spinner dropdown;
     TextView description;
 
-    public modify_data(Context context, String[] data) {
+    public ModifyData(Context context, String[] data) {
         super(context);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_modify_data);

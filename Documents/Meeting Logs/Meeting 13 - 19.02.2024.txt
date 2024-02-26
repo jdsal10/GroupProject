@@ -1,0 +1,44 @@
+What we did this week:
+Manu:
+- was ill / sleeping
+
+Misha:
+- finalized the workouts_ai page
+- uploaded the new openAI secret key
+- adjusted the prompt generation
+
+Ethan:
+- remodeled the search workout page with filter
+- finalized the create workout page
+	- functionally
+	- graphically - still room for improvement
+
+Nikola:
+- worked on the poster and the abstracted
+- connected workouts_ai page with the actuall chatGPT functionallity
+
+Juan:
+- worked on the poster
+
+
+What to do this week:
+Nikola:
+- fix the chatGPT API Key issue
+- fix localDB error
+- something else as well
+
+Ethan:
+- finish the create workout page
+- add dynamic transitions between the current pages
+
+Misha:
+- a page activeWorkout that contains a checklist with the current exercise being highlighted
+
+Manu:
+- Finalize the history page (his section)
+- Create a few user stories/scenarios that we are going to showcase/demo at the poster fair
+	- make sure that they work
+
+Juan:
+- Finilaze the History page (formatting and stuff)
+- find a lot of symbols for different exercises/target muscle groups and upload at the appropriate location in the app

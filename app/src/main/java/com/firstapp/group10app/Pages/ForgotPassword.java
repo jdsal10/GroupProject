@@ -29,6 +29,7 @@ import javax.mail.internet.MimeMessage;
 
 public class ForgotPassword extends AppCompatActivity implements View.OnClickListener {
     private EditText emailToSend;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +63,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                                 "SET VerifyCode = '" + validate + "' " +
                                 "WHERE Email = '" + emailText + "';");
 
-                        Intent in = new Intent(ForgotPassword.this, forgotpasswordcheck.class);
+                        Intent in = new Intent(ForgotPassword.this, ForgotPasswordCheck.class);
                         in.putExtra("email", emailText);
                         startActivity(in);
 

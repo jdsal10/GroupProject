@@ -1,5 +1,7 @@
 package com.firstapp.group10app.Pages;
 
+import static com.firstapp.group10app.ChatGPT.ChatGPT_Client.chatGPT;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,12 +14,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.Other.ItemVisualiser;
+import com.firstapp.group10app.Other.JSONToDB;
 import com.firstapp.group10app.R;
-import static com.firstapp.group10app.ChatGPT.ChatGPT_Client.chatGPT;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class workout_ai extends AppCompatActivity implements View.OnClickListener {
+public class WorkoutAi extends AppCompatActivity implements View.OnClickListener {
     LinearLayout page1, page2;
     Spinner muscleGroupSpinner, durationSpinner, difficultySpinner;
     TextView mainGoalEdit;
@@ -89,6 +95,27 @@ public class workout_ai extends AppCompatActivity implements View.OnClickListene
         }
     }
 
+    // Adds a workout to the database once the user confirms.
+    public void addWorkout(String data) throws JSONException {
+        JSONObject converted = new JSONObject(data);
+        JSONToDB.insertWorkoutAI(converted);
+
+        // Add code to take user to currentWorkout when complete
+    }
+
+    // Shows the workout to the user once generated.
+    public void showWorkout(String data) throws JSONException {
+        LinearLayout workoutLayout = new LinearLayout(this);
+
+        // Unsure if this is correct - confirm with Misha
+        page2.addView(workoutLayout);
+
+        // Note the code below has buttons in the popup active. Decide if the buttons will be on popup or default page.
+        ItemVisualiser.startWorkoutGeneration(data, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
+
+
+    }
+
     public void populateSpinners() {
         // POPULATE DURATION SPINNER
         ArrayList<String> muscleGroupList = new ArrayList<>();
@@ -104,7 +131,7 @@ public class workout_ai extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String item = adapterView.getItemAtPosition(position).toString();
-                Toast.makeText(workout_ai.this, "Selected:" + item, Toast.LENGTH_SHORT).show();
+                Toast.makeText(WorkoutAi.this, "Selected:" + item, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -116,7 +143,7 @@ public class workout_ai extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String item = adapterView.getItemAtPosition(position).toString();
-                Toast.makeText(workout_ai.this, "Selected:" + item, Toast.LENGTH_SHORT).show();
+                Toast.makeText(WorkoutAi.this, "Selected:" + item, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -128,7 +155,7 @@ public class workout_ai extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String item = adapterView.getItemAtPosition(position).toString();
-                Toast.makeText(workout_ai.this, "Selected:" + item, Toast.LENGTH_SHORT).show();
+                Toast.makeText(WorkoutAi.this, "Selected:" + item, Toast.LENGTH_SHORT).show();
             }
 
             @Override
