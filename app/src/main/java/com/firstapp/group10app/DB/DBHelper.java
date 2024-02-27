@@ -202,7 +202,10 @@ public class DBHelper {
                 "            'Illustration', e.Illustration,\n" +
                 "            'TargetMuscleGroup', e.TargetMuscleGroup,\n" +
                 "            'Equipment', e.Equipment,\n" +
-                "            'Difficulty', e.Difficulty\n" +
+                "            'Difficulty', e.Difficulty,\n" +
+                "            'Sets', e.Sets,\n" +
+                "            'Reps', e.Reps,\n" +
+                "            'Time', e.Time\n" +
                 "          )\n" +
                 "        )\n" +
                 "        FROM HealthData.ExerciseWorkoutPairs ewp\n" +
@@ -243,7 +246,10 @@ public class DBHelper {
                 "            'Illustration', e.Illustration,\n" +
                 "            'TargetMuscleGroup', e.TargetMuscleGroup,\n" +
                 "            'Equipment', e.Equipment,\n" +
-                "            'Difficulty', e.Difficulty\n" +
+                "            'Difficulty', e.Difficulty,\n" +
+                "            'Sets', e.Sets,\n" +
+                "            'Reps', e.Reps,\n" +
+                "            'Time', e.Time\n" +
                 "          )\n" +
                 "        ) AS Result\n" +
                 "FROM HealthData.Exercises e";
@@ -283,7 +289,10 @@ public class DBHelper {
                 "            'Illustration', e.Illustration,\n" +
                 "            'TargetMuscleGroup', e.TargetMuscleGroup,\n" +
                 "            'Equipment', e.Equipment,\n" +
-                "            'Difficulty', e.Difficulty\n" +
+                "            'Difficulty', e.Difficulty,\n" +
+                "            'Sets', e.Sets,\n" +
+                "            'Reps', e.Reps,\n" +
+                "            'Time', e.Time\n" +
                 "          )\n" +
                 "        )\n" +
                 "        FROM HealthData.ExerciseWorkoutPairs ewp\n" +

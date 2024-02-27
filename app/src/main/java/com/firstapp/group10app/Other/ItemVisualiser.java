@@ -124,6 +124,10 @@ public class ItemVisualiser {
                 TextView exerciseDescriptionView = exerciseBox.findViewById(R.id.exerciseDescriptionView);
                 TextView exerciseTargetMuscleGroupView = exerciseBox.findViewById(R.id.exerciseTargetMuscleGroupView);
                 TextView exerciseEquipmentView = exerciseBox.findViewById(R.id.exerciseEquipmentView);
+                TextView exerciseSetsView = exerciseBox.findViewById(R.id.exerciseSetsView);
+                TextView exerciseRepsView = exerciseBox.findViewById(R.id.exerciseRepsView);
+                TextView exerciseTimeView = exerciseBox.findViewById(R.id.exerciseTimeView);
+
 
                 ImageView exerciseImage = exerciseBox.findViewById(R.id.exerciseImage);
                 View difficultyScale = exerciseBox.findViewById(R.id.difficulty);
@@ -132,6 +136,10 @@ public class ItemVisualiser {
                 exerciseDescriptionView.setText(workoutObject.optString("Description", ""));
                 exerciseTargetMuscleGroupView.setText(String.format("Exercise Target Group: %s", workoutObject.optString("TargetMuscleGroup", "")));
                 exerciseEquipmentView.setText(String.format("Exercise Equipment: %s", workoutObject.optString("Equipment", "")));
+                exerciseSetsView.setText(String.format("Sets: %s", workoutObject.optString("Sets", "")));
+                exerciseRepsView.setText(String.format("Reps: %s", workoutObject.optString("Reps", "")));
+                exerciseTimeView.setText(String.format("Time: %s", workoutObject.optString("Time", "")));
+
 
                 exerciseImage.setImageResource(R.drawable.icon_workout);
                 String difficultyValue = workoutObject.optString("Difficulty", "");
@@ -164,7 +172,7 @@ public class ItemVisualiser {
         popID = popupID;
 
         if (data == null) {
-            showEmpty();
+            showEmpty(layout);
         } else {
             JSONArray jsonArray = new JSONArray(data);
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -175,8 +183,8 @@ public class ItemVisualiser {
         }
     }
 
-    public static void showEmpty() {
-        TextView empty = new TextView(workoutLayout.getContext());
+    public static void showEmpty(LinearLayout layout) {
+        TextView empty = new TextView(layout.getContext());
         empty.setGravity(1);
 
         empty.setText("No workouts were found");
@@ -184,8 +192,8 @@ public class ItemVisualiser {
 //        Resource linking not working:
 //        empty.setText("@strings/noWorkouts");
 
-        workoutLayout.removeAllViews();
-        workoutLayout.addView(empty);
+        layout.removeAllViews();
+        layout.addView(empty);
     }
 
 

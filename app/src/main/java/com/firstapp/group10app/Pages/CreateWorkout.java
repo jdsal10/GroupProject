@@ -230,11 +230,19 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
             TextView exerciseDescriptionView = exerciseBox.findViewById(R.id.exerciseDescriptionView);
             TextView exerciseTargetMuscleGroupView = exerciseBox.findViewById(R.id.exerciseTargetMuscleGroupView);
             TextView exerciseEquipmentView = exerciseBox.findViewById(R.id.exerciseEquipmentView);
+            TextView exerciseSetsView = exerciseBox.findViewById(R.id.exerciseSetsView);
+            TextView exerciseRepsView = exerciseBox.findViewById(R.id.exerciseRepsView);
+            TextView exerciseTimeView = exerciseBox.findViewById(R.id.exerciseTimeView);
+
 
             exerciseNameView.setText(String.format(workoutObject.optString("ExerciseName", "")));
             exerciseDescriptionView.setText(workoutObject.optString("Description", ""));
             exerciseTargetMuscleGroupView.setText(String.format("Exercise Target Group: %s", workoutObject.optString("TargetMuscleGroup", "")));
             exerciseEquipmentView.setText(String.format("Exercise Equipment: %s", workoutObject.optString("Equipment", "")));
+            exerciseSetsView.setText(String.format("Exercise Sets: %s", workoutObject.optString("Sets", "")));
+            exerciseRepsView.setText(String.format("Exercise Reps: %s", workoutObject.optString("Reps", "")));
+            exerciseTimeView.setText(String.format("Exercise Time: %s", workoutObject.optString("Time", "")));
+
 
             exerciseImage.setImageResource(R.drawable.icon_workout);
 

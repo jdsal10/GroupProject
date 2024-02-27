@@ -78,18 +78,28 @@ public class itemVisualiserText {
             TextView exerciseTargetMuscleGroupText = new TextView(context);
             TextView exerciseEquipmentText = new TextView(context);
             TextView exerciseDifficultyText = new TextView(context);
+            TextView exerciseSetsText = new TextView(context);
+            TextView exerciseRepsText = new TextView(context);
+            TextView exerciseTimeText = new TextView(context);
+
 
             exerciseNameText.setText(String.format(String.format("Exercise Name: %s", workoutObject.optString("ExerciseName", ""))));
             exerciseDescriptionText.setText(String.format("Exercise Description: %s", workoutObject.optString("Description", "")));
             exerciseTargetMuscleGroupText.setText(String.format("Exercise Target Group: %s", workoutObject.optString("TargetMuscleGroup", "")));
             exerciseEquipmentText.setText(String.format("Exercise Equipment: %s", workoutObject.optString("Equipment", "")));
-            exerciseDifficultyText.setText(String.format("Exercise Difficulty: %s", workoutObject.optString("Difficulty")));
+            exerciseSetsText.setText(String.format("Exercise Sets: %s", workoutObject.optString("Sets", "")));
+            exerciseRepsText.setText(String.format("Exercise Reps: %s", workoutObject.optString("Reps", "")));
+            exerciseTimeText.setText(String.format("Exercise Time: %s", workoutObject.optString("Time", "")));
+
 
             textHolder.addView(exerciseNameText);
             textHolder.addView(exerciseDescriptionText);
             textHolder.addView(exerciseTargetMuscleGroupText);
             textHolder.addView(exerciseEquipmentText);
             textHolder.addView(exerciseDifficultyText);
+            textHolder.addView(exerciseSetsText);
+            textHolder.addView(exerciseRepsText);
+            textHolder.addView(exerciseTimeText);
 
             dataHolder.addView(textHolder);
 
