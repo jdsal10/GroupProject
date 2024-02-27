@@ -1,6 +1,9 @@
 package com.firstapp.group10app.Other;
 
 import android.content.Context;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -83,13 +86,40 @@ public class itemVisualiserText {
             TextView exerciseTimeText = new TextView(context);
 
 
-            exerciseNameText.setText(String.format(String.format("Exercise Name: %s", workoutObject.optString("ExerciseName", ""))));
-            exerciseDescriptionText.setText(String.format("Exercise Description: %s", workoutObject.optString("Description", "")));
-            exerciseTargetMuscleGroupText.setText(String.format("Exercise Target Group: %s", workoutObject.optString("TargetMuscleGroup", "")));
-            exerciseEquipmentText.setText(String.format("Exercise Equipment: %s", workoutObject.optString("Equipment", "")));
-            exerciseSetsText.setText(String.format("Exercise Sets: %s", workoutObject.optString("Sets", "")));
-            exerciseRepsText.setText(String.format("Exercise Reps: %s", workoutObject.optString("Reps", "")));
-            exerciseTimeText.setText(String.format("Exercise Time: %s", workoutObject.optString("Time", "")));
+
+            StyleSpan bss = new StyleSpan(android.graphics.Typeface.BOLD);
+
+            SpannableStringBuilder sbName = new SpannableStringBuilder("Exercise Name: " + workoutObject.optString("ExerciseName"));
+            sbName.setSpan(bss, 0, 14, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            exerciseNameText.setText(sbName);
+
+            SpannableStringBuilder sbDescription = new SpannableStringBuilder("Exercise Description: " + workoutObject.optString("Description"));
+            sbDescription.setSpan(bss, 0, 21, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            exerciseDescriptionText.setText(sbDescription);
+
+            SpannableStringBuilder sbTarget = new SpannableStringBuilder("Exercise Target Group: " + workoutObject.optString("TargetMuscleGroup"));
+            sbTarget.setSpan(bss, 0, 22, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            exerciseTargetMuscleGroupText.setText(sbTarget);
+
+            SpannableStringBuilder sbEquipment = new SpannableStringBuilder("Exercise Equipment: " + workoutObject.optString("ExerciseEquipment"));
+            sbEquipment.setSpan(bss, 0, 18, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            exerciseEquipmentText.setText(sbEquipment);
+
+            SpannableStringBuilder sbDifficulty = new SpannableStringBuilder("Exercise Difficulty: " + workoutObject.optString("ExerciseDifficulty"));
+            sbDifficulty.setSpan(bss, 0, 20, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            exerciseDifficultyText.setText(sbDifficulty);
+
+            SpannableStringBuilder sbSets = new SpannableStringBuilder("Exercise Sets: " + workoutObject.optString("Sets"));
+            sbSets.setSpan(bss, 0, 14, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            exerciseSetsText.setText(sbSets);
+
+            SpannableStringBuilder sbReps = new SpannableStringBuilder("Exercise Reps: " + workoutObject.optString("Reps"));
+            sbReps.setSpan(bss, 0, 14, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            exerciseRepsText.setText(sbReps);
+
+            SpannableStringBuilder sbTime = new SpannableStringBuilder("Exercise Time: " + workoutObject.optString("Time"));
+            sbTime.setSpan(bss, 0, 14, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            exerciseTimeText.setText(sbTime);
 
 
             textHolder.addView(exerciseNameText);

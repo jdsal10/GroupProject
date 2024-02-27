@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Pages.MainActivity;
+import com.firstapp.group10app.Pages.workoutHub;
 import com.firstapp.group10app.R;
 
 import org.json.JSONArray;
@@ -217,7 +218,7 @@ public class ItemVisualiser {
 
             Session.selectedWorkout = workoutObject;
             System.out.println("Current workout: " + Session.selectedWorkout.toString());
-            cThis.startActivity(new Intent(cThis, MainActivity.class));
+            cThis.startActivity(new Intent(cThis, workoutHub.class));
         });
 
         Button closeWorkout = v.findViewById(R.id.closeExercise);
