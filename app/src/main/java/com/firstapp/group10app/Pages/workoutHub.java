@@ -2,23 +2,28 @@ package com.firstapp.group10app.Pages;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
+import com.google.android.material.navigation.NavigationBarView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class workoutHub extends AppCompatActivity {
+public class workoutHub extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
     Button enhance, begin, calendar;
     LinearLayout workoutHubLinear;
 
@@ -27,19 +32,24 @@ public class workoutHub extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_hub);
 
+        // Button declaration.
         enhance = findViewById(R.id.enhance);
         begin = findViewById(R.id.beginWorkout);
         calendar = findViewById(R.id.addToCalendar);
 
+        // Gets the current workout.
         JSONObject currentWorkout = Session.selectedWorkout;
         workoutHubLinear = findViewById(R.id.hubWorkoutHolder);
+
         try {
+            // Sets the view.
             showWorkout(currentWorkout);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
 
     }
+
     public void showWorkout(JSONObject data) throws JSONException {
         LinearLayout workoutHolder = new LinearLayout(this);
         workoutHolder.setOrientation(LinearLayout.VERTICAL);
@@ -49,11 +59,27 @@ public class workoutHub extends AppCompatActivity {
         TextView workoutEquipment = new TextView(this);
         TextView workoutDifficulty = new TextView(this);
 
-        workoutName.setText(String.format("Workout Name: %s", String.format(data.optString("WorkoutName", ""))));
-        workoutDuration.setText(String.format("Workout Duration: %s", String.format(data.optString("WorkoutDuration", ""))));
-        workoutTarget.setText(String.format("Workout Target: %s", String.format(data.optString("TargetMuscleGroup", ""))));
-        workoutEquipment.setText(String.format("Workout Equipment: %s", String.format(data.optString("Equipment", ""))));
-        workoutDifficulty.setText(String.format("Workout Difficulty: %s", String.format(data.optString("Difficulty", ""))));
+        StyleSpan bss = new StyleSpan(android.graphics.Typeface.BOLD);
+
+        SpannableStringBuilder sbWName = new SpannableStringBuilder("Workout Name: " + data.optString("WorkoutName"));
+        sbWName.setSpan(bss, 0, 13, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        workoutName.setText(sbWName);
+
+        SpannableStringBuilder sbWDuration = new SpannableStringBuilder("Workout Duration: " + data.optString("WorkoutDuration"));
+        sbWDuration.setSpan(bss, 0, 17, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        workoutDuration.setText(sbWDuration);
+
+        SpannableStringBuilder sbWTarget = new SpannableStringBuilder("Workout Target: " + data.optString("TargetMuscleGroup"));
+        sbWTarget.setSpan(bss, 0, 15, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        workoutTarget.setText(sbWTarget);
+
+        SpannableStringBuilder sbWEquipment = new SpannableStringBuilder("Workout Equipment: " + data.optString("Equipment"));
+        sbWEquipment.setSpan(bss, 0, 18, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        workoutEquipment.setText(sbWEquipment);
+
+        SpannableStringBuilder sbWDifficulty = new SpannableStringBuilder("Workout Difficulty: " + data.optString("Difficulty"));
+        sbWDifficulty.setSpan(bss, 0, 19, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        workoutDifficulty.setText(sbWDifficulty);
 
         workoutHolder.addView(workoutName);
         workoutHolder.addView(workoutDuration);
@@ -101,8 +127,6 @@ public class workoutHub extends AppCompatActivity {
             TextView exerciseSetsText = new TextView(this);
             TextView exerciseRepsText = new TextView(this);
             TextView exerciseTimeText = new TextView(this);
-
-            StyleSpan bss = new StyleSpan(android.graphics.Typeface.BOLD);
 
             SpannableStringBuilder sbName = new SpannableStringBuilder("Exercise Name: " + workoutObject.optString("ExerciseName"));
             sbName.setSpan(bss, 0, 14, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
@@ -163,5 +187,26 @@ public class workoutHub extends AppCompatActivity {
             workoutHubLinear.addView(view2);
         }
 
+
+
+    }
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.goToHome) {
+            startActivity(new Intent(getApplicationContext(), Home.class));
+            return true;
+        } else if (id == R.id.goToWorkouts) {
+            startActivity(new Intent(getApplicationContext(), WorkoutOption.class));
+            return true;
+        } else if (id == R.id.goToHistory) {
+            if (!DBConnection.testConnection()) {
+                Toast.makeText(this, "No connection!", Toast.LENGTH_SHORT).show();
+            } else {
+                startActivity(new Intent(getApplicationContext(), History.class));
+                return true;
+            }
+        }
+        return true;
     }
 }
