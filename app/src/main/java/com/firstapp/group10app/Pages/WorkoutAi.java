@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.ChatGPT.ChatGPT_Client;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.JSONToDB;
 import com.firstapp.group10app.R;
@@ -22,6 +23,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class WorkoutAi extends AppCompatActivity implements View.OnClickListener {
     LinearLayout page1, page2;
@@ -30,6 +33,8 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     EditText equipmentAnswer, mainGoalAnswer, injuriesAnswer, additionalInfoAnswer;
     String muscleGroupAnswer, durationAnswer, difficultyAnswer;
     TextView generateButton, continueButton;
+    String gptInput, hasAdditionalInfo, hasEquipment;
+    StringBuilder output = new StringBuilder("---");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
+
         if (v.getId() == R.id.continueButton) {
             // To move the variables to the 2nd button
             muscleGroupAnswer = muscleGroupSpinner.getSelectedItem().toString();
@@ -59,7 +65,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             difficultyAnswer = difficultySpinner.getSelectedItem().toString();
             equipmentAnswer = findViewById(R.id.equipmentInputLabel);
 
-            mainGoalEdit.setText(equipmentAnswer.getText().toString());
+
 
             page1.setVisibility(View.GONE);
             page2.setVisibility(View.VISIBLE);
@@ -67,6 +73,8 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             continueButton.setVisibility(View.GONE);
             generateButton.setVisibility(View.VISIBLE);
         } else {   // If button == GenerateButton
+
+            System.out.println(output);
             // Misha's code
             /*
             page2.setVisibility(View.GONE);
@@ -86,12 +94,95 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             mainGoalAnswer = findViewById(R.id.mainGoalEdit);
             injuriesAnswer = findViewById(R.id.injuriesEdit);
             additionalInfoAnswer = findViewById(R.id.additionalInfoEdit);
+            String input = fillGptInput();
+            System.out.println(output);
 
-            try {
-                chatGPT("Hello, chatGPT, how are you?"); // This is a test to see if the chatGPT function works.
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Runnable task = () -> {
+                try {
+                    output.append(ChatGPT_Client.chatGPT(input)) ; // This is a test to see if the chatGPT function works.
+
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+
+            };
+            Thread newThread = new Thread(task);
+            newThread.start();
+
+            String output2 = "{" +
+                    "\"WorkoutName\": \"Cardio Abs Blast\"," +
+                    "\"WorkoutDuration\": 35," +
+                    "\"TargetMuscleGroup\": \"Abs\"," +
+                    "\"Equipment\": \"Mat\"," +
+                    "\"Difficulty\": \"Easy\"," +
+                    "\"exercises\": [" +
+                    "{" +
+                    "\"ExerciseName\": \"Jumping Jacks\"," +
+                    "\"Description\": \"Start with feet together and arms at your sides. Jump while spreading your legs and raising your arms overhead. Jump back to the starting position and repeat.\"," +
+                    "\"TargetMuscleGroup\": \"Full Body\"," +
+                    "\"Equipment\": \"None\"," +
+                    "\"Difficulty\": \"Easy\"," +
+                    "\"Sets\": 3," +
+                    "\"reps\": null," +
+                    "\"Time\": 45" +
+                    "}," +
+                    "{" +
+                    "\"ExerciseName\": \"Mountain Climbers\"," +
+                    "\"Description\": \"Start in a push-up position with hands directly under shoulders. Bring one knee toward your chest, then quickly switch legs, bringing the other knee toward your chest. Continue alternating legs as quickly as possible.\"," +
+                    "\"TargetMuscleGroup\": \"Abs\"," +
+                    "\"Equipment\": \"Mat\"," +
+                    "\"Difficulty\": \"Easy\"," +
+                    "\"Sets\": 3," +
+                    "\"reps\": null," +
+                    "\"Time\": 45" +
+                    "}," +
+                    "{" +
+                    "\"ExerciseName\": \"High Knees\"," +
+                    "\"Description\": \"Stand in place and quickly alternate lifting your knees toward your chest, pumping your arms as if running in place.\"," +
+                    "\"TargetMuscleGroup\": \"Legs, Core\"," +
+                    "\"Equipment\": \"None\"," +
+                    "\"Difficulty\": \"Easy\"," +
+                    "\"Sets\": 3," +
+                    "\"reps\": null," +
+                    "\"Time\": 45" +
+                    "}," +
+                    "{" +
+                    "\"ExerciseName\": \"Plank\"," +
+                    "\"Description\": \"Start in a push-up position, but with your weight on your forearms instead of your hands. Keep your body in a straight line from head to heels, engaging your core muscles. Hold this position for the specified time.\"," +
+                    "\"TargetMuscleGroup\": \"Core\"," +
+                    "\"Equipment\": \"Mat\"," +
+                    "\"Difficulty\": \"Easy\"," +
+                    "\"Sets\": 3," +
+                    "\"reps\": null," +
+                    "\"Time\": 30" +
+                    "}," +
+                    "{" +
+                    "\"ExerciseName\": \"Bicycle Crunches\"," +
+                    "\"Description\": \"Lie on your back with hands behind your head and legs lifted, knees bent. Bring right elbow towards left knee while simultaneously straightening right leg. Switch sides, bringing left elbow towards right knee while straightening left leg. Continue alternating sides in a pedaling motion.\"," +
+                    "\"TargetMuscleGroup\": \"Abs\"," +
+                    "\"Equipment\": \"Mat\"," +
+                    "\"Difficulty\": \"Easy\"," +
+                    "\"Sets\": 3," +
+                    "\"reps\": \"15\"," +
+                    "\"Time\": null" +
+                    "}," +
+                    "{" +
+                    "\"ExerciseName\": \"Russian Twists\"," +
+                    "\"Description\": \"Sit on the floor with knees bent and feet lifted off the ground. Lean back slightly, keeping your back straight. Clasp your hands together and twist your torso to the right, then to the left, while keeping your core engaged.\"," +
+                    "\"TargetMuscleGroup\": \"Obliques\"," +
+                    "\"Equipment\": \"Mat\"," +
+                    "\"Difficulty\": \"Easy\"," +
+                    "\"Sets\": 3," +
+                    "\"reps\": \"12\"," +
+                    "\"Time\": null" +
+                    "}" +
+                    "]" +
+                    "}";
+
+
+
+
         }
     }
 
@@ -196,4 +287,42 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         difficultyList.add("Medium");
         difficultyList.add("Hard");
     }
+
+    public String fillGptInput(){
+        String additionalInfo = additionalInfoAnswer.getText().toString().trim();
+        String injuriesInfo = injuriesAnswer.getText().toString().trim();
+        String equipmentInfo = equipmentAnswer.getText().toString().trim();
+        String mainGoalInfo = mainGoalAnswer.getText().toString().trim();
+        if(!additionalInfo.isEmpty()){
+            additionalInfo = "Additional Info: " + additionalInfo;
+        }
+        if(!equipmentInfo.isEmpty()){
+            equipmentInfo = "User has the following equipment: " + equipmentInfo;
+        }
+        if(!injuriesInfo.isEmpty()){
+            injuriesInfo = "User suffers from the following injuries: " + injuriesInfo;
+        }
+        String input = "Key: " +
+                "[] = optional data" +
+                ". " +
+                "Some info about a user: [37 years old] [67 kg] [M] ["+injuriesInfo+"] ["+mainGoalInfo+"]." +
+                " " +
+                equipmentInfo + ". "+
+
+
+                "Generate a workout in exact same JSON format of (WorkoutName, WorkoutDuration (in minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), " +
+                "exercises (ExerciseName, Description, TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps, Time (if exercise isn't rep based, otherwise leave null))). output only the JSON" +
+                ". " +
+                "Some info about the required workout: ["+durationAnswer+"] ["+muscleGroupAnswer+"] ["+difficultyAnswer+"]. " +
+                ". " +
+                additionalInfo + ". " +
+
+                ". " +
+                "If you cannot generate a workout or there is not enough info, return (unsure)";
+
+
+        return input;
+
+    }
+
 }
