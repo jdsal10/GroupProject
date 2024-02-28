@@ -62,10 +62,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 throw new RuntimeException(e);
             }
 
-            System.out.println("TESTING TEXT : " + emailText + "TESTING PASSWORD: " + Arrays.toString(new String[]{result}));
+            System.out.println("TESTING TEXT : " + emailText + "TESTING PASSWORD: " + result.replace("[","").replace("]",""));
             try {
                 DBHelper db = new DBHelper();
-                if (db.checkUser(emailText, Arrays.toString(new String[]{result}))) {
+                if (db.checkUser(emailText,result.replace("[","").replace("]",""))) {
                     Toast.makeText(Login.this, "Welcome \n" + emailText + " ! ", Toast.LENGTH_SHORT).show();
                     Session.userEmail = emailText;
                     Session.signedIn = true;

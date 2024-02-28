@@ -244,8 +244,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             } catch (NoSuchAlgorithmException e) {
                 throw new RuntimeException(e);
             }
-        }
-        else if (id == R.id.buttonBack) backPressed();
+        } else if (id == R.id.buttonBack) backPressed();
         overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
     }
 
@@ -267,6 +266,15 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         } else if (activePage == 3) {
             saveUserDetails();
             System.out.println(Arrays.toString(details));
+
+            String result;
+            try {
+                result = toHexString(getSHA(passwordText()));
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+
+            details[Index.PASSWORD] = result;
             DBHelper.insertUser(details);
 
             goToLogin();
@@ -346,19 +354,11 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     }
 
     // Save the user details to the details array
-    private void saveUserDetails() throws NoSuchAlgorithmException {
+    private void saveUserDetails() {
         details[Index.EMAIL] = emailText();
         details[Index.NAME] = name.getText().toString();
 
-
-        String result = null;
-        try {
-            result = toHexString(getSHA(passwordText()));
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-
-        details[Index.PASSWORD] = Arrays.toString(new String[]{result});
+        details[Index.PASSWORD] = passwordText();
         details[Index.DOB] = dobText();
 
         if (weightText().isEmpty()) {
