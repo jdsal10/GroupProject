@@ -320,6 +320,26 @@ public class DBHelper {
 
         return "";
     }
+
+    public String encrypt(String password, int dif) {
+        StringBuilder result = new StringBuilder();
+        for (char character : password.toCharArray()) {
+            if (character != ' ') {
+                int originalAlphabetPosition = character - 'a';
+                int newAlphabetPosition = (originalAlphabetPosition + dif) % 26;
+                char newCharacter = (char) ('a' + newAlphabetPosition);
+                result.append(newCharacter);
+            } else {
+                result.append(character);
+            }
+        }
+        return String.valueOf(result);
+    }
+
+    public String decrypt(String password, int dif) {
+        return encrypt(password, 26 - (dif % 26));
+    }
 }
+
 
 
