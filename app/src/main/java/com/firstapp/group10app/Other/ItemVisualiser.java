@@ -72,7 +72,7 @@ public class ItemVisualiser {
 
         // For now, clicking on a workout shows the exercises - may make easier later.
         box.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(cThis);
+            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
             View popupView = inflate.inflate(popID, null);
             builder.setView(popupView);
