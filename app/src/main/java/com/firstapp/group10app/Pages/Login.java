@@ -1,6 +1,9 @@
 
 package com.firstapp.group10app.Pages;
 
+import static com.firstapp.group10app.Other.Encryption.getSHA;
+import static com.firstapp.group10app.Other.Encryption.toHexString;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +19,12 @@ import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
     private EditText Email, Password;
@@ -46,10 +54,18 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         if (id == R.id.loginButton) {
             String emailText = Email.getText().toString();
             String passwordText = Password.getText().toString();
-            System.out.println("TESTING TEXT : " + emailText + "TESTING PASSWORD: " + passwordText);
+
+            String result = null;
+            try {
+                result = toHexString(getSHA(passwordText));
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+
+            System.out.println("TESTING TEXT : " + emailText + "TESTING PASSWORD: " + Arrays.toString(new String[]{result}));
             try {
                 DBHelper db = new DBHelper();
-                if (db.checkUser(emailText, passwordText)) {
+                if (db.checkUser(emailText, Arrays.toString(new String[]{result}))) {
                     Toast.makeText(Login.this, "Welcome \n" + emailText + " ! ", Toast.LENGTH_SHORT).show();
                     Session.userEmail = emailText;
                     Session.signedIn = true;
