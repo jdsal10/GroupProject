@@ -18,9 +18,9 @@ public class DBHelper {
             System.out.println(Arrays.toString(userDetails));
 
             // Check that the user details are valid
-            if (!DataChecker.checkUserDetails(userDetails)) {
-                throw new IllegalArgumentException("Invalid user details");
-            }
+//            if (!DataChecker.checkUserDetails(userDetails)) {
+//                throw new IllegalArgumentException("Invalid user details");
+//            }
 
             // Format the user details (post-check)
             userDetails = DataFormatter.formatUserDetails(userDetails);
@@ -47,7 +47,8 @@ public class DBHelper {
 
             // Execute the SQL query
             System.out.println(sql);
-            DBConnection.executeStatement(sql.toString());
+            DBConnection d = new DBConnection();
+            d.executeStatement(sql.toString());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
