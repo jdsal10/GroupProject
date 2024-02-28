@@ -337,8 +337,7 @@ public class DBHelper {
         return String.valueOf(result);
     }
 
-    public String decrypt(String password, int dif) {
-        return encrypt(password, 26 - (dif % 26));
+
 
     public static String getUserWorkoutsLimited(String filter) {
         DBConnection d = new DBConnection();

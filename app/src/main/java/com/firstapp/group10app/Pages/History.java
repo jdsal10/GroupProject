@@ -33,7 +33,7 @@ public class History extends AppCompatActivity implements NavigationBarView.OnIt
         historyScrollView.addView(historyLayout);
 
         try {
-            String HistoryJSON = DBHelper.getUserWorkouts(Session.userEmail);
+            String HistoryJSON = DBHelper.getUserWorkoutsLimited(Session.userEmail);
             if (HistoryJSON == null) {
                 ItemVisualiser.showEmpty(historyLayout);
             } else {
