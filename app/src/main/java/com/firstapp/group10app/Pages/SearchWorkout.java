@@ -46,7 +46,6 @@ public class SearchWorkout extends AppCompatActivity implements NavigationBarVie
             initializeLayout();
             try {
                 String data = DBHelper.getAllWorkouts(null);
-                System.out.println(data);
                 ItemVisualiser.startWorkoutGeneration(data, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
             } catch (JSONException e) {
                 throw new RuntimeException(e);

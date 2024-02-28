@@ -23,13 +23,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ItemVisualiser {
-    static LinearLayout box, workoutLayout;
+    static LinearLayout workoutLayout;
     static Context cThis;
     static int exerciseID, popID;
 
     public static void addDetails(JSONObject details, String buttonType) {
         LayoutInflater inflate = (LayoutInflater) cThis.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        box = (LinearLayout) inflate.inflate(R.layout.activity_workout_view, null);
+        LinearLayout box = (LinearLayout) inflate.inflate(R.layout.activity_workout_view, null);
 
         TextView nameView = box.findViewById(R.id.workoutNameView);
         TextView durationView = box.findViewById(R.id.workoutDurationView);
@@ -84,7 +84,7 @@ public class ItemVisualiser {
             exerciseMainView.removeAllViews();
 
             if (buttonType.equals("search")) {
-                addSearchButtons(popupView, alertDialog);
+                addSearchButtons(popupView, alertDialog, box.getId());
             }
 
             LinearLayout exerciseLayout = new LinearLayout(cThis);
@@ -202,11 +202,11 @@ public class ItemVisualiser {
     // DIALOG GENERATED
 
 
-    public static void addSearchButtons(View v, AlertDialog popup) {
+    public static void addSearchButtons(View v, AlertDialog popup, int id) {
         Button selectWorkout = v.findViewById(R.id.selectWorkout);
         selectWorkout.setOnClickListener(v1 -> {
             JSONObject workoutObject;
-            String out = DBHelper.getAllWorkouts("WHERE w.WorkoutID = '" + box.getId() + "'");
+            String out = DBHelper.getAllWorkouts("WHERE w.WorkoutID = '" + id + "'");
             JSONArray jsonArray;
 
             try {
@@ -217,7 +217,6 @@ public class ItemVisualiser {
             }
 
             Session.selectedWorkout = workoutObject;
-            System.out.println("Current workout: " + Session.selectedWorkout.toString());
             cThis.startActivity(new Intent(cThis, workoutHub.class));
         });
 

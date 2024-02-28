@@ -58,8 +58,7 @@ public class itemVisualiserText {
         // Creates a layout containing the exercise boxes.
         JSONArray jsonArray;
         jsonArray = new JSONArray();
-        for (
-                JSONObject exercise : addedExercises) {
+        for (JSONObject exercise : addedExercises) {
             jsonArray.put(exercise);
         }
 
@@ -101,11 +100,11 @@ public class itemVisualiserText {
             sbTarget.setSpan(bss, 0, 22, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             exerciseTargetMuscleGroupText.setText(sbTarget);
 
-            SpannableStringBuilder sbEquipment = new SpannableStringBuilder("Exercise Equipment: " + workoutObject.optString("ExerciseEquipment"));
+            SpannableStringBuilder sbEquipment = new SpannableStringBuilder("Exercise Equipment: " + workoutObject.optString("Equipment"));
             sbEquipment.setSpan(bss, 0, 18, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             exerciseEquipmentText.setText(sbEquipment);
 
-            SpannableStringBuilder sbDifficulty = new SpannableStringBuilder("Exercise Difficulty: " + workoutObject.optString("ExerciseDifficulty"));
+            SpannableStringBuilder sbDifficulty = new SpannableStringBuilder("Exercise Difficulty: " + workoutObject.optString("Difficulty"));
             sbDifficulty.setSpan(bss, 0, 20, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             exerciseDifficultyText.setText(sbDifficulty);
 

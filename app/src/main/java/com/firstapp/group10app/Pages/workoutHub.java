@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import org.json.JSONArray;
@@ -40,7 +41,9 @@ public class workoutHub extends AppCompatActivity implements NavigationBarView.O
         // Gets the current workout.
         JSONObject currentWorkout = Session.selectedWorkout;
         workoutHubLinear = findViewById(R.id.hubWorkoutHolder);
-
+        BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
+        bottomNavigationView.setOnItemSelectedListener(this);
+        bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setChecked(true);
         try {
             // Sets the view.
             showWorkout(currentWorkout);
@@ -140,11 +143,11 @@ public class workoutHub extends AppCompatActivity implements NavigationBarView.O
             sbTarget.setSpan(bss, 0, 22, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             exerciseTargetMuscleGroupText.setText(sbTarget);
 
-            SpannableStringBuilder sbEquipment = new SpannableStringBuilder("Exercise Equipment: " + workoutObject.optString("ExerciseEquipment"));
+            SpannableStringBuilder sbEquipment = new SpannableStringBuilder("Exercise Equipment: " + workoutObject.optString("Equipment"));
             sbEquipment.setSpan(bss, 0, 18, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             exerciseEquipmentText.setText(sbEquipment);
 
-            SpannableStringBuilder sbDifficulty = new SpannableStringBuilder("Exercise Difficulty: " + workoutObject.optString("ExerciseDifficulty"));
+            SpannableStringBuilder sbDifficulty = new SpannableStringBuilder("Exercise Difficulty: " + workoutObject.optString("Difficulty"));
             sbDifficulty.setSpan(bss, 0, 20, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             exerciseDifficultyText.setText(sbDifficulty);
 
