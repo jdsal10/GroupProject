@@ -21,7 +21,6 @@ public class DataFormatter {
         formattedDetails.add(userDetails[Index.EMAIL]);
         formattedDetails.add(formatName(userDetails[Index.NAME]));
         formattedDetails.add(userDetails[Index.PASSWORD]);
-//        formattedDetails.add(formatDOB(userDetails[Index.DOB]));
         formattedDetails.add(userDetails[Index.DOB]);
         formattedDetails.add(userDetails[Index.WEIGHT]);
         formattedDetails.add(userDetails[Index.HEIGHT]);
