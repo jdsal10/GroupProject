@@ -27,12 +27,11 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DBHelper;
+import com.firstapp.group10app.DB.DataChecker;
 import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.R;
 
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 /**
  * The Registration class is the activity that allows the user to create an account.
@@ -263,9 +262,12 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             else p2PointErrors();
         } else if (activePage == 3) {
             saveUserDetails();
-            System.out.println(Arrays.toString(details));
 
-            details[Index.PASSWORD] = passwordText();
+            // Check that the user details are valid
+            if (!DataChecker.checkUserDetails(details)) {
+                System.out.println("Invalid user details");
+                throw new IllegalArgumentException("Invalid user details");
+            }
             DBHelper.insertUser(details);
 
             goToLogin();
@@ -348,12 +350,10 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private void saveUserDetails() {
         details[Index.EMAIL] = emailText();
         details[Index.NAME] = name.getText().toString();
-
         details[Index.PASSWORD] = passwordText();
         details[Index.DOB] = dobText();
 
         if (weightText().isEmpty()) {
-            System.out.println("ADDED");
             details[Index.WEIGHT] = "";
         } else {
             details[Index.WEIGHT] = weightText() + " " + weightUnits();

@@ -10,17 +10,21 @@ import com.firstapp.group10app.Other.Validator;
 public class DataChecker {
     public static boolean checkUserDetails(String[] userDetails) {
         // Check that the array is the correct length
-        if (userDetails.length != 9) {
+        if (userDetails.length != Index.USER_DETAILS.length) {
+            System.out.println("User details array is the wrong length");
             return false;
         }
 
         // Check that the required fields pass their tests
         else // return true if all tests pass
             if (!checkEmail(userDetails[Index.EMAIL])) {
+                System.out.println("Email is invalid");
                 return false;
             } else if (!checkPassword(userDetails[Index.PASSWORD])) {
+                System.out.println("Password is invalid");
                 return false;
             } else {
+                System.out.println("DOB is invalid");
                 return checkDOB(userDetails[Index.DOB]);
             }
     }
