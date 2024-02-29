@@ -139,7 +139,7 @@ public class DBHelper {
             rs.close();
 
             DBConnection db = new DBConnection();
-            DBConnection.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUE (" + workoutID + ", " + id + ");");
+            db.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUE (" + workoutID + ", " + id + ");");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -153,7 +153,8 @@ public class DBHelper {
                     "';";
 
             // Execute the SQL query`
-            return DBConnection.executeQuery(sql);
+            DBConnection db = new DBConnection();
+            return db.executeQuery(sql);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -164,12 +165,14 @@ public class DBHelper {
         String st = "SELECT * FROM HealthData.Users WHERE Email = '" +
                 email +
                 "';";
-        return DBConnection.executeQuery(st).next();
+        DBConnection db = new DBConnection();
+        return db.executeQuery(st).next();
     }
 
     // Checks if a user exists
     public boolean checkUser(String email, String password) throws Exception {
-        ResultSet result = DBConnection.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "' AND Password = '" + encryptPassword(password) + "'");
+        DBConnection db = new DBConnection();
+        ResultSet result = db.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "' AND Password = '" + encryptPassword(password) + "'");
         int size = 0;
 
         if (result.last()) {
@@ -180,7 +183,8 @@ public class DBHelper {
     }
 
     public static void clearData(String toDelete) {
-        DBConnection.executeStatement("UPDATE HealthData.Users SET " + toDelete + " = NULL WHERE Email = '" + Session.userEmail + "'");
+        DBConnection db = new DBConnection();
+        db.executeStatement("UPDATE HealthData.Users SET " + toDelete + " = NULL WHERE Email = '" + Session.userEmail + "'");
     }
 
     public static void updateData(String toUpdate, String value) {
@@ -192,15 +196,18 @@ public class DBHelper {
             }
         }
 
-        DBConnection.executeStatement("UPDATE HealthData.Users SET " + toUpdate + " = '" + value + "' WHERE Email = '" + Session.userEmail + "'");
+        DBConnection db = new DBConnection();
+        db.executeStatement("UPDATE HealthData.Users SET " + toUpdate + " = '" + value + "' WHERE Email = '" + Session.userEmail + "'");
     }
 
     public void deleteUser(String email) {
-        DBConnection.executeStatement("DELETE FROM HealthData.Users WHERE Email = '" + email + "'");
+        DBConnection db = new DBConnection();
+        db.executeStatement("DELETE FROM HealthData.Users WHERE Email = '" + email + "'");
     }
 
     public static void linkExercise(int workoutID, int exerciseID) {
-        DBConnection.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUES ('" + workoutID + "','" + exerciseID + "')");
+        DBConnection db = new DBConnection();
+        db.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUES ('" + workoutID + "','" + exerciseID + "')");
     }
 
     public static String getAllWorkouts(String filter) {
@@ -244,7 +251,8 @@ public class DBHelper {
         }
         out += ";";
 
-        ResultSet q = DBConnection.executeQuery(out);
+        DBConnection db = new DBConnection();
+        ResultSet q = db.executeQuery(out);
 
         try {
             if (q.next()) {
@@ -278,7 +286,8 @@ public class DBHelper {
 
         out += ";";
 
-        ResultSet q = DBConnection.executeQuery(out);
+        DBConnection db = new DBConnection();
+        ResultSet q = db.executeQuery(out);
 
         try {
             if (q.next()) {
@@ -331,7 +340,8 @@ public class DBHelper {
                 "  WHERE uwh.Email = '" + filter + "'\n" +
                 ");\n";
 
-        ResultSet out = DBConnection.executeQuery(st);
+        DBConnection db = new DBConnection();
+        ResultSet out = db.executeQuery(st);
         try {
             if (out.next()) {
                 return out.getString("Result");
@@ -413,7 +423,8 @@ public class DBHelper {
                 "  LIMIT 4" +
                 ");\n";
 
-        ResultSet out = DBConnection.executeQuery(st);
+        DBConnection db = new DBConnection();
+        ResultSet out = db.executeQuery(st);
         try {
             if (out.next()) {
                 return out.getString("Result");

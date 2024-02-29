@@ -47,7 +47,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             String passwordText = Password.getText().toString();
 
             // I commented out the encryption code because I globalized the encryption method
-            System.out.println("TESTING TEXT : " + emailText + "TESTING PASSWORD: " + passwordText); // .replace("[", "").replace("]", ""));
             try {
                 DBHelper db = new DBHelper();
                 if (db.checkUser(emailText, passwordText)) { // .replace("[", "").replace("]", ""))) {
