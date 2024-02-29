@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -21,6 +22,7 @@ import com.firstapp.group10app.ChatGPT.ChatGPT_Client;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.JSONToDB;
 import com.firstapp.group10app.Other.OnlineChecks;
+import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -41,8 +43,10 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     EditText equipmentAnswer, mainGoalAnswer, injuriesAnswer, additionalInfoAnswer;
     String muscleGroupAnswer, durationAnswer, difficultyAnswer;
     TextView generateButton, continueButton;
+
+    Button beginWorkoutButton;
     String gptInput, hasAdditionalInfo, hasEquipment;
-    String output;
+    String output, output3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +55,12 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
 
         BottomNavigationView settingNav = findViewById(R.id.mainNavigation);
         settingNav.setOnItemSelectedListener(this);
-
+        beginWorkoutButton = findViewById(R.id.beginWorkout);
         continueButton = findViewById(R.id.continueButton);
         generateButton = findViewById(R.id.generateWorkoutButton);
         continueButton.setOnClickListener(this);
         generateButton.setOnClickListener(this);
+        beginWorkoutButton.setOnClickListener(this);
 
         page1 = findViewById(R.id.page1);
         page2 = findViewById(R.id.page2);
@@ -100,11 +105,19 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
 
             continueButton.setVisibility(View.GONE);
             generateButton.setVisibility(View.VISIBLE);
-        } else {   // If button == GenerateButton
+
+        }
+        else if(v.getId() == R.id.beginWorkout){
+            startActivity(new Intent(this, workoutHub.class));
+        }
+        else {   // If button == GenerateButton
 
             //System.out.println(output);
             page1.setVisibility(View.GONE);
             page2.setVisibility(View.GONE);
+
+            continueButton.setVisibility(View.GONE);
+            generateButton.setVisibility(View.GONE);
             page3.setVisibility(View.VISIBLE);
             // Misha's code
             /*
@@ -125,24 +138,34 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             mainGoalAnswer = findViewById(R.id.mainGoalEdit);
             injuriesAnswer = findViewById(R.id.injuriesEdit);
             additionalInfoAnswer = findViewById(R.id.additionalInfoEdit);
-            //String input = fillGptInput();
+            String input = fillGptInput();
             //System.out.println(output);
+            System.out.println(input);
+             //USE EXAMPLE OUTPUT TO NOT WASTE TOKENS
+            Runnable task = () -> {
+                try {
+                    System.out.println("AGAIN PRINTING");
+                    output3 =(ChatGPT_Client.chatGPT(input)) ; // This is a test to see if the chatGPT function works.
+                    output3 = output3.replaceAll("\\\\", "");
+                    System.out.println(output3);
 
-            // USE EXAMPLE OUTPUT TO NOT WASTE TOKENS
-//            Runnable task = () -> {
-//                try {
-//                    output.append(ChatGPT_Client.chatGPT(input)) ; // This is a test to see if the chatGPT function works.
-//
-//                }
-//                catch(Exception e){
-//                    e.printStackTrace();
-//                }
-//
-//            };
-//            Thread newThread = new Thread(task);
-//            newThread.start();
 
-            output = "{" +
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+
+            };
+            Thread newThread = new Thread(task);
+            newThread.start();
+            try {
+                newThread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+
+            String output2 = "{" +
                     "\"WorkoutName\": \"Cardio Abs Blast\"," +
                     "\"WorkoutDuration\": 35," +
                     "\"TargetMuscleGroup\": \"Abs\"," +
@@ -156,7 +179,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                     "\"Equipment\": \"None\"," +
                     "\"Difficulty\": \"Easy\"," +
                     "\"Sets\": 3," +
-                    "\"reps\": null," +
+                    "\"Reps\": null," +
                     "\"Time\": 45" +
                     "}," +
                     "{" +
@@ -166,7 +189,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                     "\"Equipment\": \"Mat\"," +
                     "\"Difficulty\": \"Easy\"," +
                     "\"Sets\": 3," +
-                    "\"reps\": null," +
+                    "\"Reps\": null," +
                     "\"Time\": 45" +
                     "}," +
                     "{" +
@@ -176,7 +199,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                     "\"Equipment\": \"None\"," +
                     "\"Difficulty\": \"Easy\"," +
                     "\"Sets\": 3," +
-                    "\"reps\": null," +
+                    "\"Reps\": null," +
                     "\"Time\": 45" +
                     "}," +
                     "{" +
@@ -186,7 +209,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                     "\"Equipment\": \"Mat\"," +
                     "\"Difficulty\": \"Easy\"," +
                     "\"Sets\": 3," +
-                    "\"reps\": null," +
+                    "\"Reps\": null," +
                     "\"Time\": 30" +
                     "}," +
                     "{" +
@@ -196,7 +219,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                     "\"Equipment\": \"Mat\"," +
                     "\"Difficulty\": \"Easy\"," +
                     "\"Sets\": 3," +
-                    "\"reps\": \"15\"," +
+                    "\"Reps\": \"15\"," +
                     "\"Time\": null" +
                     "}," +
                     "{" +
@@ -206,21 +229,22 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                     "\"Equipment\": \"Mat\"," +
                     "\"Difficulty\": \"Easy\"," +
                     "\"Sets\": 3," +
-                    "\"reps\": \"12\"," +
+                    "\"Reps\": \"12\"," +
                     "\"Time\": null" +
                     "}" +
                     "]" +
                     "}";
-            System.out.println(output);
+            System.out.println(output3);
             try {
-                addWorkout(output);
+                addWorkout(output3);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
 
             try {
-                showWorkout(output);
+                showWorkout(output3);
                 System.out.println("Done----------------");
+                beginWorkoutButton.setVisibility(View.VISIBLE);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
@@ -229,9 +253,14 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
 
     // Adds a workout to the database once the user confirms.
     public void addWorkout(String data) throws JSONException {
-        JSONObject converted = new JSONObject(data);
 
-        JSONToDB.insertWorkoutAI(converted);
+        System.out.println("I LOVE COMPSCI");
+        System.out.println(data);
+
+        JSONObject converted = new JSONObject(data);
+        Session.selectedWorkout = converted;
+
+        Session.workoutID = JSONToDB.insertWorkoutAI(converted);
 
         // Add code to take user to currentWorkout when complete
     }
@@ -244,7 +273,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         page3.addView(workoutLayout);
 
         // Note the code below has buttons in the popup active. Decide if the buttons will be on popup or default page.
-        ItemVisualiser.startWorkoutGeneration(data, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
+        ItemVisualiser.startWorkoutGenerationAI(data, this, workoutLayout, "aiConfirm", R.layout.activity_exercise_popup_ai, R.id.exerciseScrollView);
 
 
     }
@@ -362,7 +391,8 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                 additionalInfo + ". " +
 
                 ". " +
-                "If you cannot generate a workout or there is not enough info, return (unsure)";
+                "If you cannot generate a workout or there is not enough info, return (unsure). "
+                + "Do it on one line as a String";
 
 
         return input;

@@ -33,7 +33,7 @@ public class JSONToDB {
     }
 
 
-    public static void insertWorkoutAI(JSONObject data) throws JSONException {
+    public static Integer insertWorkoutAI(JSONObject data) throws JSONException {
         String[] workoutDetails = new String[5];
 
         workoutDetails[0] = data.getString("WorkoutName");
@@ -47,6 +47,7 @@ public class JSONToDB {
         String exerciseList = data.getString("Exercises");
 
         insertExercise(exerciseList, id);
+        return id;
     }
 
     public static void insertExercise(String data, Integer id) throws JSONException {

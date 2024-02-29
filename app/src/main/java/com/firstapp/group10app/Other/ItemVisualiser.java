@@ -86,6 +86,9 @@ public class ItemVisualiser {
             if (buttonType.equals("search")) {
                 addSearchButtons(popupView, alertDialog, box.getId());
             }
+            else if(buttonType.equals("aiConfirm")){
+                addCloseButton(popupView, alertDialog, box.getId());
+            }
 
             LinearLayout exerciseLayout = new LinearLayout(cThis);
             exerciseLayout.setOrientation(LinearLayout.VERTICAL);
@@ -175,12 +178,28 @@ public class ItemVisualiser {
         if (data == null) {
             showEmpty(layout);
         } else {
+            System.out.println("PRINTING TEST555");
+            System.out.println(data);
             JSONArray jsonArray = new JSONArray(data);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject workoutObject = jsonArray.getJSONObject(i);
                 addDetails(workoutObject, buttonType);
 
             }
+        }
+    }
+    public static void startWorkoutGenerationAI(String data, Context context, LinearLayout layout, String buttonType, int popupID, int exerciseScrollID) throws JSONException {
+        cThis = context;
+        workoutLayout = layout;
+        exerciseID = exerciseScrollID;
+        popID = popupID;
+
+        if (data == null) {
+            showEmpty(layout);
+        } else {
+            JSONObject workoutObject = new JSONObject(data);
+            addDetails(workoutObject, buttonType);
+
         }
     }
 
@@ -222,6 +241,11 @@ public class ItemVisualiser {
         });
 
         Button closeWorkout = v.findViewById(R.id.closeExercise);
+        closeWorkout.setOnClickListener(v1 -> popup.dismiss());
+    }
+
+    public static void addCloseButton(View v, AlertDialog popup, int id) {
+        Button closeWorkout = v.findViewById(R.id.closeButton);
         closeWorkout.setOnClickListener(v1 -> popup.dismiss());
     }
 }

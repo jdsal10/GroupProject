@@ -86,6 +86,7 @@ public class DBHelper {
 
             sql.deleteCharAt(sql.length() - 2);
             sql.append(");");
+
             System.out.println("PRINTING SQL STATEMENT");
             System.out.print(sql);
 
@@ -127,18 +128,23 @@ public class DBHelper {
 
             sql.deleteCharAt(sql.length() - 2);
             sql.append(");");
-
+            System.out.println("PRINT SQL STATEMENT");
+            System.out.println(sql);
             Integer id = null;
             Statement st = conn.createStatement();
-
+            DBConnection db = new DBConnection();
+            db.executeStatement(String.valueOf(sql));
+            Integer test = st.executeUpdate(sql.toString(), Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = st.getGeneratedKeys();
             if (rs.next()) {
                 id = rs.getInt(1);
             }
             rs.close();
 
-            DBConnection db = new DBConnection();
-            DBConnection.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUE (" + workoutID + ", " + id + ");");
+
+
+            db.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUE (" + workoutID + ", " + id + ");");
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
