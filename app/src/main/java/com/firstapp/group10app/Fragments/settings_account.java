@@ -75,16 +75,17 @@ public class settings_account extends Fragment implements View.OnClickListener {
             DBHelper db = new DBHelper();
             try {
                 if (db.checkUser(Session.userEmail, password)) {
-                    System.out.println("CONFIRM DELETION!");
                     // Add logic for deletion below - requires integration to workouts.
                     db.deleteUser(Session.userEmail);
+
+                    System.out.println("CONFIRM DELETION!");
 
                     startActivity(new Intent(requireContext(), MainActivity.class));
                 } else {
                     passwordDelete.setError("Incorrect password used.");
 //                    alertDialog.dismiss();
                 }
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         });
@@ -110,6 +111,7 @@ public class settings_account extends Fragment implements View.OnClickListener {
             String cp = currentPassword.getText().toString();
             String np1 = newPassword1.getText().toString();
             String np2 = newPassword2.getText().toString();
+
             DBHelper db = new DBHelper();
             try {
                 if (!db.checkUser(Session.userEmail, cp)) {
@@ -122,13 +124,12 @@ public class settings_account extends Fragment implements View.OnClickListener {
                     DBHelper.updateData("Password", np1);
                     alertDialog.dismiss();
                 }
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
 
         });
 
         alertDialog.show();
-
     }
 }

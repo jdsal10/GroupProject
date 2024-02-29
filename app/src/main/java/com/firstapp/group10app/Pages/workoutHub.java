@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firstapp.group10app.DB.DBConnection;
+import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -24,7 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class workoutHub extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
+public class workoutHub extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
     Button enhance, begin, calendar;
     LinearLayout workoutHubLinear;
 
@@ -36,6 +37,7 @@ public class workoutHub extends AppCompatActivity implements NavigationBarView.O
         // Button declaration.
         enhance = findViewById(R.id.enhance);
         begin = findViewById(R.id.beginWorkout);
+        begin.setOnClickListener(this);
         calendar = findViewById(R.id.addToCalendar);
 
         // Gets the current workout.
@@ -211,5 +213,18 @@ public class workoutHub extends AppCompatActivity implements NavigationBarView.O
             }
         }
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.enhance) {
+
+        } else if (id == R.id.beginWorkout) {
+            DBHelper.insertHistory();
+            startActivity(new Intent(getApplicationContext(), History.class));
+        } else if (id == R.id.addToCalendar) {
+
+        }
     }
 }

@@ -1,9 +1,6 @@
 
 package com.firstapp.group10app.Pages;
 
-import static com.firstapp.group10app.Other.Encryption.getSHA;
-import static com.firstapp.group10app.Other.Encryption.toHexString;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,17 +11,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
     private EditText Email, Password;
@@ -55,17 +46,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             String emailText = Email.getText().toString();
             String passwordText = Password.getText().toString();
 
-            String result = null;
-            try {
-                result = toHexString(getSHA(passwordText));
-            } catch (NoSuchAlgorithmException e) {
-                throw new RuntimeException(e);
-            }
-
-            System.out.println("TESTING TEXT : " + emailText + "TESTING PASSWORD: " + result.replace("[","").replace("]",""));
+            // I commented out the encryption code because I globalized the encryption method
+            System.out.println("TESTING TEXT : " + emailText + "TESTING PASSWORD: " + passwordText); // .replace("[", "").replace("]", ""));
             try {
                 DBHelper db = new DBHelper();
-                if (db.checkUser(emailText,result.replace("[","").replace("]",""))) {
+                if (db.checkUser(emailText, passwordText)) { // .replace("[", "").replace("]", ""))) {
                     Toast.makeText(Login.this, "Welcome \n" + emailText + " ! ", Toast.LENGTH_SHORT).show();
                     Session.userEmail = emailText;
                     Session.signedIn = true;
@@ -73,7 +58,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 } else {
                     Toast.makeText(Login.this, "Login Failed. Check your details!", Toast.LENGTH_SHORT).show();
                 }
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         } else if (id == R.id.forgotPassword) {
@@ -81,17 +66,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         } else if (id == R.id.register) {
             startActivity(new Intent(Login.this, Registration.class));
             overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
-        }
-    }
-
-
-    //trying to add some data to the database to test login
-    public void createTestUser() {
-        try {
-            DBConnection db = new DBConnection();
-            db.executeStatement("INSERT INTO HealthData.Users (Email, PreferredName, Password, DOB, Weight, Height, Sex, HealthCondition, ReasonForDownloading) VALUES ('user@example.com', 'Juan', 'password', '1990-01-01', 70.5, 175.0, 'Male', 'None', 'Testing app')");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
     }
 }

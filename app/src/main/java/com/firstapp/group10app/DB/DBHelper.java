@@ -1,6 +1,8 @@
 package com.firstapp.group10app.DB;
 
 import static com.firstapp.group10app.DB.DBConnection.conn;
+import static com.firstapp.group10app.Other.Encryption.getSHA;
+import static com.firstapp.group10app.Other.Encryption.toHexString;
 
 import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.Other.Session;
@@ -29,17 +31,21 @@ public class DBHelper {
             StringBuilder sql = new StringBuilder();
             sql.append("INSERT INTO HealthData.Users (");
             for (int i = 0; i < userDetails.length; i++) {
-//                if (userDetails[i] != null) {
+                if (userDetails[i] != null) {
                 sql.append(Index.USER_DETAILS[i]);
                 sql.append(", ");
-//                }
+                }
             }
             sql.deleteCharAt(sql.length() - 2);
             sql.append(") VALUES (");
 
-            for (String field : userDetails) {
+            for (int i = 0; i < userDetails.length; i++) {
+                if (i == Index.PASSWORD) {
+                    userDetails[i] = encryptPassword(userDetails[i]);
+                }
+
                 sql.append("'");
-                sql.append(field);
+                sql.append(userDetails[i]);
                 sql.append("', ");
             }
             sql.deleteCharAt(sql.length() - 2);
@@ -48,7 +54,7 @@ public class DBHelper {
             // Execute the SQL query
             System.out.println(sql);
             DBConnection d = new DBConnection();
-            d.executeStatement(sql.toString());
+            DBConnection.executeStatement(sql.toString());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -126,7 +132,7 @@ public class DBHelper {
             rs.close();
 
             DBConnection db = new DBConnection();
-            db.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUE (" + workoutID + ", " + id + ");");
+            DBConnection.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUE (" + workoutID + ", " + id + ");");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -151,14 +157,12 @@ public class DBHelper {
         String st = "SELECT * FROM HealthData.Users WHERE Email = '" +
                 email +
                 "';";
-        DBConnection con = new DBConnection();
-        return con.executeQuery(st).next();
+        return DBConnection.executeQuery(st).next();
     }
 
     // Checks if a user exists
-    public boolean checkUser(String email, String password) throws SQLException {
-        DBConnection db = new DBConnection();
-        ResultSet result = db.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "' AND Password = '" + password + "'");
+    public boolean checkUser(String email, String password) throws Exception {
+        ResultSet result = DBConnection.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "' AND Password = '" + encryptPassword(password) + "'");
         int size = 0;
 
         if (result.last()) {
@@ -173,6 +177,14 @@ public class DBHelper {
     }
 
     public static void updateData(String toUpdate, String value) {
+        if (toUpdate.equals("Password")) {
+            try {
+                value = encryptPassword(value);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         DBConnection.executeStatement("UPDATE HealthData.Users SET " + toUpdate + " = '" + value + "' WHERE Email = '" + Session.userEmail + "'");
     }
 
@@ -225,7 +237,7 @@ public class DBHelper {
         }
         out += ";";
 
-        ResultSet q = d.executeQuery(out);
+        ResultSet q = DBConnection.executeQuery(out);
 
         try {
             if (q.next()) {
@@ -259,7 +271,7 @@ public class DBHelper {
 
         out += ";";
 
-        ResultSet q = d.executeQuery(out);
+        ResultSet q = DBConnection.executeQuery(out);
 
         try {
             if (q.next()) {
@@ -312,7 +324,7 @@ public class DBHelper {
                 "  WHERE uwh.Email = '" + filter + "'\n" +
                 ");\n";
 
-        ResultSet out = d.executeQuery(st);
+        ResultSet out = DBConnection.executeQuery(st);
         try {
             if (out.next()) {
                 return out.getString("Result");
@@ -337,6 +349,18 @@ public class DBHelper {
             }
         }
         return String.valueOf(result);
+    }
+
+    public static void insertHistory() {
+        DBConnection d = new DBConnection();
+        StringBuilder sqlHistory = new StringBuilder();
+        sqlHistory.append("INSERT INTO HealthData.UserWorkoutHistory (Email, WorkoutID, Date, Duration) VALUES (");
+        sqlHistory.append("'" + Session.userEmail + "', ");
+        sqlHistory.append("'" + Session.workoutID + "', ");
+        sqlHistory.append("CURRENT_DATE(), ");
+        sqlHistory.append(40 + ");");
+        System.out.println(sqlHistory.toString());
+        d.executeStatement(sqlHistory.toString());
     }
 
     public String decrypt(String password, int dif) {
@@ -382,7 +406,7 @@ public class DBHelper {
                 "  LIMIT 4" +
                 ");\n";
 
-        ResultSet out = d.executeQuery(st);
+        ResultSet out = DBConnection.executeQuery(st);
         try {
             if (out.next()) {
                 return out.getString("Result");
@@ -392,6 +416,18 @@ public class DBHelper {
         }
 
         return "";
+    }
+
+    public static String encryptPassword(String password) throws Exception {
+        return toHexString(getSHA(password));
+    }
+
+    public static void changeUserPassword(String email, String password) {
+        try {
+            DBConnection.executeStatement("UPDATE HealthData.Users SET Password = '" + encryptPassword(password) + "' WHERE Email = '" + email + "';");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 

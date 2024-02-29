@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.DBConnection;
+import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.R;
 
 public class ForgotPasswordContinued extends AppCompatActivity implements View.OnClickListener {
@@ -48,7 +48,7 @@ public class ForgotPasswordContinued extends AppCompatActivity implements View.O
                 passwordchangeconfirm.setError("The passwords do not match");
             } else {
                 assert password1 != null;
-                DBConnection.executeStatement("UPDATE HealthData.Users SET Password = '" + password1.getText().toString() + "' WHERE Email = '" + email + "';");
+                DBHelper.changeUserPassword(email, password1.getText().toString());
                 Intent t = new Intent(ForgotPasswordContinued.this, Login.class);
                 startActivity(t);
             }
