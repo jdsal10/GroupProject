@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginStart="15dp"
@@ -17,14 +18,24 @@
         android:text="Generate a Workout"
         android:textSize="24sp"
         android:textStyle="bold" />
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:fillViewport="true"-->
+<!--        android:visibility="visible"/>-->
 
+<!--        <LinearLayout-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_width="match_parent"-->
+
+<!--            />-->
     <LinearLayout
         android:id="@+id/page1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.7"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:id="@+id/targetMuscleGroup"
@@ -32,31 +43,28 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tmgLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:text="Target Muscle Group "
-                android:textSize="20sp" />
-
-            <LinearLayout
-                android:id="@+id/tmgInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tmgLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Target Muscle Group "
+                    android:textAlignment="center"
+                    android:layout_weight="1"
+                    android:textSize="20sp" />
 
                 <Spinner
                     android:id="@+id/muscleGroupSpinner"
                     android:layout_width="140dp"
                     android:layout_height="48dp"
+                    android:layout_gravity=""
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:prompt="@string/workoutsTmgLabel"
                     android:spinnerMode="dropdown" />
-            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -171,7 +179,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.7"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/section1"
@@ -254,6 +262,17 @@
 
 
     </LinearLayout>
+    <ScrollView
+        android:id="@+id/page3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+    <Button
+        android:id="@+id/beginWorkout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Begin Workout"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/buttons"
@@ -283,4 +302,10 @@
 
 
     </LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/mainNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemBackground="@color/white"
+        app:menu="@menu/home_navigation" />
 </LinearLayout>

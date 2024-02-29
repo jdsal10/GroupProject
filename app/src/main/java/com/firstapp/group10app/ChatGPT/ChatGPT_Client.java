@@ -20,7 +20,7 @@ public class ChatGPT_Client {
 
         // Set the request body
         String prompt = "[{\"role\": \"user\", \"content\": \"" + input + "\"}]";
-        int maxTokens = 150;
+        int maxTokens = 600;
         String body = "{\"model\": \"" + model + "\", \"messages\": " + prompt + ", \"max_tokens\": " + maxTokens + "}";
 
         // Send the request

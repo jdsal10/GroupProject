@@ -2,56 +2,95 @@ package com.firstapp.group10app.Pages;
 
 import static com.firstapp.group10app.ChatGPT.ChatGPT_Client.chatGPT;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.ChatGPT.ChatGPT_Client;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.JSONToDB;
+import com.firstapp.group10app.Other.OnlineChecks;
+import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
+import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class WorkoutAi extends AppCompatActivity implements View.OnClickListener {
+public class WorkoutAi extends AppCompatActivity implements View.OnClickListener, NavigationBarView.OnItemSelectedListener {
     LinearLayout page1, page2;
+    ScrollView page3;
     Spinner muscleGroupSpinner, durationSpinner, difficultySpinner;
     TextView mainGoalEdit;
     EditText equipmentAnswer, mainGoalAnswer, injuriesAnswer, additionalInfoAnswer;
     String muscleGroupAnswer, durationAnswer, difficultyAnswer;
     TextView generateButton, continueButton;
 
+    Button beginWorkoutButton;
+    String gptInput, hasAdditionalInfo, hasEquipment;
+    String output, output3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_ai);
 
+        BottomNavigationView settingNav = findViewById(R.id.mainNavigation);
+        settingNav.setOnItemSelectedListener(this);
+        beginWorkoutButton = findViewById(R.id.beginWorkout);
         continueButton = findViewById(R.id.continueButton);
         generateButton = findViewById(R.id.generateWorkoutButton);
         continueButton.setOnClickListener(this);
         generateButton.setOnClickListener(this);
+        beginWorkoutButton.setOnClickListener(this);
 
         page1 = findViewById(R.id.page1);
         page2 = findViewById(R.id.page2);
+        page3 = findViewById(R.id.page3);
         page1.setVisibility(View.VISIBLE);
         page2.setVisibility(View.GONE);
-
+        page3.setVisibility(View.GONE);
+        OnlineChecks.checkNavigationBar(settingNav);
         mainGoalEdit = findViewById(R.id.mainGoalTitle);
         populateSpinners();
     }
 
     @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.goToHome) {
+            System.out.println("test----");
+            startActivity(new Intent(getApplicationContext(), Home.class));
+            return true;
+        } else if (id == R.id.goToWorkouts) {
+            startActivity(new Intent(getApplicationContext(), WorkoutOption.class));
+            return true;
+        } else if (id == R.id.goToHistory) {
+            return true;
+        }
+        return true;
+    }
+    @Override
     public void onClick(View v) {
+
         if (v.getId() == R.id.continueButton) {
             // To move the variables to the 2nd button
             muscleGroupAnswer = muscleGroupSpinner.getSelectedItem().toString();
@@ -59,14 +98,27 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             difficultyAnswer = difficultySpinner.getSelectedItem().toString();
             equipmentAnswer = findViewById(R.id.equipmentInputLabel);
 
-            mainGoalEdit.setText(equipmentAnswer.getText().toString());
+
 
             page1.setVisibility(View.GONE);
             page2.setVisibility(View.VISIBLE);
 
             continueButton.setVisibility(View.GONE);
             generateButton.setVisibility(View.VISIBLE);
-        } else {   // If button == GenerateButton
+
+        }
+        else if(v.getId() == R.id.beginWorkout){
+            startActivity(new Intent(this, workoutHub.class));
+        }
+        else {   // If button == GenerateButton
+
+            //System.out.println(output);
+            page1.setVisibility(View.GONE);
+            page2.setVisibility(View.GONE);
+
+            continueButton.setVisibility(View.GONE);
+            generateButton.setVisibility(View.GONE);
+            page3.setVisibility(View.VISIBLE);
             // Misha's code
             /*
             page2.setVisibility(View.GONE);
@@ -86,19 +138,129 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             mainGoalAnswer = findViewById(R.id.mainGoalEdit);
             injuriesAnswer = findViewById(R.id.injuriesEdit);
             additionalInfoAnswer = findViewById(R.id.additionalInfoEdit);
+            String input = fillGptInput();
+            //System.out.println(output);
+            System.out.println(input);
+             //USE EXAMPLE OUTPUT TO NOT WASTE TOKENS
+            Runnable task = () -> {
+                try {
+                    System.out.println("AGAIN PRINTING");
+                    output3 =(ChatGPT_Client.chatGPT(input)) ; // This is a test to see if the chatGPT function works.
+                    output3 = output3.replaceAll("\\\\", "");
+                    System.out.println(output3);
+
+
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+
+            };
+            Thread newThread = new Thread(task);
+            newThread.start();
+            try {
+                newThread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+
+            String output2 = "{" +
+                    "\"WorkoutName\": \"Cardio Abs Blast\"," +
+                    "\"WorkoutDuration\": 35," +
+                    "\"TargetMuscleGroup\": \"Abs\"," +
+                    "\"Equipment\": \"Mat\"," +
+                    "\"Difficulty\": \"Easy\"," +
+                    "\"Exercises\": [" +
+                    "{" +
+                    "\"ExerciseName\": \"Jumping Jacks\"," +
+                    "\"Description\": \"Start with feet together and arms at your sides. Jump while spreading your legs and raising your arms overhead. Jump back to the starting position and repeat.\"," +
+                    "\"TargetMuscleGroup\": \"Full Body\"," +
+                    "\"Equipment\": \"None\"," +
+                    "\"Difficulty\": \"Easy\"," +
+                    "\"Sets\": 3," +
+                    "\"Reps\": null," +
+                    "\"Time\": 45" +
+                    "}," +
+                    "{" +
+                    "\"ExerciseName\": \"Mountain Climbers\"," +
+                    "\"Description\": \"Start in a push-up position with hands directly under shoulders. Bring one knee toward your chest, then quickly switch legs, bringing the other knee toward your chest. Continue alternating legs as quickly as possible.\"," +
+                    "\"TargetMuscleGroup\": \"Abs\"," +
+                    "\"Equipment\": \"Mat\"," +
+                    "\"Difficulty\": \"Easy\"," +
+                    "\"Sets\": 3," +
+                    "\"Reps\": null," +
+                    "\"Time\": 45" +
+                    "}," +
+                    "{" +
+                    "\"ExerciseName\": \"High Knees\"," +
+                    "\"Description\": \"Stand in place and quickly alternate lifting your knees toward your chest, pumping your arms as if running in place.\"," +
+                    "\"TargetMuscleGroup\": \"Legs, Core\"," +
+                    "\"Equipment\": \"None\"," +
+                    "\"Difficulty\": \"Easy\"," +
+                    "\"Sets\": 3," +
+                    "\"Reps\": null," +
+                    "\"Time\": 45" +
+                    "}," +
+                    "{" +
+                    "\"ExerciseName\": \"Plank\"," +
+                    "\"Description\": \"Start in a push-up position, but with your weight on your forearms instead of your hands. Keep your body in a straight line from head to heels, engaging your core muscles. Hold this position for the specified time.\"," +
+                    "\"TargetMuscleGroup\": \"Core\"," +
+                    "\"Equipment\": \"Mat\"," +
+                    "\"Difficulty\": \"Easy\"," +
+                    "\"Sets\": 3," +
+                    "\"Reps\": null," +
+                    "\"Time\": 30" +
+                    "}," +
+                    "{" +
+                    "\"ExerciseName\": \"Bicycle Crunches\"," +
+                    "\"Description\": \"Lie on your back with hands behind your head and legs lifted, knees bent. Bring right elbow towards left knee while simultaneously straightening right leg. Switch sides, bringing left elbow towards right knee while straightening left leg. Continue alternating sides in a pedaling motion.\"," +
+                    "\"TargetMuscleGroup\": \"Abs\"," +
+                    "\"Equipment\": \"Mat\"," +
+                    "\"Difficulty\": \"Easy\"," +
+                    "\"Sets\": 3," +
+                    "\"Reps\": \"15\"," +
+                    "\"Time\": null" +
+                    "}," +
+                    "{" +
+                    "\"ExerciseName\": \"Russian Twists\"," +
+                    "\"Description\": \"Sit on the floor with knees bent and feet lifted off the ground. Lean back slightly, keeping your back straight. Clasp your hands together and twist your torso to the right, then to the left, while keeping your core engaged.\"," +
+                    "\"TargetMuscleGroup\": \"Obliques\"," +
+                    "\"Equipment\": \"Mat\"," +
+                    "\"Difficulty\": \"Easy\"," +
+                    "\"Sets\": 3," +
+                    "\"Reps\": \"12\"," +
+                    "\"Time\": null" +
+                    "}" +
+                    "]" +
+                    "}";
+            System.out.println(output3);
+            try {
+                addWorkout(output3);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
 
             try {
-                chatGPT("Hello, chatGPT, how are you?"); // This is a test to see if the chatGPT function works.
-            } catch (Exception e) {
-                e.printStackTrace();
+                showWorkout(output3);
+                System.out.println("Done----------------");
+                beginWorkoutButton.setVisibility(View.VISIBLE);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
             }
         }
     }
 
     // Adds a workout to the database once the user confirms.
     public void addWorkout(String data) throws JSONException {
+
+        System.out.println("I LOVE COMPSCI");
+        System.out.println(data);
+
         JSONObject converted = new JSONObject(data);
-        JSONToDB.insertWorkoutAI(converted);
+        Session.selectedWorkout = converted;
+
+        Session.workoutID = JSONToDB.insertWorkoutAI(converted);
 
         // Add code to take user to currentWorkout when complete
     }
@@ -108,10 +270,10 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         LinearLayout workoutLayout = new LinearLayout(this);
 
         // Unsure if this is correct - confirm with Misha
-        page2.addView(workoutLayout);
+        page3.addView(workoutLayout);
 
         // Note the code below has buttons in the popup active. Decide if the buttons will be on popup or default page.
-        ItemVisualiser.startWorkoutGeneration(data, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
+        ItemVisualiser.startWorkoutGenerationAI(data, this, workoutLayout, "aiConfirm", R.layout.activity_exercise_popup_ai, R.id.exerciseScrollView);
 
 
     }
@@ -131,7 +293,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String item = adapterView.getItemAtPosition(position).toString();
-                Toast.makeText(WorkoutAi.this, "Selected:" + item, Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -143,7 +305,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String item = adapterView.getItemAtPosition(position).toString();
-                Toast.makeText(WorkoutAi.this, "Selected:" + item, Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -155,7 +317,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String item = adapterView.getItemAtPosition(position).toString();
-                Toast.makeText(WorkoutAi.this, "Selected:" + item, Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -181,9 +343,11 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     }
 
     public void insertIntoSpinners(ArrayList<String> muscleList, ArrayList<String> durationList, ArrayList<String> difficultyList) {
+        muscleList.add("Abs");
+        muscleList.add("Back");
         muscleList.add("Upper Body");
         muscleList.add("Lower Body");
-        muscleList.add("Abs");
+
 
         durationList.add("20 min");
         durationList.add("40 min");
@@ -196,4 +360,43 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         difficultyList.add("Medium");
         difficultyList.add("Hard");
     }
+
+    public String fillGptInput(){
+        String additionalInfo = additionalInfoAnswer.getText().toString().trim();
+        String injuriesInfo = injuriesAnswer.getText().toString().trim();
+        String equipmentInfo = equipmentAnswer.getText().toString().trim();
+        String mainGoalInfo = mainGoalAnswer.getText().toString().trim();
+        if(!additionalInfo.isEmpty()){
+            additionalInfo = "Additional Info: " + additionalInfo;
+        }
+        if(!equipmentInfo.isEmpty()){
+            equipmentInfo = "User has the following equipment: " + equipmentInfo;
+        }
+        if(!injuriesInfo.isEmpty()){
+            injuriesInfo = "User suffers from the following injuries: " + injuriesInfo;
+        }
+        String input = "Key: " +
+                "[] = optional data" +
+                ". " +
+                "Some info about a user: [37 years old] [67 kg] [M] ["+injuriesInfo+"] ["+mainGoalInfo+"]." +
+                " " +
+                equipmentInfo + ". "+
+
+
+                "Generate a workout in exact same JSON format of (WorkoutName, WorkoutDuration (in minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), " +
+                "Exercises (ExerciseName, Description, TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps, Time (if exercise isn't rep based, otherwise leave null))). output only the JSON" +
+                ". " +
+                "Some info about the required workout: ["+durationAnswer+"] ["+muscleGroupAnswer+"] ["+difficultyAnswer+"]. " +
+                ". " +
+                additionalInfo + ". " +
+
+                ". " +
+                "If you cannot generate a workout or there is not enough info, return (unsure). "
+                + "Do it on one line as a String";
+
+
+        return input;
+
+    }
+
 }
