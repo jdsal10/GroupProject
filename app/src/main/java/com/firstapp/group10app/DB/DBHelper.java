@@ -74,6 +74,8 @@ public class DBHelper {
 
             sql.deleteCharAt(sql.length() - 2);
             sql.append(");");
+            System.out.println("PRINTING SQL STATEMENT");
+            System.out.print(sql);
 
             Integer id = null;
             Statement st = conn.createStatement();

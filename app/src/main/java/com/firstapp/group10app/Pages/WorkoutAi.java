@@ -148,7 +148,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                     "\"TargetMuscleGroup\": \"Abs\"," +
                     "\"Equipment\": \"Mat\"," +
                     "\"Difficulty\": \"Easy\"," +
-                    "\"exercises\": [" +
+                    "\"Exercises\": [" +
                     "{" +
                     "\"ExerciseName\": \"Jumping Jacks\"," +
                     "\"Description\": \"Start with feet together and arms at your sides. Jump while spreading your legs and raising your arms overhead. Jump back to the starting position and repeat.\"," +
@@ -211,11 +211,12 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                     "}" +
                     "]" +
                     "}";
-//            try {
-//                addWorkout(output);
-//            } catch (JSONException e) {
-//                throw new RuntimeException(e);
-//            }
+            System.out.println(output);
+            try {
+                addWorkout(output);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
 
             try {
                 showWorkout(output);
@@ -313,9 +314,11 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     }
 
     public void insertIntoSpinners(ArrayList<String> muscleList, ArrayList<String> durationList, ArrayList<String> difficultyList) {
+        muscleList.add("Abs");
+        muscleList.add("Back");
         muscleList.add("Upper Body");
         muscleList.add("Lower Body");
-        muscleList.add("Abs");
+
 
         durationList.add("20 min");
         durationList.add("40 min");
