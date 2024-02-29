@@ -438,7 +438,7 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
             newWorkout.put("Equipment", equipment);
             newWorkout.put("Difficulty", difficulty);
 
-            JSONToDB.insertWorkout(newWorkout, exercises);
+            Session.workoutID = JSONToDB.insertWorkout(newWorkout, exercises);
 
             // Will take user to currentWorkout page when done!
             startActivity(new Intent(this, workoutHub.class));

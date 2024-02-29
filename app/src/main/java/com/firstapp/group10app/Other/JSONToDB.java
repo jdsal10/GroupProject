@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class JSONToDB {
-    public static void insertWorkout(JSONObject data, ArrayList<String> exerciseID) throws JSONException {
+    public static Integer insertWorkout(JSONObject data, ArrayList<String> exerciseID) throws JSONException {
         String[] workoutDetails = new String[5];
 
         workoutDetails[0] = data.getString("WorkoutName");
@@ -29,6 +29,7 @@ public class JSONToDB {
             int eid = Integer.parseInt(e);
             linkExercise(id, eid);
         }
+        return  id;
     }
 
 
