@@ -83,15 +83,4 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
         }
     }
-
-
-    //trying to add some data to the database to test login
-    public void createTestUser() {
-        try {
-            DBConnection db = new DBConnection();
-            db.executeStatement("INSERT INTO HealthData.Users (Email, PreferredName, Password, DOB, Weight, Height, Sex, HealthCondition, ReasonForDownloading) VALUES ('user@example.com', 'Juan', 'password', '1990-01-01', 70.5, 175.0, 'Male', 'None', 'Testing app')");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
