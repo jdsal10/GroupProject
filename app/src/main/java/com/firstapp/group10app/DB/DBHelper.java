@@ -1,6 +1,8 @@
 package com.firstapp.group10app.DB;
 
 import static com.firstapp.group10app.DB.DBConnection.conn;
+import static com.firstapp.group10app.Other.Encryption.getSHA;
+import static com.firstapp.group10app.Other.Encryption.toHexString;
 
 import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.Other.Session;
@@ -35,9 +37,13 @@ public class DBHelper {
             sql.deleteCharAt(sql.length() - 2);
             sql.append(") VALUES (");
 
-            for (String field : userDetails) {
+            for (int i = 0; i < userDetails.length; i++) {
+                if (i == Index.PASSWORD) {
+                    userDetails[i] = encryptPassword(userDetails[i]);
+                }
+
                 sql.append("'");
-                sql.append(field);
+                sql.append(userDetails[i]);
                 sql.append("', ");
             }
             sql.deleteCharAt(sql.length() - 2);
@@ -369,6 +375,18 @@ public class DBHelper {
         }
 
         return "";
+    }
+
+    public static String encryptPassword(String password) throws Exception {
+        return toHexString(getSHA(password));
+    }
+
+    public static void changeUserPassword(String email, String password) {
+        try {
+            DBConnection.executeStatement("UPDATE HealthData.Users SET Password = '" + encryptPassword(password) + "' WHERE Email = '" + email + "';");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 
