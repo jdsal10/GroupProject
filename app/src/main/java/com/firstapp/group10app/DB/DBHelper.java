@@ -173,6 +173,14 @@ public class DBHelper {
     }
 
     public static void updateData(String toUpdate, String value) {
+        if (toUpdate.equals("Password")) {
+            try {
+                value = encryptPassword(value);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         DBConnection.executeStatement("UPDATE HealthData.Users SET " + toUpdate + " = '" + value + "' WHERE Email = '" + Session.userEmail + "'");
     }
 

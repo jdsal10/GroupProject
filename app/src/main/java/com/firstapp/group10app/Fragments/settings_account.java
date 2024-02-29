@@ -75,9 +75,10 @@ public class settings_account extends Fragment implements View.OnClickListener {
             DBHelper db = new DBHelper();
             try {
                 if (db.checkUser(Session.userEmail, password)) {
-                    System.out.println("CONFIRM DELETION!");
                     // Add logic for deletion below - requires integration to workouts.
                     db.deleteUser(Session.userEmail);
+
+                    System.out.println("CONFIRM DELETION!");
 
                     startActivity(new Intent(requireContext(), MainActivity.class));
                 } else {
