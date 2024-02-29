@@ -1,7 +1,5 @@
 package com.firstapp.group10app.Pages;
 
-import static com.firstapp.group10app.Other.Encryption.getSHA;
-import static com.firstapp.group10app.Other.Encryption.toHexString;
 import static com.firstapp.group10app.Other.Validator.dobValid;
 import static com.firstapp.group10app.Other.Validator.dobValidator;
 import static com.firstapp.group10app.Other.Validator.emailValid;
@@ -267,14 +265,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             saveUserDetails();
             System.out.println(Arrays.toString(details));
 
-            String result;
-            try {
-                result = toHexString(getSHA(passwordText()));
-            } catch (NoSuchAlgorithmException e) {
-                throw new RuntimeException(e);
-            }
-
-            details[Index.PASSWORD] = result;
+            details[Index.PASSWORD] = passwordText();
             DBHelper.insertUser(details);
 
             goToLogin();
