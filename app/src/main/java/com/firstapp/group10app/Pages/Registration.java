@@ -263,7 +263,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             else p2PointErrors();
         } else if (activePage == 3) {
             saveUserDetails();
-            System.out.println(Arrays.toString(details));
 
             details[Index.PASSWORD] = passwordText();
             DBHelper.insertUser(details);
@@ -353,7 +352,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         details[Index.DOB] = dobText();
 
         if (weightText().isEmpty()) {
-            System.out.println("ADDED");
             details[Index.WEIGHT] = "";
         } else {
             details[Index.WEIGHT] = weightText() + " " + weightUnits();
@@ -363,8 +361,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             details[Index.HEIGHT] = "";
         } else {
             details[Index.HEIGHT] = heightText() + " " + heightUnits();
-
         }
+
         details[Index.SEX] = getSelectedSex();
         details[Index.CONDITIONS] = conditions.getText().toString();
         details[Index.REASONS] = reasons.getSelectedItem().toString();

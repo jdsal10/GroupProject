@@ -15,25 +15,28 @@ import java.util.Arrays;
 public class DBHelper {
     public static void insertUser(String[] userDetails) {
         try {
+            System.out.println("DBHelper.insertUser: Beginning to go through the process of inserting a user");
+
             // Format the user details before passing them to the DataChecker
             DataFormatter.preCheckFormatUserDetails(userDetails);
-            System.out.println(Arrays.toString(userDetails));
 
-            // Check that the user details are valid
+            // Check that the user details are valid (THIS CRASHES THE APP)
 //            if (!DataChecker.checkUserDetails(userDetails)) {
+//                System.out.println("DBHelper.insertUser: Invalid user details");
 //                throw new IllegalArgumentException("Invalid user details");
 //            }
 
             // Format the user details (post-check)
             userDetails = DataFormatter.formatUserDetails(userDetails);
 
-            // Create and SQL query
+            // Create an SQL query
             StringBuilder sql = new StringBuilder();
             sql.append("INSERT INTO HealthData.Users (");
             for (int i = 0; i < userDetails.length; i++) {
-                if (userDetails[i] != null) {
-                sql.append(Index.USER_DETAILS[i]);
-                sql.append(", ");
+                if (userDetails[i] != null && !userDetails[i].equals("") && !userDetails[i].equals("null") && !userDetails[i].equals(" ")) {
+                    System.out.println("DBHelper.insertUser: Debugging -> userDetails[" + i + "] = " + userDetails[i]);
+                    sql.append(Index.USER_DETAILS[i]);
+                    sql.append(", ");
                 }
             }
             sql.deleteCharAt(sql.length() - 2);
@@ -44,18 +47,24 @@ public class DBHelper {
                     userDetails[i] = encryptPassword(userDetails[i]);
                 }
 
-                sql.append("'");
-                sql.append(userDetails[i]);
-                sql.append("', ");
+                if (userDetails[i] != null && !userDetails[i].equals("") && !userDetails[i].equals("null") && !userDetails[i].equals(" ")) {
+                    sql.append("'");
+                    sql.append(userDetails[i]);
+                    sql.append("', ");
+                }
+
             }
             sql.deleteCharAt(sql.length() - 2);
             sql.append(");");
 
             // Execute the SQL query
-            System.out.println(sql);
-            DBConnection d = new DBConnection();
-            DBConnection.executeStatement(sql.toString());
+            System.out.println(DBHelper.class.getName() + ".insertUser: preparing to execute " + sql);
+
+            // DO NOT CHANGE THIS LINE
+            DBConnection db = new DBConnection();
+            db.executeStatement(sql.toString());
         } catch (Exception e) {
+            System.out.println("Error in DBHelper.insertUser(): " + e);
             throw new RuntimeException(e);
         }
     }
