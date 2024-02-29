@@ -267,6 +267,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             if (!DataChecker.checkUserDetails(details)) {
                 throw new IllegalArgumentException("Invalid user details");
             }
+            System.out.println("Registration.nextPressed: User details are valid, inserting into database...");
             DBHelper.insertUser(details);
 
             goToLogin();
@@ -347,6 +348,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     // Save the user details to the details array
     private void saveUserDetails() {
+        System.out.println("Registration.saveUserDetails: Saving user details");
+
         details[Index.EMAIL] = emailText();
         details[Index.NAME] = name.getText().toString();
         details[Index.PASSWORD] = passwordText();

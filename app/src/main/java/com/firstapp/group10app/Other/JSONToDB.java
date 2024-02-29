@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class JSONToDB {
-    public static void insertWorkout(JSONObject data, ArrayList<String> exerciseID) throws JSONException {
+    public static void insertWorkout(JSONObject data, ArrayList<String> exerciseID) throws Exception {
         String[] workoutDetails = new String[5];
 
         workoutDetails[0] = data.getString("WorkoutName");

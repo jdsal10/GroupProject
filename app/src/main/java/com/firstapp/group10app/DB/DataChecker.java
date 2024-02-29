@@ -11,7 +11,7 @@ public class DataChecker {
     public static boolean checkUserDetails(String[] userDetails) {
         // Check that the array is the correct length
         if (userDetails.length != Index.USER_DETAILS.length) {
-            System.out.println("User details array is the wrong length");
+            System.out.println("DataChecker.checkUserDetails: User details array is the wrong length");
             return false;
         }
 
@@ -27,7 +27,7 @@ public class DataChecker {
                 System.out.println("DOB is invalid");
                 return false;
             } else {
-                System.out.println("According to DataChecker.checkUserDetails: User details are valid");
+                System.out.println("DataChecker.checkUserDetails: User details are valid");
                 return true;
             }
     }
@@ -46,6 +46,7 @@ public class DataChecker {
 
         // Check that the email is not already in the database
         else {
+            System.out.println("DataChecker.checkEmail: Checking if email is already in the database");
             return !DBHelper.checkUserExists(email);
         }
     }
