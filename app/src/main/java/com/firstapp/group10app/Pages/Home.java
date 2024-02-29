@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.Other.OnlineChecks;
@@ -29,18 +30,17 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Nav
         goSettings.setOnClickListener(this);
 
         // Declare bottom taskbar
-        BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
-        bottomNavigationView.setSelectedItemId(R.id.goToHome);
-        bottomNavigationView.setOnItemSelectedListener(this);
+        Toolbar myToolbar = findViewById(R.id.mainNavigation);
+        setSupportActionBar(myToolbar);
 
-        // Checks if the view should be disabled.
-        OnlineChecks.checkNavigationBar(bottomNavigationView);
+        // Checks if the view should be disabled - needs to be modified
+//        OnlineChecks.checkNavigationBar(bottomNavigationView);
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.goToHome) {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case  R.id.goToHome:
             startActivity(new Intent(getApplicationContext(), Home.class));
             return true;
         } else if (id == R.id.goToWorkouts) {

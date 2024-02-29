@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
         android:id="@+id/goToHome"
         android:icon="@drawable/icon_home"
         android:textSize="15sp"
-        android:title="@string/homeItem" />
+        android:title="@string/homeItem"
+    app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/goToWorkouts"
         android:icon="@drawable/icon_workout"
         android:textSize="15sp"
-        android:title="@string/workoutsItem" />
+        android:title="@string/workoutsItem"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/goToHistory"
         android:icon="@drawable/icon_history"
         android:textSize="15sp"
-        android:title="@string/historyItem" />
+        android:title="@string/historyItem"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/invisible"
         android:textSize="15sp"
         android:title="Hidden"
-        android:visible="false" />
+    android:visible="false" />
 </menu>
