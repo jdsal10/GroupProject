@@ -2,22 +2,29 @@ package com.firstapp.group10app.Pages;
 
 import static com.firstapp.group10app.ChatGPT.ChatGPT_Client.chatGPT;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.ChatGPT.ChatGPT_Client;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.JSONToDB;
+import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.R;
+import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,20 +33,24 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class WorkoutAi extends AppCompatActivity implements View.OnClickListener {
+public class WorkoutAi extends AppCompatActivity implements View.OnClickListener, NavigationBarView.OnItemSelectedListener {
     LinearLayout page1, page2;
+    ScrollView page3;
     Spinner muscleGroupSpinner, durationSpinner, difficultySpinner;
     TextView mainGoalEdit;
     EditText equipmentAnswer, mainGoalAnswer, injuriesAnswer, additionalInfoAnswer;
     String muscleGroupAnswer, durationAnswer, difficultyAnswer;
     TextView generateButton, continueButton;
     String gptInput, hasAdditionalInfo, hasEquipment;
-    StringBuilder output = new StringBuilder("---");
+    String output;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_ai);
+
+        BottomNavigationView settingNav = findViewById(R.id.mainNavigation);
+        settingNav.setOnItemSelectedListener(this);
 
         continueButton = findViewById(R.id.continueButton);
         generateButton = findViewById(R.id.generateWorkoutButton);
@@ -48,13 +59,30 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
 
         page1 = findViewById(R.id.page1);
         page2 = findViewById(R.id.page2);
+        page3 = findViewById(R.id.page3);
         page1.setVisibility(View.VISIBLE);
         page2.setVisibility(View.GONE);
-
+        page3.setVisibility(View.GONE);
+        OnlineChecks.checkNavigationBar(settingNav);
         mainGoalEdit = findViewById(R.id.mainGoalTitle);
         populateSpinners();
     }
 
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.goToHome) {
+            System.out.println("test----");
+            startActivity(new Intent(getApplicationContext(), Home.class));
+            return true;
+        } else if (id == R.id.goToWorkouts) {
+            startActivity(new Intent(getApplicationContext(), WorkoutOption.class));
+            return true;
+        } else if (id == R.id.goToHistory) {
+            return true;
+        }
+        return true;
+    }
     @Override
     public void onClick(View v) {
 
@@ -74,7 +102,10 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             generateButton.setVisibility(View.VISIBLE);
         } else {   // If button == GenerateButton
 
-            System.out.println(output);
+            //System.out.println(output);
+            page1.setVisibility(View.GONE);
+            page2.setVisibility(View.GONE);
+            page3.setVisibility(View.VISIBLE);
             // Misha's code
             /*
             page2.setVisibility(View.GONE);
@@ -94,23 +125,24 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             mainGoalAnswer = findViewById(R.id.mainGoalEdit);
             injuriesAnswer = findViewById(R.id.injuriesEdit);
             additionalInfoAnswer = findViewById(R.id.additionalInfoEdit);
-            String input = fillGptInput();
-            System.out.println(output);
+            //String input = fillGptInput();
+            //System.out.println(output);
 
-            Runnable task = () -> {
-                try {
-                    output.append(ChatGPT_Client.chatGPT(input)) ; // This is a test to see if the chatGPT function works.
+            // USE EXAMPLE OUTPUT TO NOT WASTE TOKENS
+//            Runnable task = () -> {
+//                try {
+//                    output.append(ChatGPT_Client.chatGPT(input)) ; // This is a test to see if the chatGPT function works.
+//
+//                }
+//                catch(Exception e){
+//                    e.printStackTrace();
+//                }
+//
+//            };
+//            Thread newThread = new Thread(task);
+//            newThread.start();
 
-                }
-                catch(Exception e){
-                    e.printStackTrace();
-                }
-
-            };
-            Thread newThread = new Thread(task);
-            newThread.start();
-
-            String output2 = "{" +
+            output = "{" +
                     "\"WorkoutName\": \"Cardio Abs Blast\"," +
                     "\"WorkoutDuration\": 35," +
                     "\"TargetMuscleGroup\": \"Abs\"," +
@@ -179,16 +211,25 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                     "}" +
                     "]" +
                     "}";
+//            try {
+//                addWorkout(output);
+//            } catch (JSONException e) {
+//                throw new RuntimeException(e);
+//            }
 
-
-
-
+            try {
+                showWorkout(output);
+                System.out.println("Done----------------");
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
     // Adds a workout to the database once the user confirms.
     public void addWorkout(String data) throws JSONException {
         JSONObject converted = new JSONObject(data);
+
         JSONToDB.insertWorkoutAI(converted);
 
         // Add code to take user to currentWorkout when complete
@@ -199,7 +240,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         LinearLayout workoutLayout = new LinearLayout(this);
 
         // Unsure if this is correct - confirm with Misha
-        page2.addView(workoutLayout);
+        page3.addView(workoutLayout);
 
         // Note the code below has buttons in the popup active. Decide if the buttons will be on popup or default page.
         ItemVisualiser.startWorkoutGeneration(data, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
@@ -222,7 +263,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String item = adapterView.getItemAtPosition(position).toString();
-                Toast.makeText(WorkoutAi.this, "Selected:" + item, Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -234,7 +275,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String item = adapterView.getItemAtPosition(position).toString();
-                Toast.makeText(WorkoutAi.this, "Selected:" + item, Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -246,7 +287,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String item = adapterView.getItemAtPosition(position).toString();
-                Toast.makeText(WorkoutAi.this, "Selected:" + item, Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -311,7 +352,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
 
 
                 "Generate a workout in exact same JSON format of (WorkoutName, WorkoutDuration (in minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), " +
-                "exercises (ExerciseName, Description, TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps, Time (if exercise isn't rep based, otherwise leave null))). output only the JSON" +
+                "Exercises (ExerciseName, Description, TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps, Time (if exercise isn't rep based, otherwise leave null))). output only the JSON" +
                 ". " +
                 "Some info about the required workout: ["+durationAnswer+"] ["+muscleGroupAnswer+"] ["+difficultyAnswer+"]. " +
                 ". " +

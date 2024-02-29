@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginStart="15dp"
@@ -254,15 +255,12 @@
 
 
     </LinearLayout>
-    <LinearLayout
+    <ScrollView
         android:id="@+id/page3"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.7"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 
-    </LinearLayout>
     <LinearLayout
         android:id="@+id/buttons"
         android:layout_width="match_parent"
@@ -291,4 +289,10 @@
 
 
     </LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/mainNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemBackground="@color/white"
+        app:menu="@menu/home_navigation" />
 </LinearLayout>
