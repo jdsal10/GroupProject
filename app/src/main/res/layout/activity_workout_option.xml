@@ -32,6 +32,11 @@
                 android:text="@string/manualToggle"
                 android:textSize="18sp" />
 
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.05" />
+
             <RadioButton
                 android:id="@+id/toggleAI"
                 android:layout_width="0dp"
@@ -83,16 +88,11 @@
 
             <Button
                 android:id="@+id/goToSearch"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="@string/searchTitleOption" />
 
         </LinearLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textView2"
@@ -132,7 +132,7 @@
 
             <Button
                 android:id="@+id/goToCreate"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="@string/createTitle" />
         </LinearLayout>
