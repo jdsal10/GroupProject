@@ -11,6 +11,8 @@ public class Session {
     public static JSONObject selectedWorkout;
     public static Boolean signedIn;
 
+    public static int workoutID;
+
     public Session(String userEmail) {
         Session.userEmail = userEmail;
     }
@@ -30,4 +32,5 @@ public class Session {
     public boolean isSignedIn() {
         return signedIn;
     }
+
 }

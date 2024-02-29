@@ -217,6 +217,7 @@ public class ItemVisualiser {
             }
 
             Session.selectedWorkout = workoutObject;
+            Session.workoutID = id;
             cThis.startActivity(new Intent(cThis, workoutHub.class));
         });
 

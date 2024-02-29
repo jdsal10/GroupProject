@@ -29,10 +29,10 @@ public class DBHelper {
             StringBuilder sql = new StringBuilder();
             sql.append("INSERT INTO HealthData.Users (");
             for (int i = 0; i < userDetails.length; i++) {
-//                if (userDetails[i] != null) {
+                if (userDetails[i] != null) {
                 sql.append(Index.USER_DETAILS[i]);
                 sql.append(", ");
-//                }
+                }
             }
             sql.deleteCharAt(sql.length() - 2);
             sql.append(") VALUES (");
@@ -335,6 +335,18 @@ public class DBHelper {
             }
         }
         return String.valueOf(result);
+    }
+
+    public static void insertHistory() {
+        DBConnection d = new DBConnection();
+        StringBuilder sqlHistory = new StringBuilder();
+        sqlHistory.append("INSERT INTO HealthData.UserWorkoutHistory (Email, WorkoutID, Date, Duration) VALUES (");
+        sqlHistory.append("'" + Session.userEmail + "', ");
+        sqlHistory.append("'" + Session.workoutID + "', ");
+        sqlHistory.append("CURRENT_DATE(), ");
+        sqlHistory.append(40 + ");");
+        System.out.println(sqlHistory.toString());
+        d.executeStatement(sqlHistory.toString());
     }
 
     public String decrypt(String password, int dif) {

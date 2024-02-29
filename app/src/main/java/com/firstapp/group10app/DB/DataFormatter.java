@@ -21,6 +21,7 @@ public class DataFormatter {
         formattedDetails.add(userDetails[Index.EMAIL]);
         formattedDetails.add(formatName(userDetails[Index.NAME]));
         formattedDetails.add(userDetails[Index.PASSWORD]);
+//        formattedDetails.add(formatDOB(userDetails[Index.DOB]));
         formattedDetails.add(userDetails[Index.DOB]);
         formattedDetails.add(userDetails[Index.WEIGHT]);
         formattedDetails.add(userDetails[Index.HEIGHT]);
@@ -128,5 +129,14 @@ public class DataFormatter {
             default:
                 throw new RuntimeException("Invalid sex!");
         }
+    }
+
+    private static String formatDOB(String dob) {
+        // Format the date of birth to the format YYYY-MM-DD
+        if (dob.equals("")) {
+            return null;
+        }
+
+        return dob;
     }
 }
