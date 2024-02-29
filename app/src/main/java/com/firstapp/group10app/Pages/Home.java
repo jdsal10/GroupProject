@@ -17,7 +17,7 @@ import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class Home extends AppCompatActivity implements View.OnClickListener, NavigationBarView.OnItemSelectedListener {
+public class Home extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // For now, a check should run at the start of each file for DB connection.
@@ -40,10 +40,10 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Nav
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case  R.id.goToHome:
-            startActivity(new Intent(getApplicationContext(), Home.class));
-            return true;
-        } else if (id == R.id.goToWorkouts) {
+            case R.id.goToHome:
+                startActivity(new Intent(getApplicationContext(), Home.class));
+                return true;
+            case R.id.goToWorkouts:
             startActivity(new Intent(getApplicationContext(), WorkoutOption.class));
             return true;
         } else if (id == R.id.goToHistory) {
