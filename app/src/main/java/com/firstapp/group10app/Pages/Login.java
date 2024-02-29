@@ -58,7 +58,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 } else {
                     Toast.makeText(Login.this, "Login Failed. Check your details!", Toast.LENGTH_SHORT).show();
                 }
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         } else if (id == R.id.forgotPassword) {

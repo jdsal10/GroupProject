@@ -52,7 +52,7 @@ public class DBHelper {
             // Execute the SQL query
             System.out.println(sql);
             DBConnection d = new DBConnection();
-            d.executeStatement(sql.toString());
+            DBConnection.executeStatement(sql.toString());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -128,7 +128,7 @@ public class DBHelper {
             rs.close();
 
             DBConnection db = new DBConnection();
-            db.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUE (" + workoutID + ", " + id + ");");
+            DBConnection.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUE (" + workoutID + ", " + id + ");");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -153,14 +153,12 @@ public class DBHelper {
         String st = "SELECT * FROM HealthData.Users WHERE Email = '" +
                 email +
                 "';";
-        DBConnection con = new DBConnection();
-        return con.executeQuery(st).next();
+        return DBConnection.executeQuery(st).next();
     }
 
     // Checks if a user exists
-    public boolean checkUser(String email, String password) throws SQLException {
-        DBConnection db = new DBConnection();
-        ResultSet result = db.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "' AND Password = '" + password + "'");
+    public boolean checkUser(String email, String password) throws Exception {
+        ResultSet result = DBConnection.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "' AND Password = '" + encryptPassword(password) + "'");
         int size = 0;
 
         if (result.last()) {
@@ -227,7 +225,7 @@ public class DBHelper {
         }
         out += ";";
 
-        ResultSet q = d.executeQuery(out);
+        ResultSet q = DBConnection.executeQuery(out);
 
         try {
             if (q.next()) {
@@ -261,7 +259,7 @@ public class DBHelper {
 
         out += ";";
 
-        ResultSet q = d.executeQuery(out);
+        ResultSet q = DBConnection.executeQuery(out);
 
         try {
             if (q.next()) {
@@ -314,7 +312,7 @@ public class DBHelper {
                 "  WHERE uwh.Email = '" + filter + "'\n" +
                 ");\n";
 
-        ResultSet out = d.executeQuery(st);
+        ResultSet out = DBConnection.executeQuery(st);
         try {
             if (out.next()) {
                 return out.getString("Result");
@@ -365,7 +363,7 @@ public class DBHelper {
                 "  LIMIT 4" +
                 ");\n";
 
-        ResultSet out = d.executeQuery(st);
+        ResultSet out = DBConnection.executeQuery(st);
         try {
             if (out.next()) {
                 return out.getString("Result");
