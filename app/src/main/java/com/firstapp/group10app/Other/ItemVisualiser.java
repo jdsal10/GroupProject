@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Pages.MainActivity;
+import com.firstapp.group10app.Pages.workoutHub;
 import com.firstapp.group10app.R;
 
 import org.json.JSONArray;
@@ -22,13 +23,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ItemVisualiser {
-    static LinearLayout box, workoutLayout;
+    static LinearLayout workoutLayout;
     static Context cThis;
     static int exerciseID, popID;
 
     public static void addDetails(JSONObject details, String buttonType) {
         LayoutInflater inflate = (LayoutInflater) cThis.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        box = (LinearLayout) inflate.inflate(R.layout.activity_workout_view, null);
+        LinearLayout box = (LinearLayout) inflate.inflate(R.layout.activity_workout_view, null);
 
         TextView nameView = box.findViewById(R.id.workoutNameView);
         TextView durationView = box.findViewById(R.id.workoutDurationView);
@@ -71,7 +72,7 @@ public class ItemVisualiser {
 
         // For now, clicking on a workout shows the exercises - may make easier later.
         box.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(cThis);
+            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
             View popupView = inflate.inflate(popID, null);
             builder.setView(popupView);
@@ -83,7 +84,7 @@ public class ItemVisualiser {
             exerciseMainView.removeAllViews();
 
             if (buttonType.equals("search")) {
-                addSearchButtons(popupView, alertDialog);
+                addSearchButtons(popupView, alertDialog, box.getId());
             }
 
             LinearLayout exerciseLayout = new LinearLayout(cThis);
@@ -124,6 +125,10 @@ public class ItemVisualiser {
                 TextView exerciseDescriptionView = exerciseBox.findViewById(R.id.exerciseDescriptionView);
                 TextView exerciseTargetMuscleGroupView = exerciseBox.findViewById(R.id.exerciseTargetMuscleGroupView);
                 TextView exerciseEquipmentView = exerciseBox.findViewById(R.id.exerciseEquipmentView);
+                TextView exerciseSetsView = exerciseBox.findViewById(R.id.exerciseSetsView);
+                TextView exerciseRepsView = exerciseBox.findViewById(R.id.exerciseRepsView);
+                TextView exerciseTimeView = exerciseBox.findViewById(R.id.exerciseTimeView);
+
 
                 ImageView exerciseImage = exerciseBox.findViewById(R.id.exerciseImage);
                 View difficultyScale = exerciseBox.findViewById(R.id.difficulty);
@@ -132,6 +137,10 @@ public class ItemVisualiser {
                 exerciseDescriptionView.setText(workoutObject.optString("Description", ""));
                 exerciseTargetMuscleGroupView.setText(String.format("Exercise Target Group: %s", workoutObject.optString("TargetMuscleGroup", "")));
                 exerciseEquipmentView.setText(String.format("Exercise Equipment: %s", workoutObject.optString("Equipment", "")));
+                exerciseSetsView.setText(String.format("Sets: %s", workoutObject.optString("Sets", "")));
+                exerciseRepsView.setText(String.format("Reps: %s", workoutObject.optString("Reps", "")));
+                exerciseTimeView.setText(String.format("Time: %s", workoutObject.optString("Time", "")));
+
 
                 exerciseImage.setImageResource(R.drawable.icon_workout);
                 String difficultyValue = workoutObject.optString("Difficulty", "");
@@ -164,7 +173,7 @@ public class ItemVisualiser {
         popID = popupID;
 
         if (data == null) {
-            showEmpty();
+            showEmpty(layout);
         } else {
             JSONArray jsonArray = new JSONArray(data);
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -175,8 +184,8 @@ public class ItemVisualiser {
         }
     }
 
-    public static void showEmpty() {
-        TextView empty = new TextView(workoutLayout.getContext());
+    public static void showEmpty(LinearLayout layout) {
+        TextView empty = new TextView(layout.getContext());
         empty.setGravity(1);
 
         empty.setText("No workouts were found");
@@ -184,8 +193,8 @@ public class ItemVisualiser {
 //        Resource linking not working:
 //        empty.setText("@strings/noWorkouts");
 
-        workoutLayout.removeAllViews();
-        workoutLayout.addView(empty);
+        layout.removeAllViews();
+        layout.addView(empty);
     }
 
 
@@ -193,11 +202,11 @@ public class ItemVisualiser {
     // DIALOG GENERATED
 
 
-    public static void addSearchButtons(View v, AlertDialog popup) {
+    public static void addSearchButtons(View v, AlertDialog popup, int id) {
         Button selectWorkout = v.findViewById(R.id.selectWorkout);
         selectWorkout.setOnClickListener(v1 -> {
             JSONObject workoutObject;
-            String out = DBHelper.getAllWorkouts("WHERE w.WorkoutID = '" + box.getId() + "'");
+            String out = DBHelper.getAllWorkouts("WHERE w.WorkoutID = '" + id + "'");
             JSONArray jsonArray;
 
             try {
@@ -208,8 +217,7 @@ public class ItemVisualiser {
             }
 
             Session.selectedWorkout = workoutObject;
-            System.out.println("Current workout: " + Session.selectedWorkout.toString());
-            cThis.startActivity(new Intent(cThis, MainActivity.class));
+            cThis.startActivity(new Intent(cThis, workoutHub.class));
         });
 
         Button closeWorkout = v.findViewById(R.id.closeExercise);

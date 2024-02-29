@@ -22,6 +22,7 @@
     <!-- https://paletton.com/#uid=7000u0khTrS7UJXc+xNm5nvqriU -->
     <color name="gradient_aLostMemory_tetradic1">#3B8585</color>
     <color name="gradient_aLostMemory_tetradic2">#4EB24E</color>
+    <color name="nordic_white">#C6B9A5</color>
 
     <!-- Kashmir -->
     <color name="gradient_kashmir_start">#614385</color>

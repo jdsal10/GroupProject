@@ -1,5 +1,7 @@
 package com.firstapp.group10app.Pages;
 
+import static com.firstapp.group10app.Other.Encryption.getSHA;
+import static com.firstapp.group10app.Other.Encryption.toHexString;
 import static com.firstapp.group10app.Other.Validator.dobValid;
 import static com.firstapp.group10app.Other.Validator.dobValidator;
 import static com.firstapp.group10app.Other.Validator.emailValid;
@@ -30,6 +32,8 @@ import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.R;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 /**
@@ -234,8 +238,13 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         int id = v.getId();
 
-        if (id == R.id.buttonNext) nextPressed();
-        else if (id == R.id.buttonBack) backPressed();
+        if (id == R.id.buttonNext) {
+            try {
+                nextPressed();
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+        } else if (id == R.id.buttonBack) backPressed();
         overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
     }
 
@@ -247,7 +256,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     }
 
     // If the next button is pressed - logic
-    private void nextPressed() {
+    private void nextPressed() throws NoSuchAlgorithmException {
         if (activePage == 1) {
             if (p1Valid()) goToP2();
             else p1PointErrors();
@@ -257,6 +266,15 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         } else if (activePage == 3) {
             saveUserDetails();
             System.out.println(Arrays.toString(details));
+
+            String result;
+            try {
+                result = toHexString(getSHA(passwordText()));
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+
+            details[Index.PASSWORD] = result;
             DBHelper.insertUser(details);
 
             goToLogin();
@@ -339,6 +357,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private void saveUserDetails() {
         details[Index.EMAIL] = emailText();
         details[Index.NAME] = name.getText().toString();
+
         details[Index.PASSWORD] = passwordText();
         details[Index.DOB] = dobText();
 
