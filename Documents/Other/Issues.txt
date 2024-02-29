@@ -1,0 +1,18 @@
+Issues (I have to upload these to GitLab)
+
+FIX Workouts -> Search bug
+
+In Workouts -> AI
+-> Showing a page with just one button is unnecessary. Instead have the AI workout page immidiately.
+
+When resetting a password, the new password isn't encrypted (brakes and the user cannot enter)
+
+When resetting a password, the new password can be whatever (doesn't follow requirements, such as min 6 symbols, etc.)
+
+Think of a name.
+
+Design a better logo.
+
+Change nav bar colors.
+
+Prevent users from registering with the same email twice.
