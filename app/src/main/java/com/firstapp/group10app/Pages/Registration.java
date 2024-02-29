@@ -265,7 +265,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
             // Check that the user details are valid
             if (!DataChecker.checkUserDetails(details)) {
-                System.out.println("Invalid user details");
                 throw new IllegalArgumentException("Invalid user details");
             }
             DBHelper.insertUser(details);

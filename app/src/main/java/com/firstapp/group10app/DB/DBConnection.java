@@ -25,19 +25,17 @@ public class DBConnection {
     }
 
     //Executes a query that returns no data
-    public static void executeStatement(String createStatement) {
-        try {
-            st.execute(createStatement);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public static void executeStatement(String createStatement) throws Exception {
+        st.execute(createStatement);
     }
 
     //Executes a query that returns a ResultSet
-    public static ResultSet executeQuery(String statement) {
+    public static ResultSet executeQuery(String statement) throws RuntimeException {
         try {
+            System.out.println("Executing: " + statement);
             return st.executeQuery(statement);
         } catch (Exception e) {
+            System.out.println("Error in executeQuery(): " + e);
             throw new RuntimeException(e);
         }
     }

@@ -23,28 +23,30 @@ public class DataChecker {
             } else if (!checkPassword(userDetails[Index.PASSWORD])) {
                 System.out.println("Password is invalid");
                 return false;
-            } else {
+            } else if (!checkDOB(userDetails[Index.DOB])) {
                 System.out.println("DOB is invalid");
-                return checkDOB(userDetails[Index.DOB]);
+                return false;
+            } else {
+                System.out.println("According to DataChecker.checkUserDetails: User details are valid");
+                return true;
             }
     }
 
     public static boolean checkEmail(String email) {
         if (email.length() < 5) {
+            System.out.println("Email is too short");
             return false;
         } else if (!email.contains("@")) {
+            System.out.println("Email does not contain @");
             return false;
         } else if (!email.contains(".")) {
+            System.out.println("Email does not contain .");
             return false;
         }
 
         // Check that the email is not already in the database
         else {
-            try {
-                return !DBHelper.checkExists(email);
-            } catch (Exception e) {
-                return false;
-            }
+            return !DBHelper.checkUserExists(email);
         }
     }
 

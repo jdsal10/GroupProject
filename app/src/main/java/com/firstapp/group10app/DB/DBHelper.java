@@ -20,9 +20,10 @@ public class DBHelper {
             System.out.println(Arrays.toString(userDetails));
 
             // Check that the user details are valid
-//            if (!DataChecker.checkUserDetails(userDetails)) {
-//                throw new IllegalArgumentException("Invalid user details");
-//            }
+            if (!DataChecker.checkUserDetails(userDetails)) {
+                System.out.println("DBHelper.insertUser: Invalid user details");
+                throw new IllegalArgumentException("Invalid user details");
+            }
 
             // Format the user details (post-check)
             userDetails = DataFormatter.formatUserDetails(userDetails);
@@ -32,8 +33,8 @@ public class DBHelper {
             sql.append("INSERT INTO HealthData.Users (");
             for (int i = 0; i < userDetails.length; i++) {
                 if (userDetails[i] != null) {
-                sql.append(Index.USER_DETAILS[i]);
-                sql.append(", ");
+                    sql.append(Index.USER_DETAILS[i]);
+                    sql.append(", ");
                 }
             }
             sql.deleteCharAt(sql.length() - 2);
@@ -53,9 +54,9 @@ public class DBHelper {
 
             // Execute the SQL query
             System.out.println(sql);
-            DBConnection d = new DBConnection();
             DBConnection.executeStatement(sql.toString());
         } catch (Exception e) {
+            System.out.println("Error in DBHelper.insertUser(): " + e);
             throw new RuntimeException(e);
         }
     }
@@ -151,11 +152,17 @@ public class DBHelper {
     }
 
     // Returns true if the user exists in the database
-    public static boolean checkExists(String email) throws SQLException {
+    public static boolean checkUserExists(String email) {
         String st = "SELECT * FROM HealthData.Users WHERE Email = '" +
                 email +
                 "';";
-        return DBConnection.executeQuery(st).next();
+
+        try {
+            DBConnection.executeQuery(st).next();
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     // Checks if a user exists
@@ -170,33 +177,27 @@ public class DBHelper {
         return size != 0;
     }
 
-    public static void clearData(String toDelete) {
+    public static void clearData(String toDelete) throws Exception {
         DBConnection.executeStatement("UPDATE HealthData.Users SET " + toDelete + " = NULL WHERE Email = '" + Session.userEmail + "'");
     }
 
-    public static void updateData(String toUpdate, String value) {
+    public static void updateData(String toUpdate, String value) throws Exception {
         if (toUpdate.equals("Password")) {
-            try {
-                value = encryptPassword(value);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            value = encryptPassword(value);
         }
 
         DBConnection.executeStatement("UPDATE HealthData.Users SET " + toUpdate + " = '" + value + "' WHERE Email = '" + Session.userEmail + "'");
     }
 
-    public void deleteUser(String email) {
+    public void deleteUser(String email) throws Exception {
         DBConnection.executeStatement("DELETE FROM HealthData.Users WHERE Email = '" + email + "'");
     }
 
-    public static void linkExercise(int workoutID, int exerciseID) {
+    public static void linkExercise(int workoutID, int exerciseID) throws Exception {
         DBConnection.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUES ('" + workoutID + "','" + exerciseID + "')");
     }
 
     public static String getAllWorkouts(String filter) {
-        DBConnection d = new DBConnection();
-
         String out = "SELECT\n" +
                 "  JSON_ARRAYAGG(\n" +
                 "    JSON_OBJECT(\n" +
@@ -349,7 +350,7 @@ public class DBHelper {
         return String.valueOf(result);
     }
 
-    public static void insertHistory() {
+    public static void insertHistory() throws Exception {
         DBConnection d = new DBConnection();
         StringBuilder sqlHistory = new StringBuilder();
         sqlHistory.append("INSERT INTO HealthData.UserWorkoutHistory (Email, WorkoutID, Date, Duration) VALUES (");
