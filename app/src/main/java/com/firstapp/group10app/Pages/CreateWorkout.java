@@ -33,6 +33,7 @@ import androidx.core.content.ContextCompat;
 import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Other.JSONToDB;
+import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Other.itemVisualiserText;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -230,11 +231,19 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
             TextView exerciseDescriptionView = exerciseBox.findViewById(R.id.exerciseDescriptionView);
             TextView exerciseTargetMuscleGroupView = exerciseBox.findViewById(R.id.exerciseTargetMuscleGroupView);
             TextView exerciseEquipmentView = exerciseBox.findViewById(R.id.exerciseEquipmentView);
+            TextView exerciseSetsView = exerciseBox.findViewById(R.id.exerciseSetsView);
+            TextView exerciseRepsView = exerciseBox.findViewById(R.id.exerciseRepsView);
+            TextView exerciseTimeView = exerciseBox.findViewById(R.id.exerciseTimeView);
+
 
             exerciseNameView.setText(String.format(workoutObject.optString("ExerciseName", "")));
             exerciseDescriptionView.setText(workoutObject.optString("Description", ""));
             exerciseTargetMuscleGroupView.setText(String.format("Exercise Target Group: %s", workoutObject.optString("TargetMuscleGroup", "")));
             exerciseEquipmentView.setText(String.format("Exercise Equipment: %s", workoutObject.optString("Equipment", "")));
+            exerciseSetsView.setText(String.format("Exercise Sets: %s", workoutObject.optString("Sets", "")));
+            exerciseRepsView.setText(String.format("Exercise Reps: %s", workoutObject.optString("Reps", "")));
+            exerciseTimeView.setText(String.format("Exercise Time: %s", workoutObject.optString("Time", "")));
+
 
             exerciseImage.setImageResource(R.drawable.icon_workout);
 
@@ -348,13 +357,14 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         AlertDialog alertDialog = builder.create();
 
         LinearLayout finalVersionHolder = dialogView.findViewById(R.id.dataHolder);
+        String correctDifficulty = selected.substring(0, 1).toUpperCase() + selected.substring(1).toLowerCase();
 
         String[] data = new String[5];
         data[0] = name.getText().toString();
         data[1] = duration.getText().toString();
         data[2] = target.getSelectedItem().toString();
         data[3] = equipment.getText().toString();
-        data[4] = selected;
+        data[4] = correctDifficulty;
 
         // Continues if there is data.
         if (finalVersionHolder != null) {
@@ -367,16 +377,58 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         cancelCreation.setOnClickListener(v1 -> alertDialog.dismiss());
 
         confirmCreation.setOnClickListener(v12 -> {
-            // Lowercase's difficulty.
-            String correctDifficulty = selected.substring(0, 1).toUpperCase() + selected.substring(1).toLowerCase();
+
+            // Converts to a String of JSON.
+            try {
+                Session.selectedWorkout = createJSONString(data, addedExercises);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
 
             // Creates the workout.
-            createJSON(name.getText().toString(), duration.getText().toString(), target.getSelectedItem().toString(), equipment.getText().toString(), correctDifficulty, addedExercisesID);
+            addWorkout(name.getText().toString(), duration.getText().toString(), target.getSelectedItem().toString(), equipment.getText().toString(), correctDifficulty, addedExercisesID);
+
         });
         alertDialog.show();
     }
 
-    public void createJSON(String name, String duration, String target, String equipment, String difficulty, ArrayList<String> exercises) {
+    public JSONObject createJSONString(String[] data, ArrayList<JSONObject> addedExercises) throws JSONException {
+        StringBuilder json = new StringBuilder("{");
+        json.append("\"WorkoutName\": \"").append(data[0]).append("\",");
+        json.append("\"WorkoutDuration\": \"").append(data[1]).append("\",");
+        json.append("\"TargetMuscleGroup\": \"").append(data[2]).append("\",");
+        json.append("\"Equipment\": \"").append(data[3]).append("\",");
+        json.append("\"Difficulty\": \"").append(data[4]).append("\",");
+        json.append("\"Exercises\": [");
+
+        for (int i = 0; i < addedExercises.size() - 1; i++) {
+            json.append("{");
+            json.append("\"ExerciseName\": \"").append(addedExercises.get(i).optString("ExerciseName", "")).append("\",");
+            json.append("\"Description\": \"").append(addedExercises.get(i).optString("Description", "")).append("\",");
+            json.append("\"TargetMuscleGroup\": \"").append(addedExercises.get(i).optString("TargetMuscleGroup", "")).append("\",");
+            json.append("\"Equipment\": \"").append(addedExercises.get(i).optString("Equipment", "")).append("\",");
+            json.append("\"Difficulty\": \"").append(addedExercises.get(i).optString("Difficulty", "")).append("\",");
+            json.append("\"Sets\": \"").append(addedExercises.get(i).optString("Sets", "")).append("\",");
+            json.append("\"Reps\": \"").append(addedExercises.get(i).optString("Reps", "")).append("\",");
+            json.append("\"Time\": \"").append(addedExercises.get(i).optString("Time", "")).append("\"},");
+        }
+
+        json.append("{");
+        json.append("\"ExerciseName\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("ExerciseName", "")).append("\",");
+        json.append("\"Description\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("Description", "")).append("\",");
+        json.append("\"TargetMuscleGroup\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("TargetMuscleGroup", "")).append("\",");
+        json.append("\"Equipment\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("Equipment", "")).append("\",");
+        json.append("\"Difficulty\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("Difficulty", "")).append("\",");
+        json.append("\"Sets\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("Sets", "")).append("\",");
+        json.append("\"Reps\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("Reps", "")).append("\",");
+        json.append("\"Time\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("Time", "")).append("\"}");
+
+        json.append("]}");
+        System.out.println(json);
+        return new JSONObject(String.valueOf(json));
+    }
+
+    public void addWorkout(String name, String duration, String target, String equipment, String difficulty, ArrayList<String> exercises) {
         JSONObject newWorkout = new JSONObject();
 
         try {
@@ -389,7 +441,7 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
             JSONToDB.insertWorkout(newWorkout, exercises);
 
             // Will take user to currentWorkout page when done!
-            startActivity(new Intent(this, WorkoutOption.class));
+            startActivity(new Intent(this, workoutHub.class));
 
         } catch (JSONException e) {
             throw new RuntimeException(e);

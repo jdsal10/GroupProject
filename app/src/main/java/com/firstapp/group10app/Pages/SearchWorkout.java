@@ -46,7 +46,6 @@ public class SearchWorkout extends AppCompatActivity implements NavigationBarVie
             initializeLayout();
             try {
                 String data = DBHelper.getAllWorkouts(null);
-                System.out.println(data);
                 ItemVisualiser.startWorkoutGeneration(data, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
@@ -135,7 +134,7 @@ public class SearchWorkout extends AppCompatActivity implements NavigationBarVie
         try {
             if (toFilter.size() == 0) {
                 String newData = DBHelper.getAllWorkouts(null);
-                ItemVisualiser.startWorkoutGeneration(newData, workoutLayout.getContext(), workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
+                ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
             } else {
                 for (int i = 0; i < toFilter.size() - 1; i++) {
                     filter.append(toFilter.get(i)).append(" AND");
@@ -145,7 +144,7 @@ public class SearchWorkout extends AppCompatActivity implements NavigationBarVie
 
                 String newFilter = filter.toString();
                 String newData = DBHelper.getAllWorkouts(newFilter);
-                ItemVisualiser.startWorkoutGeneration(newData, workoutLayout.getContext(), workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
+                ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
             }
         } catch (JSONException e) {
             throw new RuntimeException(e);

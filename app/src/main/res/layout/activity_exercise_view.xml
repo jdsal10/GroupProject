@@ -72,14 +72,27 @@
             android:text="@string/exerciseEquipment"
             android:textSize="15sp"
             android:textStyle="bold" />
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/exerciseDifficultyView"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="@string/exerciseDifficulty"-->
-        <!--            android:textSize="18sp"-->
-        <!--            android:textStyle="bold" />-->
+        <TextView
+            android:id="@+id/exerciseSetsView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sets"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/exerciseRepsView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reps"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/exerciseTimeView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Time"
+            android:textSize="15sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>
 

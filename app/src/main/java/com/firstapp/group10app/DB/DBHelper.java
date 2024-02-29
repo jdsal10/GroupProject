@@ -18,9 +18,9 @@ public class DBHelper {
             System.out.println(Arrays.toString(userDetails));
 
             // Check that the user details are valid
-            if (!DataChecker.checkUserDetails(userDetails)) {
-                throw new IllegalArgumentException("Invalid user details");
-            }
+//            if (!DataChecker.checkUserDetails(userDetails)) {
+//                throw new IllegalArgumentException("Invalid user details");
+//            }
 
             // Format the user details (post-check)
             userDetails = DataFormatter.formatUserDetails(userDetails);
@@ -47,7 +47,8 @@ public class DBHelper {
 
             // Execute the SQL query
             System.out.println(sql);
-            DBConnection.executeStatement(sql.toString());
+            DBConnection d = new DBConnection();
+            d.executeStatement(sql.toString());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -202,7 +203,10 @@ public class DBHelper {
                 "            'Illustration', e.Illustration,\n" +
                 "            'TargetMuscleGroup', e.TargetMuscleGroup,\n" +
                 "            'Equipment', e.Equipment,\n" +
-                "            'Difficulty', e.Difficulty\n" +
+                "            'Difficulty', e.Difficulty,\n" +
+                "            'Sets', e.Sets,\n" +
+                "            'Reps', e.Reps,\n" +
+                "            'Time', e.Time\n" +
                 "          )\n" +
                 "        )\n" +
                 "        FROM HealthData.ExerciseWorkoutPairs ewp\n" +
@@ -243,7 +247,10 @@ public class DBHelper {
                 "            'Illustration', e.Illustration,\n" +
                 "            'TargetMuscleGroup', e.TargetMuscleGroup,\n" +
                 "            'Equipment', e.Equipment,\n" +
-                "            'Difficulty', e.Difficulty\n" +
+                "            'Difficulty', e.Difficulty,\n" +
+                "            'Sets', e.Sets,\n" +
+                "            'Reps', e.Reps,\n" +
+                "            'Time', e.Time\n" +
                 "          )\n" +
                 "        ) AS Result\n" +
                 "FROM HealthData.Exercises e";
@@ -283,7 +290,10 @@ public class DBHelper {
                 "            'Illustration', e.Illustration,\n" +
                 "            'TargetMuscleGroup', e.TargetMuscleGroup,\n" +
                 "            'Equipment', e.Equipment,\n" +
-                "            'Difficulty', e.Difficulty\n" +
+                "            'Difficulty', e.Difficulty,\n" +
+                "            'Sets', e.Sets,\n" +
+                "            'Reps', e.Reps,\n" +
+                "            'Time', e.Time\n" +
                 "          )\n" +
                 "        )\n" +
                 "        FROM HealthData.ExerciseWorkoutPairs ewp\n" +
@@ -311,6 +321,77 @@ public class DBHelper {
 
         return "";
     }
+
+    public String encrypt(String password, int dif) {
+        StringBuilder result = new StringBuilder();
+        for (char character : password.toCharArray()) {
+            if (character != ' ') {
+                int originalAlphabetPosition = character - 'a';
+                int newAlphabetPosition = (originalAlphabetPosition + dif) % 26;
+                char newCharacter = (char) ('a' + newAlphabetPosition);
+                result.append(newCharacter);
+            } else {
+                result.append(character);
+            }
+        }
+        return String.valueOf(result);
+    }
+
+    public String decrypt(String password, int dif) {
+        return encrypt(password, 26 - (dif % 26));
+    }
+
+    public static String getUserWorkoutsLimited(String filter) {
+        DBConnection d = new DBConnection();
+        String st = "SELECT\n" +
+                "  JSON_ARRAYAGG(\n" +
+                "    JSON_OBJECT(\n" +
+                "      'WorkoutID', w.WorkoutID,\n" +
+                "      'WorkoutName', w.WorkoutName,\n" +
+                "      'WorkoutDuration', w.WorkoutDuration,\n" +
+                "      'TargetMuscleGroup', w.TargetMuscleGroup,\n" +
+                "      'Equipment', w.Equipment,\n" +
+                "      'Difficulty', w.Difficulty,\n" +
+                "      'Exercises', (\n" +
+                "        SELECT JSON_ARRAYAGG(\n" +
+                "          JSON_OBJECT(\n" +
+                "            'ExerciseID', e.ExerciseID,\n" +
+                "            'ExerciseName', e.ExerciseName,\n" +
+                "            'Description', e.Description,\n" +
+                "            'Illustration', e.Illustration,\n" +
+                "            'TargetMuscleGroup', e.TargetMuscleGroup,\n" +
+                "            'Equipment', e.Equipment,\n" +
+                "            'Difficulty', e.Difficulty\n" +
+                "          )\n" +
+                "        )\n" +
+                "        FROM HealthData.ExerciseWorkoutPairs ewp\n" +
+                "        JOIN HealthData.Exercises e ON ewp.ExerciseID = e.ExerciseID\n" +
+                "        WHERE ewp.WorkoutID = w.WorkoutID\n" +
+                "      )\n" +
+                "    )\n" +
+                "  ) AS Result\n" +
+                "FROM\n" +
+                "  HealthData.Workouts w\n" +
+                "WHERE w.WorkoutID IN (\n" +
+                "  SELECT uwh.WorkoutID\n" +
+                "  FROM HealthData.UserWorkoutHistory uwh\n" +
+                "  WHERE uwh.Email = '" + filter + "'\n" +
+                "  ORDER BY uwh.WorkoutID DESC\n" +
+                "  LIMIT 4" +
+                ");\n";
+
+        ResultSet out = d.executeQuery(st);
+        try {
+            if (out.next()) {
+                return out.getString("Result");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error processing ResultSet", e);
+        }
+
+        return "";
+    }
 }
+
 
 
