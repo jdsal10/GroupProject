@@ -34,6 +34,8 @@ public class settings_data_control extends Fragment implements View.OnClickListe
     }
 
     public void updateValues(ArrayList<String> info) {
+        System.out.println("Fragments.settings_data_control.updateValues: info = " + info);
+
         // Since DOB is a regular value, no formatting is required
         dobValue.setText(info.get(0));
 
@@ -74,19 +76,22 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         allergiesValue.setText(info.get(4));
 
         // Updates "reason for downloading"
-        switch (info.get(5)) {
-            case "":
-                break;
-            case "I want to lose weight":
-                reasonsValue.setText("I want to lose weight");
-                break;
-            case "I want to gain weight":
-                reasonsValue.setText("I want to gain weight");
-                break;
-            case "I want to maintain my weight":
-                reasonsValue.setText("I want to maintain my weight");
-                break;
+        if (info.get(5) != null) {
+            switch (info.get(5)) {
+                case "":
+                    break;
+                case "I want to lose weight":
+                    reasonsValue.setText("I want to lose weight");
+                    break;
+                case "I want to gain weight":
+                    reasonsValue.setText("I want to gain weight");
+                    break;
+                case "I want to maintain my weight":
+                    reasonsValue.setText("I want to maintain my weight");
+                    break;
+            }
         }
+        System.out.println("HERE");
     }
 
     @Override
