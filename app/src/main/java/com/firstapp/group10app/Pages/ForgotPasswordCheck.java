@@ -68,7 +68,8 @@ public class ForgotPasswordCheck extends AppCompatActivity implements View.OnCli
     }
 
     public boolean checkCode(String code) throws SQLException {
-        ResultSet set = DBConnection.executeQuery("SELECT VerifyCode FROM HealthData.Users WHERE Email = '" + email + "'");
+        DBConnection db = new DBConnection();
+        ResultSet set = db.executeQuery("SELECT VerifyCode FROM HealthData.Users WHERE Email = '" + email + "'");
         if (set.next()) {
             String storedCode = set.getString("VerifyCode");
             return storedCode.equals(code);

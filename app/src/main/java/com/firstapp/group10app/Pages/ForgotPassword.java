@@ -59,7 +59,8 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                     try {
                         String validate = generateString();
                         toSend(emailText, validate);
-                        DBConnection.executeStatement("UPDATE HealthData.Users " +
+                        DBConnection db = new DBConnection();
+                        db.executeStatement("UPDATE HealthData.Users " +
                                 "SET VerifyCode = '" + validate + "' " +
                                 "WHERE Email = '" + emailText + "';");
 
