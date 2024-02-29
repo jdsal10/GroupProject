@@ -443,7 +443,7 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
             // Will take user to currentWorkout page when done!
             startActivity(new Intent(this, workoutHub.class));
 
-        } catch (Exception e) {
+        } catch (JSONException e) {
             throw new RuntimeException(e);
         }
     }

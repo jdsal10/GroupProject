@@ -1,5 +1,7 @@
 package com.firstapp.group10app.Pages;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -11,8 +13,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DBConnection;
 import com.firstapp.group10app.DB.DBHelper;
@@ -193,8 +193,8 @@ public class workoutHub extends AppCompatActivity implements NavigationBarView.O
         }
 
 
-    }
 
+    }
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -217,19 +217,14 @@ public class workoutHub extends AppCompatActivity implements NavigationBarView.O
 
     @Override
     public void onClick(View v) {
-        try {
-            int id = v.getId();
-            if (id == R.id.enhance) {
+        int id = v.getId();
+        if (id == R.id.enhance) {
 
-            } else if (id == R.id.beginWorkout) {
-                DBHelper.insertHistory();
-                startActivity(new Intent(getApplicationContext(), History.class));
-            } else if (id == R.id.addToCalendar) {
+        } else if (id == R.id.beginWorkout) {
+            DBHelper.insertHistory();
+            startActivity(new Intent(getApplicationContext(), History.class));
+        } else if (id == R.id.addToCalendar) {
 
-            }
-        } catch (Exception e) {
-            // TODO: handle exception
-            throw new RuntimeException(e);
         }
     }
 }

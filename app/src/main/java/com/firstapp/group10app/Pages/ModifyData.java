@@ -251,133 +251,127 @@ public class ModifyData extends Dialog implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
-        try {
-            int id = v.getId();
-            if (id == R.id.confirmUpdate) {
-                switch (thingToUpdate) {
-                    case "DOB":
-                        if (edit.getText().toString().equals("")) {
-                            DBHelper.updateData("DOB", "");
-                            settings_data_control.updateValue("DOB", "");
-                            dismiss();
-                        } else if (Validator.dobValid(edit.getText().toString())) {
-                            DBHelper.updateData("DOB", edit.getText().toString());
-                            settings_data_control.updateValue("DOB", edit.getText().toString());
-                            dismiss();
-                        } else {
-                            edit.setError("Invalid format!");
-                        }
-                        break;
-
-                    case "Sex":
-                        if (dropdown.getSelectedItem().equals("Male")) {
-                            DBHelper.updateData("Sex", "M");
-                            settings_data_control.updateValue("Sex", dropdown.getSelectedItem().toString());
-                            dismiss();
-                        } else if (dropdown.getSelectedItem().equals("Female")) {
-                            DBHelper.updateData("Sex", "F");
-                            settings_data_control.updateValue("Sex", dropdown.getSelectedItem().toString());
-                            dismiss();
-                        } else if (dropdown.getSelectedItem().equals("Other")) {
-                            DBHelper.updateData("Sex", "O");
-                            settings_data_control.updateValue("Sex", dropdown.getSelectedItem().toString());
-                            dismiss();
-                        } else {
-                            edit.setError("Invalid format!");
-                        }
-                        break;
-
-                    case "Weight":
-                        if (edit.getText().toString().equals("") && !dropdown.getSelectedItem().toString().equals("")) {
-                            edit.setError("Invalid format!");
-                        } else if (edit.getText().toString().equals("") && dropdown.getSelectedItem().toString().equals("")) {
-                            DBHelper.updateData("Weight", "");
-                            settings_data_control.updateValue("Weight", "");
-                            dismiss();
-                        } else if (Validator.weightValid(edit.getText().toString(), dropdown.getSelectedItem().toString())) {
-                            DBHelper.updateData("Weight", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
-                            settings_data_control.updateValue("Weight", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
-                            dismiss();
-                        } else {
-                            edit.setError("Invalid format!");
-                        }
-                        break;
-
-                    case "Height":
-                        if (edit.getText().toString().equals("") && !dropdown.getSelectedItem().toString().equals("")) {
-                            edit.setError("Invalid format!");
-                        } else if (edit.getText().toString().equals("") && dropdown.getSelectedItem().toString().equals("")) {
-                            DBHelper.updateData("Height", "");
-                            settings_data_control.updateValue("Height", "");
-                            dismiss();
-                        } else if (Validator.heightValid(edit.getText().toString(), dropdown.getSelectedItem().toString())) {
-                            DBHelper.updateData("Height", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
-                            settings_data_control.updateValue("Height", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
-                            dismiss();
-                        } else {
-                            edit.setError("Invalid format!");
-                        }
-                        break;
-
-                    case "Allergies":
-                        if (edit.getText().toString().equals("")) {
-                            DBHelper.updateData("HealthCondition", "");
-                            settings_data_control.updateValue("Allergies", "");
-                            dismiss();
-                        } else {
-                            DBHelper.updateData("HealthCondition", edit.getText().toString());
-                            settings_data_control.updateValue("Allergies", edit.getText().toString());
-                            dismiss();
-                        }
-                        break;
-
-                    case "Reasons":
-                        if (dropdown.getSelectedItem().toString().equals("")) {
-                            DBHelper.updateData("ReasonForDownloading", "");
-                            settings_data_control.updateValue("Reasons", "");
-                            dismiss();
-                        } else {
-                            DBHelper.updateData("ReasonForDownloading", dropdown.getSelectedItem().toString());
-                            settings_data_control.updateValue("Reasons", dropdown.getSelectedItem().toString());
-                            dismiss();
-                        }
-                        break;
-                }
-            } else if (id == R.id.clearUpdate) {
-                switch (thingToUpdate) {
-                    case "DOB":
+        int id = v.getId();
+        if (id == R.id.confirmUpdate) {
+            switch (thingToUpdate) {
+                case "DOB":
+                    if (edit.getText().toString().equals("")) {
                         DBHelper.updateData("DOB", "");
                         settings_data_control.updateValue("DOB", "");
-                        break;
-                    case "Sex":
-                        DBHelper.updateData("Sex", "");
-                        settings_data_control.updateValue("Sex", "");
-                        break;
-                    case "Weight":
+                        dismiss();
+                    } else if (Validator.dobValid(edit.getText().toString())) {
+                        DBHelper.updateData("DOB", edit.getText().toString());
+                        settings_data_control.updateValue("DOB", edit.getText().toString());
+                        dismiss();
+                    } else {
+                        edit.setError("Invalid format!");
+                    }
+                    break;
+
+                case "Sex":
+                    if (dropdown.getSelectedItem().equals("Male")) {
+                        DBHelper.updateData("Sex", "M");
+                        settings_data_control.updateValue("Sex", dropdown.getSelectedItem().toString());
+                        dismiss();
+                    } else if (dropdown.getSelectedItem().equals("Female")) {
+                        DBHelper.updateData("Sex", "F");
+                        settings_data_control.updateValue("Sex", dropdown.getSelectedItem().toString());
+                        dismiss();
+                    } else if (dropdown.getSelectedItem().equals("Other")) {
+                        DBHelper.updateData("Sex", "O");
+                        settings_data_control.updateValue("Sex", dropdown.getSelectedItem().toString());
+                        dismiss();
+                    } else {
+                        edit.setError("Invalid format!");
+                    }
+                    break;
+
+                case "Weight":
+                    if (edit.getText().toString().equals("") && !dropdown.getSelectedItem().toString().equals("")) {
+                        edit.setError("Invalid format!");
+                    } else if (edit.getText().toString().equals("") && dropdown.getSelectedItem().toString().equals("")) {
                         DBHelper.updateData("Weight", "");
                         settings_data_control.updateValue("Weight", "");
-                        break;
-                    case "Height":
+                        dismiss();
+                    } else if (Validator.weightValid(edit.getText().toString(), dropdown.getSelectedItem().toString())) {
+                        DBHelper.updateData("Weight", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
+                        settings_data_control.updateValue("Weight", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
+                        dismiss();
+                    } else {
+                        edit.setError("Invalid format!");
+                    }
+                    break;
+
+                case "Height":
+                    if (edit.getText().toString().equals("") && !dropdown.getSelectedItem().toString().equals("")) {
+                        edit.setError("Invalid format!");
+                    } else if (edit.getText().toString().equals("") && dropdown.getSelectedItem().toString().equals("")) {
                         DBHelper.updateData("Height", "");
                         settings_data_control.updateValue("Height", "");
-                        break;
-                    case "Allergies":
+                        dismiss();
+                    } else if (Validator.heightValid(edit.getText().toString(), dropdown.getSelectedItem().toString())) {
+                        DBHelper.updateData("Height", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
+                        settings_data_control.updateValue("Height", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
+                        dismiss();
+                    } else {
+                        edit.setError("Invalid format!");
+                    }
+                    break;
+
+                case "Allergies":
+                    if (edit.getText().toString().equals("")) {
                         DBHelper.updateData("HealthCondition", "");
                         settings_data_control.updateValue("Allergies", "");
-                        break;
-                    case "Reasons":
+                        dismiss();
+                    } else {
+                        DBHelper.updateData("HealthCondition", edit.getText().toString());
+                        settings_data_control.updateValue("Allergies", edit.getText().toString());
+                        dismiss();
+                    }
+                    break;
+
+                case "Reasons":
+                    if (dropdown.getSelectedItem().toString().equals("")) {
                         DBHelper.updateData("ReasonForDownloading", "");
                         settings_data_control.updateValue("Reasons", "");
-                        break;
-                }
-                dismiss();
-            } else if (id == R.id.cancelUpdate) {
-                dismiss();
+                        dismiss();
+                    } else {
+                        DBHelper.updateData("ReasonForDownloading", dropdown.getSelectedItem().toString());
+                        settings_data_control.updateValue("Reasons", dropdown.getSelectedItem().toString());
+                        dismiss();
+                    }
+                    break;
             }
-        } catch (Exception e) {
-            // TODO: handle exception
-            e.printStackTrace();
+        } else if (id == R.id.clearUpdate) {
+            switch (thingToUpdate) {
+                case "DOB":
+                    DBHelper.updateData("DOB", "");
+                    settings_data_control.updateValue("DOB", "");
+                    break;
+                case "Sex":
+                    DBHelper.updateData("Sex", "");
+                    settings_data_control.updateValue("Sex", "");
+                    break;
+                case "Weight":
+                    DBHelper.updateData("Weight", "");
+                    settings_data_control.updateValue("Weight", "");
+                    break;
+                case "Height":
+                    DBHelper.updateData("Height", "");
+                    settings_data_control.updateValue("Height", "");
+                    break;
+                case "Allergies":
+                    DBHelper.updateData("HealthCondition", "");
+                    settings_data_control.updateValue("Allergies", "");
+                    break;
+                case "Reasons":
+                    DBHelper.updateData("ReasonForDownloading", "");
+                    settings_data_control.updateValue("Reasons", "");
+                    break;
+            }
+            dismiss();
+        } else if (id == R.id.cancelUpdate) {
+            dismiss();
         }
     }
 }

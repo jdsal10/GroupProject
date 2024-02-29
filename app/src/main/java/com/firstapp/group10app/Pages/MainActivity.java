@@ -14,6 +14,7 @@ import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Test database connection
         Session.dbStatus = DBConnection.testConnection();
-        System.out.println("MainActivity: DB Status = " + Session.dbStatus + "\n conn = " + DBConnection.conn);
 
         // Default value.
         Session.signedIn = false;
