@@ -4,5 +4,6 @@
     <dimen name="font_size_large">23sp</dimen>
     <dimen name="font_size_larger">26sp</dimen>
     <dimen name="font_size_very_large">30sp</dimen>
-    <dimen name="font_size_small">15sp</dimen>
+    <dimen name="font_size_small">17sp</dimen>
+    <dimen name="font_size_smaller">14sp</dimen>
 </resources>

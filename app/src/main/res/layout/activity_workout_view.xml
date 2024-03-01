@@ -10,6 +10,7 @@
         android:id="@+id/workoutImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_gravity="center_vertical"
         android:contentDescription="Image" />
 
     <LinearLayout
@@ -29,28 +30,24 @@
             android:id="@+id/workoutDurationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/workoutDuration"
-            android:textStyle="bold" />
+            android:text="@string/workoutDuration" />
 
         <TextView
             android:id="@+id/workoutMuscleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/workoutTarget"
-            android:textStyle="bold" />
+            android:text="@string/workoutTarget" />
 
         <TextView
             android:id="@+id/workoutEquipmentView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/workoutEquipment"
-            android:textStyle="bold" />
+            android:text="@string/workoutEquipment" />
 
         <TextView
             android:id="@+id/workoutDifficultyView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/workoutDifficulty"
-            android:textStyle="bold" />
+            android:text="@string/workoutDifficulty" />
     </LinearLayout>
 </LinearLayout>
