@@ -25,7 +25,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.7"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/targetMuscleGroup"
@@ -169,7 +169,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.7"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:id="@+id/section1"
@@ -185,6 +185,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:text="Main Goal"
+                android:paddingLeft="20dp"
                 android:textSize="20sp" />
 
             <EditText
@@ -193,6 +194,7 @@
                 android:layout_height="75dp"
                 android:layout_gravity="center"
                 android:hint="e.g. Lose weight"
+                android:paddingLeft="23dp"
                 android:inputType="textMultiLine"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -211,6 +213,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:text="Injuries"
+                android:paddingLeft="20dp"
                 android:textSize="20sp" />
 
             <EditText
@@ -220,6 +223,7 @@
                 android:layout_gravity="center"
                 android:hint="Please provide any known injuries"
                 android:inputType="textMultiLine"
+                android:paddingLeft="23dp"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -227,7 +231,7 @@
             android:id="@+id/section3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:orientation="vertical">
 
             <TextView
@@ -236,6 +240,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:text="Additional Info"
+                android:paddingLeft="20dp"
                 android:textSize="20sp" />
 
             <EditText
@@ -243,8 +248,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:layout_gravity="center"
-                android:hint="Anything to add"
+                android:hint="Anything else to add"
                 android:inputType="textMultiLine"
+                android:paddingLeft="23dp"
                 android:textSize="16sp" />
         </LinearLayout>
 
