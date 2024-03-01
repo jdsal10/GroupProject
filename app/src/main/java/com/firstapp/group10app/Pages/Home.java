@@ -33,6 +33,11 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Bot
 
         // Checks if the view should be disabled - needs to be modified
 //        OnlineChecks.checkNavigationBar(bottomNavigationView);
+
+        // If the user is not signed in / anonymous, they do not have access to settings.
+        if (!Session.signedIn){
+            goSettings.setVisibility(View.GONE);
+        }
     }
 
     @Override

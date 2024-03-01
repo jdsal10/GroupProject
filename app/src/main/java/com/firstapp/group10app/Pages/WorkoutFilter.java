@@ -101,7 +101,8 @@ public class WorkoutFilter extends AlertDialog implements View.OnClickListener {
             }
 
             dismiss();
-        } else if (id == R.id.clearFilter) {
+        }
+     else if (id == R.id.clearFilter) {
             Intent intent = new Intent(getContext(), SearchWorkout.class);
             intent.putExtra("duration", "Any");
             intent.putExtra("difficulty", "Any");
@@ -109,8 +110,8 @@ public class WorkoutFilter extends AlertDialog implements View.OnClickListener {
             dismiss();
             getContext().startActivity(intent);
 
-        }
-    }
+        }    }
+
     public void setValue(String difficultyValue, String durationValue, String targetValue) {
         if (difficultyValue != null) {
             switch (difficultyValue) {
