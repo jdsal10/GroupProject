@@ -252,13 +252,13 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
             // Declares background colours.
             switch (difficultyValue) {
                 case "Easy":
-                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#77DD77")));
+                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("@color/pastel_green")));
                     break;
                 case "Medium":
-                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FDFD96")));
+                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("@color/pastel_yellow")));
                     break;
                 case "Hard":
-                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF6961")));
+                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("@color/pastel_red")));
                     break;
             }
 
