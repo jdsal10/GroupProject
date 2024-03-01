@@ -55,6 +55,10 @@ public class workoutHub extends AppCompatActivity implements NavigationBarView.O
             throw new RuntimeException(e);
         }
 
+        // If the user is not signed in / anonymous, they cannot add the workout to history.
+        if ((!Session.dbStatus) || (!Session.signedIn)) {
+            begin.setVisibility(GONE);
+        }
     }
 
     public void showWorkout(JSONObject data) throws JSONException {
