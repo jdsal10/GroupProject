@@ -69,6 +69,10 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         page1.setVisibility(View.VISIBLE);
         activePage = 1;
 
+        // Set the other pages to be invisible
+        page2.setVisibility(View.GONE);
+        page3.setVisibility(View.GONE);
+
         // Set the onClickListeners of the buttons
         backButton.setOnClickListener(this);
         nextButton.setOnClickListener(this);

@@ -1,5 +1,7 @@
 package com.firstapp.group10app.Pages;
 
+import static android.view.View.GONE;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -78,9 +80,15 @@ public class workoutHub extends AppCompatActivity implements NavigationBarView.O
         sbWTarget.setSpan(bss, 0, 15, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         workoutTarget.setText(sbWTarget);
 
-        SpannableStringBuilder sbWEquipment = new SpannableStringBuilder("Workout Equipment: " + data.optString("Equipment"));
-        sbWEquipment.setSpan(bss, 0, 18, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        workoutEquipment.setText(sbWEquipment);
+        // Prevents blank views from being shown.
+        if (data.optString("Equipment").equals("")) {
+            workoutEquipment.setVisibility(GONE);
+        } else {
+            SpannableStringBuilder sbWEquipment = new SpannableStringBuilder("Workout Equipment: " + data.optString("Equipment"));
+            sbWEquipment.setSpan(bss, 0, 18, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            workoutEquipment.setText(sbWEquipment);
+            workoutHolder.addView(workoutEquipment);
+        }
 
         SpannableStringBuilder sbWDifficulty = new SpannableStringBuilder("Workout Difficulty: " + data.optString("Difficulty"));
         sbWDifficulty.setSpan(bss, 0, 19, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
@@ -89,7 +97,6 @@ public class workoutHub extends AppCompatActivity implements NavigationBarView.O
         workoutHolder.addView(workoutName);
         workoutHolder.addView(workoutDuration);
         workoutHolder.addView(workoutTarget);
-        workoutHolder.addView(workoutEquipment);
         workoutHolder.addView(workoutDifficulty);
 
         workoutHubLinear.addView(workoutHolder);
@@ -136,43 +143,55 @@ public class workoutHub extends AppCompatActivity implements NavigationBarView.O
             SpannableStringBuilder sbName = new SpannableStringBuilder("Exercise Name: " + workoutObject.optString("ExerciseName"));
             sbName.setSpan(bss, 0, 14, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             exerciseNameText.setText(sbName);
+            textHolder.addView(exerciseNameText);
 
             SpannableStringBuilder sbDescription = new SpannableStringBuilder("Exercise Description: " + workoutObject.optString("Description"));
             sbDescription.setSpan(bss, 0, 21, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             exerciseDescriptionText.setText(sbDescription);
+            textHolder.addView(exerciseDescriptionText);
 
             SpannableStringBuilder sbTarget = new SpannableStringBuilder("Exercise Target Group: " + workoutObject.optString("TargetMuscleGroup"));
             sbTarget.setSpan(bss, 0, 22, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             exerciseTargetMuscleGroupText.setText(sbTarget);
+            textHolder.addView(exerciseTargetMuscleGroupText);
 
             SpannableStringBuilder sbEquipment = new SpannableStringBuilder("Exercise Equipment: " + workoutObject.optString("Equipment"));
             sbEquipment.setSpan(bss, 0, 18, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             exerciseEquipmentText.setText(sbEquipment);
+            textHolder.addView(exerciseEquipmentText);
 
             SpannableStringBuilder sbDifficulty = new SpannableStringBuilder("Exercise Difficulty: " + workoutObject.optString("Difficulty"));
             sbDifficulty.setSpan(bss, 0, 20, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             exerciseDifficultyText.setText(sbDifficulty);
-
-            SpannableStringBuilder sbSets = new SpannableStringBuilder("Exercise Sets: " + workoutObject.optString("Sets"));
-            sbSets.setSpan(bss, 0, 14, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-            exerciseSetsText.setText(sbSets);
-
-            SpannableStringBuilder sbReps = new SpannableStringBuilder("Exercise Reps: " + workoutObject.optString("Reps"));
-            sbReps.setSpan(bss, 0, 14, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-            exerciseRepsText.setText(sbReps);
-
-            SpannableStringBuilder sbTime = new SpannableStringBuilder("Exercise Time: " + workoutObject.optString("Time"));
-            sbTime.setSpan(bss, 0, 14, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-            exerciseTimeText.setText(sbTime);
-
-            textHolder.addView(exerciseNameText);
-            textHolder.addView(exerciseDescriptionText);
-            textHolder.addView(exerciseTargetMuscleGroupText);
-            textHolder.addView(exerciseEquipmentText);
             textHolder.addView(exerciseDifficultyText);
-            textHolder.addView(exerciseSetsText);
-            textHolder.addView(exerciseRepsText);
-            textHolder.addView(exerciseTimeText);
+
+            if (workoutObject.optString("Sets").equals("")) {
+                exerciseSetsText.setVisibility(GONE);
+            } else {
+                SpannableStringBuilder sbSets = new SpannableStringBuilder("Exercise Sets: " + workoutObject.optString("Sets"));
+                sbSets.setSpan(bss, 0, 14, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                exerciseSetsText.setText(sbSets);
+                textHolder.addView(exerciseSetsText);
+            }
+
+            if (workoutObject.optString("Reps").equals("")) {
+                exerciseRepsText.setVisibility(GONE);
+            } else {
+                SpannableStringBuilder sbReps = new SpannableStringBuilder("Exercise Reps: " + workoutObject.optString("Reps"));
+                sbReps.setSpan(bss, 0, 14, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                exerciseRepsText.setText(sbReps);
+                textHolder.addView(exerciseRepsText);
+            }
+
+            if (workoutObject.optString("Time").equals("")) {
+                exerciseTimeText.setVisibility(GONE);
+                textHolder.addView(exerciseTimeText);
+            }
+            else {
+                SpannableStringBuilder sbTime = new SpannableStringBuilder("Exercise Time: " + workoutObject.optString("Time"));
+                sbTime.setSpan(bss, 0, 14, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                exerciseTimeText.setText(sbTime);
+            }
 
             workoutHubLinear.addView(textHolder);
 
@@ -193,8 +212,8 @@ public class workoutHub extends AppCompatActivity implements NavigationBarView.O
         }
 
 
-
     }
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();

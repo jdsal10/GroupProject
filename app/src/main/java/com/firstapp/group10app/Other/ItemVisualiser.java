@@ -85,9 +85,7 @@ public class ItemVisualiser {
             // Adds button function if required.
             if (buttonType.equals("search")) {
                 addSearchButtons(popupView, alertDialog, box.getId());
-            }
-
-            else if(buttonType.equals("aiConfirm")){
+            } else if (buttonType.equals("aiConfirm")) {
                 addCloseButton(popupView, alertDialog);
             }
 
@@ -141,10 +139,24 @@ public class ItemVisualiser {
                 exerciseDescriptionView.setText(workoutObject.optString("Description", ""));
                 exerciseTargetMuscleGroupView.setText(String.format("Exercise Target Group: %s", workoutObject.optString("TargetMuscleGroup", "")));
                 exerciseEquipmentView.setText(String.format("Exercise Equipment: %s", workoutObject.optString("Equipment", "")));
-                exerciseSetsView.setText(String.format("Sets: %s", workoutObject.optString("Sets", "")));
-                exerciseRepsView.setText(String.format("Reps: %s", workoutObject.optString("Reps", "")));
-                exerciseTimeView.setText(String.format("Time: %s", workoutObject.optString("Time", "")));
 
+                if (workoutObject.optString("Sets", "").equals("null")) {
+                    exerciseSetsView.setVisibility(View.GONE);
+                } else {
+                    exerciseSetsView.setText(String.format("Sets: %s", workoutObject.optString("Sets", "")));
+                }
+
+                if (workoutObject.optString("Reps", "").equals("null")) {
+                    exerciseRepsView.setVisibility(View.GONE);
+                } else {
+                    exerciseRepsView.setText(String.format("Reps: %s", workoutObject.optString("Reps", "")));
+                }
+
+                if (workoutObject.optString("Time", "").equals("null")) {
+                    exerciseTimeView.setVisibility(View.GONE);
+                } else {
+                    exerciseTimeView.setText(String.format("Time: %s", workoutObject.optString("Time", "")));
+                }
 
                 exerciseImage.setImageResource(R.drawable.icon_workout);
                 String difficultyValue = workoutObject.optString("Difficulty", "");
@@ -160,6 +172,7 @@ public class ItemVisualiser {
                         difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF0000")));
                         break;
                 }
+
                 exerciseLayout.addView(exerciseBox);
             }
 
@@ -187,6 +200,7 @@ public class ItemVisualiser {
             }
         }
     }
+
     public static void startWorkoutGenerationAI(String data, Context context, LinearLayout layout, String buttonType, int popupID, int exerciseScrollID) throws JSONException {
         cThis = context;
         workoutLayout = layout;
