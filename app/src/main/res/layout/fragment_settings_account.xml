@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/margin_default"
+    android:layout_marginEnd="@dimen/margin_default"
     android:orientation="vertical"
     tools:context=".Fragments.settings_account">
 
@@ -17,14 +19,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="@string/changePasswordTitle" />
+            android:text="@string/changePasswordTitle"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/changePasswordSignedIn"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/button_height_default"
             android:layout_weight="1"
-            android:text="@string/changePasswordButton" />
+            android:text="@string/changePasswordButton"
+            android:textSize="@dimen/font_size_small" />
 
     </LinearLayout>
 
@@ -38,14 +42,17 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="@string/deleteAccountText" />
+            android:text="@string/deleteAccountText"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/deleteAccountButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/button_height_default"
             android:layout_weight="1"
-            android:text="@string/deleteAccountButton" />
+            android:background="@color/pastel_red"
+            android:text="@string/deleteAccountButton"
+            android:textSize="@dimen/font_size_small" />
 
     </LinearLayout>
 </LinearLayout>
