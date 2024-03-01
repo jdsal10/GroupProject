@@ -353,7 +353,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
 
                 ". " +
                 "If you cannot generate a workout or there is not enough info, return (unsure). "
-                + "Do it on one line as a String";
+                + "Do it on one line as a String, only output JSON";
 
     }
 
