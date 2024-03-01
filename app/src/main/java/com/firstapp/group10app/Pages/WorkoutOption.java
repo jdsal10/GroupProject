@@ -58,9 +58,6 @@ public class WorkoutOption extends AppCompatActivity implements CompoundButton.O
         // If the user is not signed in / anonymous, they do not access to the AI or to create a workout.
         if ((!Session.dbStatus) || (!Session.signedIn)) {
             AISelect.setEnabled(false);
-
-            // Need to confirm this works!
-            manualView.setVisibility(View.GONE);
         }
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
