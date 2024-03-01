@@ -1,7 +1,5 @@
 package com.firstapp.group10app.Pages;
 
-import static com.firstapp.group10app.ChatGPT.ChatGPT_Client.chatGPT;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -14,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,14 +25,11 @@ import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class WorkoutAi extends AppCompatActivity implements View.OnClickListener, NavigationBarView.OnItemSelectedListener {
     LinearLayout page1, page2;
@@ -45,8 +41,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     TextView generateButton, continueButton;
 
     Button beginWorkoutButton;
-    String gptInput, hasAdditionalInfo, hasEquipment;
-    String output, output3;
+    String output3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +72,6 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.goToHome) {
-            System.out.println("test----");
             startActivity(new Intent(getApplicationContext(), Home.class));
             return true;
         } else if (id == R.id.goToWorkouts) {
@@ -88,6 +82,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         }
         return true;
     }
+
     @Override
     public void onClick(View v) {
 
@@ -98,66 +93,42 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             difficultyAnswer = difficultySpinner.getSelectedItem().toString();
             equipmentAnswer = findViewById(R.id.equipmentInputLabel);
 
-
-
             page1.setVisibility(View.GONE);
             page2.setVisibility(View.VISIBLE);
 
             continueButton.setVisibility(View.GONE);
             generateButton.setVisibility(View.VISIBLE);
 
-        }
-        else if(v.getId() == R.id.beginWorkout){
+        } else if (v.getId() == R.id.beginWorkout) {
             startActivity(new Intent(this, workoutHub.class));
-        }
-        else {   // If button == GenerateButton
+        } else {   // If button == GenerateButton
 
-            //System.out.println(output);
             page1.setVisibility(View.GONE);
             page2.setVisibility(View.GONE);
 
             continueButton.setVisibility(View.GONE);
             generateButton.setVisibility(View.GONE);
             page3.setVisibility(View.VISIBLE);
-            // Misha's code
-            /*
-            page2.setVisibility(View.GONE);
-            page1.setVisibility(View.VISIBLE);
-
-            continueButton.setVisibility(View.VISIBLE); //Temp to navigate back
-            generateButton.setVisibility(View.GONE);
-
-            mainGoalAnswer = findViewById(R.id.mainGoalEdit);
-            injuriesAnswer = findViewById(R.id.injuriesEdit);
-            additionalInfoAnswer = findViewById(R.id.additionalInfoEdit);
-            equipmentAnswer.setText(mainGoalAnswer.getText().toString() + injuriesAnswer.getText().toString()
-                    + additionalInfoAnswer.getText().toString());
-             */
 
             // Nikola's changes
             mainGoalAnswer = findViewById(R.id.mainGoalEdit);
             injuriesAnswer = findViewById(R.id.injuriesEdit);
             additionalInfoAnswer = findViewById(R.id.additionalInfoEdit);
             String input = fillGptInput();
-            //System.out.println(output);
-            System.out.println(input);
-             //USE EXAMPLE OUTPUT TO NOT WASTE TOKENS
+            Toast.makeText(WorkoutAi.this, "Generating...", Toast.LENGTH_SHORT).show();
+            //USE EXAMPLE OUTPUT TO NOT WASTE TOKENS
             Runnable task = () -> {
                 try {
-                    System.out.println("AGAIN PRINTING");
-                    output3 =(ChatGPT_Client.chatGPT(input)) ; // This is a test to see if the chatGPT function works.
+                    output3 = (ChatGPT_Client.chatGPT(input)); // This is a test to see if the chatGPT function works.
                     output3 = output3.replaceAll("\\\\", "");
-                    System.out.println(output3);
-
-
-                }
-                catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             };
+
             Thread newThread = new Thread(task);
             newThread.start();
+
             try {
                 newThread.join();
             } catch (InterruptedException e) {
@@ -234,16 +205,17 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                     "}" +
                     "]" +
                     "}";
-            System.out.println(output3);
+
+            // Adds the workout to the Database.
             try {
                 addWorkout(output3);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
 
+            // Adds shows the generated workout to the user.
             try {
                 showWorkout(output3);
-                System.out.println("Done----------------");
                 beginWorkoutButton.setVisibility(View.VISIBLE);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
@@ -253,29 +225,18 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
 
     // Adds a workout to the database once the user confirms.
     public void addWorkout(String data) throws JSONException {
-
-        System.out.println("I LOVE COMPSCI");
-        System.out.println(data);
-
         JSONObject converted = new JSONObject(data);
         Session.selectedWorkout = converted;
-
         Session.workoutID = JSONToDB.insertWorkoutAI(converted);
-
-        // Add code to take user to currentWorkout when complete
     }
 
     // Shows the workout to the user once generated.
     public void showWorkout(String data) throws JSONException {
         LinearLayout workoutLayout = new LinearLayout(this);
 
-        // Unsure if this is correct - confirm with Misha
         page3.addView(workoutLayout);
 
-        // Note the code below has buttons in the popup active. Decide if the buttons will be on popup or default page.
         ItemVisualiser.startWorkoutGenerationAI(data, this, workoutLayout, "aiConfirm", R.layout.activity_exercise_popup_ai, R.id.exerciseScrollView);
-
-
     }
 
     public void populateSpinners() {
@@ -292,7 +253,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         muscleGroupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                String item = adapterView.getItemAtPosition(position).toString();
+                adapterView.getItemAtPosition(position);
 
             }
 
@@ -304,8 +265,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         durationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                String item = adapterView.getItemAtPosition(position).toString();
-
+                adapterView.getItemAtPosition(position);
             }
 
             @Override
@@ -316,7 +276,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         difficultySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                String item = adapterView.getItemAtPosition(position).toString();
+                adapterView.getItemAtPosition(position);
 
             }
 
@@ -348,7 +308,6 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         muscleList.add("Upper Body");
         muscleList.add("Lower Body");
 
-
         durationList.add("20 min");
         durationList.add("40 min");
         durationList.add("1h");
@@ -361,41 +320,40 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         difficultyList.add("Hard");
     }
 
-    public String fillGptInput(){
+    public String fillGptInput() {
         String additionalInfo = additionalInfoAnswer.getText().toString().trim();
         String injuriesInfo = injuriesAnswer.getText().toString().trim();
         String equipmentInfo = equipmentAnswer.getText().toString().trim();
         String mainGoalInfo = mainGoalAnswer.getText().toString().trim();
-        if(!additionalInfo.isEmpty()){
+        if (!additionalInfo.isEmpty()) {
             additionalInfo = "Additional Info: " + additionalInfo;
         }
-        if(!equipmentInfo.isEmpty()){
+        if (!equipmentInfo.isEmpty()) {
             equipmentInfo = "User has the following equipment: " + equipmentInfo;
         }
-        if(!injuriesInfo.isEmpty()){
+        if (!injuriesInfo.isEmpty()) {
             injuriesInfo = "User suffers from the following injuries: " + injuriesInfo;
         }
-        String input = "Key: " +
+
+
+        return "Key: " +
                 "[] = optional data" +
                 ". " +
-                "Some info about a user: [37 years old] [67 kg] [M] ["+injuriesInfo+"] ["+mainGoalInfo+"]." +
+                "Some info about a user: [37 years old] [67 kg] [M] [" + injuriesInfo + "] [" + mainGoalInfo + "]." +
                 " " +
-                equipmentInfo + ". "+
+                equipmentInfo + ". " +
 
 
                 "Generate a workout in exact same JSON format of (WorkoutName, WorkoutDuration (in minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), " +
                 "Exercises (ExerciseName, Description, TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps, Time (if exercise isn't rep based, otherwise leave null))). output only the JSON" +
                 ". " +
-                "Some info about the required workout: ["+durationAnswer+"] ["+muscleGroupAnswer+"] ["+difficultyAnswer+"]. " +
+                "Some info about the required workout: [" + durationAnswer + "] [" + muscleGroupAnswer + "] [" + difficultyAnswer + "]. " +
                 ". " +
                 additionalInfo + ". " +
 
                 ". " +
                 "If you cannot generate a workout or there is not enough info, return (unsure). "
                 + "Do it on one line as a String";
-
-
-        return input;
 
     }
 

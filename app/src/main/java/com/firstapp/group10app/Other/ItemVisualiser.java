@@ -14,7 +14,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.firstapp.group10app.DB.DBHelper;
-import com.firstapp.group10app.Pages.MainActivity;
 import com.firstapp.group10app.Pages.workoutHub;
 import com.firstapp.group10app.R;
 
@@ -83,11 +82,13 @@ public class ItemVisualiser {
 
             exerciseMainView.removeAllViews();
 
+            // Adds button function if required.
             if (buttonType.equals("search")) {
                 addSearchButtons(popupView, alertDialog, box.getId());
             }
+
             else if(buttonType.equals("aiConfirm")){
-                addCloseButton(popupView, alertDialog, box.getId());
+                addCloseButton(popupView, alertDialog);
             }
 
             LinearLayout exerciseLayout = new LinearLayout(cThis);
@@ -178,8 +179,6 @@ public class ItemVisualiser {
         if (data == null) {
             showEmpty(layout);
         } else {
-            System.out.println("PRINTING TEST555");
-            System.out.println(data);
             JSONArray jsonArray = new JSONArray(data);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject workoutObject = jsonArray.getJSONObject(i);
@@ -244,7 +243,7 @@ public class ItemVisualiser {
         closeWorkout.setOnClickListener(v1 -> popup.dismiss());
     }
 
-    public static void addCloseButton(View v, AlertDialog popup, int id) {
+    public static void addCloseButton(View v, AlertDialog popup) {
         Button closeWorkout = v.findViewById(R.id.closeButton);
         closeWorkout.setOnClickListener(v1 -> popup.dismiss());
     }

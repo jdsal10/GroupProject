@@ -219,12 +219,12 @@ public class workoutHub extends AppCompatActivity implements NavigationBarView.O
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.enhance) {
-
+            Toast.makeText(this, "Currently in beta!", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.beginWorkout) {
             DBHelper.insertHistory();
             startActivity(new Intent(getApplicationContext(), History.class));
         } else if (id == R.id.addToCalendar) {
-
+            Toast.makeText(this, "Currently in beta!", Toast.LENGTH_SHORT).show();
         }
     }
 }

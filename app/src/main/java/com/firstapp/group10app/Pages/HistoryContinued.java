@@ -35,7 +35,6 @@ public class HistoryContinued extends AppCompatActivity implements NavigationBar
             // gets the workouts user has done, specific to the user
             String HistoryContinuedJSON = DBHelper.getUserWorkouts(Session.userEmail);
             ItemVisualiser.startWorkoutGeneration(HistoryContinuedJSON, this, continuedLayout, "tt", R.layout.popup_history, R.id.popupHistory);
-            System.out.println(HistoryContinuedJSON);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

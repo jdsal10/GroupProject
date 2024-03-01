@@ -9,7 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class JSONToDB {
     public static Integer insertWorkout(JSONObject data, ArrayList<String> exerciseID) throws JSONException {
@@ -22,8 +21,6 @@ public class JSONToDB {
         workoutDetails[4] = data.getString("Difficulty");
 
         Integer id = DBHelper.insertWorkout(workoutDetails);
-
-        System.out.println(Arrays.toString(workoutDetails));
 
         for (String e : exerciseID) {
             int eid = Integer.parseInt(e);
@@ -52,6 +49,7 @@ public class JSONToDB {
 
     public static void insertExercise(String data, Integer id) throws JSONException {
         JSONArray exerciseArray = new JSONArray(data);
+        System.out.println(exerciseArray);
         JSONObject individualExercise;
         String[] exerciseData = new String[5];
 
@@ -64,7 +62,6 @@ public class JSONToDB {
             exerciseData[4] = individualExercise.getString("Difficulty");
 
             DBHelper.insertExercise(exerciseData, id);
-            System.out.println(Arrays.toString(exerciseData));
         }
     }
 }

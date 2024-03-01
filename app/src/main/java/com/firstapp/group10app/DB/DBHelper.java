@@ -132,13 +132,18 @@ public class DBHelper {
             Integer id = null;
             Statement st = conn.createStatement();
 
+            DBConnection db = new DBConnection();
+            System.out.println("INSERTING!!!");
+            db.executeStatement(String.valueOf(sql));
+
+            Integer test = st.executeUpdate(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+
             ResultSet rs = st.getGeneratedKeys();
             if (rs.next()) {
                 id = rs.getInt(1);
             }
             rs.close();
 
-            DBConnection db = new DBConnection();
             db.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUE (" + workoutID + ", " + id + ");");
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -182,10 +187,6 @@ public class DBHelper {
         return size != 0;
     }
 
-    public static void clearData(String toDelete) {
-        DBConnection db = new DBConnection();
-        db.executeStatement("UPDATE HealthData.Users SET " + toDelete + " = NULL WHERE Email = '" + Session.userEmail + "'");
-    }
 
     public static void updateData(String toUpdate, String value) {
         if (toUpdate.equals("Password")) {
@@ -211,8 +212,6 @@ public class DBHelper {
     }
 
     public static String getAllWorkouts(String filter) {
-        DBConnection d = new DBConnection();
-
         String out = "SELECT\n" +
                 "  JSON_ARRAYAGG(\n" +
                 "    JSON_OBJECT(\n" +
@@ -266,8 +265,6 @@ public class DBHelper {
     }
 
     public static String getAllExercises() {
-        DBConnection d = new DBConnection();
-
         String out = "SELECT JSON_ARRAYAGG(\n" +
                 "          JSON_OBJECT(\n" +
                 "            'ExerciseID', e.ExerciseID,\n" +
@@ -301,47 +298,41 @@ public class DBHelper {
     }
 
     public static String getUserWorkouts(String filter) {
-        DBConnection d = new DBConnection();
-        String st = "SELECT\n" +
-                "  JSON_ARRAYAGG(\n" +
-                "    JSON_OBJECT(\n" +
-                "      'WorkoutID', w.WorkoutID,\n" +
-                "      'WorkoutName', w.WorkoutName,\n" +
-                "      'WorkoutDuration', w.WorkoutDuration,\n" +
-                "      'TargetMuscleGroup', w.TargetMuscleGroup,\n" +
-                "      'Equipment', w.Equipment,\n" +
-                "      'Difficulty', w.Difficulty,\n" +
-                "      'Exercises', (\n" +
-                "        SELECT JSON_ARRAYAGG(\n" +
-                "          JSON_OBJECT(\n" +
-                "            'ExerciseID', e.ExerciseID,\n" +
-                "            'ExerciseName', e.ExerciseName,\n" +
-                "            'Description', e.Description,\n" +
-                "            'Illustration', e.Illustration,\n" +
-                "            'TargetMuscleGroup', e.TargetMuscleGroup,\n" +
-                "            'Equipment', e.Equipment,\n" +
-                "            'Difficulty', e.Difficulty,\n" +
-                "            'Sets', e.Sets,\n" +
-                "            'Reps', e.Reps,\n" +
-                "            'Time', e.Time\n" +
-                "          )\n" +
-                "        )\n" +
-                "        FROM HealthData.ExerciseWorkoutPairs ewp\n" +
-                "        JOIN HealthData.Exercises e ON ewp.ExerciseID = e.ExerciseID\n" +
-                "        WHERE ewp.WorkoutID = w.WorkoutID\n" +
-                "      )\n" +
-                "    )\n" +
-                "  ) AS Result\n" +
-                "FROM\n" +
-                "  HealthData.Workouts w\n" +
-                "WHERE w.WorkoutID IN (\n" +
-                "  SELECT uwh.WorkoutID\n" +
-                "  FROM HealthData.UserWorkoutHistory uwh\n" +
-                "  WHERE uwh.Email = '" + filter + "'\n" +
-                ");\n";
+        String query = "SELECT " +
+                "JSON_ARRAYAGG(" +
+                "  JSON_OBJECT(" +
+                "    'WorkoutID', w.WorkoutID," +
+                "    'WorkoutName', w.WorkoutName," +
+                "    'WorkoutDuration', w.WorkoutDuration," +
+                "    'TargetMuscleGroup', w.TargetMuscleGroup," +
+                "    'Equipment', w.Equipment," +
+                "    'Difficulty', w.Difficulty," +
+                "    'Exercises', (" +
+                "      SELECT JSON_ARRAYAGG(" +
+                "        JSON_OBJECT(" +
+                "          'ExerciseID', e.ExerciseID," +
+                "          'ExerciseName', e.ExerciseName," +
+                "          'Description', e.Description," +
+                "          'Illustration', e.Illustration," +
+                "          'TargetMuscleGroup', e.TargetMuscleGroup," +
+                "          'Equipment', e.Equipment," +
+                "          'Difficulty', e.Difficulty" +
+                "        )" +
+                "      )" +
+                "      FROM HealthData.ExerciseWorkoutPairs ewp" +
+                "      JOIN HealthData.Exercises e ON ewp.ExerciseID = e.ExerciseID" +
+                "      WHERE ewp.WorkoutID = w.WorkoutID" +
+                "    )" +
+                "  )" +
+                ") AS Result" +
+                " FROM" +
+                "   HealthData.Workouts w" +
+                " JOIN HealthData.UserWorkoutHistory uwh ON w.WorkoutID = uwh.WorkoutID" +
+                " WHERE uwh.Email = '" + filter + "'";
 
         DBConnection db = new DBConnection();
-        ResultSet out = db.executeQuery(st);
+        ResultSet out = db.executeQuery(query);
+
         try {
             if (out.next()) {
                 return out.getString("Result");
@@ -353,78 +344,54 @@ public class DBHelper {
         return "";
     }
 
-    public String encrypt(String password, int dif) {
-        StringBuilder result = new StringBuilder();
-        for (char character : password.toCharArray()) {
-            if (character != ' ') {
-                int originalAlphabetPosition = character - 'a';
-                int newAlphabetPosition = (originalAlphabetPosition + dif) % 26;
-                char newCharacter = (char) ('a' + newAlphabetPosition);
-                result.append(newCharacter);
-            } else {
-                result.append(character);
-            }
-        }
-        return String.valueOf(result);
-    }
 
     public static void insertHistory() {
         DBConnection d = new DBConnection();
-        StringBuilder sqlHistory = new StringBuilder();
-        sqlHistory.append("INSERT INTO HealthData.UserWorkoutHistory (Email, WorkoutID, Date, Duration) VALUES (");
-        sqlHistory.append("'" + Session.userEmail + "', ");
-        sqlHistory.append("'" + Session.workoutID + "', ");
-        sqlHistory.append("CURRENT_DATE(), ");
-        sqlHistory.append(40 + ");");
-        System.out.println(sqlHistory.toString());
-        d.executeStatement(sqlHistory.toString());
-    }
-
-    public String decrypt(String password, int dif) {
-        return encrypt(password, 26 - (dif % 26));
+        String sqlHistory = "INSERT INTO HealthData.UserWorkoutHistory (Email, WorkoutID, Date, Duration) VALUES (" +
+                "'" + Session.userEmail + "', " +
+                "'" + Session.workoutID + "', " +
+                "CURRENT_DATE(), " +
+                40 + ");";
+        d.executeStatement(sqlHistory);
     }
 
     public static String getUserWorkoutsLimited(String filter) {
-        DBConnection d = new DBConnection();
-        String st = "SELECT\n" +
-                "  JSON_ARRAYAGG(\n" +
-                "    JSON_OBJECT(\n" +
-                "      'WorkoutID', w.WorkoutID,\n" +
-                "      'WorkoutName', w.WorkoutName,\n" +
-                "      'WorkoutDuration', w.WorkoutDuration,\n" +
-                "      'TargetMuscleGroup', w.TargetMuscleGroup,\n" +
-                "      'Equipment', w.Equipment,\n" +
-                "      'Difficulty', w.Difficulty,\n" +
-                "      'Exercises', (\n" +
-                "        SELECT JSON_ARRAYAGG(\n" +
-                "          JSON_OBJECT(\n" +
-                "            'ExerciseID', e.ExerciseID,\n" +
-                "            'ExerciseName', e.ExerciseName,\n" +
-                "            'Description', e.Description,\n" +
-                "            'Illustration', e.Illustration,\n" +
-                "            'TargetMuscleGroup', e.TargetMuscleGroup,\n" +
-                "            'Equipment', e.Equipment,\n" +
-                "            'Difficulty', e.Difficulty\n" +
-                "          )\n" +
-                "        )\n" +
-                "        FROM HealthData.ExerciseWorkoutPairs ewp\n" +
-                "        JOIN HealthData.Exercises e ON ewp.ExerciseID = e.ExerciseID\n" +
-                "        WHERE ewp.WorkoutID = w.WorkoutID\n" +
-                "      )\n" +
-                "    )\n" +
-                "  ) AS Result\n" +
-                "FROM\n" +
-                "  HealthData.Workouts w\n" +
-                "WHERE w.WorkoutID IN (\n" +
-                "  SELECT uwh.WorkoutID\n" +
-                "  FROM HealthData.UserWorkoutHistory uwh\n" +
-                "  WHERE uwh.Email = '" + filter + "'\n" +
-                "  ORDER BY uwh.WorkoutID DESC\n" +
-                "  LIMIT 4" +
-                ");\n";
+        String query = "SELECT " +
+                "JSON_ARRAYAGG(" +
+                "  JSON_OBJECT(" +
+                "    'WorkoutID', w.WorkoutID," +
+                "    'WorkoutName', w.WorkoutName," +
+                "    'WorkoutDuration', w.WorkoutDuration," +
+                "    'TargetMuscleGroup', w.TargetMuscleGroup," +
+                "    'Equipment', w.Equipment," +
+                "    'Difficulty', w.Difficulty," +
+                "    'Exercises', (" +
+                "      SELECT JSON_ARRAYAGG(" +
+                "        JSON_OBJECT(" +
+                "          'ExerciseID', e.ExerciseID," +
+                "          'ExerciseName', e.ExerciseName," +
+                "          'Description', e.Description," +
+                "          'Illustration', e.Illustration," +
+                "          'TargetMuscleGroup', e.TargetMuscleGroup," +
+                "          'Equipment', e.Equipment," +
+                "          'Difficulty', e.Difficulty" +
+                "        )" +
+                "      )" +
+                "      FROM HealthData.ExerciseWorkoutPairs ewp" +
+                "      JOIN HealthData.Exercises e ON ewp.ExerciseID = e.ExerciseID" +
+                "      WHERE ewp.WorkoutID = w.WorkoutID" +
+                "    )" +
+                "  )" +
+                ") AS Result" +
+                " FROM" +
+                "   HealthData.Workouts w" +
+                " JOIN HealthData.UserWorkoutHistory uwh ON w.WorkoutID = uwh.WorkoutID" +
+                " WHERE uwh.Email = '" + filter + "'" +
+                " LIMIT 4";
 
         DBConnection db = new DBConnection();
-        ResultSet out = db.executeQuery(st);
+        ResultSet out = db.executeQuery(query);
+
         try {
             if (out.next()) {
                 return out.getString("Result");

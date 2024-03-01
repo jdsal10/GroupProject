@@ -16,21 +16,4 @@ public class Session {
     public Session(String userEmail) {
         Session.userEmail = userEmail;
     }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public boolean getDBStatus() {
-        return dbStatus;
-    }
-
-    public JSONObject getSelectedWorkout() {
-        return selectedWorkout;
-    }
-
-    public boolean isSignedIn() {
-        return signedIn;
-    }
-
 }
