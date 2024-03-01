@@ -212,7 +212,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
-                android:text="Injuries"
+                android:text="Injuries (Under development)"
                 android:paddingLeft="20dp"
                 android:textSize="20sp" />
 

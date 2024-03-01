@@ -339,9 +339,11 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         return "Key: " +
                 "[] = optional data" +
                 ". " +
-                "Some info about a user: [37 years old] [67 kg] [M] [" + injuriesInfo + "] [" + mainGoalInfo + "]." +
+                "Some info about a user: [37 years old] [67 kg] [M]" +
                 " " +
                 equipmentInfo + ". " +
+                injuriesInfo + ". "+
+                mainGoalInfo + ". "+
 
 
                 "Generate a workout in exact same JSON format of (WorkoutName, WorkoutDuration (in minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), " +
