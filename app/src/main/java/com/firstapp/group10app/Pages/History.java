@@ -55,6 +55,8 @@ public class History extends AppCompatActivity implements NavigationBarView.OnIt
         // Checks if the view should be disabled.
         // OnlineChecks.checkNavigationBar(bottomNavigationView);
 
+        // If the user is not signed in / anonymous
+//        settingsbtn.setVisibility(View.GONE);
     }
 
     @Override
