@@ -80,6 +80,10 @@ public class WorkoutFilter extends AlertDialog implements View.OnClickListener {
 
         Button applyFilter = findViewById(R.id.applyFilter);
         applyFilter.setOnClickListener(this);
+
+        Button clearFilter = findViewById(R.id.clearFilter);
+        clearFilter.setOnClickListener(this);
+
     }
 
     @Override
@@ -98,7 +102,15 @@ public class WorkoutFilter extends AlertDialog implements View.OnClickListener {
 
             dismiss();
         }
-    }
+     else if (id == R.id.clearFilter) {
+            Intent intent = new Intent(getContext(), SearchWorkout.class);
+            intent.putExtra("duration", "Any");
+            intent.putExtra("difficulty", "Any");
+            intent.putExtra("targetMuscle", "Any");
+            dismiss();
+            getContext().startActivity(intent);
+
+        }    }
 
     public void setValue(String difficultyValue, String durationValue, String targetValue) {
         if (difficultyValue != null) {
