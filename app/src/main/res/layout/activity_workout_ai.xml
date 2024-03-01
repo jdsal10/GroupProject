@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="15dp"
+    android:layout_marginStart="0dp"
     android:layout_marginTop="8dp"
-    android:layout_marginEnd="15dp"
+    android:layout_marginEnd="0dp"
     android:layout_marginBottom="8dp"
     android:orientation="vertical">
 
@@ -50,13 +50,16 @@
                     android:id="@+id/muscleGroupSpinner"
                     android:layout_width="140dp"
                     android:layout_height="48dp"
-
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:prompt="@string/workoutsTmgLabel"
                     android:spinnerMode="dropdown" />
 
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
 
         <LinearLayout
             android:id="@+id/duration"
@@ -64,21 +67,19 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/durationLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:layout_weight="1"
+                android:layout_marginEnd="20dp"
+                android:paddingLeft="30dp"
                 android:text="@string/workoutsDurationLabel"
                 android:textSize="20sp" />
 
-            <LinearLayout
-                android:id="@+id/durationInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+
 
                 <Spinner
                     android:id="@+id/durationSpinner"
@@ -88,8 +89,14 @@
                     android:layout_marginBottom="8dp"
                     android:prompt="@string/workoutsDurationLabel"
                     android:spinnerMode="dropdown" />
-            </LinearLayout>
+
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+
 
         <LinearLayout
             android:id="@+id/difficultyLayout"
@@ -97,32 +104,33 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/difficultyLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:text="@string/workoutsDifficultyLabel"
+                android:paddingLeft="30dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="3"
                 android:textSize="20sp" />
-
-            <LinearLayout
-                android:id="@+id/difficultyInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
 
                 <Spinner
                     android:id="@+id/difficultySpinner"
-                    android:layout_width="140dp"
+                    android:layout_width="180dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
 
+                    android:layout_weight="0.9"
                     android:spinnerMode="dropdown" />
             </LinearLayout>
-        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
 
         <LinearLayout
             android:id="@+id/equipmentLayout"
@@ -137,6 +145,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Using equipment? List it here!"
+                android:paddingLeft="30dp"
                 android:textSize="20sp" />
 
 
@@ -145,6 +154,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
                 android:layout_gravity="center"
+                android:paddingLeft="30dp"
                 android:hint="List it here"
                 android:inputType="textMultiLine"
                 android:textSize="20sp" />
