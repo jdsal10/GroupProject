@@ -35,6 +35,7 @@ public class SearchWorkout extends AppCompatActivity implements NavigationBarVie
         Intent intent = getIntent();
 
         if (intent != null && getIntent().hasExtra("duration") && getIntent().hasExtra("difficulty") && getIntent().hasExtra("targetMuscle")) {
+            System.out.println("I HAS DATA!");
             difficultyString = getIntent().getStringExtra("difficulty");
             durationString = getIntent().getStringExtra("duration");
             targetString = getIntent().getStringExtra("targetMuscle");
@@ -43,6 +44,7 @@ public class SearchWorkout extends AppCompatActivity implements NavigationBarVie
             applyChange(difficultyString, durationString, targetString);
 
         } else {
+            System.out.println("WE GO AGAIN!");
             initializeLayout();
             try {
                 String data = DBHelper.getAllWorkouts(null);
@@ -107,6 +109,7 @@ public class SearchWorkout extends AppCompatActivity implements NavigationBarVie
             Objects.requireNonNull(customDialog.getWindow()).setWindowAnimations(R.style.filterAnimations);
 
             customDialog.show();
+            System.out.println("SELCTEDT VALUES: " + difficultyString + durationString + targetString);
             customDialog.setValue(difficultyString, durationString, targetString);
 
         } else if (id == R.id.goToSettings) {

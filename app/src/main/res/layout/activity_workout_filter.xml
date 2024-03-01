@@ -39,7 +39,7 @@
 
         <Spinner
             android:id="@+id/difficultyInput"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:importantForAutofill="no"
@@ -74,7 +74,7 @@
 
         <Spinner
             android:id="@+id/durationInput"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:importantForAutofill="no"
@@ -132,15 +132,5 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:text="@string/confirmFilter" />
-
-        <Button
-            android:id="@+id/clearFilter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="Clear Filter" />
     </LinearLayout>
 </LinearLayout>

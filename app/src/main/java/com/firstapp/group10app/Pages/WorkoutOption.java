@@ -109,7 +109,7 @@ public class WorkoutOption extends AppCompatActivity implements CompoundButton.O
         if (id == R.id.goToSearch) {
             startActivity(new Intent(WorkoutOption.this, SearchWorkout.class));
         } else if (id == R.id.goToCreate) {
-            startActivity(new Intent(WorkoutOption.this, WorkoutAi.class));
+            startActivity(new Intent(WorkoutOption.this, CreateWorkout.class));
         } else if (id == R.id.goToAI) {
             if ((!Session.signedIn) || (!DBConnection.testConnection())) {
                 Toast.makeText(this, "No connection!", Toast.LENGTH_SHORT).show();
