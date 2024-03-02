@@ -13,6 +13,7 @@
 
     <!-- button -->
     <dimen name="button_height_default">60dp</dimen>
+    <dimen name="button_height_large">80dp</dimen>
 
     <!-- margin -->
     <dimen name="margin_default">12dp</dimen>

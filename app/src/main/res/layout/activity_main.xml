@@ -42,15 +42,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_default"
         android:gravity="center"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/goToLogin"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_height="@dimen/button_height_large"
             android:background="@drawable/solid_background_tetradic1"
             android:text="@string/loginTitle"
             android:textColor="@color/white"
@@ -67,12 +67,9 @@
         <Button
             android:id="@+id/anonymous"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="15dp"
+            android:layout_height="@dimen/button_height_large"
             android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"
             android:text="@string/welcomeAnonymous"
-            android:textSize="@dimen/font_size_larger"
-            android:textStyle="bold" />
+            android:textSize="@dimen/font_size_larger" />
     </LinearLayout>
 </LinearLayout>

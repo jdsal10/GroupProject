@@ -11,15 +11,16 @@
         android:layout_height="wrap_content"
         android:text="Update Data"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="@dimen/font_size_large"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/updateDescription"
         android:layout_width="match_parent"
+        android:layout_margin="@dimen/margin_default"
         android:layout_height="wrap_content"
         android:text="Please enter the new value for "
-        android:textSize="15sp"></TextView>
+        android:textSize="@dimen/font_size_small" />
 
     <LinearLayout
         android:id="@+id/modificationArea"
@@ -35,20 +36,25 @@
 
         <Button
             android:id="@+id/confirmUpdate"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button_tetradic1"
+            android:textColor="@color/white"
             android:text="Confirm" />
 
         <Button
             android:id="@+id/clearUpdate"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Clear" />
 
         <Button
             android:id="@+id/cancelUpdate"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Cancel" />
     </LinearLayout>
 

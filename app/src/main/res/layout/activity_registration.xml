@@ -4,10 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="16dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginBottom="8dp"
+    android:layout_marginStart="@dimen/margin_default"
+    android:layout_marginEnd="@dimen/margin_default"
     android:orientation="vertical"
     tools:context=".Pages.Registration"
     tools:ignore="HardcodedText">
@@ -48,7 +46,7 @@
             <EditText
                 android:id="@+id/emailTextBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/text_field_height_default"
                 android:autofillHints="Email"
                 android:ems="10"
                 android:hint="@string/emailHint"
@@ -73,7 +71,7 @@
             <EditText
                 android:id="@+id/nameTextBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/text_field_height_default"
                 android:autofillHints="Name"
                 android:ems="10"
                 android:hint="@string/nameHint"
@@ -96,7 +94,7 @@
             <EditText
                 android:id="@+id/passwordTextBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/text_field_height_default"
                 android:ems="10"
                 android:hint="@string/passwordHint"
                 android:inputType="textPassword" />
@@ -341,19 +339,19 @@
         <Button
             android:id="@+id/buttonBack"
             android:layout_width="0dp"
-            android:layout_height="64dp"
+            android:layout_height="@dimen/button_height_default"
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="0.5"
+            android:layout_marginEnd="3dp"
+            android:layout_weight="1"
             android:text="@string/back" />
 
         <Button
             android:id="@+id/buttonNext"
             android:layout_width="0dp"
-            android:layout_height="64dp"
+            android:layout_height="@dimen/button_height_default"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="8dp"
-            android:layout_weight="0.5"
+            android:layout_marginStart="3dp"
+            android:layout_weight="1"
             android:background="@drawable/solid_background_tetradic1"
             android:text="@string/next"
             android:textColor="@color/white" />
