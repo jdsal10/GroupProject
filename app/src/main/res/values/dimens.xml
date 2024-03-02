@@ -15,6 +15,6 @@
     <dimen name="button_height_default">60dp</dimen>
 
     <!-- margin -->
-    <dimen name="margin_default">10dp</dimen>
+    <dimen name="margin_default">12dp</dimen>
 
 </resources>

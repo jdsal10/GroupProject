@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -42,18 +43,16 @@
                 android:id="@+id/emailLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/email"
-                android:textSize="20sp" />
+                android:text="@string/email" />
 
             <EditText
                 android:id="@+id/emailTextBox"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:autofillHints="Email"
                 android:ems="10"
                 android:hint="@string/emailHint"
-                android:inputType="textEmailAddress"
-                android:textSize="20sp" />
+                android:inputType="textEmailAddress" />
 
         </LinearLayout>
 
@@ -69,18 +68,16 @@
                 android:id="@+id/nameLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/name"
-                android:textSize="20sp" />
+                android:text="@string/name" />
 
             <EditText
                 android:id="@+id/nameTextBox"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:autofillHints="Name"
                 android:ems="10"
                 android:hint="@string/nameHint"
-                android:inputType="text|textPersonName"
-                android:textSize="20sp" />
+                android:inputType="text|textPersonName" />
         </LinearLayout>
 
         <LinearLayout
@@ -94,17 +91,32 @@
                 android:id="@+id/passwordLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/password"
-                android:textSize="20sp" />
+                android:text="@string/password" />
 
             <EditText
                 android:id="@+id/passwordTextBox"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/passwordHint"
-                android:inputType="textPassword"
-                android:textSize="20sp" />
+                android:inputType="textPassword" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etPasswordLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Password"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
     </LinearLayout>
@@ -130,8 +142,7 @@
                 android:id="@+id/dobLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/dob"
-                android:textSize="20sp" />
+                android:text="@string/dob" />
 
             <EditText
                 android:id="@+id/dobTextBox"
@@ -139,8 +150,7 @@
                 android:layout_height="48dp"
                 android:ems="10"
                 android:hint="@string/dobHint"
-                android:inputType="date"
-                android:textSize="20sp" />
+                android:inputType="date" />
         </LinearLayout>
 
         <LinearLayout
@@ -155,8 +165,7 @@
                 android:id="@+id/sexLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/sex"
-                android:textSize="20sp" />
+                android:text="@string/sex" />
 
             <RadioGroup
                 android:id="@+id/sexButtons"
@@ -169,17 +178,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="@string/radioButtonMale"
-                    android:textSize="20sp" />
+                    android:text="@string/radioButtonMale" />
 
                 <RadioButton
                     android:id="@+id/femaleRadioButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="@string/radioButtonFemale"
-                    android:textSize="20sp" />
-
+                    android:text="@string/radioButtonFemale" />
             </RadioGroup>
         </LinearLayout>
 
@@ -201,8 +207,7 @@
                     android:id="@+id/heightLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/height"
-                    android:textSize="20sp" />
+                    android:text="@string/height" />
 
                 <LinearLayout
                     android:id="@+id/heightInputLayoutx"
@@ -217,8 +222,7 @@
                         android:layout_weight="0.5"
                         android:ems="10"
                         android:hint="@string/heightHintCm"
-                        android:inputType="number"
-                        android:textSize="20sp" />
+                        android:inputType="number" />
 
                     <Spinner
                         android:id="@+id/heightUnitsDropdown"
@@ -239,8 +243,7 @@
                     android:id="@+id/weightLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/weight"
-                    android:textSize="20sp" />
+                    android:text="@string/weight" />
 
                 <LinearLayout
                     android:id="@+id/weightInputLayout"
@@ -255,8 +258,7 @@
                         android:layout_weight="0.5"
                         android:ems="10"
                         android:hint="@string/weightHintKg"
-                        android:inputType="number"
-                        android:textSize="20sp" />
+                        android:inputType="number" />
 
                     <Spinner
                         android:id="@+id/weightUnitsDropdown"
@@ -290,8 +292,7 @@
                 android:id="@+id/allergiesLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/healthConditions"
-                android:textSize="20sp" />
+                android:text="@string/healthConditions" />
 
             <EditText
                 android:id="@+id/allergiesTextBox"
@@ -302,8 +303,7 @@
                 android:lines="8"
                 android:maxLines="10"
                 android:minLines="6"
-                android:scrollbars="vertical"
-                android:textSize="20sp" />
+                android:scrollbars="vertical" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -321,8 +321,7 @@
                 android:id="@+id/reasonsLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Main reason to download the app?"
-                android:textSize="20sp" />
+                android:text="Main reason to download the app?" />
 
             <Spinner
                 android:id="@+id/reasonsDropdown"

@@ -54,6 +54,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginEnd="@dimen/margin_default"
             android:layout_weight="3"
             android:gravity="center"
             android:orientation="vertical">
@@ -65,7 +67,7 @@
                 android:layout_gravity="center"
                 android:text="@string/loginTitle"
                 android:textAlignment="center"
-                android:textSize="30sp"
+                android:textSize="@dimen/font_size_very_large"
                 android:textStyle="bold" />
 
             <EditText
@@ -73,23 +75,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="15dp"
                 android:autofillHints="emailAddress"
                 android:ems="10"
                 android:hint="@string/loginUsername"
-                android:inputType="textEmailAddress"
-                android:textSize="24sp" />
+                android:inputType="textEmailAddress" />
 
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etPasswordLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="15dp"
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -98,8 +95,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="Password"
-                    android:inputType="textPassword"
-                    android:textSize="24sp" />
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -110,8 +106,7 @@
                 android:layout_marginTop="15dp"
                 android:ems="10"
                 android:text="@string/forgotPassword"
-                android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textAlignment="center" />
         </LinearLayout>
 
         <LinearLayout
@@ -131,7 +126,7 @@
                 android:background="@drawable/solid_background_tetradic1"
                 android:text="@string/loginButton"
                 android:textColor="@color/white"
-                android:textSize="25sp" />
+                android:textSize="@dimen/font_size_large" />
 
             <TextView
                 android:id="@+id/register"

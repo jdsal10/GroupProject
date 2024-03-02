@@ -24,10 +24,10 @@
 
     <!-- Required (Registration) -->
     <string name="email">Email <font color='#FF0000'>*</font></string>
+    <string name="name">Name <font color='#FF0000'>*</font></string>
     <string name="password">Password <font color='#FF0000'>*</font></string>
 
     <!-- Optional (Registration) -->
-    <string name="name">Name <font color='#d3d3d3'>(optional)</font></string>
     <string name="dob">Birth date <font color='#d3d3d3'>(optional)</font></string>
     <string name="sex">Sex <font color='#d3d3d3'>(optional)</font></string>
     <string name="height">Height <font color='#d3d3d3'>(optional)</font></string>
