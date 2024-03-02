@@ -2,35 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_marginStart="@dimen/margin_default"
+    android:layout_marginEnd="@dimen/margin_default"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/deleteAccountTitle"
-        android:textSize="20sp" />
+        android:layout_marginBottom="@dimen/margin_default"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/deleteAccountSubtitle"
         android:textColor="@android:color/black"
-        android:textSize="16sp" />
+        android:textSize="@dimen/font_size_small" />
 
     <EditText
         android:id="@+id/accountDeletePassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/text_field_height_default"
         android:autofillHints="password"
         android:hint="@string/deleteAccountInput"
-        android:inputType="textPassword"
-        android:textSize="25sp" />
+        android:layout_marginBottom="@dimen/margin_default"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/deleteConfirm"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/button_height_default"
+        android:background="@drawable/rounded_button_paster_red"
         android:text="@string/deleteAccountConfirm" />
 
 </LinearLayout>

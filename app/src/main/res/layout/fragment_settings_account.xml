@@ -50,7 +50,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/button_height_default"
             android:layout_weight="1"
-            android:background="@color/pastel_red"
+            android:background="@drawable/rounded_button_paster_red"
             android:text="@string/deleteAccountButton"
             android:textSize="@dimen/font_size_small" />
 

@@ -38,10 +38,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginEnd="25dp"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:layout_weight="1"
-                android:text="@string/searchDifficulty"
-                android:textStyle="bold" />
+                android:text="@string/searchDifficulty" />
 
             <Spinner
                 android:id="@+id/difficultyInput"
@@ -49,7 +48,6 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:importantForAutofill="no"
-                android:textSize="25sp"
                 tools:ignore="DuplicateSpeakableTextCheck" />
         </LinearLayout>
 
@@ -70,10 +68,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginEnd="25dp"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:layout_weight="1"
-                android:text="@string/searchDuration"
-                android:textStyle="bold" />
+                android:text="@string/searchDuration" />
 
             <Spinner
                 android:id="@+id/durationInput"
@@ -81,7 +78,6 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:importantForAutofill="no"
-                android:textSize="25sp"
                 tools:ignore="DuplicateSpeakableTextCheck" />
         </LinearLayout>
 
@@ -102,10 +98,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginEnd="25dp"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:layout_weight="1"
-                android:text="@string/searchTarget"
-                android:textStyle="bold" />
+                android:text="@string/searchTarget" />
 
             <Spinner
                 android:id="@+id/targetMuscleInput"
@@ -114,8 +109,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
                 android:importantForAutofill="no"
-                android:inputType="text"
-                android:textSize="25sp" />
+                android:inputType="text" />
         </LinearLayout>
 
         <LinearLayout

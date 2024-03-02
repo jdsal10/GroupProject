@@ -22,7 +22,7 @@
             android:layout_marginTop="10dp"
             android:text="Workout Hub"
             android:textColor="@color/almost_black"
-            android:textSize="40sp"
+            android:textSize="@dimen/font_size_very_large"
             android:textStyle="bold" />
 
         <ScrollView
@@ -46,30 +46,29 @@
             <Button
                 android:id="@+id/enhance"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/button_height_large"
+                android:layout_marginEnd="3dp"
                 android:layout_weight="1"
-                android:text="Enhance Workout (AI)"
-                android:textSize="@dimen/font_size_small" />
-
-            <Space
-                android:layout_width="5dp"
-                android:layout_height="match_parent" />
+                android:background="@drawable/gradient_background"
+                android:text="Enhance Workout (AI)" />
 
             <Button
                 android:id="@+id/addToCalendar"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/button_height_large"
+                android:layout_marginStart="3dp"
                 android:layout_weight="1"
-                android:text="Add to Calendar (BETA)"
-                android:textSize="@dimen/font_size_small" />
+                android:text="Add to Calendar (BETA)" />
         </LinearLayout>
 
         <Button
             android:id="@+id/beginWorkout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/button_height_default"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/rounded_button_tetradic1"
             android:text="Begin Workout"
-            android:textSize="@dimen/font_size_small" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -80,6 +79,5 @@
         app:menu="@menu/home_navigation">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
-
 
 </LinearLayout>

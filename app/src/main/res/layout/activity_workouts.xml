@@ -2,10 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="16dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginBottom="8dp"
+    android:layout_marginStart="@dimen/margin_default"
+    android:layout_marginEnd="@dimen/margin_default"
     android:orientation="vertical">
 
     <TextView
@@ -15,7 +13,7 @@
         android:layout_weight="0.15"
         android:gravity="center_horizontal|center_vertical"
         android:text="@string/workoutsTitle"
-        android:textSize="24sp"
+        android:textSize="@dimen/font_size_large"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -39,8 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="@string/workoutsTmgLabel"
-                android:textSize="20sp" />
+                android:text="@string/workoutsTmgLabel" />
 
             <LinearLayout
                 android:id="@+id/tmgInputLayout"
@@ -72,8 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="@string/workoutsDurationLabel"
-                android:textSize="20sp" />
+                android:text="@string/workoutsDurationLabel" />
 
             <LinearLayout
                 android:id="@+id/durationInputLayout"
@@ -105,8 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="@string/workoutsEquipmentLabel"
-                android:textSize="20sp" />
+                android:text="@string/workoutsEquipmentLabel" />
 
             <LinearLayout
                 android:id="@+id/equipmentInputLayout"
@@ -138,8 +133,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="@string/workoutsDifficultyLabel"
-                android:textSize="20sp" />
+                android:text="@string/workoutsDifficultyLabel" />
 
             <LinearLayout
                 android:id="@+id/difficultyInputLayout"
