@@ -31,5 +31,4 @@
        android:layout_gravity="center"
        android:text="Close"/>
 
-
 </LinearLayout>
