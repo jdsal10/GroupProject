@@ -1,6 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_large"
+    android:layout_marginEnd="@dimen/margin_large"
     android:layout_marginBottom="25dp"
     android:background="@drawable/round_corners"
     android:orientation="horizontal"
@@ -38,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/name"
-            android:textSize="25sp"
+            android:textSize="@dimen/font_size_large"
             android:textStyle="bold" />
 
         <TextView
@@ -46,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/exerciseDescription"
-            android:textSize="15sp"
+            android:textSize="@dimen/font_size_smaller"
             android:textStyle="bold" />
 
         <!--        <TextView-->
@@ -62,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/exerciseTargetMuscle"
-            android:textSize="15sp"
+            android:textSize="@dimen/font_size_smaller"
             android:textStyle="bold" />
 
         <TextView
@@ -70,28 +72,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/exerciseEquipment"
-            android:textSize="15sp"
+            android:textSize="@dimen/font_size_smaller"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/exerciseSetsView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sets"
-            android:textSize="15sp"
+            android:textSize="@dimen/font_size_smaller"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/exerciseRepsView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Reps"
-            android:textSize="15sp"
+            android:textSize="@dimen/font_size_smaller"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/exerciseTimeView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Time"
-            android:textSize="15sp"
+            android:textSize="@dimen/font_size_smaller"
             android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

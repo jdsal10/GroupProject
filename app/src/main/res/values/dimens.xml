@@ -16,5 +16,6 @@
 
     <!-- margin -->
     <dimen name="margin_default">12dp</dimen>
+    <dimen name="margin_large">16dp</dimen>
 
 </resources>

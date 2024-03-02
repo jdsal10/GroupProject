@@ -238,4 +238,9 @@ with your account and we will send you an email with further instructions.</stri
 
     <!--    No Workouts Found-->
     <string name="noWorkouts">No workouts were found</string>
+
+    <!-- Home Page Values -->
+    <string name="homePageTitle">Home Page</string>
+    <string name="homePageWelcome">Welcome!</string>
+    <string name="homePageGoToWorkouts">Go To Workouts</string>
 </resources>
