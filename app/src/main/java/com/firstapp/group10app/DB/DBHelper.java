@@ -347,10 +347,12 @@ public class DBHelper {
 
     public static void insertHistory() {
         DBConnection d = new DBConnection();
-        String sqlHistory = "INSERT INTO HealthData.UserWorkoutHistory (Email, WorkoutID, Date, Duration) VALUES (" +
+        String sqlHistory = "INSERT INTO HealthData.UserWorkoutHistory (Email, WorkoutID, Time, Date, Duration) VALUES (" +
                 "'" + Session.userEmail + "', " +
                 "'" + Session.workoutID + "', " +
+                "CURRENT_TIME(), " +
                 "CURRENT_DATE(), " +
+                // Add with correct duration.
                 40 + ");";
         d.executeStatement(sqlHistory);
     }
