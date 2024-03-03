@@ -91,31 +91,20 @@
                 android:layout_height="wrap_content"
                 android:text="@string/password" />
 
-            <EditText
-                android:id="@+id/passwordTextBox"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/text_field_height_default"
-                android:ems="10"
-                android:hint="@string/passwordHint"
-                android:inputType="textPassword" />
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etPasswordLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:visibility="gone"
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/password"
+                    android:id="@+id/passwordTextBox"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/text_field_height_default"
                     android:ems="10"
-                    android:hint="Password"
+                    android:hint="@string/passwordHint"
                     android:inputType="textPassword" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout></LinearLayout>
 
     </LinearLayout>
 
@@ -220,7 +209,7 @@
                         android:layout_weight="0.5"
                         android:ems="10"
                         android:hint="@string/heightHintCm"
-                        android:inputType="number" />
+                        android:inputType="numberDecimal" />
 
                     <Spinner
                         android:id="@+id/heightUnitsDropdown"
@@ -256,7 +245,7 @@
                         android:layout_weight="0.5"
                         android:ems="10"
                         android:hint="@string/weightHintKg"
-                        android:inputType="number" />
+                        android:inputType="numberDecimal" />
 
                     <Spinner
                         android:id="@+id/weightUnitsDropdown"
