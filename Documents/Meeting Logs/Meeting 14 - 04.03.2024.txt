@@ -1,0 +1,21 @@
+Meeting Log - 04.03.2024
+
+SPRINT 2 is over
+
+START OF SPRINT 3 (LAST SPRINT) - not exactly a sprint, since it is a bit long
+
+To do this week:
+Nikola
+- Fix "Registration check missing" bug issue
+- Refactor - move the fragments directory in the pages directory
+
+
+Ethan
+- "Add transitions between the fragents in Settings" issue
+- "Workout -> Search -> Exercise --- Add text to the difficulty square and keep consistent colors" issue
+- "Add Session Data to AI prompt" issue
+
+
+Juan
+- Fixing History functionality
+- Better email when resetting password.
