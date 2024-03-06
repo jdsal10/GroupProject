@@ -10,8 +10,10 @@ public class Session {
     public static boolean dbStatus;
     public static JSONObject selectedWorkout;
     public static Boolean signedIn;
-
     public static int workoutID;
+
+    // Format for userDetails is [DOB, Weight, Height, Sex, Health Condition, Reason for downloading]
+    public static String[] userDetails;
 
     public Session(String userEmail) {
         Session.userEmail = userEmail;

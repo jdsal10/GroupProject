@@ -1,7 +1,5 @@
 package com.firstapp.group10app.Pages;
 
-import static android.text.InputType.TYPE_CLASS_NUMBER;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -21,6 +19,7 @@ import android.widget.TextView;
 
 import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Fragments.settings_data_control;
+import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Other.Validator;
 import com.firstapp.group10app.R;
 
@@ -266,10 +265,12 @@ public class ModifyData extends Dialog implements View.OnClickListener {
                     if (edit.getText().toString().isEmpty()) {
                         DBHelper.updateData("DOB", "");
                         settings_data_control.updateValue("DOB", "");
+                        Session.userDetails[0] = "";
                         dismiss();
                     } else if (Validator.dobValid(edit.getText().toString())) {
                         DBHelper.updateData("DOB", edit.getText().toString());
                         settings_data_control.updateValue("DOB", edit.getText().toString());
+                        Session.userDetails[0] = edit.getText().toString();
                         dismiss();
                     } else {
                         edit.setError("Invalid format!");
@@ -280,14 +281,17 @@ public class ModifyData extends Dialog implements View.OnClickListener {
                     if (dropdown.getSelectedItem().equals("Male")) {
                         DBHelper.updateData("Sex", "M");
                         settings_data_control.updateValue("Sex", dropdown.getSelectedItem().toString());
+                        Session.userDetails[3] = dropdown.getSelectedItem().toString();
                         dismiss();
                     } else if (dropdown.getSelectedItem().equals("Female")) {
                         DBHelper.updateData("Sex", "F");
                         settings_data_control.updateValue("Sex", dropdown.getSelectedItem().toString());
+                        Session.userDetails[3] = dropdown.getSelectedItem().toString();
                         dismiss();
                     } else if (dropdown.getSelectedItem().equals("Other")) {
                         DBHelper.updateData("Sex", "O");
                         settings_data_control.updateValue("Sex", dropdown.getSelectedItem().toString());
+                        Session.userDetails[3] = dropdown.getSelectedItem().toString();
                         dismiss();
                     } else {
                         edit.setError("Invalid format!");
@@ -300,10 +304,12 @@ public class ModifyData extends Dialog implements View.OnClickListener {
                     } else if (edit.getText().toString().isEmpty() && dropdown.getSelectedItem().toString().isEmpty()) {
                         DBHelper.updateData("Weight", "");
                         settings_data_control.updateValue("Weight", "");
+                        Session.userDetails[1] = "";
                         dismiss();
                     } else if (Validator.weightValid(edit.getText().toString(), dropdown.getSelectedItem().toString())) {
                         DBHelper.updateData("Weight", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
                         settings_data_control.updateValue("Weight", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
+                        Session.userDetails[1] = edit.getText().toString() + " " + dropdown.getSelectedItem().toString();
                         dismiss();
                     } else {
                         edit.setError("Invalid format!");
@@ -316,10 +322,12 @@ public class ModifyData extends Dialog implements View.OnClickListener {
                     } else if (edit.getText().toString().isEmpty() && dropdown.getSelectedItem().toString().isEmpty()) {
                         DBHelper.updateData("Height", "");
                         settings_data_control.updateValue("Height", "");
+                        Session.userDetails[2] = "";
                         dismiss();
                     } else if (Validator.heightValid(edit.getText().toString(), dropdown.getSelectedItem().toString())) {
                         DBHelper.updateData("Height", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
                         settings_data_control.updateValue("Height", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
+                        Session.userDetails[2] = edit.getText().toString() + " " + dropdown.getSelectedItem().toString();
                         dismiss();
                     } else {
                         edit.setError("Invalid format!");
@@ -330,10 +338,12 @@ public class ModifyData extends Dialog implements View.OnClickListener {
                     if (edit.getText().toString().isEmpty()) {
                         DBHelper.updateData("HealthCondition", "");
                         settings_data_control.updateValue("Allergies", "");
+                        Session.userDetails[4] = "";
                         dismiss();
                     } else {
                         DBHelper.updateData("HealthCondition", edit.getText().toString());
                         settings_data_control.updateValue("Allergies", edit.getText().toString());
+                        Session.userDetails[4] = edit.getText().toString();
                         dismiss();
                     }
                     break;
@@ -342,10 +352,12 @@ public class ModifyData extends Dialog implements View.OnClickListener {
                     if (dropdown.getSelectedItem().toString().isEmpty()) {
                         DBHelper.updateData("ReasonForDownloading", "");
                         settings_data_control.updateValue("Reasons", "");
+                        Session.userDetails[5] = "";
                         dismiss();
                     } else {
                         DBHelper.updateData("ReasonForDownloading", dropdown.getSelectedItem().toString());
                         settings_data_control.updateValue("Reasons", dropdown.getSelectedItem().toString());
+                        Session.userDetails[5] = dropdown.getSelectedItem().toString();
                         dismiss();
                     }
                     break;
@@ -355,26 +367,37 @@ public class ModifyData extends Dialog implements View.OnClickListener {
                 case "DOB":
                     DBHelper.updateData("DOB", "");
                     settings_data_control.updateValue("DOB", "");
+                    Session.userDetails[0] = "";
                     break;
-                case "Sex":
-                    DBHelper.updateData("Sex", "");
-                    settings_data_control.updateValue("Sex", "");
-                    break;
+
                 case "Weight":
                     DBHelper.updateData("Weight", "");
                     settings_data_control.updateValue("Weight", "");
+                    Session.userDetails[1] = "";
                     break;
+
                 case "Height":
                     DBHelper.updateData("Height", "");
                     settings_data_control.updateValue("Height", "");
+                    Session.userDetails[2] = "";
                     break;
+
+                case "Sex":
+                    DBHelper.updateData("Sex", "");
+                    settings_data_control.updateValue("Sex", "");
+                    Session.userDetails[3] = "";
+                    break;
+
                 case "Allergies":
                     DBHelper.updateData("HealthCondition", "");
                     settings_data_control.updateValue("Allergies", "");
+                    Session.userDetails[4] = "";
                     break;
+
                 case "Reasons":
                     DBHelper.updateData("ReasonForDownloading", "");
                     settings_data_control.updateValue("Reasons", "");
+                    Session.userDetails[5] = "";
                     break;
             }
             dismiss();

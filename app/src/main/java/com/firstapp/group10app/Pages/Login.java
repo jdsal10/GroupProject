@@ -15,7 +15,9 @@ import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
     private EditText Email, Password;
@@ -51,6 +53,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 DBHelper db = new DBHelper();
                 if (db.checkUser(emailText, passwordText)) { // .replace("[", "").replace("]", ""))) {
                     Toast.makeText(Login.this, "Welcome \n" + emailText + " ! ", Toast.LENGTH_SHORT).show();
+                    setSessionData(emailText);
                     Session.userEmail = emailText;
                     Session.signedIn = true;
                     startActivity(new Intent(getApplicationContext(), Home.class));
@@ -66,5 +69,24 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             startActivity(new Intent(Login.this, Registration.class));
             overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
         }
+    }
+
+    public void setSessionData(String email) throws SQLException {
+        DBHelper db = new DBHelper();
+        ResultSet data = db.getUser(email);
+
+        Session.userDetails[0] = data.getString("DOB");
+        Session.userDetails[1] = data.getString("Weight");
+        Session.userDetails[2] = data.getString("Height");
+
+        if (data.getString("Sex").equals("M")) {
+            Session.userDetails[3] = "Male";
+        } else if (data.getString("Sex").equals("F")) {
+            Session.userDetails[3] = "Female";
+        }
+
+        Session.userDetails[4] = data.getString("HealthCondition");
+        Session.userDetails[5] = data.getString("ReasonForDownloading");
+        System.out.println(Arrays.toString(Session.userDetails));
     }
 }

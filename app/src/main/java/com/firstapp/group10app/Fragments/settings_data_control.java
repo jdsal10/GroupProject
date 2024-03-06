@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.firstapp.group10app.DB.DBHelper;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.ModifyData;
 import com.firstapp.group10app.R;
@@ -34,14 +33,12 @@ public class settings_data_control extends Fragment implements View.OnClickListe
     }
 
     public void updateValues(ArrayList<String> info) {
-        System.out.println("Fragments.settings_data_control.updateValues: info = " + info);
-
         // Since DOB is a regular value, no formatting is required
         dobValue.setText(info.get(0));
 
         // Updates the view value of weight and its units.
         String tempWeight = info.get(1);
-        if (tempWeight == null || TextUtils.isEmpty(tempWeight) || tempWeight.equals("")) {
+        if (tempWeight == null || TextUtils.isEmpty(tempWeight) || tempWeight.isEmpty()) {
             weightValue.setText("");
         } else {
             weightValue.setText(info.get(1));
@@ -49,7 +46,7 @@ public class settings_data_control extends Fragment implements View.OnClickListe
 
         // Updates the view value of height and its units.
         String tempHeight = info.get(2);
-        if (tempHeight == null || TextUtils.isEmpty(tempHeight) || tempHeight.equals("")) {
+        if (tempHeight == null || TextUtils.isEmpty(tempHeight) || tempHeight.isEmpty()) {
             heightValue.setText("");
         } else {
             heightValue.setText(info.get(2));
@@ -127,22 +124,17 @@ public class settings_data_control extends Fragment implements View.OnClickListe
         reasonsValue.setSelected(true);
 
         // Declares an array of the users details.
-        String currentUser = Session.userEmail;
         details = new ArrayList<>();
 
         // Gets the details of the current user.
-        DBHelper help = new DBHelper();
-        ResultSet data = help.getUser(currentUser);
-
         try {
-            if (data.next()) {
-                details.add(data.getString("DOB"));
-                details.add(data.getString("Weight"));
-                details.add(data.getString("Height"));
-                details.add(data.getString("Sex"));
-                details.add(data.getString("HealthCondition"));
-                details.add(data.getString("ReasonForDownloading"));
-            }
+                details.add(Session.userDetails[0]);
+                details.add(Session.userDetails[1]);
+                details.add(Session.userDetails[2]);
+                details.add(Session.userDetails[3]);
+                details.add(Session.userDetails[4]);
+                details.add(Session.userDetails[5]);
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
