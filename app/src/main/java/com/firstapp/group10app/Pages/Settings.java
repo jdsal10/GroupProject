@@ -76,15 +76,19 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
         int id = v.getId();
         if (id == R.id.goDataControl) {
             updateView(new settings_data_control());
+
         } else if (id == R.id.goAccessibility) {
             updateView(new settings_accessibility());
+
         } else if (id == R.id.goAccount) {
             updateView(new settings_account());
         }
     }
 
+
     public void updateView(Fragment newVIew) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out);
         transaction.replace(R.id.settingsBody, newVIew);
         transaction.addToBackStack(null);
         transaction.commit();
