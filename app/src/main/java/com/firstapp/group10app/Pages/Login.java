@@ -75,18 +75,24 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         DBHelper db = new DBHelper();
         ResultSet data = db.getUser(email);
 
-        Session.userDetails[0] = data.getString("DOB");
-        Session.userDetails[1] = data.getString("Weight");
-        Session.userDetails[2] = data.getString("Height");
+        if (data.next()) {
+            Session.userDetails = new String[6];
+            Session.userDetails[0] = data.getString("DOB");
+            Session.userDetails[1] = data.getString("Weight");
+            Session.userDetails[2] = data.getString("Height");
 
-        if (data.getString("Sex").equals("M")) {
-            Session.userDetails[3] = "Male";
-        } else if (data.getString("Sex").equals("F")) {
-            Session.userDetails[3] = "Female";
+            if (data.getString("Sex").equals("M")) {
+                Session.userDetails[3] = "Male";
+            } else if (data.getString("Sex").equals("F")) {
+                Session.userDetails[3] = "Female";
+            }
+
+            Session.userDetails[4] = data.getString("HealthCondition");
+            Session.userDetails[5] = data.getString("ReasonForDownloading");
+            System.out.println(Arrays.toString(Session.userDetails));
+        } else {
+            System.out.println("No data found for the user with email: " + email);
         }
-
-        Session.userDetails[4] = data.getString("HealthCondition");
-        Session.userDetails[5] = data.getString("ReasonForDownloading");
-        System.out.println(Arrays.toString(Session.userDetails));
     }
+
 }
