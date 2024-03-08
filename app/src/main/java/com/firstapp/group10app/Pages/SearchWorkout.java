@@ -111,9 +111,6 @@ public class SearchWorkout extends AppCompatActivity implements NavigationBarVie
             customDialog.show();
             System.out.println("SELCTEDT VALUES: " + difficultyString + durationString + targetString);
             customDialog.setValue(difficultyString, durationString, targetString);
-
-        } else if (id == R.id.goToSettings) {
-            startActivity(new Intent(SearchWorkout.this, Settings.class));
         }
     }
 
@@ -122,20 +119,20 @@ public class SearchWorkout extends AppCompatActivity implements NavigationBarVie
         workoutLayout.removeAllViews();
         StringBuilder filter = new StringBuilder();
         filter.append("WHERE");
-        if ((!(duration.length() == 0)) && !(duration.equals("Any"))) {
+        if ((!(duration.isEmpty())) && !(duration.equals("Any"))) {
             toFilter.add(" w.WorkoutDuration " + convertDuration(duration));
         }
 
-        if ((!(difficulty.length() == 0)) && !(difficulty.equals("Any"))) {
+        if ((!(difficulty.isEmpty())) && !(difficulty.equals("Any"))) {
             toFilter.add(" w.Difficulty = '" + difficulty + "'");
         }
 
-        if ((!(target.length() == 0)) && !(target.equals("Any"))) {
+        if ((!(target.isEmpty())) && !(target.equals("Any"))) {
             toFilter.add(" w.TargetMuscleGroup = '" + target + "'");
         }
 
         try {
-            if (toFilter.size() == 0) {
+            if (toFilter.isEmpty()) {
                 String newData = DBHelper.getAllWorkouts(null);
                 ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
             } else {
@@ -171,4 +168,3 @@ public class SearchWorkout extends AppCompatActivity implements NavigationBarVie
         return "";
     }
 }
-
