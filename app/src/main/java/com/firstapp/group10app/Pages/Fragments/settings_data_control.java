@@ -1,4 +1,4 @@
-package com.firstapp.group10app.Fragments;
+package com.firstapp.group10app.Pages.Fragments;
 
 import android.os.Bundle;
 import android.text.TextUtils;

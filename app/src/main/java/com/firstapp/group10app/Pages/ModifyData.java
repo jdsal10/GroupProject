@@ -18,7 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.firstapp.group10app.DB.DBHelper;
-import com.firstapp.group10app.Fragments.settings_data_control;
+import com.firstapp.group10app.Pages.Fragments.settings_data_control;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Other.Validator;
 import com.firstapp.group10app.R;
