@@ -35,7 +35,6 @@ public class Workouts extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-
         if (AI) {
             if (v.getId() == R.id.generateButton) {
                 // Missing variables from workouts_ai working on finishing the ai page

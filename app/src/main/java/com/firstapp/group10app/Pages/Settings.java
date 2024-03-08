@@ -12,9 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.firstapp.group10app.DB.DbConnection;
-import com.firstapp.group10app.Pages.Fragments.SettingsAccessibility;
-import com.firstapp.group10app.Pages.Fragments.SettingsAccount;
-import com.firstapp.group10app.Pages.Fragments.SettingsDataControl;
+import com.firstapp.group10app.Pages.Fragments.Settings.SettingsAccessibility;
+import com.firstapp.group10app.Pages.Fragments.Settings.SettingsAccount;
+import com.firstapp.group10app.Pages.Fragments.Settings.SettingsDataControl;
 import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

@@ -1,4 +1,4 @@
-package com.firstapp.group10app.Pages.Fragments;
+package com.firstapp.group10app.Pages.Fragments.Settings;
 
 import static com.firstapp.group10app.Other.Validator.passwordValid;
 import static com.firstapp.group10app.Other.Validator.passwordValidator;

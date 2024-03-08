@@ -3,43 +3,33 @@ package com.firstapp.group10app.Pages;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.firstapp.group10app.DB.DbConnection;
 import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.Other.Session;
+import com.firstapp.group10app.Pages.Fragments.Workouts.WorkoutAi2;
+import com.firstapp.group10app.Pages.Fragments.Workouts.WorkoutManual;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class WorkoutOption extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener, NavigationBarView.OnItemSelectedListener {
+public class WorkoutOption extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, NavigationBarView.OnItemSelectedListener {
     public RadioButton AISelect, manualSelect;
-    public LinearLayout aiView, manualView;
-    public Button goCreate, goSearch, goAI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_option);
 
-        // Initialise Buttons
-        goCreate = findViewById(R.id.goToCreate);
-        goSearch = findViewById(R.id.goToSearch);
-        goAI = findViewById(R.id.goToAI);
-
-        // Set click listener
-        goCreate.setOnClickListener(this);
-        goSearch.setOnClickListener(this);
-        goAI.setOnClickListener(this);
+        updateView(new WorkoutManual());
 
         // Initialize RadioButtons
         AISelect = findViewById(R.id.toggleAI);
@@ -50,10 +40,6 @@ public class WorkoutOption extends AppCompatActivity implements CompoundButton.O
         manualSelect.setOnCheckedChangeListener(this);
         AISelect.setBackground(getDrawable(R.drawable.rounded_button));
         manualSelect.setBackground(getDrawable(R.drawable.rounded_button_selected));
-
-        // Set Views
-        aiView = findViewById(R.id.aiView);
-        manualView = findViewById(R.id.manualView);
 
         // If the user is not signed in / anonymous, they do not access to the AI or to create a workout.
         if ((!Session.dbStatus) || (!Session.signedIn)) {
@@ -77,22 +63,34 @@ public class WorkoutOption extends AppCompatActivity implements CompoundButton.O
                     // Need to add capability to enable somehow.
                     // AISelect.setEnabled(false);
                 } else {
-                    manualView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_left_out));
-                    manualView.setVisibility(View.GONE);
+                    // TODO: I (Nick) commented out the following code because I changed the
+                    //       Workout Option page to use fragments instead of layouts.
+                    //       It would be best to find a way to re-implement this code, but for fragments.
+//                    manualView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_left_out));
+//                    manualView.setVisibility(View.GONE);
+//
+//                    aiView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_right_in));
+//                    aiView.setVisibility(View.VISIBLE);
 
-                    aiView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_right_in));
-                    aiView.setVisibility(View.VISIBLE);
+                    System.out.println("WorkoutOption.onClick(): AI selected");
+                    updateView(new WorkoutAi2());
 
                     AISelect.setBackground(AppCompatResources.getDrawable(this, R.drawable.rounded_button_selected));
                     manualSelect.setBackground(AppCompatResources.getDrawable(this, R.drawable.rounded_button));
                 }
 
             } else if (buttonView.getId() == R.id.toggleManual) {
-                aiView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_right_out));
-                aiView.setVisibility(View.GONE);
+                // TODO: I (Nick) commented out the following code because I changed the
+                //       Workout Option page to use fragments instead of layouts.
+                //       It would be best to find a way to re-implement this code, but for fragments.
+//                aiView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_right_out));
+//                aiView.setVisibility(View.GONE);
+//
+//                manualView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_left_in));
+//                manualView.setVisibility(View.VISIBLE);
 
-                manualView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_left_in));
-                manualView.setVisibility(View.VISIBLE);
+                System.out.println("WorkoutOption.onCheckedChanged(): Manual selected");
+                updateView(new WorkoutManual());
 
                 AISelect.setBackground(AppCompatResources.getDrawable(this, R.drawable.rounded_button));
                 manualSelect.setBackground(AppCompatResources.getDrawable(this, R.drawable.rounded_button_selected));
@@ -100,20 +98,12 @@ public class WorkoutOption extends AppCompatActivity implements CompoundButton.O
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        if (id == R.id.goToSearch) {
-            startActivity(new Intent(WorkoutOption.this, WorkoutSearch.class));
-        } else if (id == R.id.goToCreate) {
-            startActivity(new Intent(WorkoutOption.this, CreateWorkout.class));
-        } else if (id == R.id.goToAI) {
-            if ((!Session.signedIn) || (!DbConnection.testConnection())) {
-                Toast.makeText(this, "No connection!", Toast.LENGTH_SHORT).show();
-            } else {
-                startActivity(new Intent(getApplicationContext(), WorkoutAi.class));
-            }
-        }
+    public void updateView(Fragment newView) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out);
+        transaction.replace(R.id.workoutsBody, newView);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override

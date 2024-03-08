@@ -1,4 +1,4 @@
-package com.firstapp.group10app.Pages.Fragments;
+package com.firstapp.group10app.Pages.Fragments.Settings;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
