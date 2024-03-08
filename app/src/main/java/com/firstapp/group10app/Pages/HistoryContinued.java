@@ -8,7 +8,7 @@ import android.widget.ScrollView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.DBHelper;
+import com.firstapp.group10app.DB.DbHelper;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.Other.Session;
@@ -33,7 +33,7 @@ public class HistoryContinued extends AppCompatActivity implements NavigationBar
 
         try {
             // gets the workouts user has done, specific to the user
-            String HistoryContinuedJSON = DBHelper.getUserWorkouts(Session.userEmail);
+            String HistoryContinuedJSON = DbHelper.getUserWorkouts(Session.userEmail);
             ItemVisualiser.startWorkoutGeneration(HistoryContinuedJSON, this, continuedLayout, "tt", R.layout.popup_history, R.id.popupHistory);
         } catch (Exception e) {
             throw new RuntimeException(e);

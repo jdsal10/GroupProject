@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.DBConnection;
+import com.firstapp.group10app.DB.DbConnection;
 import com.firstapp.group10app.R;
 
 import java.sql.ResultSet;
@@ -59,7 +59,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                     try {
                         String validate = generateString();
                         toSend(emailText, validate);
-                        DBConnection db = new DBConnection();
+                        DbConnection db = new DbConnection();
                         db.executeStatement("UPDATE HealthData.Users " +
                                 "SET VerifyCode = '" + validate + "' " +
                                 "WHERE Email = '" + emailText + "';");
@@ -85,7 +85,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
     }
 
     public boolean checkExists(String email) throws SQLException {
-        DBConnection d = new DBConnection();
+        DbConnection d = new DbConnection();
         ResultSet set = d.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "'");
         int size = 0;
         if (set.last()) {

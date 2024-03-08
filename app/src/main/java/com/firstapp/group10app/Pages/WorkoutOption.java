@@ -14,7 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 
-import com.firstapp.group10app.DB.DBConnection;
+import com.firstapp.group10app.DB.DbConnection;
 import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
@@ -72,7 +72,7 @@ public class WorkoutOption extends AppCompatActivity implements CompoundButton.O
         // If ensure only one is selected at once
         if (isChecked) {
             if (buttonView.getId() == R.id.toggleAI) {
-                if ((!Session.signedIn) || (!DBConnection.testConnection())) {
+                if ((!Session.signedIn) || (!DbConnection.testConnection())) {
                     Toast.makeText(this, "No connection!", Toast.LENGTH_SHORT).show();
                     // Need to add capability to enable somehow.
                     // AISelect.setEnabled(false);
@@ -104,11 +104,11 @@ public class WorkoutOption extends AppCompatActivity implements CompoundButton.O
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.goToSearch) {
-            startActivity(new Intent(WorkoutOption.this, SearchWorkout.class));
+            startActivity(new Intent(WorkoutOption.this, WorkoutSearch.class));
         } else if (id == R.id.goToCreate) {
             startActivity(new Intent(WorkoutOption.this, CreateWorkout.class));
         } else if (id == R.id.goToAI) {
-            if ((!Session.signedIn) || (!DBConnection.testConnection())) {
+            if ((!Session.signedIn) || (!DbConnection.testConnection())) {
                 Toast.makeText(this, "No connection!", Toast.LENGTH_SHORT).show();
             } else {
                 startActivity(new Intent(getApplicationContext(), WorkoutAi.class));

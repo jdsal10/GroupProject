@@ -10,7 +10,7 @@ import android.widget.ScrollView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.DBHelper;
+import com.firstapp.group10app.DB.DbHelper;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
@@ -33,7 +33,7 @@ public class History extends AppCompatActivity implements NavigationBarView.OnIt
         historyScrollView.addView(historyLayout);
 
         try {
-            String HistoryJSON = DBHelper.getUserWorkoutsLimited(Session.userEmail);
+            String HistoryJSON = DbHelper.getUserWorkoutsLimited(Session.userEmail);
             if (HistoryJSON == null) {
                 ItemVisualiser.showEmpty(historyLayout);
             } else {

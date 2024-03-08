@@ -26,13 +26,11 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.DBHelper;
+import com.firstapp.group10app.DB.DbHelper;
 import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.R;
 
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 /**
  * The Registration class is the activity that allows the user to create an account.
@@ -269,7 +267,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             saveUserDetails();
 
             details[Index.PASSWORD] = passwordText();
-            DBHelper.insertUser(details);
+            DbHelper.insertUser(details);
 
             goToLogin();
         }

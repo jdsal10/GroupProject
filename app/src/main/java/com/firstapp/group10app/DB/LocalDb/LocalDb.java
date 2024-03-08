@@ -18,14 +18,14 @@ import java.util.List;
  * To create this class, I used the <a href="https://developer.android.com/training/data-storage/sqlite">Android Studio documentation</a>
  */
 public class LocalDb {
-    DbHelper dbHelper;
+    LocalDbHelper localDbHelper;
     SQLiteDatabase db;
 
     public LocalDb(Context context) {
-        dbHelper = new DbHelper(context);
+        localDbHelper = new LocalDbHelper(context);
 
         // Gets the data repository in write mode
-        db = dbHelper.getWritableDatabase();
+        db = localDbHelper.getWritableDatabase();
     }
 
     public void insertExercise(String exerciseName, String description, String illustration, String targetMuscleGroup, String equipment, int difficulty) {
@@ -236,6 +236,6 @@ public class LocalDb {
     }
 
     public void close() {
-        dbHelper.close();
+        localDbHelper.close();
     }
 }

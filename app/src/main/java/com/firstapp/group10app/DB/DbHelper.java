@@ -1,6 +1,6 @@
 package com.firstapp.group10app.DB;
 
-import static com.firstapp.group10app.DB.DBConnection.conn;
+import static com.firstapp.group10app.DB.DbConnection.conn;
 import static com.firstapp.group10app.Other.Encryption.getSHA;
 import static com.firstapp.group10app.Other.Encryption.toHexString;
 
@@ -10,9 +10,8 @@ import com.firstapp.group10app.Other.Session;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Arrays;
 
-public class DBHelper {
+public class DbHelper {
     public static void insertUser(String[] userDetails) {
         try {
             System.out.println("DBHelper.insertUser: Beginning to go through the process of inserting a user");
@@ -58,10 +57,10 @@ public class DBHelper {
             sql.append(");");
 
             // Execute the SQL query
-            System.out.println(DBHelper.class.getName() + ".insertUser: preparing to execute " + sql);
+            System.out.println(DbHelper.class.getName() + ".insertUser: preparing to execute " + sql);
 
             // DO NOT CHANGE THIS LINE
-            DBConnection db = new DBConnection();
+            DbConnection db = new DbConnection();
             db.executeStatement(sql.toString());
         } catch (Exception e) {
             System.out.println("Error in DBHelper.insertUser(): " + e);
@@ -132,7 +131,7 @@ public class DBHelper {
             Integer id = null;
             Statement st = conn.createStatement();
 
-            DBConnection db = new DBConnection();
+            DbConnection db = new DbConnection();
             System.out.println("INSERTING!!!");
             db.executeStatement(String.valueOf(sql));
 
@@ -158,7 +157,7 @@ public class DBHelper {
                     "';";
 
             // Execute the SQL query`
-            DBConnection db = new DBConnection();
+            DbConnection db = new DbConnection();
             return db.executeQuery(sql);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -170,13 +169,13 @@ public class DBHelper {
         String st = "SELECT * FROM HealthData.Users WHERE Email = '" +
                 email +
                 "';";
-        DBConnection db = new DBConnection();
+        DbConnection db = new DbConnection();
         return db.executeQuery(st).next();
     }
 
     // Checks if a user exists
     public boolean checkUser(String email, String password) throws Exception {
-        DBConnection db = new DBConnection();
+        DbConnection db = new DbConnection();
         ResultSet result = db.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "' AND Password = '" + encryptPassword(password) + "'");
         int size = 0;
 
@@ -197,17 +196,17 @@ public class DBHelper {
             }
         }
 
-        DBConnection db = new DBConnection();
+        DbConnection db = new DbConnection();
         db.executeStatement("UPDATE HealthData.Users SET " + toUpdate + " = '" + value + "' WHERE Email = '" + Session.userEmail + "'");
     }
 
     public void deleteUser(String email) {
-        DBConnection db = new DBConnection();
+        DbConnection db = new DbConnection();
         db.executeStatement("DELETE FROM HealthData.Users WHERE Email = '" + email + "'");
     }
 
     public static void linkExercise(int workoutID, int exerciseID) {
-        DBConnection db = new DBConnection();
+        DbConnection db = new DbConnection();
         db.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUES ('" + workoutID + "','" + exerciseID + "')");
     }
 
@@ -250,7 +249,7 @@ public class DBHelper {
         }
         out += ";";
 
-        DBConnection db = new DBConnection();
+        DbConnection db = new DbConnection();
         ResultSet q = db.executeQuery(out);
 
         try {
@@ -283,7 +282,7 @@ public class DBHelper {
 
         out += ";";
 
-        DBConnection db = new DBConnection();
+        DbConnection db = new DbConnection();
         ResultSet q = db.executeQuery(out);
 
         try {
@@ -330,7 +329,7 @@ public class DBHelper {
                 " JOIN HealthData.UserWorkoutHistory uwh ON w.WorkoutID = uwh.WorkoutID" +
                 " WHERE uwh.Email = '" + filter + "'";
 
-        DBConnection db = new DBConnection();
+        DbConnection db = new DbConnection();
         ResultSet out = db.executeQuery(query);
 
         try {
@@ -346,7 +345,7 @@ public class DBHelper {
 
 
     public static void insertHistory() {
-        DBConnection d = new DBConnection();
+        DbConnection d = new DbConnection();
         String sqlHistory = "INSERT INTO HealthData.UserWorkoutHistory (Email, WorkoutID, Time, Date, Duration) VALUES (" +
                 "'" + Session.userEmail + "', " +
                 "'" + Session.workoutID + "', " +
@@ -391,7 +390,7 @@ public class DBHelper {
                 " WHERE uwh.Email = '" + filter + "'" +
                 " LIMIT 4";
 
-        DBConnection db = new DBConnection();
+        DbConnection db = new DbConnection();
         ResultSet out = db.executeQuery(query);
 
         try {
@@ -411,7 +410,7 @@ public class DBHelper {
 
     public static void changeUserPassword(String email, String password) {
         try {
-            DBConnection.executeStatement("UPDATE HealthData.Users SET Password = '" + encryptPassword(password) + "' WHERE Email = '" + email + "';");
+            DbConnection.executeStatement("UPDATE HealthData.Users SET Password = '" + encryptPassword(password) + "' WHERE Email = '" + email + "';");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

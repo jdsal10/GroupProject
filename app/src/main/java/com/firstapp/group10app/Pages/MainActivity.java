@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.DBConnection;
+import com.firstapp.group10app.DB.DbConnection;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         skipText.setOnClickListener(this);
 
         // Test database connection
-        Session.dbStatus = DBConnection.testConnection();
+        Session.dbStatus = DbConnection.testConnection();
 
         // Default value.
         Session.signedIn = false;

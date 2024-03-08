@@ -17,9 +17,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.ChatGPT.ChatGPT_Client;
+import com.firstapp.group10app.ChatGPT.ChatGptClient;
 import com.firstapp.group10app.Other.ItemVisualiser;
-import com.firstapp.group10app.Other.JSONToDB;
+import com.firstapp.group10app.Other.JsonToDb;
 import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
@@ -100,7 +100,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             generateButton.setVisibility(View.VISIBLE);
 
         } else if (v.getId() == R.id.beginWorkout) {
-            startActivity(new Intent(this, workoutHub.class));
+            startActivity(new Intent(this, WorkoutHub.class));
         } else {   // If button == GenerateButton
 
             page1.setVisibility(View.GONE);
@@ -119,7 +119,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             //USE EXAMPLE OUTPUT TO NOT WASTE TOKENS
             Runnable task = () -> {
                 try {
-                    output3 = (ChatGPT_Client.chatGPT(input)); // This is a test to see if the chatGPT function works.
+                    output3 = (ChatGptClient.chatGPT(input)); // This is a test to see if the chatGPT function works.
                     output3 = output3.replaceAll("\\\\", "");
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -227,7 +227,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     public void addWorkout(String data) throws JSONException {
         JSONObject converted = new JSONObject(data);
         Session.selectedWorkout = converted;
-        Session.workoutID = JSONToDB.insertWorkoutAI(converted);
+        Session.workoutID = JsonToDb.insertWorkoutAI(converted);
     }
 
     // Shows the workout to the user once generated.

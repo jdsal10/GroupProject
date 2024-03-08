@@ -46,7 +46,7 @@ public class DataChecker {
         else {
             try {
                 System.out.println("DataChecker.checkEmail: Checking if email is already in the database");
-                return !DBHelper.checkExists(email);
+                return !DbHelper.checkExists(email);
             } catch (Exception e) {
                 return false;
             }

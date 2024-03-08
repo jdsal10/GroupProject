@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Group10App">
         <activity
-            android:name=".Pages.workoutHub"
+            android:name=".Pages.WorkoutHub"
             android:exported="false" />
         <activity
             android:name=".Pages.HistoryContinued"
@@ -47,7 +47,7 @@
             android:name=".Pages.ExerciseView"
             android:exported="false" />
         <activity
-            android:name=".Pages.SearchWorkout"
+            android:name=".Pages.WorkoutSearch"
             android:exported="false" />
         <activity
             android:name=".Pages.Settings"

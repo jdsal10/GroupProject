@@ -6,7 +6,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ChatGPT_Client {
+public class ChatGptClient {
     private static final String apiKey = "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";
     private static final String model = "gpt-3.5-turbo";
     private static final String url = "https://api.openai.com/v1/chat/completions";

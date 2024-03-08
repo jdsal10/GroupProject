@@ -7,12 +7,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class DBConnection {
+public class DbConnection {
     public static Connection conn;
     public static Statement st;
 
     //Used to initialise a connection to the database
-    public DBConnection() {
+    public DbConnection() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         try {

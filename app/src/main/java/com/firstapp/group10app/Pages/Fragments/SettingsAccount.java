@@ -14,18 +14,16 @@ import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 
-import com.firstapp.group10app.DB.DBHelper;
+import com.firstapp.group10app.DB.DbHelper;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.MainActivity;
 import com.firstapp.group10app.R;
 
-import java.sql.SQLException;
-
-public class settings_account extends Fragment implements View.OnClickListener {
+public class SettingsAccount extends Fragment implements View.OnClickListener {
 
     Button deleteAccount, changePassword;
 
-    public settings_account() {
+    public SettingsAccount() {
         // Required empty public constructor
     }
 
@@ -63,7 +61,7 @@ public class settings_account extends Fragment implements View.OnClickListener {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         LayoutInflater inflater = getLayoutInflater();
 
-        View dialogView = inflater.inflate(R.layout.delete_account_confirm, null);
+        View dialogView = inflater.inflate(R.layout.popup_delete_account_confirm, null);
         builder.setView(dialogView);
         AlertDialog alertDialog = builder.create();
 
@@ -72,7 +70,7 @@ public class settings_account extends Fragment implements View.OnClickListener {
 
         confirm.setOnClickListener(v -> {
             String password = passwordDelete.getText().toString();
-            DBHelper db = new DBHelper();
+            DbHelper db = new DbHelper();
             try {
                 if (db.checkUser(Session.userEmail, password)) {
                     // Add logic for deletion below - requires integration to workouts.
@@ -112,7 +110,7 @@ public class settings_account extends Fragment implements View.OnClickListener {
             String np1 = newPassword1.getText().toString();
             String np2 = newPassword2.getText().toString();
 
-            DBHelper db = new DBHelper();
+            DbHelper db = new DbHelper();
             try {
                 if (!db.checkUser(Session.userEmail, cp)) {
                     currentPassword.setError("Incorrect Password");
@@ -121,7 +119,7 @@ public class settings_account extends Fragment implements View.OnClickListener {
                 } else if (!passwordValid(np1)) {
                     newPassword1.setError(passwordValidator(np1));
                 } else {
-                    DBHelper.updateData("Password", np1);
+                    DbHelper.updateData("Password", np1);
                     alertDialog.dismiss();
                 }
             } catch (Exception e) {

@@ -16,8 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firstapp.group10app.DB.DBConnection;
-import com.firstapp.group10app.DB.DBHelper;
+import com.firstapp.group10app.DB.DbConnection;
+import com.firstapp.group10app.DB.DbHelper;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -27,7 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class workoutHub extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
+public class WorkoutHub extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
     Button enhance, begin, calendar;
     LinearLayout workoutHubLinear;
 
@@ -228,7 +228,7 @@ public class workoutHub extends AppCompatActivity implements NavigationBarView.O
             startActivity(new Intent(getApplicationContext(), WorkoutOption.class));
             return true;
         } else if (id == R.id.goToHistory) {
-            if (!DBConnection.testConnection()) {
+            if (!DbConnection.testConnection()) {
                 Toast.makeText(this, "No connection!", Toast.LENGTH_SHORT).show();
             } else {
                 startActivity(new Intent(getApplicationContext(), History.class));
@@ -244,7 +244,7 @@ public class workoutHub extends AppCompatActivity implements NavigationBarView.O
         if (id == R.id.enhance) {
             Toast.makeText(this, "Currently in beta!", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.beginWorkout) {
-            DBHelper.insertHistory();
+            DbHelper.insertHistory();
             startActivity(new Intent(getApplicationContext(), History.class));
         } else if (id == R.id.addToCalendar) {
             Toast.makeText(this, "Currently in beta!", Toast.LENGTH_SHORT).show();

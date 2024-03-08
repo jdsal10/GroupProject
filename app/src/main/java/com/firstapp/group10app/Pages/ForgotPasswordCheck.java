@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.DBConnection;
+import com.firstapp.group10app.DB.DbConnection;
 import com.firstapp.group10app.R;
 
 import java.sql.ResultSet;
@@ -68,7 +68,7 @@ public class ForgotPasswordCheck extends AppCompatActivity implements View.OnCli
     }
 
     public boolean checkCode(String code) throws SQLException {
-        DBConnection db = new DBConnection();
+        DbConnection db = new DbConnection();
         ResultSet set = db.executeQuery("SELECT VerifyCode FROM HealthData.Users WHERE Email = '" + email + "'");
         if (set.next()) {
             String storedCode = set.getString("VerifyCode");

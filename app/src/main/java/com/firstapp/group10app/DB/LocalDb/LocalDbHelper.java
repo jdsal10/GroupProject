@@ -10,12 +10,12 @@ import android.database.sqlite.SQLiteOpenHelper;
  * <p>
  * To create this class, I used the <a href="https://developer.android.com/training/data-storage/sqlite">Android Studio documentation</a>
  */
-public class DbHelper extends SQLiteOpenHelper {
+public class LocalDbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "AppDatabase.db";
 
-    public DbHelper(Context context) {
+    public LocalDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

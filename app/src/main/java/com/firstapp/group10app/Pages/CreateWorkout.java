@@ -30,11 +30,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.firstapp.group10app.DB.DBConnection;
-import com.firstapp.group10app.DB.DBHelper;
-import com.firstapp.group10app.Other.JSONToDB;
+import com.firstapp.group10app.DB.DbConnection;
+import com.firstapp.group10app.DB.DbHelper;
+import com.firstapp.group10app.Other.JsonToDb;
 import com.firstapp.group10app.Other.Session;
-import com.firstapp.group10app.Other.itemVisualiserText;
+import com.firstapp.group10app.Other.ItemVisualiserText;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -176,7 +176,7 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
     }
 
     public void createExerciseView() {
-        String newData = DBHelper.getAllExercises();
+        String newData = DbHelper.getAllExercises();
 
         ScrollView exerciseScroll = findViewById(R.id.exerciseSelector);
         exerciseScroll.removeAllViews();
@@ -352,7 +352,7 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
 
-        View dialogView = inflater.inflate(R.layout.confirm_create_workout, null);
+        View dialogView = inflater.inflate(R.layout.popup_confirm_create_workout, null);
         builder.setView(dialogView);
         AlertDialog alertDialog = builder.create();
 
@@ -368,7 +368,7 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
 
         // Continues if there is data.
         if (finalVersionHolder != null) {
-            itemVisualiserText.showText(this, finalVersionHolder, data, addedExercises);
+            ItemVisualiserText.showText(this, finalVersionHolder, data, addedExercises);
         }
 
         Button cancelCreation = dialogView.findViewById(R.id.cancelCreation);
@@ -438,9 +438,9 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
             newWorkout.put("Equipment", equipment);
             newWorkout.put("Difficulty", difficulty);
 
-            Session.workoutID = JSONToDB.insertWorkout(newWorkout, exercises);
+            Session.workoutID = JsonToDb.insertWorkout(newWorkout, exercises);
 
-            startActivity(new Intent(this, workoutHub.class));
+            startActivity(new Intent(this, WorkoutHub.class));
 
         } catch (JSONException e) {
             throw new RuntimeException(e);
@@ -491,7 +491,7 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
             startActivity(new Intent(getApplicationContext(), WorkoutOption.class));
             return true;
         } else if (id == R.id.goToHistory) {
-            if (!DBConnection.testConnection()) {
+            if (!DbConnection.testConnection()) {
                 Toast.makeText(this, "No connection!", Toast.LENGTH_SHORT).show();
             } else {
                 startActivity(new Intent(getApplicationContext(), History.class));

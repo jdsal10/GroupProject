@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.DBConnection;
-import com.firstapp.group10app.DB.DBHelper;
+import com.firstapp.group10app.DB.DbConnection;
+import com.firstapp.group10app.DB.DbHelper;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.R;
@@ -24,14 +24,14 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class SearchWorkout extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener, WorkoutFilter.FilterChangeListener {
+public class WorkoutSearch extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener, WorkoutFilter.FilterChangeListener {
     LinearLayout workoutLayout;
     String durationString, difficultyString, targetString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_workout);
+        setContentView(R.layout.activity_workout_search);
         Intent intent = getIntent();
 
         if (intent != null && getIntent().hasExtra("duration") && getIntent().hasExtra("difficulty") && getIntent().hasExtra("targetMuscle")) {
@@ -47,7 +47,7 @@ public class SearchWorkout extends AppCompatActivity implements NavigationBarVie
             System.out.println("WE GO AGAIN!");
             initializeLayout();
             try {
-                String data = DBHelper.getAllWorkouts(null);
+                String data = DbHelper.getAllWorkouts(null);
                 ItemVisualiser.startWorkoutGeneration(data, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
@@ -81,7 +81,7 @@ public class SearchWorkout extends AppCompatActivity implements NavigationBarVie
             startActivity(new Intent(getApplicationContext(), WorkoutOption.class));
             return true;
         } else if (id == R.id.goToHistory) {
-            if (!DBConnection.testConnection()) {
+            if (!DbConnection.testConnection()) {
                 Toast.makeText(this, "No connection!", Toast.LENGTH_SHORT).show();
             } else {
                 startActivity(new Intent(getApplicationContext(), History.class));
@@ -133,7 +133,7 @@ public class SearchWorkout extends AppCompatActivity implements NavigationBarVie
 
         try {
             if (toFilter.isEmpty()) {
-                String newData = DBHelper.getAllWorkouts(null);
+                String newData = DbHelper.getAllWorkouts(null);
                 ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
             } else {
                 for (int i = 0; i < toFilter.size() - 1; i++) {
@@ -143,7 +143,7 @@ public class SearchWorkout extends AppCompatActivity implements NavigationBarVie
                 filter.append(toFilter.get(toFilter.size() - 1));
 
                 String newFilter = filter.toString();
-                String newData = DBHelper.getAllWorkouts(newFilter);
+                String newData = DbHelper.getAllWorkouts(newFilter);
                 ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
             }
         } catch (JSONException e) {

@@ -7,7 +7,7 @@
     android:layout_marginStart="@dimen/margin_default"
     android:layout_marginEnd="@dimen/margin_default"
     android:orientation="vertical"
-    tools:context=".Pages.SearchWorkout">
+    tools:context=".Pages.WorkoutSearch">
 
 
     <LinearLayout

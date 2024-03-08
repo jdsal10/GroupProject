@@ -1,8 +1,8 @@
 package com.firstapp.group10app.Other;
 
-import static com.firstapp.group10app.DB.DBHelper.linkExercise;
+import static com.firstapp.group10app.DB.DbHelper.linkExercise;
 
-import com.firstapp.group10app.DB.DBHelper;
+import com.firstapp.group10app.DB.DbHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class JSONToDB {
+public class JsonToDb {
     public static Integer insertWorkout(JSONObject data, ArrayList<String> exerciseID) throws JSONException {
         String[] workoutDetails = new String[5];
 
@@ -20,7 +20,7 @@ public class JSONToDB {
         workoutDetails[3] = data.getString("Equipment");
         workoutDetails[4] = data.getString("Difficulty");
 
-        Integer id = DBHelper.insertWorkout(workoutDetails);
+        Integer id = DbHelper.insertWorkout(workoutDetails);
 
         for (String e : exerciseID) {
             int eid = Integer.parseInt(e);
@@ -39,7 +39,7 @@ public class JSONToDB {
         workoutDetails[3] = data.getString("Equipment");
         workoutDetails[4] = data.getString("Difficulty");
 
-        Integer id = DBHelper.insertWorkout(workoutDetails);
+        Integer id = DbHelper.insertWorkout(workoutDetails);
 
         String exerciseList = data.getString("Exercises");
 
@@ -61,7 +61,7 @@ public class JSONToDB {
             exerciseData[3] = individualExercise.getString("Equipment");
             exerciseData[4] = individualExercise.getString("Difficulty");
 
-            DBHelper.insertExercise(exerciseData, id);
+            DbHelper.insertExercise(exerciseData, id);
         }
     }
 }

@@ -13,8 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.firstapp.group10app.DB.DBHelper;
-import com.firstapp.group10app.Pages.workoutHub;
+import com.firstapp.group10app.DB.DbHelper;
+import com.firstapp.group10app.Pages.WorkoutHub;
 import com.firstapp.group10app.R;
 
 import org.json.JSONArray;
@@ -238,7 +238,7 @@ public class ItemVisualiser {
         Button selectWorkout = v.findViewById(R.id.selectWorkout);
         selectWorkout.setOnClickListener(v1 -> {
             JSONObject workoutObject;
-            String out = DBHelper.getAllWorkouts("WHERE w.WorkoutID = '" + id + "'");
+            String out = DbHelper.getAllWorkouts("WHERE w.WorkoutID = '" + id + "'");
             JSONArray jsonArray;
 
             try {
@@ -250,7 +250,7 @@ public class ItemVisualiser {
 
             Session.selectedWorkout = workoutObject;
             Session.workoutID = id;
-            cThis.startActivity(new Intent(cThis, workoutHub.class));
+            cThis.startActivity(new Intent(cThis, WorkoutHub.class));
         });
 
         Button closeWorkout = v.findViewById(R.id.closeExercise);

@@ -14,16 +14,15 @@ import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.ModifyData;
 import com.firstapp.group10app.R;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class settings_data_control extends Fragment implements View.OnClickListener {
+public class SettingsDataControl extends Fragment implements View.OnClickListener {
     // Declared variables
     static TextView dobValue, weightValue, heightValue, allergiesValue, sexValue, reasonsValue;
     LinearLayout dobModify, weightModify, heightModify, sexModify, allergiesModify, reasonsModify;
     ArrayList<String> details;
 
-    public settings_data_control() {
+    public SettingsDataControl() {
         super(R.layout.fragment_settings_data_control);
     }
 

@@ -6,7 +6,7 @@
     android:layout_marginStart="@dimen/margin_default"
     android:layout_marginEnd="@dimen/margin_default"
     android:orientation="vertical"
-    tools:context=".Pages.Fragments.settings_account">
+    tools:context=".Pages.Fragments.SettingsAccount">
 
     <LinearLayout
         android:layout_width="match_parent"

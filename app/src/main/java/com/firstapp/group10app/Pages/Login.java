@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.DBHelper;
+import com.firstapp.group10app.DB.DbHelper;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
@@ -50,7 +50,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             // I commented out the encryption code because I globalized the encryption method
             try {
-                DBHelper db = new DBHelper();
+                DbHelper db = new DbHelper();
                 if (db.checkUser(emailText, passwordText)) { // .replace("[", "").replace("]", ""))) {
                     Toast.makeText(Login.this, "Welcome \n" + emailText + " ! ", Toast.LENGTH_SHORT).show();
                     setSessionData(emailText);
@@ -72,7 +72,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void setSessionData(String email) throws SQLException {
-        DBHelper db = new DBHelper();
+        DbHelper db = new DbHelper();
         ResultSet data = db.getUser(email);
 
         if (data.next()) {

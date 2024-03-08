@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class itemVisualiserText {
+public class ItemVisualiserText {
 
     public static void showText(Context context, LinearLayout dataHolder, String[] workoutDetails, ArrayList<JSONObject> addedExercises) {
         LinearLayout workoutView = new LinearLayout(context);

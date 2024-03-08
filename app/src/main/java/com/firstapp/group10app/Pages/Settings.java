@@ -11,10 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.firstapp.group10app.DB.DBConnection;
-import com.firstapp.group10app.Pages.Fragments.settings_accessibility;
-import com.firstapp.group10app.Pages.Fragments.settings_account;
-import com.firstapp.group10app.Pages.Fragments.settings_data_control;
+import com.firstapp.group10app.DB.DbConnection;
+import com.firstapp.group10app.Pages.Fragments.SettingsAccessibility;
+import com.firstapp.group10app.Pages.Fragments.SettingsAccount;
+import com.firstapp.group10app.Pages.Fragments.SettingsDataControl;
 import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -28,7 +28,7 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
         setContentView(R.layout.activity_settings);
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.settingsBody, new settings_data_control()).setReorderingAllowed(true).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.settingsBody, new SettingsDataControl()).setReorderingAllowed(true).commit();
         }
 
         // Navigation view declaration.
@@ -61,7 +61,7 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
             startActivity(new Intent(getApplicationContext(), WorkoutOption.class));
             return true;
         } else if (id == R.id.goToHistory) {
-            if (!DBConnection.testConnection()) {
+            if (!DbConnection.testConnection()) {
                 Toast.makeText(this, "No connection!", Toast.LENGTH_SHORT).show();
             } else {
                 startActivity(new Intent(getApplicationContext(), History.class));
@@ -75,13 +75,13 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.goDataControl) {
-            updateView(new settings_data_control());
+            updateView(new SettingsDataControl());
 
         } else if (id == R.id.goAccessibility) {
-            updateView(new settings_accessibility());
+            updateView(new SettingsAccessibility());
 
         } else if (id == R.id.goAccount) {
-            updateView(new settings_account());
+            updateView(new SettingsAccount());
         }
     }
 

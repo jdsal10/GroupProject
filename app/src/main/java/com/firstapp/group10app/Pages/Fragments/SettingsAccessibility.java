@@ -14,7 +14,7 @@ import com.firstapp.group10app.R;
  * Use the {@link settings_access#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class settings_accessibility extends Fragment {
+public class SettingsAccessibility extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +24,7 @@ public class settings_accessibility extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1, mParam2;
 
-    public settings_accessibility() {
+    public SettingsAccessibility() {
         super(R.layout.fragment_settings_accessibility);
     }
 
@@ -37,8 +37,8 @@ public class settings_accessibility extends Fragment {
      * @return A new instance of fragment settings_access.
      */
     // TODO: Rename and change types and number of parameters
-    public static settings_accessibility newInstance(String param1, String param2) {
-        settings_accessibility fragment = new settings_accessibility();
+    public static SettingsAccessibility newInstance(String param1, String param2) {
+        SettingsAccessibility fragment = new SettingsAccessibility();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

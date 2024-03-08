@@ -103,7 +103,7 @@ public class WorkoutFilter extends AlertDialog implements View.OnClickListener {
             dismiss();
         }
      else if (id == R.id.clearFilter) {
-            Intent intent = new Intent(getContext(), SearchWorkout.class);
+            Intent intent = new Intent(getContext(), WorkoutSearch.class);
             intent.putExtra("duration", "Any");
             intent.putExtra("difficulty", "Any");
             intent.putExtra("targetMuscle", "Any");

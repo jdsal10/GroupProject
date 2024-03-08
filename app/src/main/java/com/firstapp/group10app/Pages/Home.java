@@ -7,9 +7,8 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import com.firstapp.group10app.DB.DBConnection;
+import com.firstapp.group10app.DB.DbConnection;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -18,7 +17,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Bot
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // For now, a check should run at the start of each file for DB connection.
-        Session.dbStatus = DBConnection.testConnection();
+        Session.dbStatus = DbConnection.testConnection();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
