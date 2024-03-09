@@ -267,20 +267,16 @@
 
         <Button
             android:id="@+id/continueButton"
+            style="@style/ButtonTetradic1"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@drawable/solid_background_tetradic1"
             android:text="Continue"
-            android:textColor="@color/white"
             android:visibility="visible" />
 
         <Button
             android:id="@+id/generateWorkoutButton"
+            style="@style/ButtonTetradic1"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@drawable/solid_background_tetradic1"
             android:text="Generate Workout"
-            android:textColor="@color/white"
             android:visibility="gone" />
 
 

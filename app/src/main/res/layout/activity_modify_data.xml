@@ -17,8 +17,8 @@
     <TextView
         android:id="@+id/updateDescription"
         android:layout_width="match_parent"
-        android:layout_margin="@dimen/margin_default"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default"
         android:text="Please enter the new value for "
         android:textSize="@dimen/font_size_small" />
 
@@ -36,24 +36,24 @@
 
         <Button
             android:id="@+id/confirmUpdate"
+            style="@style/ButtonTetradic1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rounded_button_tetradic1"
-            android:textColor="@color/white"
             android:text="Confirm" />
 
         <Button
             android:id="@+id/clearUpdate"
+            style="@style/ButtonPastelRed"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
             android:layout_weight="1"
             android:text="Clear" />
 
         <Button
             android:id="@+id/cancelUpdate"
+            style="@style/ButtonNormal"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Cancel" />
     </LinearLayout>

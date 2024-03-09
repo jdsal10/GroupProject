@@ -120,19 +120,16 @@
 
             <Button
                 android:id="@+id/applyFilter"
-                style="?android:attr/buttonBarButtonStyle"
+                style="@style/ButtonTetradic1"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/button_height_default"
                 android:layout_marginRight="3dp"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_button_tetradic1"
-                android:text="@string/confirmFilter"
-                android:textColor="@color/white" />
+                android:text="@string/confirmFilter" />
 
             <Button
                 android:id="@+id/clearFilter"
+                style="@style/ButtonNormal"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/button_height_default"
                 android:layout_marginLeft="3dp"
                 android:layout_weight="1"
                 android:text="Clear Filter" />
