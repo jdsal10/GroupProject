@@ -21,7 +21,6 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:text="Workout Hub"
-            android:textColor="@color/almost_black"
             android:textSize="@dimen/font_size_very_large"
             android:textStyle="bold" />
 
@@ -76,7 +75,6 @@
         android:layout_height="wrap_content"
         app:itemBackground="@color/white"
         app:menu="@menu/home_navigation">
-
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </LinearLayout>

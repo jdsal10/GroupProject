@@ -100,7 +100,6 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         } else if (v.getId() == R.id.beginWorkout) {
             startActivity(new Intent(this, WorkoutHub.class));
         } else {   // If button == GenerateButton
-
             page1.setVisibility(View.GONE);
             page2.setVisibility(View.GONE);
 

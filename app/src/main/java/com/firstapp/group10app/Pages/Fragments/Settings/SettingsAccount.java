@@ -95,7 +95,7 @@ public class SettingsAccount extends Fragment implements View.OnClickListener {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         LayoutInflater inflater = getLayoutInflater();
 
-        View dialogView = inflater.inflate(R.layout.activity_change_password, null);
+        View dialogView = inflater.inflate(R.layout.popup_change_password, null);
         builder.setView(dialogView);
         AlertDialog alertDialog = builder.create();
 
