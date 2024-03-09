@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@drawable/shape_white_very_curved_corners"
+            android:background="@drawable/shape_transparent_very_curved_corners"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -34,7 +34,6 @@
                 android:layout_marginBottom="18dp"
                 android:gravity="center"
                 android:text="@string/searchButtonDescription"
-                android:textColor="@color/dark_grey"
                 android:textSize="@dimen/font_size_small" />
 
             <Button
@@ -60,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@drawable/shape_white_very_curved_corners"
+            android:background="@drawable/shape_transparent_very_curved_corners"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -78,7 +77,6 @@
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
                 android:text="@string/createButtonDescription"
-                android:textColor="@color/dark_grey"
                 android:textSize="@dimen/font_size_small" />
 
             <Button

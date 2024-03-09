@@ -24,6 +24,6 @@
     </style>
 
     <style name="filterCorners" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:windowBackground">@drawable/shape_white_very_curved_corners</item>
+        <item name="android:windowBackground">@drawable/shape_transparent_very_curved_corners</item>
     </style>
 </resources>

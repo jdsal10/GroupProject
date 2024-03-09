@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/margin_default"
     android:layout_marginEnd="@dimen/margin_default"
-    android:background="@drawable/shape_white_very_curved_corners"
+    android:background="@drawable/shape_transparent_very_curved_corners"
     android:orientation="vertical"
     tools:context=".Pages.WorkoutFilter">
 
