@@ -29,10 +29,9 @@
         android:inputType="textPassword" />
 
     <Button
+        style="@style/ButtonPastelRed"
         android:id="@+id/deleteConfirm"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/button_height_default"
-        android:background="@drawable/rounded_button_pastel_red"
         android:text="@string/deleteAccountConfirm" />
 
 </LinearLayout>

@@ -45,15 +45,16 @@
 
             <Button
                 android:id="@+id/enhance"
+                style="@style/ButtonGradient"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/button_height_large"
                 android:layout_marginEnd="3dp"
                 android:layout_weight="1"
-                android:background="@drawable/gradient_background"
                 android:text="Enhance Workout (AI)" />
 
             <Button
                 android:id="@+id/addToCalendar"
+                style="@style/ButtonNormal"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/button_height_large"
                 android:layout_marginStart="3dp"
@@ -63,12 +64,10 @@
 
         <Button
             android:id="@+id/beginWorkout"
+            style="@style/ButtonTetradic1"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/button_height_default"
             android:layout_marginTop="6dp"
-            android:background="@drawable/rounded_button_tetradic1"
-            android:text="Begin Workout"
-            android:textColor="@color/white" />
+            android:text="Begin Workout" />
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

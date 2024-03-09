@@ -30,12 +30,10 @@
 
     <Button
         android:id="@+id/openFilter"
+        style="@style/ButtonTetradic1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/button_height_default"
         android:layout_marginTop="10dp"
-        android:background="@drawable/solid_background_tetradic1"
-        android:text="@string/searchFilter"
-        android:textColor="@color/white" />
+        android:text="@string/searchFilter" />
 
     <ScrollView
         android:id="@+id/resultSearchWorkout"

@@ -171,21 +171,19 @@
 
             <Button
                 android:id="@+id/searchButton"
+                style="@style/ButtonNormal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="8dp"
                 android:text="@string/workoutsSearchButton" />
 
             <Button
                 android:id="@+id/generateButton"
+                style="@style/ButtonTetradic1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/solid_background_tetradic1"
-                android:text="@string/workoutsGenerateButton"
-                android:textColor="@color/white" />
+                android:text="@string/workoutsGenerateButton" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

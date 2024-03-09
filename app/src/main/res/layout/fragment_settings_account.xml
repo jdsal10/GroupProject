@@ -24,8 +24,8 @@
 
         <Button
             android:id="@+id/changePasswordSignedIn"
+            style="@style/ButtonNormal"
             android:layout_width="0dp"
-            android:layout_height="@dimen/button_height_default"
             android:layout_weight="1"
             android:text="@string/changePasswordButton"
             android:textSize="@dimen/font_size_small" />
@@ -47,12 +47,10 @@
 
         <Button
             android:id="@+id/deleteAccountButton"
+            style="@style/ButtonPastelRed"
             android:layout_width="0dp"
-            android:layout_height="@dimen/button_height_default"
             android:layout_weight="1"
-            android:background="@drawable/rounded_button_pastel_red"
             android:text="@string/deleteAccountButton"
             android:textSize="@dimen/font_size_small" />
-
     </LinearLayout>
 </LinearLayout>
