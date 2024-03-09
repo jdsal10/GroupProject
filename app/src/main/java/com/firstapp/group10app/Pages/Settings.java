@@ -20,15 +20,19 @@ import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.Objects;
+
 public class Settings extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
 
+    public Fragment currentView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.settingsBody, new SettingsDataControl()).setReorderingAllowed(true).commit();
+            currentView = new SettingsDataControl();
+            getSupportFragmentManager().beginTransaction().replace(R.id.settingsBody, currentView).setReorderingAllowed(true).commit();
         }
 
         // Navigation view declaration.
@@ -75,20 +79,26 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.goDataControl) {
-            updateView(new SettingsDataControl());
-
+            updateView(new SettingsDataControl(), currentView.getId() == R.id.goAccessibility);
+            currentView = new SettingsDataControl();
         } else if (id == R.id.goAccessibility) {
-            updateView(new SettingsAccessibility());
-
+            updateView(new SettingsAccessibility(), currentView.getId()  == R.id.goAccount);
+            currentView = new SettingsAccessibility();
         } else if (id == R.id.goAccount) {
-            updateView(new SettingsAccount());
+            updateView(new SettingsAccount(), currentView.getId()  == R.id.goDataControl);
+            currentView = new SettingsAccount();
         }
     }
 
-
-    public void updateView(Fragment newVIew) {
+    public void updateView(Fragment newVIew, boolean forwardBoolean) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out);
+
+        if (forwardBoolean) {
+            transaction.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out);
+        } else {
+            transaction.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_right_out);
+        }
+
         transaction.replace(R.id.settingsBody, newVIew);
         transaction.addToBackStack(null);
         transaction.commit();
