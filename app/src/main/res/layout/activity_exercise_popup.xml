@@ -28,29 +28,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_default"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="@dimen/margin_default"
         android:layout_marginEnd="@dimen/margin_default"
         android:orientation="horizontal">
 
         <Button
+            style="@style/ButtonTetradic1"
             android:id="@+id/selectWorkout"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
             android:layout_marginEnd="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rounded_button_tetradic1"
-            android:text="@string/selectWorkout"
-            android:textColor="@color/white"
-            tools:ignore="ButtonStyle" />
+            android:text="@string/selectWorkout" />
 
         <Button
+            style="@style/ButtonNormal"
             android:id="@+id/closeExercise"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
             android:layout_marginStart="3dp"
             android:layout_weight="1"
-            android:text="@string/closePopup"
-            tools:ignore="ButtonStyle" />
+            android:text="@string/closePopup" />
     </LinearLayout>
 
 

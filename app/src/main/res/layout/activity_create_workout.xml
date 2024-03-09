@@ -277,22 +277,18 @@
 
 
         <Button
+            style="@style/ButtonNormal"
             android:id="@+id/cancelBtn"
             android:layout_width="0dp"
-            android:layout_height="@dimen/button_height_default"
             android:layout_weight="1"
-            android:text="Cancel"
-            tools:ignore="ButtonStyle" />
+            android:text="Cancel" />
 
         <Button
+            style="@style/ButtonTetradic1"
             android:id="@+id/continueBtn"
             android:layout_width="0dp"
-            android:layout_height="@dimen/button_height_default"
             android:layout_weight="1"
-            android:background="@drawable/solid_background_tetradic1"
-            android:text="Continue"
-            android:textColor="@color/white"
-            tools:ignore="ButtonStyle" />
+            android:text="Continue" />
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
