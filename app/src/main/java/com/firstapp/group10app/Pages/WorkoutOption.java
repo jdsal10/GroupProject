@@ -29,7 +29,7 @@ public class WorkoutOption extends AppCompatActivity implements CompoundButton.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_option);
 
-        updateView(new WorkoutManual());
+        updateView(new WorkoutManual(), -1, -1);
 
         // Initialize RadioButtons
         AISelect = findViewById(R.id.toggleAI);
@@ -63,34 +63,15 @@ public class WorkoutOption extends AppCompatActivity implements CompoundButton.O
                     // Need to add capability to enable somehow.
                     // AISelect.setEnabled(false);
                 } else {
-                    // TODO: I (Nick) commented out the following code because I changed the
-                    //       Workout Option page to use fragments instead of layouts.
-                    //       It would be best to find a way to re-implement this code, but for fragments.
-//                    manualView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_left_out));
-//                    manualView.setVisibility(View.GONE);
-//
-//                    aiView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_right_in));
-//                    aiView.setVisibility(View.VISIBLE);
-
                     System.out.println("WorkoutOption.onClick(): AI selected");
-                    updateView(new WorkoutAi2());
+                    updateView(new WorkoutAi2(), R.anim.slide_right_in, R.anim.slide_left_out);
 
                     AISelect.setBackground(AppCompatResources.getDrawable(this, R.drawable.rounded_button_selected));
                     manualSelect.setBackground(AppCompatResources.getDrawable(this, R.drawable.rounded_button));
                 }
-
             } else if (buttonView.getId() == R.id.toggleManual) {
-                // TODO: I (Nick) commented out the following code because I changed the
-                //       Workout Option page to use fragments instead of layouts.
-                //       It would be best to find a way to re-implement this code, but for fragments.
-//                aiView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_right_out));
-//                aiView.setVisibility(View.GONE);
-//
-//                manualView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_left_in));
-//                manualView.setVisibility(View.VISIBLE);
-
                 System.out.println("WorkoutOption.onCheckedChanged(): Manual selected");
-                updateView(new WorkoutManual());
+                updateView(new WorkoutManual(), R.anim.slide_left_in, R.anim.slide_right_out);
 
                 AISelect.setBackground(AppCompatResources.getDrawable(this, R.drawable.rounded_button));
                 manualSelect.setBackground(AppCompatResources.getDrawable(this, R.drawable.rounded_button_selected));
@@ -98,9 +79,9 @@ public class WorkoutOption extends AppCompatActivity implements CompoundButton.O
         }
     }
 
-    public void updateView(Fragment newView) {
+    public void updateView(Fragment newView, int enterAnim, int exitAnim) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out);
+        if (enterAnim != -1 && exitAnim != -1) transaction.setCustomAnimations(enterAnim, exitAnim);
         transaction.replace(R.id.workoutsBody, newView);
         transaction.addToBackStack(null);
         transaction.commit();
