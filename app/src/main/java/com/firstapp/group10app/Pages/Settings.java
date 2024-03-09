@@ -12,15 +12,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.firstapp.group10app.DB.DbConnection;
-import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.Pages.Fragments.Settings.SettingsAccessibility;
 import com.firstapp.group10app.Pages.Fragments.Settings.SettingsAccount;
 import com.firstapp.group10app.Pages.Fragments.Settings.SettingsDataControl;
+import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class Settings extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
+
+    public int currentView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
         setContentView(R.layout.activity_settings);
 
         if (savedInstanceState == null) {
+            currentView = R.layout.fragment_settings_data_control;
             getSupportFragmentManager().beginTransaction().replace(R.id.settingsBody, new SettingsDataControl()).setReorderingAllowed(true).commit();
         }
 
@@ -75,19 +78,32 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.goDataControl) {
-            updateView(new SettingsDataControl());
-
+            if (currentView != R.layout.fragment_settings_data_control) {
+                updateView(new SettingsDataControl(), currentView == R.layout.fragment_settings_accessibility);
+                currentView = R.layout.fragment_settings_data_control;
+            }
         } else if (id == R.id.goAccessibility) {
-            updateView(new SettingsAccessibility());
-
+            if (currentView != R.layout.fragment_settings_accessibility) {
+                updateView(new SettingsAccessibility(), currentView == R.layout.fragment_settings_account);
+                currentView = R.layout.fragment_settings_accessibility;
+            }
         } else if (id == R.id.goAccount) {
-            updateView(new SettingsAccount());
+            if (currentView != R.layout.fragment_settings_account) {
+                updateView(new SettingsAccount(), currentView == R.layout.fragment_settings_data_control);
+                currentView = R.layout.fragment_settings_account;
+            }
         }
     }
 
-    public void updateView(Fragment newVIew) {
+    public void updateView(Fragment newVIew, boolean forwardBoolean) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out);
+
+        if (forwardBoolean) {
+            transaction.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_right_out);
+        } else {
+            transaction.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out);
+        }
+
         transaction.replace(R.id.settingsBody, newVIew);
         transaction.addToBackStack(null);
         transaction.commit();

@@ -9,13 +9,6 @@
     android:orientation="vertical"
     tools:context=".Pages.WorkoutFilter">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/margin_small"
-        android:layout_marginEnd="@dimen/margin_small"
-        android:orientation="vertical">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -120,22 +113,23 @@
 
             <Button
                 android:id="@+id/applyFilter"
-                style="@style/ButtonTetradic1"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
-                android:layout_marginRight="3dp"
+                android:layout_height="@dimen/button_height_default"
+                android:layout_marginEnd="3dp"
                 android:layout_weight="1"
-                android:text="@string/confirmFilter" />
+                android:background="@drawable/rounded_button_tetradic1"
+                android:text="@string/confirmFilter"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/clearFilter"
-                style="@style/ButtonNormal"
                 android:layout_width="0dp"
-                android:layout_marginLeft="3dp"
+                android:layout_height="@dimen/button_height_default"
+                android:layout_marginStart="3dp"
                 android:layout_weight="1"
                 android:text="Clear Filter" />
 
         </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
