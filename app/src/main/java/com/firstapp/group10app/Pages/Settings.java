@@ -20,19 +20,17 @@ import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-import java.util.Objects;
-
 public class Settings extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
 
-    public Fragment currentView;
+    public int currentView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
         if (savedInstanceState == null) {
-            currentView = new SettingsDataControl();
-            getSupportFragmentManager().beginTransaction().replace(R.id.settingsBody, currentView).setReorderingAllowed(true).commit();
+            currentView = R.layout.fragment_settings_data_control;
+            getSupportFragmentManager().beginTransaction().replace(R.id.settingsBody, new SettingsDataControl()).setReorderingAllowed(true).commit();
         }
 
         // Navigation view declaration.
@@ -79,14 +77,14 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.goDataControl) {
-            updateView(new SettingsDataControl(), currentView.getId() == R.id.goAccessibility);
-            currentView = new SettingsDataControl();
+            updateView(new SettingsDataControl(), currentView == R.layout.fragment_settings_accessibility);
+            currentView = R.layout.fragment_settings_data_control;
         } else if (id == R.id.goAccessibility) {
-            updateView(new SettingsAccessibility(), currentView.getId()  == R.id.goAccount);
-            currentView = new SettingsAccessibility();
+            updateView(new SettingsAccessibility(), currentView == R.layout.fragment_settings_account);
+            currentView = R.layout.fragment_settings_accessibility;
         } else if (id == R.id.goAccount) {
-            updateView(new SettingsAccount(), currentView.getId()  == R.id.goDataControl);
-            currentView = new SettingsAccount();
+            updateView(new SettingsAccount(), currentView == R.layout.fragment_settings_data_control);
+            currentView = R.layout.fragment_settings_account;
         }
     }
 
@@ -94,9 +92,9 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         if (forwardBoolean) {
-            transaction.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out);
-        } else {
             transaction.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_right_out);
+        } else {
+            transaction.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out);
         }
 
         transaction.replace(R.id.settingsBody, newVIew);
