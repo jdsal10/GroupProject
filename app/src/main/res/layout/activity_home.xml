@@ -71,7 +71,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/solid_background_tetradic1"
+                android:background="@drawable/shape_tetradic1"
                 android:orientation="horizontal"
                 android:padding="3dp">
 
@@ -106,7 +106,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="3dp"
-                android:background="@drawable/gradient_background"
+                android:background="@drawable/shape_gradient_main"
                 android:orientation="horizontal"
                 android:padding="3dp">
 
@@ -140,7 +140,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="3dp"
-                android:background="@drawable/gradient_background"
+                android:background="@drawable/shape_gradient_main"
                 android:orientation="horizontal"
                 android:padding="3dp">
 
@@ -174,7 +174,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="3dp"
-                android:background="@drawable/gradient_background"
+                android:background="@drawable/shape_gradient_main"
                 android:orientation="horizontal"
                 android:padding="3dp">
 

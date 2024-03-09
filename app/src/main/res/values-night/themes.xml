@@ -1,20 +1,23 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.Group10App" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.Group10App" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- main colors -->
-        <item name="colorPrimary">@color/gradient_aLostMemory_tetradic1_night_theme</item>
-        <item name="colorPrimaryDark">@color/gradient_aLostMemory_tetradic1_night_theme</item>
-        <item name="colorAccent">@color/gradient_aLostMemory_tetradic1_night_theme</item>
+        <!--        <item name="colorPrimary">@color/gradient_aLostMemory_tetradic1_night_theme</item>-->
+        <!--        <item name="colorPrimaryDark">@color/gradient_aLostMemory_tetradic1_night_theme</item>-->
+        <!--        <item name="colorAccent">@color/gradient_aLostMemory_tetradic1_night_theme</item>-->
+        <!--        <item name="colorPrimary">@color/gradient_aLostMemory_tetradic2</item>-->
+        <!--        <item name="colorPrimaryDark">@color/gradient_aLostMemory_tetradic2</item>-->
+        <!--        <item name="colorAccent">@color/gradient_aLostMemory_tetradic2</item>-->
 
         <!-- text colors -->
-        <item name="android:textColorPrimary">@color/almost_white</item>
-        <item name="android:textColorSecondary">@color/almost_white</item>
-        <item name="android:textColorTertiary">@color/almost_white</item>
+        <!--        <item name="android:textColorPrimary">@color/almost_white</item>-->
+        <!--        <item name="android:textColorSecondary">@color/almost_white</item>-->
+        <!--        <item name="android:textColorTertiary">@color/almost_white</item>-->
 
         <!-- other text settings -->
         <item name="android:fontFamily">@font/manrope_medium</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/font_size_default</item>
     </style>
 
     <!-- Animations -->
@@ -24,6 +27,6 @@
     </style>
 
     <style name="filterCorners" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:windowBackground">@drawable/round_corners</item>
+        <item name="android:windowBackground">@drawable/shape_transparent_very_curved_corners</item>
     </style>
 </resources>

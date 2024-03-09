@@ -1,7 +1,7 @@
 <resources>
     <!-- Base application theme. -->
     <!-- Changed that, because color gradient's didn't work: <style name="Base.Theme.Group10App" parent="Theme.Material3.DayNight.NoActionBar">-->
-    <style name="Base.Theme.Group10App" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Base.Theme.Group10App" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/gradient_aLostMemory_tetradic1</item>
         <item name="colorPrimaryDark">@color/black</item>
@@ -14,10 +14,8 @@
 
         <!-- other text settings -->
         <item name="android:fontFamily">@font/manrope_medium</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/font_size_default</item>
     </style>
-
-    <style name="Theme.Group10App" parent="Base.Theme.Group10App" />
 
     <!-- Animations -->
     <style name="filterAnimations">
@@ -26,6 +24,6 @@
     </style>
 
     <style name="filterCorners" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:windowBackground">@drawable/round_corners</item>
+        <item name="android:windowBackground">@drawable/shape_transparent_very_curved_corners</item>
     </style>
 </resources>
