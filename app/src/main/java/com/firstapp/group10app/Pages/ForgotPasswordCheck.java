@@ -62,9 +62,7 @@ public class ForgotPasswordCheck extends AppCompatActivity implements View.OnCli
             }
         } else if (id == R.id.backToLogin) {
             startActivity(new Intent(getApplicationContext(), Login.class));
-
         }
-
     }
 
     public boolean checkCode(String code) throws SQLException {

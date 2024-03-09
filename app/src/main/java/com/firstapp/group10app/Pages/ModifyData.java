@@ -18,9 +18,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.firstapp.group10app.DB.DbHelper;
-import com.firstapp.group10app.Pages.Fragments.Settings.SettingsDataControl;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Other.Validator;
+import com.firstapp.group10app.Pages.Fragments.Settings.SettingsDataControl;
 import com.firstapp.group10app.R;
 
 public class ModifyData extends Dialog implements View.OnClickListener {
@@ -91,7 +91,6 @@ public class ModifyData extends Dialog implements View.OnClickListener {
                 dobAddTextChangedListener(edit);
                 edit.setText(updateValue);
                 break;
-
 
             case "Sex": {
                 description.append("sex.");
@@ -207,7 +206,6 @@ public class ModifyData extends Dialog implements View.OnClickListener {
                 area.addView(horizontalLayout);
                 break;
             }
-
 
             case "Allergies": {
                 description.append("allergies.");

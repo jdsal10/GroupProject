@@ -127,12 +127,12 @@ public class SettingsDataControl extends Fragment implements View.OnClickListene
 
         // Gets the details of the current user.
         try {
-                details.add(Session.userDetails[0]);
-                details.add(Session.userDetails[1]);
-                details.add(Session.userDetails[2]);
-                details.add(Session.userDetails[3]);
-                details.add(Session.userDetails[4]);
-                details.add(Session.userDetails[5]);
+            details.add(Session.userDetails[0]);
+            details.add(Session.userDetails[1]);
+            details.add(Session.userDetails[2]);
+            details.add(Session.userDetails[3]);
+            details.add(Session.userDetails[4]);
+            details.add(Session.userDetails[5]);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -145,7 +145,6 @@ public class SettingsDataControl extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         int id = v.getId();
-
         if (id == R.id.dobLayout) {
             ModifyData customDialog = new ModifyData(getContext(), new String[]{"DOB", dobValue.getText().toString()});
             customDialog.show();

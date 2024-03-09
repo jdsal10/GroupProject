@@ -2,8 +2,6 @@ package com.firstapp.group10app.Pages;
 
 import static android.view.View.GONE;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -15,6 +13,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DbConnection;
 import com.firstapp.group10app.DB.DbHelper;
@@ -190,8 +190,7 @@ public class WorkoutHub extends AppCompatActivity implements NavigationBarView.O
             if (workoutObject.optString("Time").equals("")) {
                 exerciseTimeText.setVisibility(GONE);
                 textHolder.addView(exerciseTimeText);
-            }
-            else {
+            } else {
                 SpannableStringBuilder sbTime = new SpannableStringBuilder("Exercise Time: " + workoutObject.optString("Time"));
                 sbTime.setSpan(bss, 0, 14, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                 exerciseTimeText.setText(sbTime);
@@ -214,8 +213,6 @@ public class WorkoutHub extends AppCompatActivity implements NavigationBarView.O
 
             workoutHubLinear.addView(view2);
         }
-
-
     }
 
     @Override

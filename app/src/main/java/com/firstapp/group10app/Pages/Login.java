@@ -1,4 +1,3 @@
-
 package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
@@ -94,5 +93,4 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             System.out.println("No data found for the user with email: " + email);
         }
     }
-
 }

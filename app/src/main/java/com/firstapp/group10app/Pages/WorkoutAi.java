@@ -14,7 +14,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.ChatGPT.ChatGptClient;
@@ -23,8 +22,8 @@ import com.firstapp.group10app.Other.JsonToDb;
 import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,7 +38,6 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     EditText equipmentAnswer, mainGoalAnswer, injuriesAnswer, additionalInfoAnswer;
     String muscleGroupAnswer, durationAnswer, difficultyAnswer;
     TextView generateButton, continueButton;
-
     Button beginWorkoutButton;
     String output3;
 
@@ -134,7 +132,6 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
 
             String output2 = "{" +
                     "\"WorkoutName\": \"Cardio Abs Blast\"," +
@@ -254,7 +251,6 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 adapterView.getItemAtPosition(position);
-
             }
 
             @Override
@@ -299,7 +295,6 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                 new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, difficultyList);
         difficultyAdapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
         difficultySpinner.setAdapter(difficultyAdapter);
-
     }
 
     public void insertIntoSpinners(ArrayList<String> muscleList, ArrayList<String> durationList, ArrayList<String> difficultyList) {
@@ -342,9 +337,8 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                 "Some info about a user: [37 years old] [67 kg] [M]" +
                 " " +
                 equipmentInfo + ". " +
-                injuriesInfo + ". "+
-                mainGoalInfo + ". "+
-
+                injuriesInfo + ". " +
+                mainGoalInfo + ". " +
 
                 "Generate a workout in exact same JSON format of (WorkoutName, WorkoutDuration (in minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), " +
                 "Exercises (ExerciseName, Description, TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps, Time (if exercise isn't rep based, otherwise leave null))). output only the JSON" +
@@ -356,7 +350,5 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                 ". " +
                 "If you cannot generate a workout or there is not enough info, return (unsure). "
                 + "Do it on one line as a String, only output JSON";
-
     }
-
 }

@@ -29,7 +29,6 @@ public class Workouts extends AppCompatActivity implements View.OnClickListener 
         if (AI) {
             TextView generateButton = findViewById(R.id.searchButton);
             generateButton.setOnClickListener(this);
-
         }
     }
 
@@ -56,7 +55,6 @@ public class Workouts extends AppCompatActivity implements View.OnClickListener 
                         "\n" +
                         "If you cannot generate a workout or there is not enough info, return \"unsure\"\n";
 
-
                 // Sample API call to GPT by Nik
                 ExecutorService executor = Executors.newSingleThreadExecutor();
                 executor.execute(() -> {
@@ -72,4 +70,3 @@ public class Workouts extends AppCompatActivity implements View.OnClickListener 
         }
     }
 }
-

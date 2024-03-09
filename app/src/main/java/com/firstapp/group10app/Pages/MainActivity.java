@@ -14,7 +14,6 @@ import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

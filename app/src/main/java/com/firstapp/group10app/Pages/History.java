@@ -45,8 +45,8 @@ public class History extends AppCompatActivity implements NavigationBarView.OnIt
         }
 
         //button to view all history
-        Button settingsbtn = findViewById(R.id.goToSettings);
-        settingsbtn.setOnClickListener(this);
+        Button settingsBtn = findViewById(R.id.goToSettings);
+        settingsBtn.setOnClickListener(this);
         // Declare bottom taskbar
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
         bottomNavigationView.setSelectedItemId(R.id.goToHistory);

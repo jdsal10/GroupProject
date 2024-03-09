@@ -17,7 +17,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class HistoryContinued extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
-
     LinearLayout continuedLayout;
 
     @Override
