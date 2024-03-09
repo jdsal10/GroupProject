@@ -87,7 +87,6 @@ public class SettingsDataControl extends Fragment implements View.OnClickListene
                     break;
             }
         }
-        System.out.println("HERE");
     }
 
     @Override

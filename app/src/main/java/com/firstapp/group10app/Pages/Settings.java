@@ -23,6 +23,7 @@ import com.google.android.material.navigation.NavigationBarView;
 public class Settings extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
 
     public int currentView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,14 +78,20 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.goDataControl) {
-            updateView(new SettingsDataControl(), currentView == R.layout.fragment_settings_accessibility);
-            currentView = R.layout.fragment_settings_data_control;
+            if (currentView != R.layout.fragment_settings_data_control) {
+                updateView(new SettingsDataControl(), currentView == R.layout.fragment_settings_accessibility);
+                currentView = R.layout.fragment_settings_data_control;
+            }
         } else if (id == R.id.goAccessibility) {
-            updateView(new SettingsAccessibility(), currentView == R.layout.fragment_settings_account);
-            currentView = R.layout.fragment_settings_accessibility;
+            if (currentView != R.layout.fragment_settings_accessibility) {
+                updateView(new SettingsAccessibility(), currentView == R.layout.fragment_settings_account);
+                currentView = R.layout.fragment_settings_accessibility;
+            }
         } else if (id == R.id.goAccount) {
-            updateView(new SettingsAccount(), currentView == R.layout.fragment_settings_data_control);
-            currentView = R.layout.fragment_settings_account;
+            if (currentView != R.layout.fragment_settings_account) {
+                updateView(new SettingsAccount(), currentView == R.layout.fragment_settings_data_control);
+                currentView = R.layout.fragment_settings_account;
+            }
         }
     }
 
