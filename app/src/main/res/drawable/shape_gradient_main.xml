@@ -5,5 +5,5 @@
         android:endColor="@color/gradient_aLostMemory_end"
         android:startColor="@color/gradient_aLostMemory_start" />
 
-    <corners android:radius="8dp" />
+    <corners android:radius="@dimen/corner_radius_default" />
 </shape>

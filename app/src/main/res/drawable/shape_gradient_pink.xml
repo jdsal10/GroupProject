@@ -3,5 +3,6 @@
     <gradient
         android:endColor="@color/pinkBtnEnd"
         android:startColor="@color/pinkBtnStart" />
-    <corners android:radius="11dp" />
+
+    <corners android:radius="@dimen/corner_radius_default" />
 </shape>
