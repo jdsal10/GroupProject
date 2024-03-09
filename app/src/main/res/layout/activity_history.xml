@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/top_grey"
+        android:background="@drawable/shape_gray"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="10dp">

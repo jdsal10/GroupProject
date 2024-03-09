@@ -3,9 +3,9 @@
     <!-- Changed that, because color gradient's didn't work: <style name="Base.Theme.Group10App" parent="Theme.Material3.DayNight.NoActionBar">-->
     <style name="Base.Theme.Group10App" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/gradient_aLostMemory_tetradic1</item>
+        <item name="colorPrimary">@color/gradient_aLostMemory_tetradic1_darker</item>
         <item name="colorPrimaryDark">@color/black</item>
-        <item name="colorAccent">@color/gradient_aLostMemory_tetradic1</item>
+        <item name="colorAccent">@color/gradient_aLostMemory_tetradic1_darker</item>
 
         <!-- text colors -->
         <item name="android:textColorPrimary">@color/almost_black</item>

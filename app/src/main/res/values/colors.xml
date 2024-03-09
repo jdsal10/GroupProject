@@ -6,7 +6,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="almost_white">#f2f2f2</color>
 
-    <color name="top_grey">#EEEBEB</color>
+    <color name="top_grey_light">#EEEBEB</color> <!-- light grey for the light theme -->
+    <color name="top_grey_dark">#3B3B3B</color> <!-- dark grey for the dark theme -->
     <color name="pinkBtnStart">#F56BD2</color>
     <color name="pinkBtnEnd">#A20BBD</color>
     <color name="orangeBtnStart">#EBF39B73</color>
@@ -21,8 +22,8 @@
     <color name="gradient_aLostMemory_start">#de6262</color>
     <color name="gradient_aLostMemory_end">#ffb88c</color>
     <!-- https://paletton.com/#uid=7000u0khTrS7UJXc+xNm5nvqriU -->
-    <color name="gradient_aLostMemory_tetradic1">#3B8585</color>
-    <color name="gradient_aLostMemory_tetradic1_night_theme">#65bbbb</color>
+    <color name="gradient_aLostMemory_tetradic1_darker">#3B8585</color>
+    <color name="gradient_aLostMemory_tetradic1_lighter">#65bbbb</color>
     <color name="gradient_aLostMemory_tetradic2">#4EB24E</color>
     <color name="nordic_white">#C6B9A5</color>
 

@@ -51,7 +51,7 @@
             android:layout_margin="5dp"
             android:gravity="center"
             android:text="OR"
-            android:textColor="@color/gradient_aLostMemory_tetradic1"
+            android:textColor="@color/gradient_aLostMemory_tetradic1_darker"
             android:textSize="@dimen/font_size_very_large"
             android:textStyle="italic" />
 
