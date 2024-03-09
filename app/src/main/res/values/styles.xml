@@ -13,4 +13,10 @@
         <item name="android:layout_height">@dimen/button_height_default</item>
         <item name="android:textAllCaps">false</item>
     </style>
+
+    <style name="ButtonPastelRed" parent="Widget.AppCompat.Button">
+        <item name="android:layout_height">@dimen/button_height_default</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:background">@drawable/rounded_button_pastel_red</item>
+    </style>
 </resources>
