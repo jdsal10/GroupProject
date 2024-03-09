@@ -27,7 +27,7 @@
                 android:layout_marginStart="@dimen/margin_default"
                 android:text="Hisory"
                 android:textColor="@color/almost_black"
-                android:textSize="@dimen/font_size_larger" />
+                android:textSize="@dimen/font_size_very_large" />
 
         </LinearLayout>
 

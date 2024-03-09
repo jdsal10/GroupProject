@@ -30,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_large"
                     android:text="@string/homePageTitle"
-                    android:textSize="@dimen/font_size_larger" />
+                    android:textSize="@dimen/font_size_very_large" />
 
                 <TextView
                     android:layout_width="wrap_content"

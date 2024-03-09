@@ -13,7 +13,7 @@
         android:layout_weight="0.15"
         android:gravity="center_horizontal|center_vertical"
         android:text="@string/workoutsTitle"
-        android:textSize="@dimen/font_size_large"
+        android:textSize="@dimen/font_size_larger"
         android:textStyle="bold" />
 
     <LinearLayout
