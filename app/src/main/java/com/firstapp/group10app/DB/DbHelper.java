@@ -359,6 +359,7 @@ public class DbHelper {
     public static String getUserWorkoutsLimited(String filter) {
         String query = "SELECT " +
                 "JSON_ARRAYAGG(" +
+//                "JSON_ARRAY(" +
                 "  JSON_OBJECT(" +
                 "    'WorkoutID', w.WorkoutID," +
                 "    'WorkoutName', w.WorkoutName," +
