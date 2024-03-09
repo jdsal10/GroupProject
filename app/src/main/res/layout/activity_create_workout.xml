@@ -195,7 +195,7 @@
                 android:layout_height="100dp"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/round_corners"
+                android:background="@drawable/shape_white_very_curved_corners"
                 android:gravity="center|center_vertical"
                 android:text="Easy"
                 android:textStyle="bold" />
@@ -206,7 +206,7 @@
                 android:layout_height="100dp"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/round_corners"
+                android:background="@drawable/shape_white_very_curved_corners"
                 android:gravity="center|center_vertical"
                 android:text="Medium"
                 android:textStyle="bold" />
@@ -216,7 +216,7 @@
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
-                android:background="@drawable/round_corners"
+                android:background="@drawable/shape_white_very_curved_corners"
                 android:gravity="center|center_vertical"
                 android:text="Hard"
                 android:textStyle="bold" />
