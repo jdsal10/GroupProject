@@ -13,7 +13,10 @@
 
     <!-- button -->
     <dimen name="button_height_default">60dp</dimen>
-    <dimen name="button_height_large">80dp</dimen>
+    <dimen name="button_height_large">80dp</dimen>4
+
+
+    <dimen name="corner_radius_default">8dp</dimen>
 
     <!-- margin -->
     <dimen name="margin_default">12dp</dimen>
