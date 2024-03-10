@@ -7,11 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.firstapp.group10app.DB.DbConnection;
+import com.firstapp.group10app.Other.NavBarBehaviour;
 import com.firstapp.group10app.Pages.Fragments.Settings.SettingsAccessibility;
 import com.firstapp.group10app.Pages.Fragments.Settings.SettingsAccount;
 import com.firstapp.group10app.Pages.Fragments.Settings.SettingsDataControl;
@@ -55,32 +57,8 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.goToHome) {
-            Intent intent = new Intent(getApplicationContext(), ActivityContainer.class);
-            ActivityContainer.currentView = R.layout.activity_home;
-            startActivity(intent);
-
-            return true;
-        } else if (id == R.id.goToWorkouts) {
-            Intent intent = new Intent(getApplicationContext(), ActivityContainer.class);
-            ActivityContainer.currentView = R.layout.activity_workout_option;
-            startActivity(intent);
-
-            return true;
-        } else if (id == R.id.goToHistory) {
-            if (!DbConnection.testConnection()) {
-                Toast.makeText(this, "No connection!", Toast.LENGTH_SHORT).show();
-            } else {
-                Intent intent = new Intent(getApplicationContext(), ActivityContainer.class);
-                ActivityContainer.currentView = R.layout.activity_history;
-                startActivity(intent);
-
-                return true;
-            }
-        }
-        return true;
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return NavBarBehaviour.onNavigationItemSelected(item, getApplicationContext(), this);
     }
 
     @Override

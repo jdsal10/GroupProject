@@ -14,11 +14,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.ChatGPT.ChatGptClient;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.JsonToDb;
+import com.firstapp.group10app.Other.NavBarBehaviour;
 import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
@@ -67,28 +69,8 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.goToHome) {
-            Intent intent = new Intent(getApplicationContext(), ActivityContainer.class);
-            ActivityContainer.currentView = R.layout.activity_home;
-            startActivity(intent);
-
-            return true;
-        } else if (id == R.id.goToWorkouts) {
-            Intent intent = new Intent(getApplicationContext(), ActivityContainer.class);
-            ActivityContainer.currentView = R.layout.activity_workout_option;
-            startActivity(intent);
-
-            return true;
-        } else if (id == R.id.goToHistory) {
-            Intent intent = new Intent(getApplicationContext(), ActivityContainer.class);
-            ActivityContainer.currentView = R.layout.activity_history;
-            startActivity(intent);
-
-            return true;
-        }
-        return true;
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return NavBarBehaviour.onNavigationItemSelected(item, getApplicationContext(), this);
     }
 
     @Override
