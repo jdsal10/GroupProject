@@ -1,0 +1,47 @@
+Q & A with Sergey
+
+I (Nick) have heard that other groups (supervised by Kemi, for example) have finalized their projects and are now focused on submitting? 
+
+Q: Just to confirm, we have to submit is the poster, abstract, actual app, technical report, contributions report, and a short video demoing the project. That's all, right?
+A: 
+
+Q: How to submit the app? As far as I know, we should clone our repo to raptor. Do we zip it? Do we write instructions how to run it?
+A: 
+
+Q: Do you (Sergey) have any particular advise for any of the documents and files we must submit?
+A: 
+
+Q: When would you advise us to stop working on issues?
+A: 
+
+Q: In appendix 4 of the guidance pdf on moodle it is said that we need to have a weekly_meetings.txt file with minutes from the weekly meetings.
+    a) We never followed a particular structure when doing the weekly meetings, is that going to be an issue?
+    b) We have a folder with txt files, is that ok, or do you suggest to merge them into a single txt file?
+A: 
+
+Q: There is some index.html that we have to submit along with the corpus of materils. I looked at the example on moodle, but got confused. What is that supposed to be?
+A: 
+
+Q: What is the viva voce (interview like???) examination going to be? Are you leading it and how to prepare for it?
+
+===== Summary =====
+To submit:
+1. Poster
+    - Submitted
+
+2. Abstract
+    - Submitted
+
+3. Technical report
+    - 6000 words MAX with specific formatting requrements
+    - There is a Latex template
+
+4. Corpus of materials
+    - The git repo
+
+5. Individual contributions report
+
+6. Video delivarable
+    - 5 minutes max
+
+* We then have a viva voce exam
