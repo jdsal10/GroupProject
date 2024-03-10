@@ -12,6 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.firstapp.group10app.DB.DbConnection;
+import com.firstapp.group10app.Pages.Fragments.MainOptions.History;
+import com.firstapp.group10app.Pages.Fragments.MainOptions.Home;
+import com.firstapp.group10app.Pages.Fragments.MainOptions.WorkoutOption;
 import com.firstapp.group10app.Pages.Fragments.Settings.SettingsAccessibility;
 import com.firstapp.group10app.Pages.Fragments.Settings.SettingsAccount;
 import com.firstapp.group10app.Pages.Fragments.Settings.SettingsDataControl;

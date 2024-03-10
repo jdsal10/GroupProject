@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DbConnection;
 import com.firstapp.group10app.Other.Session;
+import com.firstapp.group10app.Pages.Fragments.MainOptions.Home;
 import com.firstapp.group10app.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {

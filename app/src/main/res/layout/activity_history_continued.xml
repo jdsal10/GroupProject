@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Pages.History">
+    tools:context=".Pages.Fragments.MainOptions.History">
 
     <ScrollView
         android:layout_marginStart="@dimen/margin_default"

@@ -16,6 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.Group10App" >
         <activity
+            android:name=".container"
+            android:exported="false"
+            android:label="@string/title_activity_container" />
+        <activity
             android:name=".Pages.WorkoutHub"
             android:exported="false" />
         <activity
@@ -31,13 +35,13 @@
             android:name=".Pages.WorkoutFilter"
             android:exported="false" />
         <activity
-            android:name=".Pages.History"
+            android:name=".Pages.Fragments.MainOptions.History"
             android:exported="false" />
         <activity
             android:name=".Pages.ModifyData"
             android:exported="false" />
         <activity
-            android:name=".Pages.WorkoutOption"
+            android:name=".Pages.Fragments.MainOptions.WorkoutOption"
             android:exported="false" />
         <activity
             android:name=".Pages.ExerciseView"
@@ -70,7 +74,7 @@
             android:name=".Pages.ForgotPassword"
             android:exported="false" />
         <activity
-            android:name=".Pages.Home"
+            android:name=".Pages.Fragments.MainOptions.Home"
             android:exported="false" />
         <activity
             android:name=".Pages.Login"
