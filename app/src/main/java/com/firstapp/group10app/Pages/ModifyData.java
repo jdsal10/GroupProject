@@ -32,7 +32,7 @@ public class ModifyData extends Dialog implements View.OnClickListener {
     public ModifyData(Context context, String[] data) {
         super(context);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_modify_data);
+        setContentView(R.layout.popup_settings_modify_data);
 
         thingToUpdate = data[0];
         updateValue = data[1];
@@ -76,7 +76,7 @@ public class ModifyData extends Dialog implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_modify_data);
+        setContentView(R.layout.popup_settings_modify_data);
 
         LinearLayout area = findViewById(R.id.modificationArea);
         description = findViewById(R.id.updateDescription);

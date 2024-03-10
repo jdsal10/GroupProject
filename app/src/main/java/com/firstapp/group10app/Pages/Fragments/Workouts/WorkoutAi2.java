@@ -19,14 +19,14 @@ public class WorkoutAi2 extends Fragment implements View.OnClickListener {
     public Button goAI;
 
     public WorkoutAi2() {
-        super(R.layout.fragment_workout_ai);
+        super(R.layout.activity_workout_ai2);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_workout_ai, container, false);
+        View rootView = inflater.inflate(R.layout.activity_workout_ai2, container, false);
 
         // Initialise Buttons
         goAI = rootView.findViewById(R.id.goToAI);

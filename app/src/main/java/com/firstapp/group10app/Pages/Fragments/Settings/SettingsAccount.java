@@ -36,7 +36,7 @@ public class SettingsAccount extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_settings_account, container, false);
+        View rootView = inflater.inflate(R.layout.activity_settings_account, container, false);
 
         deleteAccount = rootView.findViewById(R.id.deleteAccountButton);
         deleteAccount.setOnClickListener(this);
@@ -61,7 +61,7 @@ public class SettingsAccount extends Fragment implements View.OnClickListener {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         LayoutInflater inflater = getLayoutInflater();
 
-        View dialogView = inflater.inflate(R.layout.popup_delete_account_confirm, null);
+        View dialogView = inflater.inflate(R.layout.popup_confirm_delete_account, null);
         builder.setView(dialogView);
         AlertDialog alertDialog = builder.create();
 

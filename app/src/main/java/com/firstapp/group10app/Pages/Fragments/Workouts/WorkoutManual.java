@@ -18,14 +18,14 @@ public class WorkoutManual extends Fragment implements View.OnClickListener {
     public Button goCreate, goSearch;
 
     public WorkoutManual() {
-        super(R.layout.fragment_workout_manual);
+        super(R.layout.activity_workout_manual);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_workout_manual, container, false);
+        View rootView = inflater.inflate(R.layout.activity_workout_manual, container, false);
 
         // Initialise Buttons
         goCreate = rootView.findViewById(R.id.goToCreate);

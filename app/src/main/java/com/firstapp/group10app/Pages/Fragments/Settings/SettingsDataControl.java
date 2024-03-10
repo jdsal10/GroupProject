@@ -23,7 +23,7 @@ public class SettingsDataControl extends Fragment implements View.OnClickListene
     ArrayList<String> details;
 
     public SettingsDataControl() {
-        super(R.layout.fragment_settings_data_control);
+        super(R.layout.activity_settings_data_control);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class SettingsDataControl extends Fragment implements View.OnClickListene
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_settings_data_control, container, false);
+        View rootView = inflater.inflate(R.layout.activity_settings_data_control, container, false);
 
         // Initialise the clear buttons
         dobModify = rootView.findViewById(R.id.dobLayout);

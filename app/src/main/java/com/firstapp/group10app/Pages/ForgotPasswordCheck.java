@@ -22,7 +22,7 @@ public class ForgotPasswordCheck extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forgotpasswordcheck);
+        setContentView(R.layout.activity_forgot_password_check);
 
         code = findViewById(R.id.codeEnter);
         code.setOnClickListener(this);

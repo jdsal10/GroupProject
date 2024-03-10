@@ -33,7 +33,6 @@ import com.firstapp.group10app.DB.DbHelper;
 import com.firstapp.group10app.Other.ItemVisualiserText;
 import com.firstapp.group10app.Other.JsonToDb;
 import com.firstapp.group10app.Other.Session;
-import com.firstapp.group10app.Pages.Fragments.MainOptions.WorkoutOption;
 import com.firstapp.group10app.R;
 
 import org.json.JSONArray;
@@ -60,7 +59,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_workout);
+        setContentView(R.layout.activity_workout_create);
 
         durationTitle = findViewById(R.id.durationTitle);
         border = ContextCompat.getDrawable(this, R.drawable.selected_item);
@@ -205,7 +204,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
             }
 
             LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            LinearLayout exerciseCombo = (LinearLayout) inflater.inflate(R.layout.exercise_combo, null);
+            LinearLayout exerciseCombo = (LinearLayout) inflater.inflate(R.layout.activity_exercise_combo, null);
 
             View selectedExerciseToggle = exerciseCombo.findViewById(R.id.checkBox);
 

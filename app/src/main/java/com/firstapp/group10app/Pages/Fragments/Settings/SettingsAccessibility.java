@@ -25,7 +25,7 @@ public class SettingsAccessibility extends Fragment {
     private String mParam1, mParam2;
 
     public SettingsAccessibility() {
-        super(R.layout.fragment_settings_accessibility);
+        super(R.layout.activity_settings_accessibility);
     }
 
     /**
@@ -59,6 +59,6 @@ public class SettingsAccessibility extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings_accessibility, container, false);
+        return inflater.inflate(R.layout.activity_settings_accessibility, container, false);
     }
 }
