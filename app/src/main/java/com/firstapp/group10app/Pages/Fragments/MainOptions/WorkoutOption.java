@@ -45,8 +45,8 @@ public class WorkoutOption extends Fragment implements CompoundButton.OnCheckedC
         // Set OnCheckedChangeListener
         AISelect.setOnCheckedChangeListener(this);
         manualSelect.setOnCheckedChangeListener(this);
-        AISelect.setBackground(getDrawable(requireContext(), R.drawable.rounded_button));
-        manualSelect.setBackground(getDrawable(requireContext(), R.drawable.rounded_button_selected));
+        AISelect.setBackground(getDrawable(requireContext(), R.drawable.rounded_button_tetradic2));
+        manualSelect.setBackground(getDrawable(requireContext(), R.drawable.selected_item));
 
         // If the user is not signed in / anonymous, they do not access to the AI or to create a workout.
         if ((!Session.dbStatus) || (!Session.signedIn)) {
@@ -69,15 +69,15 @@ public class WorkoutOption extends Fragment implements CompoundButton.OnCheckedC
                     System.out.println("WorkoutOption.onClick(): AI selected");
                     updateView(new WorkoutAi2(), R.anim.slide_right_in, R.anim.slide_left_out);
 
-                    AISelect.setBackground(getDrawable(requireContext(), R.drawable.rounded_button_selected));
-                    manualSelect.setBackground(getDrawable(requireContext(), R.drawable.rounded_button));
+                    AISelect.setBackground(getDrawable(requireContext(), R.drawable.selected_item));
+                    manualSelect.setBackground(getDrawable(requireContext(), R.drawable.rounded_button_tetradic2));
                 }
             } else if (buttonView.getId() == R.id.toggleManual) {
                 System.out.println("WorkoutOption.onCheckedChanged(): Manual selected");
                 updateView(new WorkoutManual(), R.anim.slide_left_in, R.anim.slide_right_out);
 
-                AISelect.setBackground(getDrawable(requireContext(), R.drawable.rounded_button));
-                manualSelect.setBackground(getDrawable(requireContext(), R.drawable.rounded_button_selected));
+                AISelect.setBackground(getDrawable(requireContext(), R.drawable.rounded_button_tetradic2));
+                manualSelect.setBackground(getDrawable(requireContext(), R.drawable.selected_item));
             }
         }
     }
