@@ -14,12 +14,9 @@ public class NavBarBehaviour {
     public boolean onNavigationItemSelected(MenuItem item, Context context, Activity activity) {
         int id = item.getItemId();
         if (id == R.id.goToHome) {
+            Intent intent = new Intent(context, ActivityContainer.class);
             ActivityContainer.currentView = R.layout.activity_home;
-            Session.activityContainer.updateView();
-
-//            Intent intent = new Intent(context, ActivityContainer.class);
-//            ActivityContainer.currentView = R.layout.activity_home;
-//            activity.startActivity(intent);
+            activity.startActivity(intent);
 
             return true;
         } else if (id == R.id.goToWorkouts) {

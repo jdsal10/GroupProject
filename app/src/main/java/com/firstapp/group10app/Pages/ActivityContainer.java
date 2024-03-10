@@ -63,8 +63,6 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
             fragmentTransaction.add(R.id.fragmentHolder, fragment);
             fragmentTransaction.commit();
         }
-
-        Session.activityContainer = this;
     }
 
     @Override

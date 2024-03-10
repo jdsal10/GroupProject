@@ -17,8 +17,6 @@ public class Session {
     // Format for userDetails is [DOB, Weight, Height, Sex, Health Condition, Reason for downloading]
     public static String[] userDetails;
 
-    public static ActivityContainer activityContainer;
-
     public Session(String userEmail) {
         Session.userEmail = userEmail;
     }
