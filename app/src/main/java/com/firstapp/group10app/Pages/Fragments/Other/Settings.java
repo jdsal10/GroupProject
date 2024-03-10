@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -14,10 +15,11 @@ import com.firstapp.group10app.Pages.Fragments.Settings.SettingsAccount;
 import com.firstapp.group10app.Pages.Fragments.Settings.SettingsDataControl;
 import com.firstapp.group10app.R;
 
+import java.security.PublicKey;
+
 public class Settings extends Fragment implements View.OnClickListener {
-
     public int currentView;
-
+    public RadioButton dataControlButton, accessibilityButton, accountButton;
     public Settings() {
         super(R.layout.activity_settings);
     }
@@ -37,40 +39,46 @@ public class Settings extends Fragment implements View.OnClickListener {
         }
 
         // Button declaration.
-        Button dataControlButton = rootView.findViewById(R.id.goDataControl);
+        dataControlButton = rootView.findViewById(R.id.goDataControl);
         dataControlButton.setOnClickListener(this);
 
-        Button accessibilityButton = rootView.findViewById(R.id.goAccessibility);
+        accessibilityButton = rootView.findViewById(R.id.goAccessibility);
         accessibilityButton.setOnClickListener(this);
 
-        Button accountButton = rootView.findViewById(R.id.goAccount);
+        accountButton = rootView.findViewById(R.id.goAccount);
         accountButton.setOnClickListener(this);
+
+        dataControlButton.setTextColor(getResources().getColor(R.color.white));
 
         return rootView;
     }
-//
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//        return NavBarBehaviour.onNavigationItemSelected(item, getApplicationContext(), this);
-//    }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.goDataControl) {
             if (currentView != R.layout.activity_settings_data_control) {
-                updateView(new SettingsDataControl(), currentView == R.layout.activity_settings_accessibility);
+                updateView(new SettingsDataControl(), true);
                 currentView = R.layout.activity_settings_data_control;
+
+                resetButtonTextColor();
+                dataControlButton.setTextColor(getResources().getColor(R.color.white));
             }
         } else if (id == R.id.goAccessibility) {
             if (currentView != R.layout.activity_settings_accessibility) {
                 updateView(new SettingsAccessibility(), currentView == R.layout.activity_settings_account);
                 currentView = R.layout.activity_settings_accessibility;
+
+                resetButtonTextColor();
+                accessibilityButton.setTextColor(getResources().getColor(R.color.white));
             }
         } else if (id == R.id.goAccount) {
             if (currentView != R.layout.activity_settings_account) {
-                updateView(new SettingsAccount(), currentView == R.layout.activity_settings_data_control);
+                updateView(new SettingsAccount(), false);
                 currentView = R.layout.activity_settings_account;
+
+                resetButtonTextColor();
+                accountButton.setTextColor(getResources().getColor(R.color.white));
             }
         }
     }
@@ -87,5 +95,11 @@ public class Settings extends Fragment implements View.OnClickListener {
         transaction.replace(R.id.settingsBody, newVIew);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    private void resetButtonTextColor() {
+        dataControlButton.setTextColor(getResources().getColor(R.color.black));
+        accessibilityButton.setTextColor(getResources().getColor(R.color.black));
+        accountButton.setTextColor(getResources().getColor(R.color.black));
     }
 }

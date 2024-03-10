@@ -18,15 +18,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5">
+        android:layout_weight="0.5"
+        android:gravity="center">
 
         <RadioGroup
             android:id="@+id/toggle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/margin_default"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="@dimen/margin_default"
+            android:layout_height="@dimen/button_height_default"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
             android:background="@drawable/workout_toggle_outline"
             android:checkedButton="@+id/goDataControl"
             android:orientation="horizontal">
@@ -38,7 +38,7 @@
                 android:layout_marginStart="1dp"
                 android:layout_marginEnd="1dp"
                 android:layout_weight="1"
-                android:background="@drawable/workout_toggle_background"
+                android:background="@drawable/settings_toggle_background"
                 android:button="@null"
                 android:gravity="center"
                 android:text="@string/dataControlButtonTitle" />
@@ -50,7 +50,7 @@
                 android:layout_marginStart="1dp"
                 android:layout_marginEnd="1dp"
                 android:layout_weight="1"
-                android:background="@drawable/workout_toggle_background"
+                android:background="@drawable/settings_toggle_background"
                 android:button="@null"
                 android:gravity="center"
                 android:text="@string/accessibilityButtonTitle" />
@@ -62,7 +62,7 @@
                 android:layout_marginStart="1dp"
                 android:layout_marginEnd="1dp"
                 android:layout_weight="1"
-                android:background="@drawable/workout_toggle_background"
+                android:background="@drawable/settings_toggle_background"
                 android:button="@null"
                 android:gravity="center"
                 android:text="@string/accountButtonTitle" />
