@@ -21,35 +21,32 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
+            <!--            android:text="UPDATE IN CODE"-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_large"
-                android:text="UPDATE IN CODE"
+                android:text="@string/homePageTitle"
                 android:textSize="@dimen/font_size_very_large" />
 
+            <!--            android:text="DO THE ABOVE!"-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_large"
-                android:text="DO THE ABOVE!" />
+                android:text="@string/homePageWelcome" />
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/stepTemp"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
-
         <Button
             android:id="@+id/goToSettings"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/settings_icon_width_height"
+            android:layout_height="@dimen/settings_icon_width_height"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_small"
             android:background="@drawable/icon_settings"
             android:clickable="true"
-            android:elevation="1dp"
-            android:focusable="true"
-            android:maxHeight="10sp" />
+            android:focusable="true" />
 
     </LinearLayout>
 
