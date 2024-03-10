@@ -6,21 +6,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.firstapp.group10app.Pages.Fragments.MainOptions.History;
-import com.firstapp.group10app.Pages.Fragments.MainOptions.Home;
-import com.firstapp.group10app.Pages.Fragments.MainOptions.WorkoutOption;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.firstapp.group10app.Pages.Fragments.MainOptions.History;
+import com.firstapp.group10app.Pages.Fragments.MainOptions.Home;
+import com.firstapp.group10app.Pages.Fragments.MainOptions.WorkoutOption;
 import com.firstapp.group10app.databinding.ActivityContainerBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class container extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
     private ActivityContainerBinding binding;
+    // This is a public variable that is used to store the current view.
+    public static int currentView;  // 1 = Home, 2 = Workouts, 3 = History; else = no info
+    private static int HOME = 1, WORKOUTS = 2, HISTORY = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +41,26 @@ public class container extends AppCompatActivity implements NavigationBarView.On
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        Home fragment = new Home();
-        fragmentTransaction.add(R.id.fragmentHolder, fragment);
-        fragmentTransaction.commit();
+        // If the current view is not set, set it to 1 (Home = default).
+        if (currentView != HOME && currentView != R.layout.activity_home
+                && currentView != WORKOUTS && currentView != R.layout.activity_workout_option
+                && currentView != HISTORY && currentView != R.layout.activity_history) {
+            currentView = HOME;
+        }
+
+        if (currentView == HOME || currentView == R.layout.activity_home) {
+            Home fragment = new Home();
+            fragmentTransaction.add(R.id.fragmentHolder, fragment);
+            fragmentTransaction.commit();
+        } else if (currentView == WORKOUTS || currentView == R.layout.activity_workout_option) {
+            WorkoutOption fragment = new WorkoutOption();
+            fragmentTransaction.add(R.id.fragmentHolder, fragment);
+            fragmentTransaction.commit();
+        } else if (currentView == HISTORY || currentView == R.layout.activity_history) {
+            History fragment = new History();
+            fragmentTransaction.add(R.id.fragmentHolder, fragment);
+            fragmentTransaction.commit();
+        }
     }
 
     @Override
@@ -50,6 +69,7 @@ public class container extends AppCompatActivity implements NavigationBarView.On
             Toast.makeText(this, "Settings is currently disabled!", Toast.LENGTH_SHORT).show();
         }
     }
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();

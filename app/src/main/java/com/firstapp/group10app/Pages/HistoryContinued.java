@@ -15,6 +15,7 @@ import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.Home;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.WorkoutOption;
 import com.firstapp.group10app.R;
+import com.firstapp.group10app.container;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -53,12 +54,22 @@ public class HistoryContinued extends AppCompatActivity implements NavigationBar
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.goToHome) {
-            startActivity(new Intent(getApplicationContext(), Home.class));
+            Intent intent = new Intent(getApplicationContext(), container.class);
+            container.currentView = R.layout.activity_home;
+            startActivity(intent);
+
             return true;
         } else if (id == R.id.goToWorkouts) {
-            startActivity(new Intent(getApplicationContext(), WorkoutOption.class));
+            Intent intent = new Intent(getApplicationContext(), container.class);
+            container.currentView = R.layout.activity_workout_option;
+            startActivity(intent);
+
             return true;
         } else if (id == R.id.goToHistory) {
+            Intent intent = new Intent(getApplicationContext(), container.class);
+            container.currentView = R.layout.activity_history;
+            startActivity(intent);
+
             return true;
         }
         return true;

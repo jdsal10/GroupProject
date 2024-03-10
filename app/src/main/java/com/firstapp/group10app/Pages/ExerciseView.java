@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.Pages.Fragments.MainOptions.Home;
 import com.firstapp.group10app.R;
+import com.firstapp.group10app.container;
 
 public class ExerciseView extends AppCompatActivity implements View.OnClickListener {
     @Override
@@ -25,7 +26,9 @@ public class ExerciseView extends AppCompatActivity implements View.OnClickListe
         int id = v.getId();
         if (id == R.id.selectWorkout) {
             // Add workout to session info - potential idea
-            startActivity(new Intent(ExerciseView.this, Home.class));
+            Intent intent = new Intent(getApplicationContext(), container.class);
+            container.currentView = R.layout.activity_home;
+            startActivity(intent);
         }
     }
 }
