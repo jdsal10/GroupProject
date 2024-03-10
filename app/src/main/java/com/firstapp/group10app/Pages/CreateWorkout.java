@@ -62,7 +62,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_workout_create);
 
         durationTitle = findViewById(R.id.durationTitle);
-        border = ContextCompat.getDrawable(this, R.drawable.selected_item);
+        border = ContextCompat.getDrawable(this, R.drawable.toggle_button_outline);
 
         name = findViewById(R.id.workoutNameInput);
         duration = findViewById(R.id.workoutDurationInput);

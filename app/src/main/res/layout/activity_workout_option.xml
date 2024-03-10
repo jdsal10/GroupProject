@@ -27,7 +27,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="3dp"
                 android:layout_weight="1"
-                android:background="@color/gradient_cYFTLT_complementary"
+                android:background="@drawable/toggle_buttons_workouts_background"
                 android:button="@null"
                 android:gravity="center"
                 android:text="@string/manualToggle" />
@@ -37,6 +37,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="3dp"
+                android:background="@drawable/toggle_buttons_workouts_background"
                 android:layout_weight="1"
                 android:button="@null"
                 android:gravity="center"
