@@ -358,8 +358,7 @@ public class DbHelper {
 
     public static String getUserWorkoutsLimited(String filter) {
         String query = "SELECT " +
-                "JSON_ARRAYAGG(" +
-//                "JSON_ARRAY(" +
+                "JSON_ARRAY(" +
                 "  JSON_OBJECT(" +
                 "    'WorkoutID', w.WorkoutID," +
                 "    'WorkoutName', w.WorkoutName," +
@@ -388,15 +387,21 @@ public class DbHelper {
                 " FROM" +
                 "   HealthData.Workouts w" +
                 " JOIN HealthData.UserWorkoutHistory uwh ON w.WorkoutID = uwh.WorkoutID" +
-                " WHERE uwh.Email = '" + filter + "'" +
-                " LIMIT 4";
+                " WHERE uwh.Email = '" + filter + "'" ;
 
         DbConnection db = new DbConnection();
         ResultSet out = db.executeQuery(query);
 
+        StringBuilder resultJson = new StringBuilder();
+        int count = 0;
         try {
-            if (out.next()) {
-                return out.getString("Result");
+            while (out.next() && count < 4) {
+                String result = out.getString("Result");
+                resultJson.append(result);
+                count ++;
+                if(count == 4){
+                    return resultJson.toString();
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error processing ResultSet", e);
