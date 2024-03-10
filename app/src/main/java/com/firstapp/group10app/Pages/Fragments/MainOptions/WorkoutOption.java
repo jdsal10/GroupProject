@@ -78,14 +78,11 @@ public class WorkoutOption extends Fragment implements CompoundButton.OnCheckedC
     }
 
     public void updateView(Fragment newView, int enterAnim, int exitAnim) {
-        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-        if (enterAnim != -1 && exitAnim != -1) transaction.setCustomAnimations(enterAnim, exitAnim);
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
 
-        // Add newView as a child fragment to this fragment
-        getChildFragmentManager().beginTransaction()
-                .add(R.id.workoutsBody, newView)
-                .addToBackStack(null)
-                .commit();
+        if (enterAnim != -1 && exitAnim != -1) {
+            transaction.setCustomAnimations(enterAnim, exitAnim);
+        }
 
         transaction.replace(R.id.workoutsBody, newView);
         transaction.addToBackStack(null);

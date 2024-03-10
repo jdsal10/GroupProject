@@ -22,7 +22,7 @@
 
     <!-- Animations -->
     <style name="filterAnimations">
-        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowEnterAnimation">@anim/slide_up_in</item>
         <item name="android:windowExitAnimation">@anim/slide_down_in</item>
     </style>
 

@@ -68,7 +68,9 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         int id = v.getId();
 
         if (id == R.id.backButton) {
+            ActivityContainer.currentView = ActivityContainer.WORKOUTS;
             startActivity(new Intent(getApplicationContext(), ActivityContainer.class));
+            overridePendingTransition(R.anim.slide_up_in, R.anim.slide_up_out);
         } else if (id == R.id.continueButton) {
             // To move the variables to the 2nd button
             muscleGroupAnswer = muscleGroupSpinner.getSelectedItem().toString();

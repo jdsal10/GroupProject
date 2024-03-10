@@ -8,10 +8,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.firstapp.group10app.DB.DbConnection;
 import com.firstapp.group10app.Other.Session;
+import com.firstapp.group10app.Pages.Fragments.MainOptions.WorkoutOption;
 import com.firstapp.group10app.Pages.WorkoutAi;
 import com.firstapp.group10app.R;
 
@@ -48,8 +50,17 @@ public class WorkoutAi2 extends Fragment implements View.OnClickListener {
             if ((!Session.signedIn) || (!DbConnection.testConnection())) {
                 Toast.makeText(getContext(), "No connection!", Toast.LENGTH_SHORT).show();
             } else {
-                startActivity(new Intent(getContext(), WorkoutAi.class));
+                tellParentToStartNewActivity(new WorkoutAi());
             }
+        }
+    }
+
+    public void tellParentToStartNewActivity(AppCompatActivity newActivity) {
+        WorkoutOption parentFrag = ((WorkoutOption) WorkoutAi2.this.getParentFragment());
+        if (parentFrag != null) {
+            parentFrag.tellParentToStartNewActivity(newActivity, R.anim.slide_down_in, R.anim.slide_down_out);
+        } else {
+            startActivity(new Intent(getContext(), newActivity.getClass()));
         }
     }
 }

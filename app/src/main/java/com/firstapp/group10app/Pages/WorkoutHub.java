@@ -231,6 +231,7 @@ public class WorkoutHub extends AppCompatActivity implements NavigationBarView.O
         } else if (id == R.id.beginWorkout) {
             DbHelper.insertHistory();
             startActivity(new Intent(getApplicationContext(), ActivityContainer.class));
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         } else if (id == R.id.addToCalendar) {
             Toast.makeText(this, "Currently in beta!", Toast.LENGTH_SHORT).show();
         }

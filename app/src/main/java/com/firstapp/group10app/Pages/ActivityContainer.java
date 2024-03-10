@@ -26,7 +26,7 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
     private ActivityContainerBinding binding;
     // This is a public variable that is used to store the current view.
     public static int currentView;  // 1 = Home, 2 = Workouts, 3 = History; else = no info
-    private static int HOME = 1, WORKOUTS = 2, HISTORY = 3;
+    public static final int HOME = 1, WORKOUTS = 2, HISTORY = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,28 +42,19 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         bottomNavigationView.setOnItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.goToHome);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
         // If the current view is not set, set it to 1 (Home = default).
         if (currentView != HOME && currentView != R.layout.activity_home
                 && currentView != WORKOUTS && currentView != R.layout.activity_workout_option
                 && currentView != HISTORY && currentView != R.layout.activity_history) {
-            currentView = HOME;
+            currentView = WORKOUTS;
         }
 
         if (currentView == HOME || currentView == R.layout.activity_home) {
-            Home fragment = new Home();
-            fragmentTransaction.add(R.id.fragmentHolder, fragment);
-            fragmentTransaction.commit();
+            updateView(new Home());
         } else if (currentView == WORKOUTS || currentView == R.layout.activity_workout_option) {
-            WorkoutOption fragment = new WorkoutOption();
-            fragmentTransaction.add(R.id.fragmentHolder, fragment);
-            fragmentTransaction.commit();
+            updateView(new WorkoutOption());
         } else {
-            History fragment = new History();
-            fragmentTransaction.add(R.id.fragmentHolder, fragment);
-            fragmentTransaction.commit();
+            updateView(new History());
         }
     }
 

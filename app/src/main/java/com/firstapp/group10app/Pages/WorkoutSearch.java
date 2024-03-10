@@ -74,6 +74,7 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
 
         if (id == R.id.backButton) {
             startActivity(new Intent(getApplicationContext(), ActivityContainer.class));
+            overridePendingTransition(R.anim.slide_up_in, R.anim.slide_up_out);
         } else if (id == R.id.openFilter) {
             // After creating an instance of workout_filter
             WorkoutFilter customDialog = new WorkoutFilter(this);
@@ -83,7 +84,7 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
             Objects.requireNonNull(customDialog.getWindow()).setWindowAnimations(R.style.filterAnimations);
 
             customDialog.show();
-            System.out.println("WorkoutSearch.onClick(): openFilter clicked, SELCTEDT VALUES: " + difficultyString + durationString + targetString);
+            System.out.println("WorkoutSearch.onClick(): openFilter clicked, SELECTED VALUES: " + difficultyString + durationString + targetString);
             customDialog.setValue(difficultyString, durationString, targetString);
         }
     }

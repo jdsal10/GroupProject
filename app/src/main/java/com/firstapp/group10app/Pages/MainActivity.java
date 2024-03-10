@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Session.signedIn = false;
 
             Intent intent = new Intent(getApplicationContext(), ActivityContainer.class);
-            ActivityContainer.currentView = R.layout.activity_home;
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         } else if (id == R.id.goToRegister) {

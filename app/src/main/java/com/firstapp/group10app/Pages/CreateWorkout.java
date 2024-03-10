@@ -93,9 +93,9 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         hard.setOnClickListener(this);
 
         // Set the background color of the difficulty buttons.
-        easy.setBackgroundColor(Color.parseColor("#77DD77")); // Pastel green (https://www.canva.com/colors/color-meanings/pastel-green/)
-        medium.setBackgroundColor(Color.parseColor("#FDFD96")); // Pastel yellow (https://www.canva.com/colors/color-meanings/pastel-yellow/)
-        hard.setBackgroundColor(Color.parseColor("#FF6961")); // Pastel red (https://www.canva.com/colors/color-meanings/pastel-red/)
+        easy.setBackgroundColor(ContextCompat.getColor(this, R.color.pastel_green)); // Pastel green (https://www.canva.com/colors/color-meanings/pastel-green/)
+        medium.setBackgroundColor(ContextCompat.getColor(this, R.color.pastel_yellow)); // Pastel yellow (https://www.canva.com/colors/color-meanings/pastel-yellow/)
+        hard.setBackgroundColor(ContextCompat.getColor(this, R.color.pastel_red)); // Pastel red (https://www.canva.com/colors/color-meanings/pastel-red/)
 
         // Set the default difficulty buttons border.
         enableBorder(easy);
@@ -246,7 +246,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
             // Declares background colours.
             switch (difficultyValue) {
                 case "Easy":
-                    difficultyScale.setBackground(ContextCompat.getDrawable(this, R.drawable.shape_paster_green));
+                    difficultyScale.setBackground(ContextCompat.getDrawable(this, R.drawable.shape_pastel_green));
                     break;
                 case "Medium":
                     difficultyScale.setBackground(ContextCompat.getDrawable(this, R.drawable.shape_pastel_yellow));
@@ -265,7 +265,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
                     addedExercisesID.remove(workoutObject.optString("ExerciseID", ""));
                     addedExercises.remove(workoutObject);
                 } else {
-                    selectedExerciseToggle.setBackgroundColor(Color.BLACK);
+                    selectedExerciseToggle.setBackgroundColor(ContextCompat.getColor(this, R.color.pastel_green));
                     addedExercises.add(workoutObject);
                     addedExercisesID.add(workoutObject.optString("ExerciseID", ""));
 
@@ -296,8 +296,9 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         int id = v.getId();
 
         if (id == R.id.backButton) {
+            ActivityContainer.currentView = R.layout.activity_workout_option;
             startActivity(new Intent(getApplicationContext(), ActivityContainer.class));
-            overridePendingTransition(R.anim.slide_down_in, R.anim.slide_down_out);
+            overridePendingTransition(R.anim.slide_up_in, R.anim.slide_up_out);
         }
         // If the user selects a difficulty, we adjust the border
         else if (id == R.id.easySelect && !selected.equals("easy")) {
@@ -333,6 +334,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         } else if (id == R.id.cancelBtn && activePage == 1) {
             // Maybe add popup to prevent user losing progress.
             startActivity(new Intent(getApplicationContext(), ActivityContainer.class));
+            overridePendingTransition(R.anim.slide_up_in, R.anim.slide_up_out);
         } else if (id == R.id.cancelBtn && activePage == 2) {
             p2.setVisibility(GONE);
             p1.setVisibility(VISIBLE);
@@ -385,7 +387,6 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
 
             // Creates the workout.
             addWorkout(name.getText().toString(), duration.getText().toString(), target.getSelectedItem().toString(), equipment.getText().toString(), correctDifficulty, addedExercisesID);
-
         });
         alertDialog.show();
     }
@@ -439,7 +440,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
             Session.workoutID = JsonToDb.insertWorkout(newWorkout, exercises);
 
             startActivity(new Intent(this, WorkoutHub.class));
-
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -449,11 +450,11 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         Drawable[] layers = new Drawable[2];
 
         if (v == easy) {
-            layers[0] = createColorDrawable(Color.parseColor("#77DD77"));
+            layers[0] = createColorDrawable(ContextCompat.getColor(this, R.color.pastel_green));
         } else if (v == medium) {
-            layers[0] = createColorDrawable(Color.parseColor("#FDFD96"));
+            layers[0] = createColorDrawable(ContextCompat.getColor(this, R.color.pastel_yellow));
         } else if (v == hard) {
-            layers[0] = createColorDrawable(Color.parseColor("#FF6961"));
+            layers[0] = createColorDrawable(ContextCompat.getColor(this, R.color.pastel_red));
         }
 
         layers[1] = border;
@@ -464,11 +465,11 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
 
     private void disableBorder(View v) {
         if (v == easy) {
-            v.setBackgroundColor(Color.parseColor("#77DD77"));
+            v.setBackgroundColor(ContextCompat.getColor(this, R.color.pastel_green));
         } else if (v == medium) {
-            v.setBackgroundColor(Color.parseColor("#FDFD96"));
+            v.setBackgroundColor(ContextCompat.getColor(this, R.color.pastel_yellow));
         } else if (v == hard) {
-            v.setBackgroundColor(Color.parseColor("#FF6961"));
+            v.setBackgroundColor(ContextCompat.getColor(this, R.color.pastel_red));
         }
     }
 
