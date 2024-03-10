@@ -38,7 +38,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
         emailToSend = findViewById(R.id.emailToSend);
         emailToSend.setOnClickListener(this);
 
-        Button sendEmail = findViewById(R.id.passwordChange);
+        Button sendEmail = findViewById(R.id.changePasswordButton);
         sendEmail.setOnClickListener(this);
 
         Button backToLogin = findViewById(R.id.backToLogin);
@@ -48,7 +48,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.passwordChange) {
+        if (id == R.id.changePasswordButton) {
             String emailText = emailToSend.getText().toString();
             String pat = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
             Pattern pattern = Pattern.compile(pat);
@@ -67,7 +67,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                         Intent in = new Intent(ForgotPassword.this, ForgotPasswordCheck.class);
                         in.putExtra("email", emailText);
                         startActivity(in);
-
+                        overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -80,7 +80,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
         } else if (id == R.id.backToLogin) {
             System.out.println("Detected");
             startActivity(new Intent(ForgotPassword.this, Login.class));
-
+            overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
         }
     }
 

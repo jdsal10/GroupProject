@@ -1,7 +1,6 @@
 package com.firstapp.group10app.Pages.Fragments.MainOptions;
 
-import static androidx.appcompat.content.res.AppCompatResources.getDrawable;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,17 +9,21 @@ import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.firstapp.group10app.DB.DbConnection;
 import com.firstapp.group10app.Other.Session;
+import com.firstapp.group10app.Pages.ActivityContainer;
+import com.firstapp.group10app.Pages.CreateWorkout;
 import com.firstapp.group10app.Pages.Fragments.Workouts.WorkoutAi2;
 import com.firstapp.group10app.Pages.Fragments.Workouts.WorkoutManual;
 import com.firstapp.group10app.R;
 
 public class WorkoutOption extends Fragment implements CompoundButton.OnCheckedChangeListener {
     public RadioButton AISelect, manualSelect;
+
     public WorkoutOption() {
         super(R.layout.activity_workout_option);
     }
@@ -77,8 +80,24 @@ public class WorkoutOption extends Fragment implements CompoundButton.OnCheckedC
     public void updateView(Fragment newView, int enterAnim, int exitAnim) {
         FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
         if (enterAnim != -1 && exitAnim != -1) transaction.setCustomAnimations(enterAnim, exitAnim);
+
+        // Add newView as a child fragment to this fragment
+        getChildFragmentManager().beginTransaction()
+                .add(R.id.workoutsBody, newView)
+                .addToBackStack(null)
+                .commit();
+
         transaction.replace(R.id.workoutsBody, newView);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    public void tellParentToStartNewActivity(AppCompatActivity newActivity, int enterAnim, int exitAnim) {
+        ActivityContainer parent = (ActivityContainer) getActivity();
+        if (parent != null) {
+            parent.startNewActivity(newActivity, enterAnim, exitAnim);
+        } else {
+            startActivity(new Intent(getContext(), newActivity.getClass()));
+        }
     }
 }

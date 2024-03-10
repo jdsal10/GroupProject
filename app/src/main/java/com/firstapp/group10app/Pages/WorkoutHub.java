@@ -230,7 +230,7 @@ public class WorkoutHub extends AppCompatActivity implements NavigationBarView.O
             Toast.makeText(this, "Currently in beta!", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.beginWorkout) {
             DbHelper.insertHistory();
-            startActivity(new Intent(getApplicationContext(), History.class));
+            startActivity(new Intent(getApplicationContext(), ActivityContainer.class));
         } else if (id == R.id.addToCalendar) {
             Toast.makeText(this, "Currently in beta!", Toast.LENGTH_SHORT).show();
         }

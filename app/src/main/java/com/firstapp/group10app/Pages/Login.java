@@ -57,6 +57,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     Session.signedIn = true;
 
                     startActivity(new Intent(getApplicationContext(), ActivityContainer.class));
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 } else {
                     Toast.makeText(Login.this, "Login Failed. Check your details!", Toast.LENGTH_SHORT).show();
                 }
@@ -65,9 +66,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             }
         } else if (id == R.id.forgotPassword) {
             startActivity(new Intent(Login.this, ForgotPassword.class));
+            overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
         } else if (id == R.id.register) {
             startActivity(new Intent(Login.this, Registration.class));
-            overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
     }
 

@@ -54,6 +54,7 @@ public class ForgotPasswordCheck extends AppCompatActivity implements View.OnCli
                     Intent in = new Intent(ForgotPasswordCheck.this, ForgotPasswordContinued.class);
                     in.putExtra("email", email);
                     startActivity(in);
+                    overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
                 } else {
                     code.setError("Invalid code");
                 }
@@ -62,6 +63,7 @@ public class ForgotPasswordCheck extends AppCompatActivity implements View.OnCli
             }
         } else if (id == R.id.backToLogin) {
             startActivity(new Intent(getApplicationContext(), Login.class));
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
     }
 

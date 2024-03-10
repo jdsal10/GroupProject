@@ -245,7 +245,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 throw new RuntimeException(e);
             }
         } else if (id == R.id.buttonBack) backPressed();
-        overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
     }
 
     // If the back button is pressed - logic
@@ -276,6 +275,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     // Go to the main activity
     private void goToMainActivity() {
         startActivity(new Intent(Registration.this, MainActivity.class));
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     // Go to page 1

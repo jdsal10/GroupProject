@@ -132,7 +132,6 @@ public class DbHelper {
             Statement st = conn.createStatement();
 
             DbConnection db = new DbConnection();
-            System.out.println("INSERTING!!!");
             db.executeStatement(String.valueOf(sql));
 
             Integer test = st.executeUpdate(sql.toString(), Statement.RETURN_GENERATED_KEYS);

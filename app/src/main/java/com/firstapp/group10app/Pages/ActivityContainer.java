@@ -1,8 +1,10 @@
 package com.firstapp.group10app.Pages;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -76,19 +78,34 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         if ((id == R.id.goToHome) && (currentView != 1)) {
-            updateView(new Home());
+            updateView(new Home(), false);
             currentView = 1;
             return true;
         } else if ((id == R.id.goToWorkouts) && (currentView != 2)) {
-            updateView(new WorkoutOption());
+            updateView(new WorkoutOption(), currentView < 2);
             currentView = 2;
             return true;
         } else if ((id == R.id.goToHistory) && (currentView != 3)) {
-            updateView(new History());
+            updateView(new History(), true);
             currentView = 3;
             return true;
         }
         return true;
+    }
+
+    public void updateView(Fragment view, boolean animationDirection) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        if (animationDirection) {
+            fragmentTransaction.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out);
+        } else {
+            fragmentTransaction.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_right_out);
+        }
+
+        fragmentTransaction.replace(R.id.fragmentHolder, view);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     public void updateView(Fragment view) {
@@ -99,22 +116,9 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         fragmentTransaction.commit();
     }
 
-    public void updateView() {
-        if (currentView == HOME || currentView == R.layout.activity_home) {
-            Home fragment = new Home();
-            updateView(fragment);
-        } else if (currentView == WORKOUTS || currentView == R.layout.activity_workout_option) {
-            WorkoutOption fragment = new WorkoutOption();
-            updateView(fragment);
-        } else if (currentView == HISTORY || currentView == R.layout.activity_history) {
-            History fragment = new History();
-            updateView(fragment);
-        }
-
-        // Default to Home if no view is set.
-        else {
-            Home fragment = new Home();
-            updateView(fragment);
-        }
+    // Start new activity
+    public void startNewActivity(AppCompatActivity newActivity, int enterAnim, int exitAnim) {
+        startActivity(new Intent(this, newActivity.getClass()));
+        overridePendingTransition(enterAnim, exitAnim);
     }
 }

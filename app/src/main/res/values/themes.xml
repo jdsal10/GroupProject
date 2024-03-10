@@ -20,7 +20,7 @@
     <!-- Animations -->
     <style name="filterAnimations">
         <item name="android:windowEnterAnimation">@anim/slide_up</item>
-        <item name="android:windowExitAnimation">@anim/slide_down</item>
+        <item name="android:windowExitAnimation">@anim/slide_down_in</item>
     </style>
 
     <style name="filterCorners" parent="Theme.AppCompat.Light.Dialog.Alert">

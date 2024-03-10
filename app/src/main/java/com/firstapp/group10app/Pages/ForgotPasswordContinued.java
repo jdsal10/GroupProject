@@ -29,7 +29,7 @@ public class ForgotPasswordContinued extends AppCompatActivity implements View.O
         password2 = findViewById(R.id.newPasswordLoggedIn2);
         password2.setOnClickListener(this);
 
-        passwordchangeconfirm = findViewById(R.id.passwordChange);
+        passwordchangeconfirm = findViewById(R.id.changePasswordButton);
         passwordchangeconfirm.setOnClickListener(this);
 
         Button backToLogin = findViewById(R.id.backToLogin);
@@ -44,18 +44,20 @@ public class ForgotPasswordContinued extends AppCompatActivity implements View.O
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.passwordChange) {
+        if (id == R.id.changePasswordButton) {
             if ((password1 != null) && (!password2.getText().toString().equals(password1.getText().toString()))) {
                 passwordchangeconfirm.setError("The passwords do not match");
             } else if (Validator.passwordValidator(password1.getText().toString()) == null) {
                 DbHelper.changeUserPassword(email, password1.getText().toString());
                 Intent t = new Intent(ForgotPasswordContinued.this, Login.class);
                 startActivity(t);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             } else {
                 password1.setError("Invalid password");
             }
         } else if (id == R.id.backToLogin) {
             startActivity(new Intent(getApplicationContext(), Login.class));
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
     }
 }

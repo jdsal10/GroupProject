@@ -3,13 +3,9 @@ package com.firstapp.group10app.Pages;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-import static androidx.appcompat.content.res.AppCompatResources.getDrawable;
-import static androidx.core.content.ContentProviderCompat.requireContext;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -301,6 +297,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
 
         if (id == R.id.backButton) {
             startActivity(new Intent(getApplicationContext(), ActivityContainer.class));
+            overridePendingTransition(R.anim.slide_down_in, R.anim.slide_down_out);
         }
         // If the user selects a difficulty, we adjust the border
         else if (id == R.id.easySelect && !selected.equals("easy")) {
