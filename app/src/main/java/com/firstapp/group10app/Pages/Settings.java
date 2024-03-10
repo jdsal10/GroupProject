@@ -58,7 +58,8 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return NavBarBehaviour.onNavigationItemSelected(item, getApplicationContext(), this);
+        NavBarBehaviour behaviour = new NavBarBehaviour();
+        return behaviour.onNavigationItemSelected(item, getApplicationContext(), this);
     }
 
     @Override

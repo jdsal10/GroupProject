@@ -1,5 +1,7 @@
 package com.firstapp.group10app.Other;
 
+import com.firstapp.group10app.Pages.ActivityContainer;
+
 import org.json.JSONObject;
 
 /**
@@ -14,6 +16,8 @@ public class Session {
 
     // Format for userDetails is [DOB, Weight, Height, Sex, Health Condition, Reason for downloading]
     public static String[] userDetails;
+
+    public static ActivityContainer activityContainer;
 
     public Session(String userEmail) {
         Session.userEmail = userEmail;

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.History;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.Home;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.WorkoutOption;
@@ -62,6 +63,8 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
             fragmentTransaction.add(R.id.fragmentHolder, fragment);
             fragmentTransaction.commit();
         }
+
+        Session.activityContainer = this;
     }
 
     @Override
@@ -93,5 +96,24 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         fragmentTransaction.replace(R.id.fragmentHolder, view);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    public void updateView() {
+        if (currentView == HOME || currentView == R.layout.activity_home) {
+            Home fragment = new Home();
+            updateView(fragment);
+        } else if (currentView == WORKOUTS || currentView == R.layout.activity_workout_option) {
+            WorkoutOption fragment = new WorkoutOption();
+            updateView(fragment);
+        } else if (currentView == HISTORY || currentView == R.layout.activity_history) {
+            History fragment = new History();
+            updateView(fragment);
+        }
+
+        // Default to Home if no view is set.
+        else {
+            Home fragment = new Home();
+            updateView(fragment);
+        }
     }
 }

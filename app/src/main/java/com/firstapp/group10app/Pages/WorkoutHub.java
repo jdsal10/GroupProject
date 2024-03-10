@@ -219,7 +219,8 @@ public class WorkoutHub extends AppCompatActivity implements NavigationBarView.O
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return NavBarBehaviour.onNavigationItemSelected(item, getApplicationContext(), this);
+        NavBarBehaviour behaviour = new NavBarBehaviour();
+        return behaviour.onNavigationItemSelected(item, getApplicationContext(), this);
     }
 
     @Override

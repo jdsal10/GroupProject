@@ -11,12 +11,15 @@ import com.firstapp.group10app.Pages.ActivityContainer;
 import com.firstapp.group10app.R;
 
 public class NavBarBehaviour {
-    public static boolean onNavigationItemSelected(MenuItem item, Context context, Activity activity) {
+    public boolean onNavigationItemSelected(MenuItem item, Context context, Activity activity) {
         int id = item.getItemId();
         if (id == R.id.goToHome) {
-            Intent intent = new Intent(context, ActivityContainer.class);
             ActivityContainer.currentView = R.layout.activity_home;
-            activity.startActivity(intent);
+            Session.activityContainer.updateView();
+
+//            Intent intent = new Intent(context, ActivityContainer.class);
+//            ActivityContainer.currentView = R.layout.activity_home;
+//            activity.startActivity(intent);
 
             return true;
         } else if (id == R.id.goToWorkouts) {
