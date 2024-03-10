@@ -29,7 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class WorkoutHub extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
+public class WorkoutHub extends AppCompatActivity implements View.OnClickListener {
     Button enhance, begin, calendar;
     LinearLayout workoutHubLinear;
 
@@ -47,9 +47,6 @@ public class WorkoutHub extends AppCompatActivity implements NavigationBarView.O
         // Gets the current workout.
         JSONObject currentWorkout = Session.selectedWorkout;
         workoutHubLinear = findViewById(R.id.hubWorkoutHolder);
-        BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
-        bottomNavigationView.setOnItemSelectedListener(this);
-        bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setChecked(true);
         try {
             // Sets the view.
             showWorkout(currentWorkout);
@@ -215,12 +212,6 @@ public class WorkoutHub extends AppCompatActivity implements NavigationBarView.O
 
             workoutHubLinear.addView(view2);
         }
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        NavBarBehaviour behaviour = new NavBarBehaviour();
-        return behaviour.onNavigationItemSelected(item, getApplicationContext(), this);
     }
 
     @Override

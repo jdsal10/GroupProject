@@ -69,12 +69,4 @@
             android:text="Done" />
     </LinearLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/mainNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:itemBackground="@color/white"
-        app:menu="@menu/home_navigation">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
-
 </LinearLayout>
