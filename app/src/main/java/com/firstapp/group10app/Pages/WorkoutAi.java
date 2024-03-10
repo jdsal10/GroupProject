@@ -21,6 +21,8 @@ import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.JsonToDb;
 import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.Other.Session;
+import com.firstapp.group10app.Pages.Fragments.MainOptions.Home;
+import com.firstapp.group10app.Pages.Fragments.MainOptions.WorkoutOption;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;

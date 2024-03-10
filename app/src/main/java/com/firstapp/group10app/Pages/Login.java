@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.firstapp.group10app.DB.DbHelper;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
+import com.firstapp.group10app.container;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -55,7 +56,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     setSessionData(emailText);
                     Session.userEmail = emailText;
                     Session.signedIn = true;
-                    startActivity(new Intent(getApplicationContext(), Home.class));
+
+                    startActivity(new Intent(getApplicationContext(), container.class));
                 } else {
                     Toast.makeText(Login.this, "Login Failed. Check your details!", Toast.LENGTH_SHORT).show();
                 }

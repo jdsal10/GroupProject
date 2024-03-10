@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Pages.History">
+    tools:context=".Pages.Fragments.MainOptions.History">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,12 +60,5 @@
         android:layout_weight="1"
         tools:ignore="SpeakableTextPresentCheck" />
 
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/mainNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:itemBackground="@color/white"
-        app:menu="@menu/home_navigation" />
 
 </LinearLayout>

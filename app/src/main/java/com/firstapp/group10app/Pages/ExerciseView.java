@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.Pages.Fragments.MainOptions.Home;
 import com.firstapp.group10app.R;
 
 public class ExerciseView extends AppCompatActivity implements View.OnClickListener {

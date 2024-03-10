@@ -4,58 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Pages.Home">
+    tools:context=".Pages.Fragments.MainOptions.Home">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/top_grey"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_large"
-                    android:text="@string/homePageTitle"
-                    android:textSize="@dimen/font_size_very_large" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_large"
-                    android:text="@string/homePageWelcome" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/stepTemp"
-                android:layout_width="40dp"
-                android:layout_height="40dp" />
-
-            <Button
-                android:id="@+id/goToSettings"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/icon_settings"
-                android:clickable="true"
-                android:elevation="1dp"
-                android:focusable="true"
-                android:maxHeight="10sp" />
-
-        </LinearLayout>
 
 
         <LinearLayout
@@ -205,27 +159,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
-    <Button
-        android:id="@+id/TEMPWORK"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="GO TO WORKOUTS - TEMP"
-        android:visibility="gone">
-
-    </Button>
-
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/mainNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="4sp"
-        app:itemBackground="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/home_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
