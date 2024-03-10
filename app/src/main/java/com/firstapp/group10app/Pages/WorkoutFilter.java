@@ -95,7 +95,6 @@ public class WorkoutFilter extends AlertDialog implements View.OnClickListener {
             String targetMuscleString = target.getSelectedItem().toString();
 
             if (filterChangeListener != null) {
-                System.out.println("UPD!");
                 filterChangeListener.onFilterChanged(difficultyString, durationString, targetMuscleString);
             }
 
