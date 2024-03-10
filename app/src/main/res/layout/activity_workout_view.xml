@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/workoutImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/logo_difficulty_width_height"
+        android:layout_height="@dimen/logo_difficulty_width_height"
         android:layout_gravity="center_vertical"
         android:contentDescription="Image" />
 

@@ -15,7 +15,6 @@
     <dimen name="button_height_default">60dp</dimen>
     <dimen name="button_height_large">80dp</dimen>4
 
-
     <dimen name="corner_radius_default">8dp</dimen>
     <dimen name="corner_radius_large">16dp</dimen>
 
@@ -23,8 +22,13 @@
     <dimen name="margin_default">12dp</dimen>
     <dimen name="margin_large">16dp</dimen>
     <dimen name="margin_small">8dp</dimen>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- images -->
+    <dimen name="logo_width_height">150dp</dimen>
+    <dimen name="logo_difficulty_width_height">100dp</dimen>
 
 </resources>
