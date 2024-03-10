@@ -2,33 +2,28 @@ package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.DbConnection;
 import com.firstapp.group10app.DB.DbHelper;
 import com.firstapp.group10app.Other.ItemVisualiser;
-import com.firstapp.group10app.Other.NavBarBehaviour;
-import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class WorkoutSearch extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener, WorkoutFilter.FilterChangeListener {
+public class WorkoutSearch extends AppCompatActivity implements View.OnClickListener, WorkoutFilter.FilterChangeListener {
     LinearLayout workoutLayout;
     String durationString, difficultyString, targetString;
+
+    ImageButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,19 +57,9 @@ public class WorkoutSearch extends AppCompatActivity implements NavigationBarVie
         workoutScrollView.addView(workoutLayout);
 
         Button filterWorkout = findViewById(R.id.openFilter);
+        ImageButton backButton = findViewById(R.id.backButton);
         filterWorkout.setOnClickListener(this);
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
-        bottomNavigationView.setOnItemSelectedListener(this);
-        bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setChecked(true);
-
-        OnlineChecks.checkNavigationBar(bottomNavigationView);
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        NavBarBehaviour behaviour = new NavBarBehaviour();
-        return behaviour.onNavigationItemSelected(item, getApplicationContext(), this);
+        backButton.setOnClickListener(this);
     }
 
     @Override
@@ -86,7 +71,10 @@ public class WorkoutSearch extends AppCompatActivity implements NavigationBarVie
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.openFilter) {
+
+        if (id == R.id.backButton) {
+            startActivity(new Intent(getApplicationContext(), ActivityContainer.class));
+        } else if (id == R.id.openFilter) {
             // After creating an instance of workout_filter
             WorkoutFilter customDialog = new WorkoutFilter(this);
 

@@ -2,37 +2,32 @@ package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.ChatGPT.ChatGptClient;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.JsonToDb;
-import com.firstapp.group10app.Other.NavBarBehaviour;
-import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class WorkoutAi extends AppCompatActivity implements View.OnClickListener, NavigationBarView.OnItemSelectedListener {
+public class WorkoutAi extends AppCompatActivity implements View.OnClickListener {
     LinearLayout page1, page2;
     ScrollView page3;
     Spinner muscleGroupSpinner, durationSpinner, difficultySpinner;
@@ -41,6 +36,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     String muscleGroupAnswer, durationAnswer, difficultyAnswer;
     TextView generateButton, continueButton;
     Button beginWorkoutButton;
+    ImageButton backButton;
     String output3;
 
     @Override
@@ -48,11 +44,11 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_ai);
 
-        BottomNavigationView settingNav = findViewById(R.id.mainNavigation);
-        settingNav.setOnItemSelectedListener(this);
+        backButton = findViewById(R.id.backButton);
         beginWorkoutButton = findViewById(R.id.beginWorkout);
         continueButton = findViewById(R.id.continueButton);
         generateButton = findViewById(R.id.generateWorkoutButton);
+        backButton.setOnClickListener(this);
         continueButton.setOnClickListener(this);
         generateButton.setOnClickListener(this);
         beginWorkoutButton.setOnClickListener(this);
@@ -63,21 +59,17 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         page1.setVisibility(View.VISIBLE);
         page2.setVisibility(View.GONE);
         page3.setVisibility(View.GONE);
-        OnlineChecks.checkNavigationBar(settingNav);
         mainGoalEdit = findViewById(R.id.mainGoalTitle);
         populateSpinners();
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        NavBarBehaviour behaviour = new NavBarBehaviour();
-        return behaviour.onNavigationItemSelected(item, getApplicationContext(), this);
-    }
-
-    @Override
     public void onClick(View v) {
+        int id = v.getId();
 
-        if (v.getId() == R.id.continueButton) {
+        if (id == R.id.backButton) {
+            startActivity(new Intent(getApplicationContext(), ActivityContainer.class));
+        } else if (id == R.id.continueButton) {
             // To move the variables to the 2nd button
             muscleGroupAnswer = muscleGroupSpinner.getSelectedItem().toString();
             durationAnswer = durationSpinner.getSelectedItem().toString();
@@ -90,7 +82,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             continueButton.setVisibility(View.GONE);
             generateButton.setVisibility(View.VISIBLE);
 
-        } else if (v.getId() == R.id.beginWorkout) {
+        } else if (id == R.id.beginWorkout) {
             startActivity(new Intent(this, WorkoutHub.class));
         } else {   // If button == GenerateButton
             page1.setVisibility(View.GONE);

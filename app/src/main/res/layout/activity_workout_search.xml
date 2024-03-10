@@ -4,48 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="@dimen/margin_default"
-    android:layout_marginEnd="@dimen/margin_default"
     android:orientation="vertical"
     tools:context=".Pages.WorkoutSearch">
 
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="?attr/homeAsUpIndicator" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_default"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp"
-            android:text="@string/searchTitle"
-            android:textSize="@dimen/font_size_very_large"
-            android:textStyle="bold" />
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp"
+                android:text="@string/searchTitle"
+                android:textSize="@dimen/font_size_very_large"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/openFilter"
+            style="@style/ButtonTetradic1"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:text="@string/searchFilter" />
+
+        <ScrollView
+            android:id="@+id/resultSearchWorkout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/openFilter"
-        style="@style/ButtonTetradic1"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:text="@string/searchFilter" />
-
-    <ScrollView
-        android:id="@+id/resultSearchWorkout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_weight="1"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/mainNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:itemBackground="@drawable/shape_gray"
-        app:menu="@menu/home_navigation" />
 </LinearLayout>

@@ -15,32 +15,26 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.firstapp.group10app.DB.DbConnection;
 import com.firstapp.group10app.DB.DbHelper;
 import com.firstapp.group10app.Other.ItemVisualiserText;
 import com.firstapp.group10app.Other.JsonToDb;
-import com.firstapp.group10app.Other.NavBarBehaviour;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.WorkoutOption;
 import com.firstapp.group10app.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,13 +42,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class CreateWorkout extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
+public class CreateWorkout extends AppCompatActivity implements View.OnClickListener {
     String selected = "easy";
     TextView easy, medium, hard;
     EditText name, duration, equipment;
     TextView durationTitle;
     Drawable border;
     Button cancelButton, continueButton;
+    ImageButton backButton;
     LinearLayout p1, p2;
     int activePage = 1; // 1 = page 1, 2 = page 2
     Spinner target;
@@ -80,6 +75,7 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
 
         cancelButton = findViewById(R.id.cancelBtn);
         continueButton = findViewById(R.id.continueBtn);
+        backButton = findViewById(R.id.backButton);
 
         target = findViewById(R.id.workoutTargetInput);
 
@@ -109,6 +105,7 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         // Set the on click listeners for the other buttons.
         cancelButton.setOnClickListener(this);
         continueButton.setOnClickListener(this);
+        backButton.setOnClickListener(this);
 
         // get the linear layouts for the pages.
         p1 = findViewById(R.id.page1);
@@ -119,10 +116,6 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
 
         // Sets listeners for difficultly views.
         setListeners();
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
-        bottomNavigationView.setOnItemSelectedListener(this);
-        bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setChecked(true);
     }
 
     public void setListeners() {
@@ -304,8 +297,11 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
     public void onClick(View v) {
         int id = v.getId();
 
+        if (id == R.id.backButton) {
+            startActivity(new Intent(getApplicationContext(), ActivityContainer.class));
+        }
         // If the user selects a difficulty, we adjust the border
-        if (id == R.id.easySelect && !selected.equals("easy")) {
+        else if (id == R.id.easySelect && !selected.equals("easy")) {
             selected = "easy";
             enableBorder(easy);
             disableBorder(medium);
@@ -337,7 +333,7 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
             }
         } else if (id == R.id.cancelBtn && activePage == 1) {
             // Maybe add popup to prevent user losing progress.
-            startActivity(new Intent(this, WorkoutOption.class));
+            startActivity(new Intent(getApplicationContext(), ActivityContainer.class));
         } else if (id == R.id.cancelBtn && activePage == 2) {
             p2.setVisibility(GONE);
             p1.setVisibility(VISIBLE);
@@ -482,11 +478,5 @@ public class CreateWorkout extends AppCompatActivity implements NavigationBarVie
         drawable.setShape(GradientDrawable.RECTANGLE);
         drawable.setColor(color);
         return drawable;
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        NavBarBehaviour behaviour = new NavBarBehaviour();
-        return behaviour.onNavigationItemSelected(item, getApplicationContext(), this);
     }
 }
