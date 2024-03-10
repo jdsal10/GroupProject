@@ -50,7 +50,7 @@
             android:name=".Pages.WorkoutSearch"
             android:exported="false" />
         <activity
-            android:name=".Pages.Settings"
+            android:name=".Pages.Fragments.Other.Settings"
             android:exported="false"
             android:label="@string/title_activity_settings" />
         <activity
