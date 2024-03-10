@@ -80,10 +80,4 @@
         android:layout_weight="6"
         tools:layout="@layout/fragment_settings_data_control" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/mainNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:itemBackground="@drawable/shape_gray"
-        app:menu="@menu/home_navigation" />
 </LinearLayout>

@@ -11,10 +11,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.History;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.Home;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.WorkoutOption;
+import com.firstapp.group10app.Pages.Fragments.Other.Settings;
 import com.firstapp.group10app.R;
 import com.firstapp.group10app.databinding.ActivityContainerBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -58,7 +58,7 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
             WorkoutOption fragment = new WorkoutOption();
             fragmentTransaction.add(R.id.fragmentHolder, fragment);
             fragmentTransaction.commit();
-        } else if (currentView == HISTORY || currentView == R.layout.activity_history) {
+        } else {
             History fragment = new History();
             fragmentTransaction.add(R.id.fragmentHolder, fragment);
             fragmentTransaction.commit();
@@ -68,21 +68,24 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.goToSettings) {
-            Toast.makeText(this, "Settings is currently disabled!", Toast.LENGTH_SHORT).show();
+            updateView(new Settings());
         }
     }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.goToHome) {
+        if ((id == R.id.goToHome) && (currentView != 1)) {
             updateView(new Home());
+            currentView = 1;
             return true;
-        } else if (id == R.id.goToWorkouts) {
+        } else if ((id == R.id.goToWorkouts) && (currentView != 2)) {
             updateView(new WorkoutOption());
+            currentView = 2;
             return true;
-        } else if (id == R.id.goToHistory) {
+        } else if ((id == R.id.goToHistory) && (currentView != 3)) {
             updateView(new History());
+            currentView = 3;
             return true;
         }
         return true;

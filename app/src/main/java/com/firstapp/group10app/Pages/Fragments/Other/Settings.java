@@ -1,9 +1,11 @@
-package com.firstapp.group10app.Pages;
+package com.firstapp.group10app.Pages.Fragments.Other;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -22,45 +24,45 @@ import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class Settings extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
+public class Settings extends Fragment implements View.OnClickListener {
 
     public int currentView;
 
+    public Settings() {
+        super(R.layout.activity_settings);
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.activity_settings, container, false);
 
         if (savedInstanceState == null) {
             currentView = R.layout.fragment_settings_data_control;
-            getSupportFragmentManager().beginTransaction().replace(R.id.settingsBody, new SettingsDataControl()).setReorderingAllowed(true).commit();
+            getChildFragmentManager().beginTransaction().replace(R.id.settingsBody, new SettingsDataControl()).setReorderingAllowed(true).commit();
         }
 
-        // Navigation view declaration.
-        BottomNavigationView settingNav = findViewById(R.id.mainNavigation);
-        settingNav.setOnItemSelectedListener(this);
-
         // Button declaration.
-        Button dataControlButton = findViewById(R.id.goDataControl);
+        Button dataControlButton = rootView.findViewById(R.id.goDataControl);
         dataControlButton.setOnClickListener(this);
 
-        Button accessibilityButton = findViewById(R.id.goAccessibility);
+        Button accessibilityButton = rootView.findViewById(R.id.goAccessibility);
         accessibilityButton.setOnClickListener(this);
 
-        Button accountButton = findViewById(R.id.goAccount);
+        Button accountButton = rootView.findViewById(R.id.goAccount);
         accountButton.setOnClickListener(this);
 
-        OnlineChecks.checkNavigationBar(settingNav);
-
-        // Sets nothing as selected
-        settingNav.setSelectedItemId(R.id.invisible);
+        return rootView;
     }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        NavBarBehaviour behaviour = new NavBarBehaviour();
-        return behaviour.onNavigationItemSelected(item, getApplicationContext(), this);
-    }
+//
+//    @Override
+//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//        return NavBarBehaviour.onNavigationItemSelected(item, getApplicationContext(), this);
+//    }
 
     @Override
     public void onClick(View v) {
@@ -84,7 +86,7 @@ public class Settings extends AppCompatActivity implements NavigationBarView.OnI
     }
 
     public void updateView(Fragment newVIew, boolean forwardBoolean) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
 
         if (forwardBoolean) {
             transaction.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_right_out);
