@@ -3,6 +3,9 @@ package com.firstapp.group10app.Pages;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
+import static androidx.appcompat.content.res.AppCompatResources.getDrawable;
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -247,13 +250,13 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
             // Declares background colours.
             switch (difficultyValue) {
                 case "Easy":
-                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("@color/pastel_green")));
+                    difficultyScale.setBackground(ContextCompat.getDrawable(this, R.drawable.shape_paster_green));
                     break;
                 case "Medium":
-                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("@color/pastel_yellow")));
+                    difficultyScale.setBackground(ContextCompat.getDrawable(this, R.drawable.shape_pastel_yellow));
                     break;
                 case "Hard":
-                    difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("@color/pastel_red")));
+                    difficultyScale.setBackground(ContextCompat.getDrawable(this, R.drawable.shape_pastel_red));
                     break;
             }
 
