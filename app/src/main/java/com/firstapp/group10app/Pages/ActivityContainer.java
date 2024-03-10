@@ -1,4 +1,4 @@
-package com.firstapp.group10app;
+package com.firstapp.group10app.Pages;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -14,11 +14,12 @@ import androidx.fragment.app.FragmentTransaction;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.History;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.Home;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.WorkoutOption;
+import com.firstapp.group10app.R;
 import com.firstapp.group10app.databinding.ActivityContainerBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class container extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
+public class ActivityContainer extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
     private ActivityContainerBinding binding;
     // This is a public variable that is used to store the current view.
     public static int currentView;  // 1 = Home, 2 = Workouts, 3 = History; else = no info

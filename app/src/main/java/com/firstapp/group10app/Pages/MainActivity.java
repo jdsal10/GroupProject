@@ -11,9 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DbConnection;
 import com.firstapp.group10app.Other.Session;
-import com.firstapp.group10app.Pages.Fragments.MainOptions.Home;
 import com.firstapp.group10app.R;
-import com.firstapp.group10app.container;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     @Override
@@ -59,8 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Session.userEmail = null;
             Session.signedIn = false;
 
-            Intent intent = new Intent(getApplicationContext(), container.class);
-            container.currentView = R.layout.activity_home;
+            Intent intent = new Intent(getApplicationContext(), ActivityContainer.class);
+            ActivityContainer.currentView = R.layout.activity_home;
             startActivity(intent);
         } else if (id == R.id.goToRegister) {
             startActivity(new Intent(MainActivity.this, Registration.class));

@@ -21,10 +21,7 @@ import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.JsonToDb;
 import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.Other.Session;
-import com.firstapp.group10app.Pages.Fragments.MainOptions.Home;
-import com.firstapp.group10app.Pages.Fragments.MainOptions.WorkoutOption;
 import com.firstapp.group10app.R;
-import com.firstapp.group10app.container;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -73,20 +70,20 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.goToHome) {
-            Intent intent = new Intent(getApplicationContext(), container.class);
-            container.currentView = R.layout.activity_home;
+            Intent intent = new Intent(getApplicationContext(), ActivityContainer.class);
+            ActivityContainer.currentView = R.layout.activity_home;
             startActivity(intent);
 
             return true;
         } else if (id == R.id.goToWorkouts) {
-            Intent intent = new Intent(getApplicationContext(), container.class);
-            container.currentView = R.layout.activity_workout_option;
+            Intent intent = new Intent(getApplicationContext(), ActivityContainer.class);
+            ActivityContainer.currentView = R.layout.activity_workout_option;
             startActivity(intent);
 
             return true;
         } else if (id == R.id.goToHistory) {
-            Intent intent = new Intent(getApplicationContext(), container.class);
-            container.currentView = R.layout.activity_history;
+            Intent intent = new Intent(getApplicationContext(), ActivityContainer.class);
+            ActivityContainer.currentView = R.layout.activity_history;
             startActivity(intent);
 
             return true;
