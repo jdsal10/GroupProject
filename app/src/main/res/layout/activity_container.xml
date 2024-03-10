@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-<!--    android:background="@color/top_grey"-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/shape_gray"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/fragmentHolder"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -53,7 +53,6 @@
 
     </LinearLayout>
 
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentHolder"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -67,7 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
-        app:menu="@menu/home_navigation"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/home_navigation" />
 
 </LinearLayout>
