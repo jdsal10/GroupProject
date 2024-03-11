@@ -5,7 +5,7 @@
     <color name="dark_gray">#FF333333</color>
     <color name="white">#FFFFFFFF</color>
     <color name="almost_white">#f2f2f2</color>
-    <color name="accent_grayscale">#FF000000</color>
+    <color name="accent_grayscale">#FFFFFFFF</color>
 
     <color name="top_gray_light">#DEDEDE</color> <!-- light gray for the light theme -->
     <color name="top_gray_dark">#4e4e4e</color> <!-- dark gray for the dark theme -->

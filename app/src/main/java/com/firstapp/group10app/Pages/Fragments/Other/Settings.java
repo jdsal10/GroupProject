@@ -98,8 +98,8 @@ public class Settings extends Fragment implements View.OnClickListener {
     }
 
     private void resetButtonTextColor() {
-        dataControlButton.setTextColor(getResources().getColor(R.color.black));
-        accessibilityButton.setTextColor(getResources().getColor(R.color.black));
-        accountButton.setTextColor(getResources().getColor(R.color.black));
+        dataControlButton.setTextColor(getResources().getColor(R.color.accent_grayscale));
+        accessibilityButton.setTextColor(getResources().getColor(R.color.accent_grayscale));
+        accountButton.setTextColor(getResources().getColor(R.color.accent_grayscale));
     }
 }
