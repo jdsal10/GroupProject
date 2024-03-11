@@ -37,7 +37,7 @@ public class History extends AppCompatActivity implements NavigationBarView.OnIt
             if (HistoryJSON == null) {
                 ItemVisualiser.showEmpty(historyLayout);
             } else {
-                ItemVisualiser.startWorkoutGeneration(HistoryJSON, this, historyLayout, "tt", R.layout.popup_history, R.id.popupHistory);
+                ItemVisualiser.startWorkoutGenerationLimiting(HistoryJSON, this, historyLayout, "tt", R.layout.popup_history, R.id.popupHistory);
                 System.out.println("limited printing: " + HistoryJSON);
             }
         } catch (Exception e) {
