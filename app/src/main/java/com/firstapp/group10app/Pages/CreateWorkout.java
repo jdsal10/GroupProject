@@ -93,9 +93,9 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         hard.setOnClickListener(this);
 
         // Set the background color of the difficulty buttons.
-        easy.setBackgroundColor(ContextCompat.getColor(this, R.color.pastel_green)); // Pastel green (https://www.canva.com/colors/color-meanings/pastel-green/)
-        medium.setBackgroundColor(ContextCompat.getColor(this, R.color.pastel_yellow)); // Pastel yellow (https://www.canva.com/colors/color-meanings/pastel-yellow/)
-        hard.setBackgroundColor(ContextCompat.getColor(this, R.color.pastel_red)); // Pastel red (https://www.canva.com/colors/color-meanings/pastel-red/)
+        easy.setBackground(createColorDrawable(ContextCompat.getColor(this, R.color.pastel_green))); // Pastel green
+        medium.setBackground(createColorDrawable(ContextCompat.getColor(this, R.color.pastel_yellow))); // Pastel yellow
+        hard.setBackground(createColorDrawable(ContextCompat.getColor(this, R.color.pastel_red))); // Pastel red
 
         // Set the default difficulty buttons border.
         enableBorder(easy);
@@ -243,18 +243,26 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
 
             String difficultyValue = workoutObject.optString("Difficulty", "");
 
+            // Create a GradientDrawable with a corner radius
+            GradientDrawable difficultyDrawable = new GradientDrawable();
+            difficultyDrawable.setShape(GradientDrawable.RECTANGLE);
+            difficultyDrawable.setCornerRadius(dpToPx(this, 8)); // set corner radius to 8dp
+
             // Declares background colours.
             switch (difficultyValue) {
                 case "Easy":
-                    difficultyScale.setBackground(ContextCompat.getDrawable(this, R.drawable.shape_pastel_green));
+                    difficultyDrawable.setColor(ContextCompat.getColor(this, R.color.pastel_green));
                     break;
                 case "Medium":
-                    difficultyScale.setBackground(ContextCompat.getDrawable(this, R.drawable.shape_pastel_yellow));
+                    difficultyDrawable.setColor(ContextCompat.getColor(this, R.color.pastel_yellow));
                     break;
                 case "Hard":
-                    difficultyScale.setBackground(ContextCompat.getDrawable(this, R.drawable.shape_pastel_red));
+                    difficultyDrawable.setColor(ContextCompat.getColor(this, R.color.pastel_red));
                     break;
             }
+
+            // Set the GradientDrawable as the background for the difficultyScale View
+            difficultyScale.setBackground(difficultyDrawable);
 
             final int index = i;
 
@@ -464,19 +472,31 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
     }
 
     private void disableBorder(View v) {
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setShape(GradientDrawable.RECTANGLE);
+        drawable.setCornerRadius(dpToPx(this, 8)); // set corner radius to 8dp
+
         if (v == easy) {
-            v.setBackgroundColor(ContextCompat.getColor(this, R.color.pastel_green));
+            drawable.setColor(ContextCompat.getColor(this, R.color.pastel_green));
         } else if (v == medium) {
-            v.setBackgroundColor(ContextCompat.getColor(this, R.color.pastel_yellow));
+            drawable.setColor(ContextCompat.getColor(this, R.color.pastel_yellow));
         } else if (v == hard) {
-            v.setBackgroundColor(ContextCompat.getColor(this, R.color.pastel_red));
+            drawable.setColor(ContextCompat.getColor(this, R.color.pastel_red));
         }
+
+        v.setBackground(drawable);
+    }
+
+    public static int dpToPx(Context context, int dp) {
+        float density = context.getResources().getDisplayMetrics().density;
+        return Math.round((float) dp * density);
     }
 
     private Drawable createColorDrawable(int color) {
         GradientDrawable drawable = new GradientDrawable();
         drawable.setShape(GradientDrawable.RECTANGLE);
         drawable.setColor(color);
+        drawable.setCornerRadius(dpToPx(this, 8)); // set corner radius to 8dp
         return drawable;
     }
 }

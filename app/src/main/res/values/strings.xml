@@ -244,4 +244,7 @@ with your account and we will send you an email with further instructions.</stri
     <string name="homePageWelcome">Welcome!</string>
     <string name="homePageGoToWorkouts">Go To Workouts</string>
     <string name="title_activity_container">container</string>
+
+    <!-- Create Workout Page Values -->
+    <string name="workout_equipment">Workout Equipment:</string>
 </resources>

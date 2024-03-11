@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="?attr/homeAsUpIndicator" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -151,7 +152,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="Workout Equipment:"
+                android:text="@string/workout_equipment"
                 android:textStyle="bold" />
 
             <EditText
@@ -203,6 +204,7 @@
                 android:background="@drawable/shape_transparent_very_curved_corners"
                 android:gravity="center|center_vertical"
                 android:text="Easy"
+                android:textColor="@color/almost_black"
                 android:textStyle="bold" />
 
             <TextView
@@ -214,6 +216,7 @@
                 android:background="@drawable/shape_transparent_very_curved_corners"
                 android:gravity="center|center_vertical"
                 android:text="Medium"
+                android:textColor="@color/almost_black"
                 android:textStyle="bold" />
 
             <TextView
@@ -224,6 +227,7 @@
                 android:background="@drawable/shape_transparent_very_curved_corners"
                 android:gravity="center|center_vertical"
                 android:text="Hard"
+                android:textColor="@color/almost_black"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -274,15 +278,15 @@
 
 
         <Button
-            style="@style/ButtonNormal"
             android:id="@+id/cancelBtn"
+            style="@style/ButtonNormal"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="Cancel" />
 
         <Button
-            style="@style/ButtonTetradic1"
             android:id="@+id/continueBtn"
+            style="@style/ButtonTetradic1"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="Continue" />
