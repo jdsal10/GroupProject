@@ -3,45 +3,104 @@ Q & A with Sergey
 I (Nick) have heard that other groups (supervised by Kemi, for example) have finalized their projects and are now focused on submitting? 
 
 Q: Just to confirm, we have to submit is the poster, abstract, actual app, technical report, contributions report, and a short video demoing the project. That's all, right?
-A: 
+A: Yes, that's all.
 
 Q: How to submit the app? As far as I know, we should clone our repo to raptor. Do we zip it? Do we write instructions how to run it?
-A: 
+A: Clone the repo and zip it on raptor. Also submit an .apk file. Write a README with instructions how to use the app.
 
 Q: Do you (Sergey) have any particular advise for any of the documents and files we must submit?
-A: 
+A: For the technical report - describe the overall architecture. Don't go in detail for individual functions. Must allow a person to start looking into conributing after reading the report. 
+- In the report you can mention who is responsible for what, but don't go into details. This is for the individual report.
+- The video is straight forward - a demo of how the app works.
+- It is not necessary that everybody presents. 
 
 Q: When would you advise us to stop working on issues?
-A: 
+A: Start writing the technical report now. Video can be done last minute.
 
 Q: In appendix 4 of the guidance pdf on moodle it is said that we need to have a weekly_meetings.txt file with minutes from the weekly meetings.
     a) We never followed a particular structure when doing the weekly meetings, is that going to be an issue?
     b) We have a folder with txt files, is that ok, or do you suggest to merge them into a single txt file?
-A: 
+A: It is ok if.
 
 Q: There is some index.html that we have to submit along with the corpus of materils. I looked at the example on moodle, but got confused. What is that supposed to be?
-A: 
+A: Like a site map, but for the project
 
 Q: What is the viva voce (interview like???) examination going to be? Are you leading it and how to prepare for it?
+A: Meet before the exam and discuss the proj. Work on a presentation to show all together. Prepare for general questions such as: What was easy? What was hard? What would do differently if you could start all over? Then we are going to be interviewed individually. Questinos about personal contribution are going to be asked.
+
+* Write that we've prioritized smart features we've seen in other competitive apps (Nike Running, Nike workout app)
 
 ===== Summary =====
 To submit:
 1. Poster
     - Submitted
+    - Link it in the idex html.
 
 2. Abstract
     - Submitted
+    - Link it in the idex html.
 
-3. Technical report
+3. Technical report (28th March)
     - 6000 words MAX with specific formatting requrements
     - There is a Latex template
+    - you can put illustrations, screenshots, and other
 
-4. Corpus of materials
+
+4. Corpus of materials (28th March)
     - The git repo
+    - clone, zip, and put on raprot
 
-5. Individual contributions report
+5. Individual contributions report (4th April)
+    - 1500 words max
+    - you can put illustrations, screenshots, and stuff
 
-6. Video delivarable
+6. Video delivarable (28th March)
     - 5 minutes max
 
 * We then have a viva voce exam
+
+===== Divide tasks =====
+
+Did last week:
+Ethan:
+- "Add transitions between the fragents in Settings" issue
+
+Juan:
+- Fixing History functionality (but needs to be applied to the new class)
+
+Nikola:
+- Dark mode
+- App design
+- Refactor - move the fragments directory in the pages directory
+- Convert some activity pages to fragment pages
+
+
+To do this week:
+Ethan:
+- "Workout -> Search -> Exercise --- Add text to the difficulty square and keep consistent colors" issue
+- Globalize fragment manager behaviour
+- URGENT - Generating a workout causes duplicate exercises
+- Implement enhance workout.
+--- A simple text box with a character limit. Add a hint:
+
+Misha:
+- "Add Session Data to AI prompt" issue
+- Active Workout page
+
+Juan:
+- Remove the header from history and move the view all button to bottom
+- Focus on home page
+--- Design in (step counter, last workout, total workouts done, ect)
+--- implent it
+
+Nikola:
+- Fix "Registration check missing" bug issue
+- Disable settings in anonymous mode
+- Set up the local db
+
+Manu:
+- Implement enhance workout.
+--- A simple text box with a character limit. Add a hint:
+
+
+
