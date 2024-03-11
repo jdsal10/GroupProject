@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -40,20 +38,26 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
         bottomNavigationView.setOnItemSelectedListener(this);
-        bottomNavigationView.setSelectedItemId(R.id.goToHome);
 
         // If the current view is not set, set it to 1 (Home = default).
         if (currentView != HOME && currentView != R.layout.activity_home
                 && currentView != WORKOUTS && currentView != R.layout.activity_workout_option
                 && currentView != HISTORY && currentView != R.layout.activity_history) {
+            System.out.println("ActivityContainer.onCreate: currentView static var not set, setting to 2 (Workouts)");
             currentView = WORKOUTS;
         }
 
         if (currentView == HOME || currentView == R.layout.activity_home) {
+            bottomNavigationView.getMenu().findItem(R.id.goToHome).setChecked(true);
+
             updateView(new Home());
         } else if (currentView == WORKOUTS || currentView == R.layout.activity_workout_option) {
+            bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setChecked(true);
+
             updateView(new WorkoutOption());
         } else {
+            bottomNavigationView.getMenu().findItem(R.id.goToSettings).setChecked(true);
+
             updateView(new History());
         }
     }
