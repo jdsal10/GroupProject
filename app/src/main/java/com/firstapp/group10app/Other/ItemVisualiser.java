@@ -201,6 +201,23 @@ public class ItemVisualiser {
         }
     }
 
+    public static void startWorkoutGenerationLimiting(String data, Context context, LinearLayout layout, String buttonType, int popupID, int exerciseScrollID) throws JSONException {
+        cThis = context;
+        workoutLayout = layout;
+        exerciseID = exerciseScrollID;
+        popID = popupID;
+
+        if (data == null) {
+            showEmpty(layout);
+        } else {
+            JSONArray jsonArray = new JSONArray(data);
+            for (int i = 0; i < 4; i++) {
+                JSONObject workoutObject = jsonArray.getJSONObject(i);
+                addDetails(workoutObject, buttonType);
+            }
+        }
+    }
+
     public static void startWorkoutGenerationAI(String data, Context context, LinearLayout layout, String buttonType, int popupID, int exerciseScrollID) throws JSONException {
         cThis = context;
         workoutLayout = layout;
