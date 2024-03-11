@@ -327,7 +327,8 @@ public class DbHelper {
                 " FROM" +
                 "   HealthData.Workouts w" +
                 " JOIN HealthData.UserWorkoutHistory uwh ON w.WorkoutID = uwh.WorkoutID" +
-                " WHERE uwh.Email = '" + filter + "'";
+                " WHERE uwh.Email = '" + filter + "'" +
+                " ORDER BY uwh.Date DESC";
 
         DbConnection db = new DbConnection();
         ResultSet out = db.executeQuery(query);
@@ -388,6 +389,7 @@ public class DbHelper {
                 "   HealthData.Workouts w" +
                 " JOIN HealthData.UserWorkoutHistory uwh ON w.WorkoutID = uwh.WorkoutID" +
                 " WHERE uwh.Email = '" + filter + "'" +
+                " ORDER BY uwh.Date DESC" +
                 " LIMIT 4";
 
         DbConnection db = new DbConnection();
