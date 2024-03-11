@@ -22,7 +22,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class ActivityContainer extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
-    private ActivityContainerBinding binding;
     // This is a public variable that is used to store the current view.
     public static int currentView;  // 1 = Home, 2 = Workouts, 3 = History; else = no info
     public static final int HOME = 1, WORKOUTS = 2, HISTORY = 3;
@@ -31,7 +30,7 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityContainerBinding.inflate(getLayoutInflater());
+        com.firstapp.group10app.databinding.ActivityContainerBinding binding = ActivityContainerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         Button goSettings = findViewById(R.id.goToSettings);
@@ -77,19 +76,18 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+
         if ((id == R.id.goToHome) && (currentView != 1)) {
             updateView(new Home(), false);
             currentView = 1;
-            return true;
         } else if ((id == R.id.goToWorkouts) && (currentView != 2)) {
             updateView(new WorkoutOption(), currentView < 2);
             currentView = 2;
-            return true;
         } else if ((id == R.id.goToHistory) && (currentView != 3)) {
             updateView(new History(), true);
             currentView = 3;
-            return true;
         }
+
         return true;
     }
 
