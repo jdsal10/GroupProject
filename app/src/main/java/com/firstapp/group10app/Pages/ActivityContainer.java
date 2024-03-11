@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.History;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.Home;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.WorkoutOption;
@@ -34,7 +35,11 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         setContentView(binding.getRoot());
 
         Button goSettings = findViewById(R.id.goToSettings);
-        goSettings.setOnClickListener(this);
+        if (Session.signedIn == null || !Session.signedIn) {
+            goSettings.setVisibility(View.GONE);
+        } else {
+            goSettings.setOnClickListener(this);
+        }
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
         bottomNavigationView.setOnItemSelectedListener(this);
