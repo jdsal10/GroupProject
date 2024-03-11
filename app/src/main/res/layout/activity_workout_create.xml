@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/margin_default"
         android:text="@string/create_workout"
         android:textSize="@dimen/font_size_very_large"
         android:textStyle="bold" />
@@ -36,13 +36,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/margin_default"
             android:text="@string/short_instruction" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/margin_default"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
@@ -75,7 +75,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/margin_default"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
@@ -108,7 +108,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/margin_default"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
@@ -134,15 +134,13 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:background="@android:color/darker_gray" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/margin_default"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
@@ -174,7 +172,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/margin_default"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
@@ -192,14 +190,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/margin_default"
             android:weightSum="3">
 
             <TextView
                 android:id="@+id/easySelect"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:layout_weight="1"
                 android:background="@drawable/shape_transparent_very_curved_corners"
                 android:gravity="center|center_vertical"
@@ -211,7 +209,7 @@
                 android:id="@+id/mediumSelect"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:layout_weight="1"
                 android:background="@drawable/shape_transparent_very_curved_corners"
                 android:gravity="center|center_vertical"
@@ -238,13 +236,12 @@
 
     </LinearLayout>
 
-
     <LinearLayout
         android:id="@+id/page2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_default"
         android:layout_weight="5"
         android:gravity="center"
         android:orientation="vertical"
@@ -254,19 +251,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/margin_default"
             android:text="Pick from the exercises below" />
 
         <ScrollView
             android:id="@+id/exerciseSelector"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginEnd="@dimen/margin_default"
             android:layout_weight="1" />
 
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -275,7 +271,6 @@
         android:layout_marginEnd="15dp"
         android:layout_weight="1"
         android:gravity="center">
-
 
         <Button
             android:id="@+id/cancelBtn"
