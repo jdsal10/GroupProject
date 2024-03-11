@@ -40,7 +40,7 @@ public class History extends Fragment {
             if (HistoryJSON == null) {
                 ItemVisualiser.showEmpty(historyLayout);
             } else {
-                ItemVisualiser.startWorkoutGeneration(HistoryJSON, getContext(), historyLayout, "null", R.layout.popup_history, R.id.popupHistory);
+                ItemVisualiser.startWorkoutGenerationLimiting(HistoryJSON, getContext(), historyLayout, "null", R.layout.popup_history, R.id.popupHistory);
                 System.out.println(HistoryJSON);
             }
         } catch (Exception e) {
