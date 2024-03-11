@@ -44,7 +44,7 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
                 && currentView != WORKOUTS && currentView != R.layout.activity_workout_option
                 && currentView != HISTORY && currentView != R.layout.activity_history) {
             System.out.println("ActivityContainer.onCreate: currentView static var not set, setting to 2 (Workouts)");
-            currentView = WORKOUTS;
+            currentView = HOME;
         }
 
         if (currentView == HOME || currentView == R.layout.activity_home) {
