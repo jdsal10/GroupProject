@@ -18,7 +18,6 @@
     <string name="loginPassword">Password</string>
     <string name="loginConfirmButton">Login</string>
 
-
     <!-- Registration Page Values -->
     <string name="registrationTitle">Registration</string>
 
@@ -114,17 +113,16 @@
         <item>I want to maintain my weight</item>
 
         <item name="updateAllValues">Update all values</item>
-
     </string-array>
 
-    <!--    Settings - Account Control-->
+    <!-- Settings - Account Control-->
     <string name="changePasswordTitle">Change Password</string>
     <string name="changePasswordButton">Change Password</string>
 
     <string name="deleteAccountText">Delete Account</string>
     <string name="deleteAccountButton">Delete Account</string>
 
-    <!--    Settings - Account Control - Change Password-->
+    <!-- Settings - Account Control - Change Password-->
     <string name="changePasswordSignedInTitle">Please enter your current and new password below.</string>
     <string name="passwordCurrentInput">Current Password:</string>
     <string name="currentPassword">Password</string>
@@ -134,31 +132,31 @@
     <string name="confirmNewPassword">Confirm Password</string>
     <string name="changeConform">Confirm</string>
 
-    <!--    Settings - Account Control - Delete Account-->
+    <!--Settings - Account Control - Delete Account-->
     <string name="deleteAccountTitle">Are you sure you want to do this? \nYour workout history and account will be deleted.</string>
     <string name="deleteAccountSubtitle">Please enter your password to confirm:</string>
     <string name="deleteAccountInput">Password</string>
     <string name="deleteAccountConfirm">Confirm</string>
 
-    <!--    createOrSearch-->
+    <!-- createOrSearch -->
     <string name="searchTitleOption">Search</string>
     <string name="searchButtonDescription">For new users who want to grab and go with a workout.</string>
 
     <string name="createTitle">Create</string>
     <string name="createButtonDescription">For experienced users who want to tailor their workout.</string>
 
-    <!--    Filter Workouts-->
+    <!-- Filter Workouts -->
     <string name="searchDifficulty">Difficulty:</string>
     <string name="searchDuration">Duration:</string>
     <string name="searchTarget">Target Muscle Group:</string>
     <string name="searchFilter">Filter</string>
 
-    <!--    Search Popup -->
+    <!-- Search Popup -->
     <string name="exercisePopupTitle">Exercises:</string>
     <string name="selectWorkout">Select Workout</string>
     <string name="closePopup">Close</string>
 
-    <!--    Exercise View-->
+    <!-- Exercise View -->
     <string name="exerciseName">Name</string>
     <string name="exerciseDescription">Description</string>
     <string name="exerciseIllustration">Illustration</string>
@@ -166,12 +164,18 @@
     <string name="exerciseEquipment">Equipment</string>
     <string name="exerciseDifficulty">Difficulty</string>
 
-    <!--    Workout View-->
+
+    <!-- Workout View && Workout Create -->
     <string name="workoutName">Name</string>
     <string name="workoutDuration">Duration</string>
     <string name="workoutTarget">Target Muscle Group</string>
     <string name="workoutEquipment">Equipment</string>
     <string name="workoutDifficulty">Difficulty</string>
+    <string name="workout_name">Workout Name:</string>
+    <string name="workout_duration">Duration (minutes):</string>
+    <string name="easy_diff">Easy</string>
+    <string name="medium_diff">Medium</string>
+    <string name="hard_diff">Hard</string>
 
     <!--    Password Reset-->
     <string name="resetTitle">Reset your password</string>
@@ -244,4 +248,14 @@ with your account and we will send you an email with further instructions.</stri
     <string name="homePageWelcome">Welcome!</string>
     <string name="homePageGoToWorkouts">Go To Workouts</string>
     <string name="title_activity_container">container</string>
+
+    <!-- Create Workout Page Values -->
+    <string name="workout_equipment">Equipment:</string>
+    <string name="create_workout">Create Workout</string>
+    <string name="short_instruction">Enter the basic details below</string>
+
+
+    <!-- Common Values -->
+    <string name="cancel_button">Cancel</string>
+    <string name="continue_button">Continue</string>
 </resources>

@@ -4,15 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.History;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.Home;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.WorkoutOption;
@@ -23,7 +22,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class ActivityContainer extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
-    private ActivityContainerBinding binding;
     // This is a public variable that is used to store the current view.
     public static int currentView;  // 1 = Home, 2 = Workouts, 3 = History; else = no info
     public static final int HOME = 1, WORKOUTS = 2, HISTORY = 3;
@@ -32,28 +30,38 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityContainerBinding.inflate(getLayoutInflater());
+        com.firstapp.group10app.databinding.ActivityContainerBinding binding = ActivityContainerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         Button goSettings = findViewById(R.id.goToSettings);
-        goSettings.setOnClickListener(this);
+        if (Session.signedIn == null || !Session.signedIn) {
+            goSettings.setVisibility(View.GONE);
+        } else {
+            goSettings.setOnClickListener(this);
+        }
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
         bottomNavigationView.setOnItemSelectedListener(this);
-        bottomNavigationView.setSelectedItemId(R.id.goToHome);
 
         // If the current view is not set, set it to 1 (Home = default).
         if (currentView != HOME && currentView != R.layout.activity_home
                 && currentView != WORKOUTS && currentView != R.layout.activity_workout_option
                 && currentView != HISTORY && currentView != R.layout.activity_history) {
-            currentView = WORKOUTS;
+            System.out.println("ActivityContainer.onCreate: currentView static var not set, setting to 2 (Workouts)");
+            currentView = HOME;
         }
 
         if (currentView == HOME || currentView == R.layout.activity_home) {
+            bottomNavigationView.getMenu().findItem(R.id.goToHome).setChecked(true);
+
             updateView(new Home());
         } else if (currentView == WORKOUTS || currentView == R.layout.activity_workout_option) {
+            bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setChecked(true);
+
             updateView(new WorkoutOption());
         } else {
+            bottomNavigationView.getMenu().findItem(R.id.goToSettings).setChecked(true);
+
             updateView(new History());
         }
     }
@@ -68,19 +76,18 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+
         if ((id == R.id.goToHome) && (currentView != 1)) {
             updateView(new Home(), false);
             currentView = 1;
-            return true;
         } else if ((id == R.id.goToWorkouts) && (currentView != 2)) {
             updateView(new WorkoutOption(), currentView < 2);
             currentView = 2;
-            return true;
         } else if ((id == R.id.goToHistory) && (currentView != 3)) {
             updateView(new History(), true);
             currentView = 3;
-            return true;
         }
+
         return true;
     }
 
