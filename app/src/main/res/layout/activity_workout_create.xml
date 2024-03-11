@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Create Workout"
+        android:text="@string/create_workout"
         android:textSize="@dimen/font_size_very_large"
         android:textStyle="bold" />
 
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="Enter the basic details below" />
+            android:text="@string/short_instruction" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="Workout Name:"
+                android:text="@string/workout_name"
                 android:textStyle="bold" />
 
             <EditText
@@ -86,7 +86,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="Workout Duration (minutes):"
+                android:text="@string/workout_duration"
                 android:textStyle="bold" />
 
             <EditText
@@ -118,7 +118,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="Workout Target:"
+                android:text="@string/workout_target"
                 android:textStyle="bold" />
 
             <Spinner
@@ -184,7 +184,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="Workout Difficulty:"
+                android:text="@string/workout_difficulty"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -203,7 +203,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/shape_transparent_very_curved_corners"
                 android:gravity="center|center_vertical"
-                android:text="Easy"
+                android:text="@string/easy_diff"
                 android:textColor="@color/almost_black"
                 android:textStyle="bold" />
 
@@ -215,7 +215,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/shape_transparent_very_curved_corners"
                 android:gravity="center|center_vertical"
-                android:text="Medium"
+                android:text="@string/medium_diff"
                 android:textColor="@color/almost_black"
                 android:textStyle="bold" />
 
@@ -226,7 +226,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/shape_transparent_very_curved_corners"
                 android:gravity="center|center_vertical"
-                android:text="Hard"
+                android:text="@string/hard_diff"
                 android:textColor="@color/almost_black"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -282,14 +282,14 @@
             style="@style/ButtonNormal"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="Cancel" />
+            android:text="@string/cancel_button" />
 
         <Button
             android:id="@+id/continueBtn"
             style="@style/ButtonTetradic1"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="Continue" />
+            android:text="@string/continue_button" />
     </LinearLayout>
 
 </LinearLayout>

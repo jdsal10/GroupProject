@@ -246,5 +246,18 @@ with your account and we will send you an email with further instructions.</stri
     <string name="title_activity_container">container</string>
 
     <!-- Create Workout Page Values -->
-    <string name="workout_equipment">Workout Equipment:</string>
+    <string name="workout_equipment">Equipment:</string>
+    <string name="create_workout">Create Workout</string>
+    <string name="short_instruction">Enter the basic details below</string>
+    <string name="workout_name">Workout Name:</string>
+    <string name="workout_duration">Duration (minutes):</string>
+    <string name="workout_target">Workout Target:</string>
+    <string name="workout_difficulty">Difficulty:</string>
+    <string name="easy_diff">Easy</string>
+    <string name="medium_diff">Medium</string>
+    <string name="hard_diff">Hard</string>
+
+    <!-- Common Values -->
+    <string name="cancel_button">Cancel</string>
+    <string name="continue_button">Continue</string>
 </resources>
