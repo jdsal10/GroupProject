@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -25,6 +26,7 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
     // This is a public variable that is used to store the current view.
     public static int currentView;  // 1 = Home, 2 = Workouts, 3 = History; else = no info
     public static final int HOME = 1, WORKOUTS = 2, HISTORY = 3;
+    private TextView pageTitle, pageWelcome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,8 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         } else {
             goSettings.setOnClickListener(this);
         }
+
+        pageTitle = findViewById(R.id.pageTitle);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
         bottomNavigationView.setOnItemSelectedListener(this);
@@ -91,7 +95,8 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         return true;
     }
 
-    public void updateView(Fragment view, boolean animationDirection) {
+    // Update the fragment view with animation
+    private void updateView(Fragment view, boolean animationDirection) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -104,14 +109,38 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         fragmentTransaction.replace(R.id.fragmentHolder, view);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+
+        setPageTitle(view);
     }
 
-    public void updateView(Fragment view) {
+    // Update the fragment view
+    private void updateView(Fragment view) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentHolder, view);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+
+        setPageTitle(view);
+    }
+
+
+    // Set the page title based on the current view.
+    private void setPageTitle(Fragment view) {
+        switch (view.getClass().getSimpleName()) {
+            case "Home":
+                currentView = HOME;
+                pageTitle.setText("Home Page");
+                break;
+            case "WorkoutOption":
+                currentView = WORKOUTS;
+                pageTitle.setText("Workouts Page");
+                break;
+            case "History":
+                currentView = HISTORY;
+                pageTitle.setText("History Page");
+                break;
+        }
     }
 
     // Start new activity
