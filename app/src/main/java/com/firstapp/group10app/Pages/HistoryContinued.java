@@ -36,11 +36,11 @@ public class HistoryContinued extends AppCompatActivity {
         }
 
         // Declare bottom taskbar
-        BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
-        bottomNavigationView.setSelectedItemId(R.id.goToHistory);
-        bottomNavigationView.setOnItemSelectedListener(this);
+//        BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
+//        bottomNavigationView.setSelectedItemId(R.id.goToHistory);
+//        bottomNavigationView.setOnItemSelectedListener(this);
 
         // Checks if the view should be disabled.
-        OnlineChecks.checkNavigationBar(bottomNavigationView);
+//        OnlineChecks.checkNavigationBar(bottomNavigationView);
     }
 }
