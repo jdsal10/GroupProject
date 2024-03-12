@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.firstapp.group10app.Other.FragmentHolderUpdate;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.History;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.Home;
@@ -63,6 +64,11 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
             bottomNavigationView.getMenu().findItem(R.id.goToSettings).setChecked(true);
 
             updateView(new History());
+        }
+
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("workoutHub")) {
+            FragmentHolderUpdate.updateView(new WorkoutHub(), this);
         }
     }
 
