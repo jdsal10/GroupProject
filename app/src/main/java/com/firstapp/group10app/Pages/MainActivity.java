@@ -2,6 +2,7 @@ package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
@@ -14,6 +15,8 @@ import com.firstapp.group10app.DB.LocalDb.LocalDb;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +25,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Start the local database on a new thread
         if (Session.localDB == null) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
+            new Thread(() -> {
+                try {
                     LocalDb localDb = new LocalDb(MainActivity.this);
 
                     // Perform database operations
@@ -35,6 +37,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     // Close the database connection
                     localDb.close();
+                } catch (Exception e) {
+                    Log.e("Local DB Creation", "MainActivity.onCreate cause an error");
+                    Log.e("Local DB Creation", "toString(): " + e);
+                    Log.e("Local DB Creation", "getMessage(): " + e.getMessage());
+                    Log.e("Local DB Creation", "StackTrace: " + Arrays.toString(e.getStackTrace()));
                 }
             }).start();
         }

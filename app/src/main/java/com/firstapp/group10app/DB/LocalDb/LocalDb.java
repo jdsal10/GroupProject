@@ -245,7 +245,6 @@ public class LocalDb {
 
     public List<Long> readExerciseWorkoutPair(int workoutID) {
         String[] projection = {
-                ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry._ID,
                 ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_EXERCISE_ID,
                 ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_WORKOUT_ID
         };
@@ -253,7 +252,7 @@ public class LocalDb {
         String selection = ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_WORKOUT_ID + " = ?";
         String[] selectionArgs = {String.valueOf(workoutID)};
 
-        String sortOrder = ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry._ID + " DESC";
+        String sortOrder = ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_WORKOUT_ID + " DESC";
 
         Cursor cursor = db.query(
                 ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.TABLE_NAME,
@@ -267,7 +266,7 @@ public class LocalDb {
 
         List<Long> itemIds = new ArrayList<>();
         while (cursor.moveToNext()) {
-            long itemId = cursor.getLong(cursor.getColumnIndexOrThrow(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry._ID));
+            long itemId = cursor.getLong(cursor.getColumnIndexOrThrow(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_WORKOUT_ID));
             itemIds.add(itemId);
         }
         cursor.close();
@@ -326,21 +325,20 @@ public class LocalDb {
         int workoutIdInt = (int) workoutId;
 
         // Print data from ExerciseWorkoutPair table
-        List<Long> exerciseWorkoutPairIds = readExerciseWorkoutPair(workoutIdInt);
-        for (Object id : exerciseWorkoutPairIds) {
-            Log.d("ExerciseWorkoutPair Data", "ID: " + id);
+        List<Long> exerciseWorkoutPairWorkoutIds = readExerciseWorkoutPair(workoutIdInt);
+        for (Object id : exerciseWorkoutPairWorkoutIds) {
+            Log.d("ExerciseWorkoutPair Data", "Workout ID: " + id);
         }
 
         // Print the exercise name and workout difficulty from a pair (if it exists)
-        if (!exerciseWorkoutPairIds.isEmpty()) {
-            long exerciseWorkoutPairId = exerciseWorkoutPairIds.get(0);
-            int exerciseWorkoutPairIdInt = (int) exerciseWorkoutPairId;
-            Cursor cursor = db.rawQuery("SELECT * FROM exerciseWorkoutPair WHERE _ID = " + exerciseWorkoutPairIdInt, null);
+        if (!exerciseWorkoutPairWorkoutIds.isEmpty()) {
+            long exerciseWorkoutPairWorkoutId = exerciseWorkoutPairWorkoutIds.get(0);
+            int exerciseWorkoutPairWorkoutIdInt = (int) exerciseWorkoutPairWorkoutId;
+            Cursor cursor = db.rawQuery("SELECT * FROM exerciseWorkoutPair WHERE workoutId = " + exerciseWorkoutPairWorkoutIdInt, null);
             if (cursor.moveToFirst()) {
                 @SuppressLint("Range") int exerciseID = cursor.getInt(cursor.getColumnIndex(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_EXERCISE_ID));
-                @SuppressLint("Range") int workoutID = cursor.getInt(cursor.getColumnIndex(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_WORKOUT_ID));
 
-                Log.d("ExerciseWorkoutPair Data", "Exercise ID: " + exerciseID + ", Workout ID: " + workoutID);
+                Log.d("ExerciseWorkoutPair Data", "Exercise ID: " + exerciseID + ", Workout ID: " + exerciseWorkoutPairWorkoutId);
             }
             cursor.close();
         }

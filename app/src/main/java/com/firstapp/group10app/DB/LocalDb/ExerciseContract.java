@@ -35,7 +35,7 @@ public final class ExerciseContract {
                     ExerciseEntry.COLUMN_NAME_ILLUSTRATION + " TEXT," +
                     ExerciseEntry.COLUMN_NAME_TARGET_MUSCLE_GROUP + " TEXT," +
                     ExerciseEntry.COLUMN_NAME_EQUIPMENT + " TEXT," +
-                    ExerciseEntry.COLUMN_NAME_DIFFICULTY + " TEXT" +
+                    ExerciseEntry.COLUMN_NAME_DIFFICULTY + " TEXT," +
                     ExerciseEntry.COLUMN_NAME_SETS + " INTEGER," +
                     ExerciseEntry.COLUMN_NAME_REPS + " INTEGER," +
                     ExerciseEntry.COLUMN_NAME_TIME + " INTEGER)";
