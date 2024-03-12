@@ -2,7 +2,10 @@ package com.firstapp.group10app.Other;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.json.JSONObject;
+
 
 /**
  * The Session class stores valuable information about the user's session.
