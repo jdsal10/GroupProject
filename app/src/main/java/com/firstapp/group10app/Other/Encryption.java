@@ -19,7 +19,6 @@ public class Encryption {
     }
 
     public static byte[] getSHA(String input) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        return md.digest(input.getBytes(StandardCharsets.UTF_8));
+        return MessageDigest.getInstance("SHA-256").digest(input.getBytes(StandardCharsets.UTF_8));
     }
 }

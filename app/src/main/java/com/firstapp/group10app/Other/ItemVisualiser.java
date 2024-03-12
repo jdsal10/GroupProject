@@ -22,9 +22,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ItemVisualiser {
-    static LinearLayout workoutLayout;
-    static Context cThis;
-    static int exerciseID, popID;
+    private static LinearLayout workoutLayout;
+    private static Context cThis;
+    private static int exerciseID, popID;
 
     public static void addDetails(JSONObject details, String buttonType) {
         LayoutInflater inflate = (LayoutInflater) cThis.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
