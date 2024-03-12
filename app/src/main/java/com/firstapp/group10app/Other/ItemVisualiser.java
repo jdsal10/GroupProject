@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -170,15 +172,15 @@ public class ItemVisualiser {
 
                 switch (difficultyValue) {
                     case "Easy":
-                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#00FF00")));
+                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(cThis, R.color.pastel_green)));
                         difficultyText.setText("Easy");
                         break;
                     case "Medium":
-                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFF00")));
+                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(cThis, R.color.pastel_yellow)));
                         difficultyText.setText("Medium");
                         break;
                     case "Hard":
-                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF0000")));
+                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(cThis, R.color.pastel_red)));
                         difficultyText.setText("Hard");
                         break;
                 }
