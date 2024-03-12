@@ -20,12 +20,22 @@
             android:layout_height="75dp"
             android:contentDescription="Image" />
 
-        <View
-            android:id="@+id/difficulty"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/shape_transparent_very_curved_corners" />
+        <FrameLayout
+            android:layout_width="75sp"
+            android:layout_height="75sp">
+            <View
+                android:id="@+id/difficulty"
+                android:layout_width="75dp"
+                android:layout_height="75sp"
+                android:background="@drawable/shape_transparent_very_curved_corners" />
+
+            <TextView
+                android:id="@+id/difficultyText"
+                android:layout_width="75dp"
+                android:layout_height="75sp"
+                android:gravity="center|center_vertical" />
+        </FrameLayout>
+
 
     </LinearLayout>
 

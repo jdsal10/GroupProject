@@ -18,10 +18,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.firstapp.group10app.DB.DbHelper;
 import com.firstapp.group10app.Pages.ActivityContainer;
 import com.firstapp.group10app.Pages.WorkoutHub;
@@ -144,6 +140,7 @@ public class ItemVisualiser {
 
                 ImageView exerciseImage = exerciseBox.findViewById(R.id.exerciseImage);
                 View difficultyScale = exerciseBox.findViewById(R.id.difficulty);
+                TextView difficultyText = exerciseBox.findViewById(R.id.difficultyText);
 
                 exerciseNameView.setText(String.format(workoutObject.optString("ExerciseName", "")));
                 exerciseDescriptionView.setText(workoutObject.optString("Description", ""));
@@ -174,12 +171,15 @@ public class ItemVisualiser {
                 switch (difficultyValue) {
                     case "Easy":
                         difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#00FF00")));
+                        difficultyText.setText("Easy");
                         break;
                     case "Medium":
                         difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFF00")));
+                        difficultyText.setText("Medium");
                         break;
                     case "Hard":
                         difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF0000")));
+                        difficultyText.setText("Hard");
                         break;
                 }
 
