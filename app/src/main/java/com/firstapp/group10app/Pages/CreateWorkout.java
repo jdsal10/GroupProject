@@ -30,7 +30,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.firstapp.group10app.DB.DbHelper;
-import com.firstapp.group10app.Other.FragmentHolderUpdate;
 import com.firstapp.group10app.Other.ItemVisualiserText;
 import com.firstapp.group10app.Other.JsonToDb;
 import com.firstapp.group10app.Other.Session;
@@ -330,7 +329,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
 
         // More complex logic for the Continue and Cancel buttons
         else if (id == R.id.continueBtn && activePage == 1) {
-            if ((name.getText().toString().length() == 0) || (duration.getText().toString().length() == 0) || (equipment.getText().toString().length() == 0)) {
+            if ((name.getText().toString().isEmpty()) || (duration.getText().toString().isEmpty()) || (equipment.getText().toString().isEmpty())) {
                 continueButton.setError("Some fields have no info");
             } else if ((Integer.parseInt(duration.getText().toString()) > 180) || (Integer.parseInt(duration.getText().toString()) == 0)) {
                 duration.setError("Duration must be between 180 and 0!");
