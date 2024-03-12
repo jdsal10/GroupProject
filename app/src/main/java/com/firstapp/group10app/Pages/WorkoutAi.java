@@ -15,11 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.firstapp.group10app.ChatGPT.ChatGptClient;
-import com.firstapp.group10app.Other.FragmentHolderUpdate;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.JsonToDb;
 import com.firstapp.group10app.Other.Session;
@@ -105,7 +102,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             additionalInfoAnswer = findViewById(R.id.additionalInfoEdit);
             String input = fillGptInput();
             Toast.makeText(WorkoutAi.this, "Generating...", Toast.LENGTH_SHORT).show();
-            //USE EXAMPLE OUTPUT TO NOT WASTE TOKENS
+
             Runnable task = () -> {
                 try {
                     output3 = (ChatGptClient.chatGPT(input)); // This is a test to see if the chatGPT function works.
