@@ -1,9 +1,14 @@
 package com.firstapp.group10app.Other;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -11,10 +16,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.firstapp.group10app.DB.DbHelper;
+import com.firstapp.group10app.Pages.ActivityContainer;
 import com.firstapp.group10app.Pages.WorkoutHub;
 import com.firstapp.group10app.R;
 
@@ -23,13 +32,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ItemVisualiser {
-    private static LinearLayout workoutLayout;
-    private static Context cThis;
-    private static int exerciseID, popID;
+    static LinearLayout workoutLayout;
+    static Context cThis;
+    static int exerciseID, popID;
 
     public static void addDetails(JSONObject details, String buttonType) {
         LayoutInflater inflate = (LayoutInflater) cThis.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        LinearLayout box = (LinearLayout) inflate.inflate(R.layout.element_workout_view, null);
+        LinearLayout box = (LinearLayout) inflate.inflate(R.layout.activity_workout_view, null);
 
         TextView nameView = box.findViewById(R.id.workoutNameView);
         TextView durationView = box.findViewById(R.id.workoutDurationView);
@@ -85,7 +94,7 @@ public class ItemVisualiser {
 
             // Adds button function if required.
             if (buttonType.equals("search")) {
-                addSearchButtons(popupView, alertDialog, box.getId());
+                addSearchButtons(popupView, alertDialog, box.getId(), (AppCompatActivity) v.getContext());
             } else if (buttonType.equals("aiConfirm")) {
                 addCloseButton(popupView, alertDialog);
             }
@@ -111,7 +120,7 @@ public class ItemVisualiser {
                     throw new RuntimeException(e);
                 }
 
-                LinearLayout exerciseBox = (LinearLayout) inflate.inflate(R.layout.element_exercise_view, null);
+                LinearLayout exerciseBox = (LinearLayout) inflate.inflate(R.layout.activity_exercise_view, null);
 
                 // Set margins to the exerciseBox
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -164,13 +173,13 @@ public class ItemVisualiser {
 
                 switch (difficultyValue) {
                     case "Easy":
-                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(cThis, R.color.pastel_green)));
+                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#00FF00")));
                         break;
                     case "Medium":
-                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(cThis, R.color.pastel_yellow)));
+                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFF00")));
                         break;
                     case "Hard":
-                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(cThis, R.color.pastel_red)));
+                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF0000")));
                         break;
                 }
 
@@ -197,6 +206,7 @@ public class ItemVisualiser {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject workoutObject = jsonArray.getJSONObject(i);
                 addDetails(workoutObject, buttonType);
+
             }
         }
     }
@@ -229,6 +239,7 @@ public class ItemVisualiser {
         } else {
             JSONObject workoutObject = new JSONObject(data);
             addDetails(workoutObject, buttonType);
+
         }
     }
 
@@ -249,8 +260,7 @@ public class ItemVisualiser {
     // ALL BUTTON FUNCTIONS SHOULD BE DECLARED BELOW, WITH THE INPUTS BEING THE VIEW. CONTEXT AND
     // DIALOG GENERATED
 
-
-    public static void addSearchButtons(View v, AlertDialog popup, int id) {
+    public static void addSearchButtons(View v, AlertDialog popup, int id, AppCompatActivity activity) {
         Button selectWorkout = v.findViewById(R.id.selectWorkout);
         selectWorkout.setOnClickListener(v1 -> {
             JSONObject workoutObject;
@@ -266,12 +276,16 @@ public class ItemVisualiser {
 
             Session.selectedWorkout = workoutObject;
             Session.workoutID = id;
-            cThis.startActivity(new Intent(cThis, WorkoutHub.class));
-        });
+
+            Intent intent = new Intent(cThis, ActivityContainer.class);
+            intent.putExtra("workoutHub", WorkoutHub.class);
+            cThis.startActivity(intent);
+            });
 
         Button closeWorkout = v.findViewById(R.id.closeExercise);
         closeWorkout.setOnClickListener(v1 -> popup.dismiss());
     }
+
 
     public static void addCloseButton(View v, AlertDialog popup) {
         Button closeWorkout = v.findViewById(R.id.closeButton);
