@@ -22,7 +22,6 @@ import java.util.Objects;
 public class WorkoutSearch extends AppCompatActivity implements View.OnClickListener, WorkoutFilter.FilterChangeListener {
     LinearLayout workoutLayout;
     String durationString, difficultyString, targetString;
-
     ImageButton backButton;
 
     @Override

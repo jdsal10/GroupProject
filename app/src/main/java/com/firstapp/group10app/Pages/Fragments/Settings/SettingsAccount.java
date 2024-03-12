@@ -125,7 +125,6 @@ public class SettingsAccount extends Fragment implements View.OnClickListener {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-
         });
 
         alertDialog.show();

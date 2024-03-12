@@ -55,7 +55,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             Matcher matcher = pattern.matcher(emailText);
             System.out.println("EMAIL: " + emailText);
             try {
-                if ((!(emailText.equals(""))) && (matcher.matches()) && checkExists(emailText)) {
+                if ((!(emailText.isEmpty())) && (matcher.matches()) && checkExists(emailText)) {
                     try {
                         String validate = generateString();
                         toSend(emailText, validate);

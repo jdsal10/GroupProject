@@ -20,6 +20,7 @@ public class History extends Fragment {
     public History() {
         super(R.layout.activity_history);
     }
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }

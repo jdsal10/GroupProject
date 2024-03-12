@@ -16,7 +16,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.firstapp.group10app.DB.DbConnection;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.ActivityContainer;
-import com.firstapp.group10app.Pages.CreateWorkout;
 import com.firstapp.group10app.Pages.Fragments.Workouts.WorkoutAi2;
 import com.firstapp.group10app.Pages.Fragments.Workouts.WorkoutManual;
 import com.firstapp.group10app.R;

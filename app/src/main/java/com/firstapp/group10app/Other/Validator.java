@@ -14,7 +14,7 @@ public class Validator {
     private static final int PASSWORD_LENGTH = 6;
 
     public static String emailValidator(String email) {
-        if (email == null || email.length() == 0) return ("Email is required!");
+        if (email == null || email.isEmpty()) return ("Email is required!");
         else {
             Pattern pattern = Pattern.compile(EMAIL_PATTERN);
             Matcher matcher = pattern.matcher(email);
@@ -28,7 +28,7 @@ public class Validator {
     }
 
     public static String passwordValidator(String password) {
-        if (password == null || password.length() == 0) return "Password is required!";
+        if (password == null || password.isEmpty()) return "Password is required!";
         else if (password.length() < PASSWORD_LENGTH)
             return "Password must be at least " + PASSWORD_LENGTH + " characters long!";
         else if (!password.matches(".*[A-Z].*"))
@@ -45,7 +45,7 @@ public class Validator {
     }
 
     public static String dobValidator(String dob) {
-        if (dob == null || dob.length() == 0) return null;
+        if (dob == null || dob.isEmpty()) return null;
 
         Pattern pattern = Pattern.compile(DOB_PATTERN);
         Matcher matcher = pattern.matcher(dob);
@@ -91,13 +91,12 @@ public class Validator {
         return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
     }
 
-
     public static boolean dobValid(String dob) {
         return dobValidator(dob) == null;
     }
 
     public static String weightValidator(String weightString, String units) {
-        if (weightString == null || weightString.length() == 0) return null;
+        if (weightString == null || weightString.isEmpty()) return null;
 
         try {
             double weight = Double.parseDouble(weightString);
@@ -121,7 +120,7 @@ public class Validator {
     }
 
     public static String heightValidator(String heightString, String units) {
-        if (heightString == null || heightString.length() == 0) return null;
+        if (heightString == null || heightString.isEmpty()) return null;
 
         try {
             double height = Double.parseDouble(heightString);

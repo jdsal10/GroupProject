@@ -41,7 +41,7 @@ public class DbConnection {
     }
 
     //Executes a query that returns a ResultSet
-    public static ResultSet executeQuery(String statement) {
+    public ResultSet executeQuery(String statement) {
         try {
             System.out.println("DBConnection.executeQuery: Executing " + statement);
             return st.executeQuery(statement);

@@ -78,7 +78,7 @@ public class WorkoutHub extends AppCompatActivity implements View.OnClickListene
         workoutTarget.setText(sbWTarget);
 
         // Prevents blank views from being shown.
-        if (data.optString("Equipment").equals("")) {
+        if (data.optString("Equipment").isEmpty()) {
             workoutEquipment.setVisibility(GONE);
         } else {
             SpannableStringBuilder sbWEquipment = new SpannableStringBuilder("Workout Equipment: " + data.optString("Equipment"));
@@ -162,7 +162,7 @@ public class WorkoutHub extends AppCompatActivity implements View.OnClickListene
             exerciseDifficultyText.setText(sbDifficulty);
             textHolder.addView(exerciseDifficultyText);
 
-            if (workoutObject.optString("Sets").equals("")) {
+            if (workoutObject.optString("Sets").isEmpty()) {
                 exerciseSetsText.setVisibility(GONE);
             } else {
                 SpannableStringBuilder sbSets = new SpannableStringBuilder("Exercise Sets: " + workoutObject.optString("Sets"));
@@ -171,7 +171,7 @@ public class WorkoutHub extends AppCompatActivity implements View.OnClickListene
                 textHolder.addView(exerciseSetsText);
             }
 
-            if (workoutObject.optString("Reps").equals("")) {
+            if (workoutObject.optString("Reps").isEmpty()) {
                 exerciseRepsText.setVisibility(GONE);
             } else {
                 SpannableStringBuilder sbReps = new SpannableStringBuilder("Exercise Reps: " + workoutObject.optString("Reps"));
@@ -180,7 +180,7 @@ public class WorkoutHub extends AppCompatActivity implements View.OnClickListene
                 textHolder.addView(exerciseRepsText);
             }
 
-            if (workoutObject.optString("Time").equals("")) {
+            if (workoutObject.optString("Time").isEmpty()) {
                 exerciseTimeText.setVisibility(GONE);
                 textHolder.addView(exerciseTimeText);
             } else {

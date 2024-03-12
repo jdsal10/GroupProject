@@ -49,7 +49,8 @@ public class WorkoutManual extends Fragment implements View.OnClickListener {
         if (id == R.id.goToSearch) {
             tellParentToStartNewActivity(new WorkoutSearch());
         } else if (id == R.id.goToCreate) {
-            tellParentToStartNewActivity(new CreateWorkout());        }
+            tellParentToStartNewActivity(new CreateWorkout());
+        }
     }
 
     public void tellParentToStartNewActivity(AppCompatActivity newActivity) {
