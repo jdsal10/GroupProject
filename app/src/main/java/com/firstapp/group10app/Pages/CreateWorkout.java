@@ -29,6 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.firstapp.group10app.DB.DbHelper;
+import com.firstapp.group10app.Other.FragmentHolderUpdate;
 import com.firstapp.group10app.Other.ItemVisualiserText;
 import com.firstapp.group10app.Other.JsonToDb;
 import com.firstapp.group10app.Other.Session;
@@ -439,7 +440,9 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
 
             Session.workoutID = JsonToDb.insertWorkout(newWorkout, exercises);
 
-            startActivity(new Intent(this, WorkoutHub.class));
+            Intent intent = new Intent(this, ActivityContainer.class);
+            intent.putExtra("workoutHub", WorkoutHub.class);
+            startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         } catch (JSONException e) {
             throw new RuntimeException(e);

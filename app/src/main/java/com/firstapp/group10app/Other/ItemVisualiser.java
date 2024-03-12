@@ -1,10 +1,14 @@
 package com.firstapp.group10app.Other;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -12,8 +16,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.firstapp.group10app.DB.DbHelper;
+import com.firstapp.group10app.Pages.ActivityContainer;
 import com.firstapp.group10app.Pages.WorkoutHub;
 import com.firstapp.group10app.R;
 
@@ -84,7 +94,7 @@ public class ItemVisualiser {
 
             // Adds button function if required.
             if (buttonType.equals("search")) {
-                addSearchButtons(popupView, alertDialog, box.getId());
+                addSearchButtons(popupView, alertDialog, box.getId(), (AppCompatActivity) v.getContext());
             } else if (buttonType.equals("aiConfirm")) {
                 addCloseButton(popupView, alertDialog);
             }
@@ -250,8 +260,7 @@ public class ItemVisualiser {
     // ALL BUTTON FUNCTIONS SHOULD BE DECLARED BELOW, WITH THE INPUTS BEING THE VIEW. CONTEXT AND
     // DIALOG GENERATED
 
-
-    public static void addSearchButtons(View v, AlertDialog popup, int id) {
+    public static void addSearchButtons(View v, AlertDialog popup, int id, AppCompatActivity activity) {
         Button selectWorkout = v.findViewById(R.id.selectWorkout);
         selectWorkout.setOnClickListener(v1 -> {
             JSONObject workoutObject;
@@ -267,12 +276,16 @@ public class ItemVisualiser {
 
             Session.selectedWorkout = workoutObject;
             Session.workoutID = id;
-            cThis.startActivity(new Intent(cThis, WorkoutHub.class));
-        });
+
+            Intent intent = new Intent(cThis, ActivityContainer.class);
+            intent.putExtra("workoutHub", WorkoutHub.class);
+            cThis.startActivity(intent);
+            });
 
         Button closeWorkout = v.findViewById(R.id.closeExercise);
         closeWorkout.setOnClickListener(v1 -> popup.dismiss());
     }
+
 
     public static void addCloseButton(View v, AlertDialog popup) {
         Button closeWorkout = v.findViewById(R.id.closeButton);

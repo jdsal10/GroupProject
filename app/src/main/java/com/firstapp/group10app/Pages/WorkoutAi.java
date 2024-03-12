@@ -15,8 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.firstapp.group10app.ChatGPT.ChatGptClient;
+import com.firstapp.group10app.Other.FragmentHolderUpdate;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.JsonToDb;
 import com.firstapp.group10app.Other.Session;
@@ -85,7 +88,9 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             generateButton.setVisibility(View.VISIBLE);
 
         } else if (id == R.id.beginWorkout) {
-            startActivity(new Intent(this, WorkoutHub.class));
+            Intent intent = new Intent(this, ActivityContainer.class);
+            intent.putExtra("workoutHub", WorkoutHub.class);
+            startActivity(intent);
         } else {   // If button == GenerateButton
             page1.setVisibility(View.GONE);
             page2.setVisibility(View.GONE);

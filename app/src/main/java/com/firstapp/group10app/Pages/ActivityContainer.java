@@ -4,15 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.Button;
-import android.widget.Toast;
+import com.firstapp.group10app.Other.FragmentHolderUpdate;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.History;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.Home;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.WorkoutOption;
@@ -32,6 +32,8 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Session.container = this;
+
         binding = ActivityContainerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -40,7 +42,6 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
         bottomNavigationView.setOnItemSelectedListener(this);
-        bottomNavigationView.setSelectedItemId(R.id.goToHome);
 
         // If the current view is not set, set it to 1 (Home = default).
         if (currentView != HOME && currentView != R.layout.activity_home
@@ -50,18 +51,23 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         }
 
         if (currentView == HOME || currentView == R.layout.activity_home) {
-            updateView(new Home());
+            FragmentHolderUpdate.updateView(new Home(), this);
         } else if (currentView == WORKOUTS || currentView == R.layout.activity_workout_option) {
-            updateView(new WorkoutOption());
+            FragmentHolderUpdate.updateView(new WorkoutOption(), this);
         } else {
-            updateView(new History());
+            FragmentHolderUpdate.updateView(new History(), this);
+        }
+
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("workoutHub")) {
+            FragmentHolderUpdate.updateView(new WorkoutHub(), this);
         }
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.goToSettings) {
-            updateView(new Settings());
+            FragmentHolderUpdate.updateView(new Settings(), this);
         }
     }
 
@@ -99,17 +105,22 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         fragmentTransaction.commit();
     }
 
-    public void updateView(Fragment view) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentHolder, view);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
+//    public void updateView(Fragment view) {
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.replace(R.id.fragmentHolder, view);
+//        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.commit();
+//    }
 
     // Start new activity
     public void startNewActivity(AppCompatActivity newActivity, int enterAnim, int exitAnim) {
         startActivity(new Intent(this, newActivity.getClass()));
         overridePendingTransition(enterAnim, exitAnim);
     }
+
+    public void goWorkoutHub() {
+        FragmentHolderUpdate.updateView(new Home(), this);
+    }
+
 }

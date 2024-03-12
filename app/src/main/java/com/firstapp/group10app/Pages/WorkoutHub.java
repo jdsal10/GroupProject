@@ -2,51 +2,56 @@ package com.firstapp.group10app.Pages;
 
 import static android.view.View.GONE;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.fragment.app.Fragment;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.firstapp.group10app.DB.DbHelper;
-import com.firstapp.group10app.Other.NavBarBehaviour;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.History;
 import com.firstapp.group10app.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class WorkoutHub extends AppCompatActivity implements View.OnClickListener {
+public class WorkoutHub extends Fragment implements View.OnClickListener {
     Button enhance, begin, calendar;
     LinearLayout workoutHubLinear;
 
+    public WorkoutHub() {
+        super(R.layout.activity_workout_hub);
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_workout_hub);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.activity_workout_hub, container, false);
 
         // Button declaration.
-        enhance = findViewById(R.id.enhance);
-        begin = findViewById(R.id.beginWorkout);
+        enhance = rootView.findViewById(R.id.enhance);
+        begin = rootView.findViewById(R.id.beginWorkout);
         begin.setOnClickListener(this);
-        calendar = findViewById(R.id.addToCalendar);
+        calendar = rootView.findViewById(R.id.addToCalendar);
 
         // Gets the current workout.
         JSONObject currentWorkout = Session.selectedWorkout;
-        workoutHubLinear = findViewById(R.id.hubWorkoutHolder);
+        workoutHubLinear = rootView.findViewById(R.id.hubWorkoutHolder);
         try {
             // Sets the view.
             showWorkout(currentWorkout);
@@ -58,16 +63,18 @@ public class WorkoutHub extends AppCompatActivity implements View.OnClickListene
         if ((!Session.dbStatus) || (!Session.signedIn)) {
             begin.setVisibility(GONE);
         }
+
+        return rootView;
     }
 
     public void showWorkout(JSONObject data) throws JSONException {
-        LinearLayout workoutHolder = new LinearLayout(this);
+        LinearLayout workoutHolder = new LinearLayout(getContext());
         workoutHolder.setOrientation(LinearLayout.VERTICAL);
-        TextView workoutName = new TextView(this);
-        TextView workoutDuration = new TextView(this);
-        TextView workoutTarget = new TextView(this);
-        TextView workoutEquipment = new TextView(this);
-        TextView workoutDifficulty = new TextView(this);
+        TextView workoutName = new TextView(getContext());
+        TextView workoutDuration = new TextView(getContext());
+        TextView workoutTarget = new TextView(getContext());
+        TextView workoutEquipment = new TextView(getContext());
+        TextView workoutDifficulty = new TextView(getContext());
 
         StyleSpan bss = new StyleSpan(android.graphics.Typeface.BOLD);
 
@@ -84,7 +91,7 @@ public class WorkoutHub extends AppCompatActivity implements View.OnClickListene
         workoutTarget.setText(sbWTarget);
 
         // Prevents blank views from being shown.
-        if (data.optString("Equipment").equals("")) {
+        if (data.optString("Equipment").isEmpty()) {
             workoutEquipment.setVisibility(GONE);
         } else {
             SpannableStringBuilder sbWEquipment = new SpannableStringBuilder("Workout Equipment: " + data.optString("Equipment"));
@@ -104,7 +111,7 @@ public class WorkoutHub extends AppCompatActivity implements View.OnClickListene
 
         workoutHubLinear.addView(workoutHolder);
 
-        View view = new View(this);
+        View view = new View(getContext());
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -131,17 +138,17 @@ public class WorkoutHub extends AppCompatActivity implements View.OnClickListene
                 throw new RuntimeException(e);
             }
 
-            LinearLayout textHolder = new LinearLayout(this);
+            LinearLayout textHolder = new LinearLayout(getContext());
             textHolder.setOrientation(LinearLayout.VERTICAL);
 
-            TextView exerciseNameText = new TextView(this);
-            TextView exerciseDescriptionText = new TextView(this);
-            TextView exerciseTargetMuscleGroupText = new TextView(this);
-            TextView exerciseEquipmentText = new TextView(this);
-            TextView exerciseDifficultyText = new TextView(this);
-            TextView exerciseSetsText = new TextView(this);
-            TextView exerciseRepsText = new TextView(this);
-            TextView exerciseTimeText = new TextView(this);
+            TextView exerciseNameText = new TextView(getContext());
+            TextView exerciseDescriptionText = new TextView(getContext());
+            TextView exerciseTargetMuscleGroupText = new TextView(getContext());
+            TextView exerciseEquipmentText = new TextView(getContext());
+            TextView exerciseDifficultyText = new TextView(getContext());
+            TextView exerciseSetsText = new TextView(getContext());
+            TextView exerciseRepsText = new TextView(getContext());
+            TextView exerciseTimeText = new TextView(getContext());
 
             SpannableStringBuilder sbName = new SpannableStringBuilder("Exercise Name: " + workoutObject.optString("ExerciseName"));
             sbName.setSpan(bss, 0, 14, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
@@ -168,7 +175,7 @@ public class WorkoutHub extends AppCompatActivity implements View.OnClickListene
             exerciseDifficultyText.setText(sbDifficulty);
             textHolder.addView(exerciseDifficultyText);
 
-            if (workoutObject.optString("Sets").equals("")) {
+            if (workoutObject.optString("Sets").isEmpty()) {
                 exerciseSetsText.setVisibility(GONE);
             } else {
                 SpannableStringBuilder sbSets = new SpannableStringBuilder("Exercise Sets: " + workoutObject.optString("Sets"));
@@ -177,7 +184,7 @@ public class WorkoutHub extends AppCompatActivity implements View.OnClickListene
                 textHolder.addView(exerciseSetsText);
             }
 
-            if (workoutObject.optString("Reps").equals("")) {
+            if (workoutObject.optString("Reps").isEmpty()) {
                 exerciseRepsText.setVisibility(GONE);
             } else {
                 SpannableStringBuilder sbReps = new SpannableStringBuilder("Exercise Reps: " + workoutObject.optString("Reps"));
@@ -186,7 +193,7 @@ public class WorkoutHub extends AppCompatActivity implements View.OnClickListene
                 textHolder.addView(exerciseRepsText);
             }
 
-            if (workoutObject.optString("Time").equals("")) {
+            if (workoutObject.optString("Time").isEmpty()) {
                 exerciseTimeText.setVisibility(GONE);
                 textHolder.addView(exerciseTimeText);
             } else {
@@ -197,7 +204,7 @@ public class WorkoutHub extends AppCompatActivity implements View.OnClickListene
 
             workoutHubLinear.addView(textHolder);
 
-            View view2 = new View(this);
+            View view2 = new View(getContext());
 
             LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -218,13 +225,15 @@ public class WorkoutHub extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.enhance) {
-            Toast.makeText(this, "Currently in beta!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Currently in beta!", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.beginWorkout) {
             DbHelper.insertHistory();
-            startActivity(new Intent(getApplicationContext(), ActivityContainer.class));
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragmentHolder, new History());
+            transaction.addToBackStack(null);
+            transaction.commit();
         } else if (id == R.id.addToCalendar) {
-            Toast.makeText(this, "Currently in beta!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Currently in beta!", Toast.LENGTH_SHORT).show();
         }
     }
 }
