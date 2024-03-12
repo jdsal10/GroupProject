@@ -2,6 +2,8 @@ package com.firstapp.group10app.Other;
 
 import static com.firstapp.group10app.DB.DbHelper.linkExercise;
 
+import android.util.Log;
+
 import com.firstapp.group10app.DB.DbHelper;
 
 import org.json.JSONArray;
@@ -48,7 +50,7 @@ public class JsonToDb {
 
     public static void insertExercise(String data, Integer id) throws JSONException {
         JSONArray exerciseArray = new JSONArray(data);
-        System.out.println(exerciseArray);
+        Log.d("JsonToDb exerciseArray", exerciseArray.toString());
         JSONObject individualExercise;
         String[] exerciseData = new String[5];
 

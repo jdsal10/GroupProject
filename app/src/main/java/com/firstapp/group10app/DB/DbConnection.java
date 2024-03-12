@@ -1,6 +1,7 @@
 package com.firstapp.group10app.DB;
 
 import android.os.StrictMode;
+import android.util.Log;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,13 +17,13 @@ public class DbConnection {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         try {
-            System.out.println("DBConnection: Initialising connection");
+            Log.i("DBConnection", "Initialising connection");
 
             String connectionString = "jdbc:mysql://gateway01.eu-central-1.prod.aws.tidbcloud.com:4000/test?user=2xn9WQ6ma8aHYPp.root&password=6Tzop9pIbbE6dCbk&sslMode=VERIFY_IDENTITY&enabledTLSProtocols=TLSv1.2,TLSv1.3";
             conn = DriverManager.getConnection(connectionString);
 
             if (conn == null) {
-                System.out.println("Attention, DBConnection.conn is null");
+                Log.w("DBConnection", "Attention, DBConnection.conn is null");
             }
 
             st = conn.createStatement();
@@ -43,10 +44,12 @@ public class DbConnection {
     //Executes a query that returns a ResultSet
     public ResultSet executeQuery(String statement) {
         try {
-            System.out.println("DBConnection.executeQuery: Executing " + statement);
+            Log.i("DBConnection.executeQuery", "Executing " + statement);
             return st.executeQuery(statement);
         } catch (Exception e) {
-            System.out.println("Error in DBConnection.executeQuery: " + e);
+            Log.e("Error in DBConnection.executeQuery", e.toString());
+
+            // TODO: Add a proper error handling
             throw new RuntimeException(e);
         }
     }

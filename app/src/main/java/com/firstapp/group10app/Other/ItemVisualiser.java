@@ -249,7 +249,6 @@ public class ItemVisualiser {
     // ALL BUTTON FUNCTIONS SHOULD BE DECLARED BELOW, WITH THE INPUTS BEING THE VIEW. CONTEXT AND
     // DIALOG GENERATED
 
-
     public static void addSearchButtons(View v, AlertDialog popup, int id) {
         Button selectWorkout = v.findViewById(R.id.selectWorkout);
         selectWorkout.setOnClickListener(v1 -> {

@@ -2,6 +2,7 @@ package com.firstapp.group10app.Pages.Fragments.MainOptions;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,11 +67,11 @@ public class WorkoutOption extends Fragment implements CompoundButton.OnCheckedC
                     // Need to add capability to enable somehow.
                     // AISelect.setEnabled(false);
                 } else {
-                    System.out.println("WorkoutOption.onClick(): AI selected");
+                    Log.d("WorkoutOption.onClick()", "AI selected");
                     updateView(new WorkoutAi2(), R.anim.slide_right_in, R.anim.slide_left_out);
                 }
             } else if (buttonView.getId() == R.id.toggleManual) {
-                System.out.println("WorkoutOption.onCheckedChanged(): Manual selected");
+                Log.d("WorkoutOption.onCheckedChanged()", "Manual selected");
                 updateView(new WorkoutManual(), R.anim.slide_left_in, R.anim.slide_right_out);
             }
         }

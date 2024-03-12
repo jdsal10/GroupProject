@@ -2,6 +2,7 @@ package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -57,7 +58,7 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         if (currentView != HOME && currentView != R.layout.activity_home
                 && currentView != WORKOUTS && currentView != R.layout.activity_workout_option
                 && currentView != HISTORY && currentView != R.layout.activity_history) {
-            System.out.println("ActivityContainer.onCreate: currentView static var not set, setting to 2 (Workouts)");
+            Log.d("ActivityContainer.onCreate", "currentView static var not set, setting to 2 (Workouts)");
             currentView = HOME;
         }
 

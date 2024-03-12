@@ -2,6 +2,7 @@ package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,7 +54,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             String pat = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
             Pattern pattern = Pattern.compile(pat);
             Matcher matcher = pattern.matcher(emailText);
-            System.out.println("EMAIL: " + emailText);
+            Log.d("ForgotPassword Email Chekc", "EMAIL: " + emailText);
             try {
                 if ((!(emailText.isEmpty())) && (matcher.matches()) && checkExists(emailText)) {
                     try {
@@ -78,7 +79,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                 throw new RuntimeException(e);
             }
         } else if (id == R.id.backToLogin) {
-            System.out.println("Detected");
+            Log.d("ForgotPassword Login Button", "Detected");
             startActivity(new Intent(ForgotPassword.this, Login.class));
             overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
         }
