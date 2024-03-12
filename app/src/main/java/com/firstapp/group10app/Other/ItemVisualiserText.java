@@ -84,8 +84,6 @@ public class ItemVisualiserText {
             TextView exerciseRepsText = new TextView(context);
             TextView exerciseTimeText = new TextView(context);
 
-
-
             StyleSpan bss = new StyleSpan(android.graphics.Typeface.BOLD);
 
             SpannableStringBuilder sbName = new SpannableStringBuilder("Exercise Name: " + workoutObject.optString("ExerciseName"));
@@ -119,7 +117,6 @@ public class ItemVisualiserText {
             SpannableStringBuilder sbTime = new SpannableStringBuilder("Exercise Time: " + workoutObject.optString("Time"));
             sbTime.setSpan(bss, 0, 14, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             exerciseTimeText.setText(sbTime);
-
 
             textHolder.addView(exerciseNameText);
             textHolder.addView(exerciseDescriptionText);

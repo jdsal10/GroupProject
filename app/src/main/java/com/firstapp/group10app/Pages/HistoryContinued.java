@@ -1,24 +1,19 @@
 package com.firstapp.group10app.Pages;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DbHelper;
 import com.firstapp.group10app.Other.ItemVisualiser;
-import com.firstapp.group10app.Other.NavBarBehaviour;
 import com.firstapp.group10app.Other.OnlineChecks;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
-public class HistoryContinued extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
+public class HistoryContinued extends AppCompatActivity {
     LinearLayout continuedLayout;
 
     @Override
@@ -47,10 +42,5 @@ public class HistoryContinued extends AppCompatActivity implements NavigationBar
 
         // Checks if the view should be disabled.
         OnlineChecks.checkNavigationBar(bottomNavigationView);
-    }
-
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        NavBarBehaviour behaviour = new NavBarBehaviour();
-        return behaviour.onNavigationItemSelected(item, getApplicationContext(), this);
     }
 }

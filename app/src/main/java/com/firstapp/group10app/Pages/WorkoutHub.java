@@ -7,23 +7,17 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DbHelper;
-import com.firstapp.group10app.Other.NavBarBehaviour;
 import com.firstapp.group10app.Other.Session;
-import com.firstapp.group10app.Pages.Fragments.MainOptions.History;
 import com.firstapp.group10app.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -26,9 +26,8 @@ public class JsonToDb {
             int eid = Integer.parseInt(e);
             linkExercise(id, eid);
         }
-        return  id;
+        return id;
     }
-
 
     public static Integer insertWorkoutAI(JSONObject data) throws JSONException {
         String[] workoutDetails = new String[5];
@@ -65,6 +64,3 @@ public class JsonToDb {
         }
     }
 }
-
-
-
