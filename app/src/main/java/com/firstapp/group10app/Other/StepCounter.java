@@ -51,7 +51,8 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
         // Calculate acceleration.
         float acceleration = (float) Math.sqrt(x * x + y * y + z * z);
 
-        stepView = findViewById(R.id.stepTemp);
+        //provisionally removed
+//        stepView = findViewById(R.id.stepTemp);
 
         if (acceleration > 25) {
             totalStepsCount++;
