@@ -38,7 +38,7 @@ public class ItemVisualiser {
 
     public static void addDetails(JSONObject details, String buttonType) {
         LayoutInflater inflate = (LayoutInflater) cThis.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        LinearLayout box = (LinearLayout) inflate.inflate(R.layout.activity_workout_view, null);
+        LinearLayout box = (LinearLayout) inflate.inflate(R.layout.element_workout_view, null);
 
         TextView nameView = box.findViewById(R.id.workoutNameView);
         TextView durationView = box.findViewById(R.id.workoutDurationView);
@@ -120,7 +120,7 @@ public class ItemVisualiser {
                     throw new RuntimeException(e);
                 }
 
-                LinearLayout exerciseBox = (LinearLayout) inflate.inflate(R.layout.activity_exercise_view, null);
+                LinearLayout exerciseBox = (LinearLayout) inflate.inflate(R.layout.element_exercise_view, null);
 
                 // Set margins to the exerciseBox
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
