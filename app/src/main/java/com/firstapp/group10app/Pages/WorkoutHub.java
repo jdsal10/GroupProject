@@ -45,6 +45,7 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
 
         // Button declaration.
         enhance = rootView.findViewById(R.id.enhance);
+        enhance.setOnClickListener(this);
         begin = rootView.findViewById(R.id.beginWorkout);
         begin.setOnClickListener(this);
         calendar = rootView.findViewById(R.id.addToCalendar);
@@ -225,7 +226,8 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.enhance) {
-            Toast.makeText(getContext(), "Currently in beta!", Toast.LENGTH_SHORT).show();
+            EnhanceInput enhance = new EnhanceInput(getContext());
+            enhance.show();
         } else if (id == R.id.beginWorkout) {
             DbHelper.insertHistory();
             FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
