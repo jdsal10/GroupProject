@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.firstapp.group10app.DB.DbHelper;
 import com.firstapp.group10app.Pages.WorkoutHub;
 import com.firstapp.group10app.R;
@@ -163,13 +165,13 @@ public class ItemVisualiser {
 
                 switch (difficultyValue) {
                     case "Easy":
-                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#00FF00")));
+                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(cThis, R.color.pastel_green)));
                         break;
                     case "Medium":
-                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFF00")));
+                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(cThis, R.color.pastel_yellow)));
                         break;
                     case "Hard":
-                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF0000")));
+                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(cThis, R.color.pastel_red)));
                         break;
                 }
 
@@ -196,7 +198,6 @@ public class ItemVisualiser {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject workoutObject = jsonArray.getJSONObject(i);
                 addDetails(workoutObject, buttonType);
-
             }
         }
     }
@@ -229,7 +230,6 @@ public class ItemVisualiser {
         } else {
             JSONObject workoutObject = new JSONObject(data);
             addDetails(workoutObject, buttonType);
-
         }
     }
 
