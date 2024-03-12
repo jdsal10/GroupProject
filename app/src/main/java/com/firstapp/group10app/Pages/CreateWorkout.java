@@ -203,7 +203,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
             }
 
             LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            LinearLayout exerciseCombo = (LinearLayout) inflater.inflate(R.layout.activity_exercise_combo, null);
+            LinearLayout exerciseCombo = (LinearLayout) inflater.inflate(R.layout.element_exercise_combo, null);
 
             View selectedExerciseToggle = exerciseCombo.findViewById(R.id.checkBox);
 
