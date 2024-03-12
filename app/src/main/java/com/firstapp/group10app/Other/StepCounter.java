@@ -5,6 +5,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +19,7 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
     private TextView stepView;
 
     public StepCounter() {
-        System.out.println("Started");
+        Log.d("StepCounter", "Started");
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager != null) {
             accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -54,7 +55,7 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
 
         if (acceleration > 25) {
             totalStepsCount++;
-            System.out.println("Steps: " + totalStepsCount);
+            Log.d("StepCounter", "Steps: " + totalStepsCount);
             stepView.setText("Steps: " + totalStepsCount);
         }
     }

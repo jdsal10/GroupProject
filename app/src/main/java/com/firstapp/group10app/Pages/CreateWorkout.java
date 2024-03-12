@@ -13,6 +13,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -432,7 +433,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         json.append("\"Time\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("Time", "")).append("\"}");
 
         json.append("]}");
-        System.out.println(json);
+        Log.d("CreateWorkout JSON", json.toString());
         return new JSONObject(String.valueOf(json));
     }
 

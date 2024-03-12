@@ -2,6 +2,7 @@ package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -83,7 +84,8 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
             Objects.requireNonNull(customDialog.getWindow()).setWindowAnimations(R.style.filterAnimations);
 
             customDialog.show();
-            System.out.println("WorkoutSearch.onClick(): openFilter clicked, SELECTED VALUES: " + difficultyString + durationString + targetString);
+            Log.d("WorkoutSearch.onClick()", "openFilter clicked");
+            Log.d("WorkoutSearch.onClick()", "SELECTED VALUES: " + difficultyString + durationString + targetString);
             customDialog.setValue(difficultyString, durationString, targetString);
         }
     }

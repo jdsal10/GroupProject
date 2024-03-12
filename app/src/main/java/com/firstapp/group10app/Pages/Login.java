@@ -2,6 +2,7 @@ package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -91,9 +92,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             Session.userDetails[4] = data.getString("HealthCondition");
             Session.userDetails[5] = data.getString("ReasonForDownloading");
-            System.out.println(Arrays.toString(Session.userDetails));
         } else {
-            System.out.println("No data found for the user with email: " + email);
+            Log.d("Login.setSessionData", "No data found for the user with email: " + email);
         }
     }
 }

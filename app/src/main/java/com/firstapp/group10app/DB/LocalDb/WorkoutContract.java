@@ -16,6 +16,7 @@ public final class WorkoutContract {
     /* Inner class that defines the table contents */
     public static class WorkoutEntry implements BaseColumns {
         public static final String TABLE_NAME = "workout";
+        public static final String COLUMN_NAME_WORKOUT_NAME = "workoutName";
         public static final String COLUMN_NAME_DURATION = "workoutDuration";
         public static final String COLUMN_NAME_MUSCLE_GROUP = "targetMuscleGroup";
         public static final String COLUMN_NAME_EQUIPMENT = "equipment";
@@ -25,10 +26,11 @@ public final class WorkoutContract {
     static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + WorkoutEntry.TABLE_NAME + " (" +
                     WorkoutEntry._ID + " INTEGER PRIMARY KEY," +
+                    WorkoutEntry.COLUMN_NAME_WORKOUT_NAME + " TEXT, " +
                     WorkoutEntry.COLUMN_NAME_DURATION + " INTEGER," +
                     WorkoutEntry.COLUMN_NAME_MUSCLE_GROUP + " TEXT," +
                     WorkoutEntry.COLUMN_NAME_EQUIPMENT + " TEXT," +
-                    WorkoutEntry.COLUMN_NAME_DIFFICULTY + " INTEGER)";
+                    WorkoutEntry.COLUMN_NAME_DIFFICULTY + " STRING)";
     static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + WorkoutEntry.TABLE_NAME;
 }

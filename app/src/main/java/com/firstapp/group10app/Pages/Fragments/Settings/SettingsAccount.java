@@ -6,6 +6,7 @@ import static com.firstapp.group10app.Other.Validator.passwordValidator;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +77,7 @@ public class SettingsAccount extends Fragment implements View.OnClickListener {
                     // Add logic for deletion below - requires integration to workouts.
                     db.deleteUser(Session.userEmail);
 
-                    System.out.println("CONFIRM DELETION!");
+                    Log.d("SettingsAccount.showConfirmation", "CONFIRM DELETION!");
 
                     startActivity(new Intent(requireContext(), MainActivity.class));
                 } else {

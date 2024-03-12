@@ -7,7 +7,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1.4"
         android:background="@drawable/shape_gray"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/fragmentHolder"
@@ -18,11 +19,13 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <!--            android:text="UPDATE IN CODE"-->
             <TextView
+                android:id="@+id/pageTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_large"
@@ -31,6 +34,7 @@
 
             <!--            android:text="DO THE ABOVE!"-->
             <TextView
+                android:id="@+id/pageWelcome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_large"
@@ -55,7 +59,7 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="9"
         app:defaultNavHost="true" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

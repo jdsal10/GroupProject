@@ -1,6 +1,7 @@
 package com.firstapp.group10app.Pages.Fragments.MainOptions;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,9 +43,10 @@ public class History extends Fragment {
                 ItemVisualiser.showEmpty(historyLayout);
             } else {
                 ItemVisualiser.startWorkoutGenerationLimiting(HistoryJSON, getContext(), historyLayout, "null", R.layout.popup_history, R.id.popupHistory);
-                System.out.println(HistoryJSON);
+                Log.d("History.java HistoryJSON", HistoryJSON);
             }
         } catch (Exception e) {
+            // TODO: Add proper error handling
             throw new RuntimeException(e);
         }
 

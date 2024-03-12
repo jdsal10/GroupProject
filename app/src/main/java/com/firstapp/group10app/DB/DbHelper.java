@@ -4,6 +4,8 @@ import static com.firstapp.group10app.DB.DbConnection.conn;
 import static com.firstapp.group10app.Other.Encryption.getSHA;
 import static com.firstapp.group10app.Other.Encryption.toHexString;
 
+import android.util.Log;
+
 import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.Other.Session;
 
@@ -14,14 +16,14 @@ import java.sql.Statement;
 public class DbHelper {
     public static void insertUser(String[] userDetails) {
         try {
-            System.out.println("DBHelper.insertUser: Beginning to go through the process of inserting a user");
+            Log.d("DBHelper.insertUser", "Beginning to go through the process of inserting a user");
 
             // Format the user details before passing them to the DataChecker
             DataFormatter.preCheckFormatUserDetails(userDetails);
 
             // Check that the user details are valid (THIS CRASHES THE APP)
 //            if (!DataChecker.checkUserDetails(userDetails)) {
-//                System.out.println("DBHelper.insertUser: Invalid user details");
+//                Log.d("DBHelper.insertUser", "Invalid user details");
 //                throw new IllegalArgumentException("Invalid user details");
 //            }
 
@@ -33,7 +35,7 @@ public class DbHelper {
             sql.append("INSERT INTO HealthData.Users (");
             for (int i = 0; i < userDetails.length; i++) {
                 if (userDetails[i] != null && !userDetails[i].equals("") && !userDetails[i].equals("null") && !userDetails[i].equals(" ")) {
-                    System.out.println("DBHelper.insertUser: Debugging -> userDetails[" + i + "] = " + userDetails[i]);
+                    Log.d("DBHelper.insertUser", "Debugging -> userDetails[" + i + "] = " + userDetails[i]);
                     sql.append(Index.USER_DETAILS[i]);
                     sql.append(", ");
                 }
@@ -57,13 +59,13 @@ public class DbHelper {
             sql.append(");");
 
             // Execute the SQL query
-            System.out.println(DbHelper.class.getName() + ".insertUser: preparing to execute " + sql);
+            Log.d("DbHelper.class.getName()",".insertUser: preparing to execute " + sql);
 
             // DO NOT CHANGE THIS LINE
             DbConnection db = new DbConnection();
             db.executeStatement(sql.toString());
         } catch (Exception e) {
-            System.out.println("Error in DBHelper.insertUser(): " + e);
+            Log.e("Error in DBHelper.insertUser()", e.toString());
             throw new RuntimeException(e);
         }
     }

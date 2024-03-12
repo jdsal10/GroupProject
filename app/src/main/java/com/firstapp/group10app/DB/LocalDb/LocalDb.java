@@ -1,6 +1,7 @@
 package com.firstapp.group10app.DB.LocalDb;
 
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class LocalDb {
     LocalDbHelper localDbHelper;
-    SQLiteDatabase db;
+    private SQLiteDatabase db;
 
     public LocalDb(Context context) {
         localDbHelper = new LocalDbHelper(context);
@@ -28,7 +29,7 @@ public class LocalDb {
         db = localDbHelper.getWritableDatabase();
     }
 
-    public void insertExercise(String exerciseName, String description, String illustration, String targetMuscleGroup, String equipment, int difficulty) {
+    public void insertExercise(String exerciseName, String description, String illustration, String targetMuscleGroup, String equipment, String difficulty, int sets, int reps, int time) {
         ContentValues values = new ContentValues();
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_EXERCISE_NAME, exerciseName);
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_DESCRIPTION, description);
@@ -36,6 +37,9 @@ public class LocalDb {
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_TARGET_MUSCLE_GROUP, targetMuscleGroup);
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_EQUIPMENT, equipment);
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_DIFFICULTY, difficulty);
+        values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_SETS, sets);
+        values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_REPS, reps);
+        values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_TIME, time);
 
         long newRowId = db.insert(ExerciseContract.ExerciseEntry.TABLE_NAME, null, values);
     }
@@ -48,7 +52,10 @@ public class LocalDb {
                 ExerciseContract.ExerciseEntry.COLUMN_NAME_ILLUSTRATION,
                 ExerciseContract.ExerciseEntry.COLUMN_NAME_TARGET_MUSCLE_GROUP,
                 ExerciseContract.ExerciseEntry.COLUMN_NAME_EQUIPMENT,
-                ExerciseContract.ExerciseEntry.COLUMN_NAME_DIFFICULTY
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_DIFFICULTY,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_SETS,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_REPS,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_TIME
         };
 
         String selection = ExerciseContract.ExerciseEntry.COLUMN_NAME_TARGET_MUSCLE_GROUP + " = ?";
@@ -76,7 +83,46 @@ public class LocalDb {
         return itemIds;
     }
 
-    public void updateExercise(int exerciseID, String exerciseName, String description, String illustration, String targetMuscleGroup, String equipment, int difficulty) {
+    public List<Long> readExercise(int exerciseID) {
+        String[] projection = {
+                ExerciseContract.ExerciseEntry._ID,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_EXERCISE_NAME,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_DESCRIPTION,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_ILLUSTRATION,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_TARGET_MUSCLE_GROUP,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_EQUIPMENT,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_DIFFICULTY,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_SETS,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_REPS,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_TIME
+        };
+
+        String selection = ExerciseContract.ExerciseEntry._ID + " = ?";
+        String[] selectionArgs = {String.valueOf(exerciseID)};
+
+        String sortOrder = ExerciseContract.ExerciseEntry.COLUMN_NAME_EXERCISE_NAME + " DESC";
+
+        Cursor cursor = db.query(
+                ExerciseContract.ExerciseEntry.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                sortOrder
+        );
+
+        List<Long> itemIds = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            long itemId = cursor.getLong(cursor.getColumnIndexOrThrow(ExerciseContract.ExerciseEntry._ID));
+            itemIds.add(itemId);
+        }
+        cursor.close();
+
+        return itemIds;
+    }
+
+    public void updateExercise(int exerciseID, String exerciseName, String description, String illustration, String targetMuscleGroup, String equipment, String difficulty, int sets, int reps, int time) {
         ContentValues values = new ContentValues();
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_EXERCISE_NAME, exerciseName);
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_DESCRIPTION, description);
@@ -84,6 +130,9 @@ public class LocalDb {
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_TARGET_MUSCLE_GROUP, targetMuscleGroup);
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_EQUIPMENT, equipment);
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_DIFFICULTY, difficulty);
+        values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_SETS, sets);
+        values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_REPS, reps);
+        values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_TIME, time);
 
         String selection = ExerciseContract.ExerciseEntry._ID + " = ?";
         String[] selectionArgs = {String.valueOf(exerciseID)};
@@ -96,9 +145,10 @@ public class LocalDb {
         );
     }
 
-    public void insertWorkout(int duration, String muscleGroup, String equipment, int difficulty) {
+    public void insertWorkout(String workoutName, int duration, String muscleGroup, String equipment, int difficulty) {
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
+        values.put(WorkoutEntry.COLUMN_NAME_WORKOUT_NAME, workoutName);
         values.put(WorkoutEntry.COLUMN_NAME_DURATION, duration);
         values.put(WorkoutEntry.COLUMN_NAME_MUSCLE_GROUP, muscleGroup);
         values.put(WorkoutEntry.COLUMN_NAME_EQUIPMENT, equipment);
@@ -108,11 +158,48 @@ public class LocalDb {
         long newRowId = db.insert(WorkoutEntry.TABLE_NAME, null, values);
     }
 
+    public List<Long> readWorkout(int workoutId) {
+        String[] projection = {
+                WorkoutEntry._ID,
+                WorkoutEntry.COLUMN_NAME_WORKOUT_NAME,
+                WorkoutEntry.COLUMN_NAME_DURATION,
+                WorkoutEntry.COLUMN_NAME_MUSCLE_GROUP,
+                WorkoutEntry.COLUMN_NAME_EQUIPMENT,
+                WorkoutEntry.COLUMN_NAME_DIFFICULTY
+        };
+
+        String selection = WorkoutEntry._ID + " = ?";
+        String[] selectionArgs = {String.valueOf(workoutId)};
+
+        String sortOrder = WorkoutEntry.COLUMN_NAME_DURATION + " DESC";
+
+        Cursor cursor = db.query(
+                WorkoutEntry.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                sortOrder
+        );
+
+        List<Long> itemIds = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            long itemId = cursor.getLong(
+                    cursor.getColumnIndexOrThrow(WorkoutEntry._ID));
+            itemIds.add(itemId);
+        }
+        cursor.close();
+
+        return itemIds;
+    }
+
     public List<Long> readWorkout(String muscleGroup) {
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = {
                 WorkoutEntry._ID,
+                WorkoutEntry.COLUMN_NAME_WORKOUT_NAME,
                 WorkoutEntry.COLUMN_NAME_DURATION,
                 WorkoutEntry.COLUMN_NAME_MUSCLE_GROUP,
                 WorkoutEntry.COLUMN_NAME_EQUIPMENT,
@@ -158,7 +245,6 @@ public class LocalDb {
 
     public List<Long> readExerciseWorkoutPair(int workoutID) {
         String[] projection = {
-                ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry._ID,
                 ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_EXERCISE_ID,
                 ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_WORKOUT_ID
         };
@@ -166,7 +252,7 @@ public class LocalDb {
         String selection = ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_WORKOUT_ID + " = ?";
         String[] selectionArgs = {String.valueOf(workoutID)};
 
-        String sortOrder = ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry._ID + " DESC";
+        String sortOrder = ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_WORKOUT_ID + " DESC";
 
         Cursor cursor = db.query(
                 ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.TABLE_NAME,
@@ -180,7 +266,7 @@ public class LocalDb {
 
         List<Long> itemIds = new ArrayList<>();
         while (cursor.moveToNext()) {
-            long itemId = cursor.getLong(cursor.getColumnIndexOrThrow(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry._ID));
+            long itemId = cursor.getLong(cursor.getColumnIndexOrThrow(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_WORKOUT_ID));
             itemIds.add(itemId);
         }
         cursor.close();
@@ -189,11 +275,18 @@ public class LocalDb {
     }
 
     public void insertSampleData() {
-        // Insert a sample row into the Exercise table
-        insertExercise("Sample Exercise", "This is a sample exercise.", "Sample illustration", "Sample muscle group", "Sample equipment", 1);
+        // Check if the sample data already exists in the Exercise table
+        List<Long> existingExerciseIds = readExercise("Sample muscle group");
+        if (existingExerciseIds.isEmpty()) {
+            // If not, insert a sample row into the Exercise table
+            insertExercise("Sample Exercise", "This is a sample exercise.", "Sample illustration", "Sample muscle group", "Sample equipment", "Sample difficulty", 5, 10, 20);
+        }
 
-        // Insert a sample row into the Workout table
-        insertWorkout(30, "Sample muscle group", "Sample equipment", 1);
+        // Check if the sample data already exists in the Workout table
+        List<Long> existingWorkoutIds = readWorkout("Sample muscle group");
+        if (existingWorkoutIds.isEmpty()) {
+            insertWorkout("Sample workout name", 30, "Sample muscle group", "Sample equipment", 1);
+        }
 
         // Get the IDs of the inserted Exercise and Workout
         List<Long> exerciseIds = readExercise("Sample muscle group");
@@ -208,7 +301,10 @@ public class LocalDb {
             int workoutIdInt = (int) workoutId;
 
             // Insert a sample row into the ExerciseWorkoutPair table
-            insertExerciseWorkoutPair(exerciseIdInt, workoutIdInt);
+            List<Long> exerciseWorkoutPairWorkoutId = readExerciseWorkoutPair(workoutIdInt);
+            if (exerciseWorkoutPairWorkoutId.isEmpty()) {
+                insertExerciseWorkoutPair(exerciseIdInt, workoutIdInt);
+            }
         }
     }
 
@@ -229,13 +325,30 @@ public class LocalDb {
         int workoutIdInt = (int) workoutId;
 
         // Print data from ExerciseWorkoutPair table
-        List<Long> exerciseWorkoutPairIds = readExerciseWorkoutPair(workoutIdInt);
-        for (Object id : exerciseWorkoutPairIds) {
-            Log.d("ExerciseWorkoutPair Data", "ID: " + id);
+        List<Long> exerciseWorkoutPairWorkoutIds = readExerciseWorkoutPair(workoutIdInt);
+        for (Object id : exerciseWorkoutPairWorkoutIds) {
+            Log.d("ExerciseWorkoutPair Data", "Workout ID: " + id);
+        }
+
+        // Print the exercise name and workout difficulty from a pair (if it exists)
+        if (!exerciseWorkoutPairWorkoutIds.isEmpty()) {
+            long exerciseWorkoutPairWorkoutId = exerciseWorkoutPairWorkoutIds.get(0);
+            int exerciseWorkoutPairWorkoutIdInt = (int) exerciseWorkoutPairWorkoutId;
+            Cursor cursor = db.rawQuery("SELECT * FROM exerciseWorkoutPair WHERE workoutId = " + exerciseWorkoutPairWorkoutIdInt, null);
+            if (cursor.moveToFirst()) {
+                @SuppressLint("Range") int exerciseID = cursor.getInt(cursor.getColumnIndex(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_EXERCISE_ID));
+
+                Log.d("ExerciseWorkoutPair Data", "Exercise ID: " + exerciseID + ", Workout ID: " + exerciseWorkoutPairWorkoutId);
+            }
+            cursor.close();
         }
     }
 
     public void close() {
         localDbHelper.close();
+    }
+
+    public SQLiteDatabase getReadableDatabase() {
+        return this.db;
     }
 }
