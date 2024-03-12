@@ -1,6 +1,7 @@
 package com.firstapp.group10app.DB.LocalDb;
 
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class LocalDb {
     LocalDbHelper localDbHelper;
-    SQLiteDatabase db;
+    private SQLiteDatabase db;
 
     public LocalDb(Context context) {
         localDbHelper = new LocalDbHelper(context);
@@ -189,11 +190,18 @@ public class LocalDb {
     }
 
     public void insertSampleData() {
-        // Insert a sample row into the Exercise table
-        insertExercise("Sample Exercise", "This is a sample exercise.", "Sample illustration", "Sample muscle group", "Sample equipment", 1);
+        // Check if the sample data already exists in the Exercise table
+        List<Long> existingExerciseIds = readExercise("Sample muscle group");
+        if (existingExerciseIds.isEmpty()) {
+            // If not, insert a sample row into the Exercise table
+            insertExercise("Sample Exercise", "This is a sample exercise.", "Sample illustration", "Sample muscle group", "Sample equipment", 1);
+        }
 
-        // Insert a sample row into the Workout table
-        insertWorkout(30, "Sample muscle group", "Sample equipment", 1);
+        // Check if the sample data already exists in the Workout table
+        List<Long> existingWorkoutIds = readWorkout("Sample muscle group");
+        if (existingWorkoutIds.isEmpty()) {
+            insertWorkout(30, "Sample muscle group", "Sample equipment", 1);
+        }
 
         // Get the IDs of the inserted Exercise and Workout
         List<Long> exerciseIds = readExercise("Sample muscle group");
@@ -208,7 +216,10 @@ public class LocalDb {
             int workoutIdInt = (int) workoutId;
 
             // Insert a sample row into the ExerciseWorkoutPair table
-            insertExerciseWorkoutPair(exerciseIdInt, workoutIdInt);
+            List<Long> exerciseWorkoutPairWorkoutId = readExerciseWorkoutPair(workoutIdInt);
+            if (exerciseWorkoutPairWorkoutId.isEmpty()) {
+                insertExerciseWorkoutPair(exerciseIdInt, workoutIdInt);
+            }
         }
     }
 
@@ -233,9 +244,27 @@ public class LocalDb {
         for (Object id : exerciseWorkoutPairIds) {
             Log.d("ExerciseWorkoutPair Data", "ID: " + id);
         }
+
+        // Print the exercise name and workout difficulty from a pair (if it exists)
+        if (!exerciseWorkoutPairIds.isEmpty()) {
+            long exerciseWorkoutPairId = exerciseWorkoutPairIds.get(0);
+            int exerciseWorkoutPairIdInt = (int) exerciseWorkoutPairId;
+            Cursor cursor = db.rawQuery("SELECT * FROM exerciseWorkoutPair WHERE _ID = " + exerciseWorkoutPairIdInt, null);
+            if (cursor.moveToFirst()) {
+                @SuppressLint("Range") int exerciseID = cursor.getInt(cursor.getColumnIndex(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_EXERCISE_ID));
+                @SuppressLint("Range") int workoutID = cursor.getInt(cursor.getColumnIndex(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_WORKOUT_ID));
+
+                Log.d("ExerciseWorkoutPair Data", "Exercise ID: " + exerciseID + ", Workout ID: " + workoutID);
+            }
+            cursor.close();
+        }
     }
 
     public void close() {
         localDbHelper.close();
+    }
+
+    public SQLiteDatabase getReadableDatabase() {
+        return this.db;
     }
 }

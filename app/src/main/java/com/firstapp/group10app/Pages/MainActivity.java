@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DbConnection;
+import com.firstapp.group10app.DB.LocalDb.LocalDb;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
@@ -18,6 +19,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Start the local database on a new thread
+        if (Session.localDB == null) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    LocalDb localDb = new LocalDb(MainActivity.this);
+
+                    // Perform database operations
+                    // Insert sample data into the database
+                    localDb.insertSampleData();
+                    // Store the LocalDb instance in the Session.localDB variable
+                    Session.localDB = localDb.getReadableDatabase();
+
+                    // Close the database connection
+                    localDb.close();
+                }
+            }).start();
+        }
 
         View rootLayout = findViewById(android.R.id.content);
 
