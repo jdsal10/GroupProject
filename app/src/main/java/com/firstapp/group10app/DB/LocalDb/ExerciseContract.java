@@ -22,6 +22,9 @@ public final class ExerciseContract {
         public static final String COLUMN_NAME_TARGET_MUSCLE_GROUP = "targetMuscleGroup";
         public static final String COLUMN_NAME_EQUIPMENT = "equipment";
         public static final String COLUMN_NAME_DIFFICULTY = "difficulty";
+        public static final String COLUMN_NAME_SETS = "sets";
+        public static final String COLUMN_NAME_REPS = "reps";
+        public static final String COLUMN_NAME_TIME = "time";
     }
 
     static final String SQL_CREATE_ENTRIES =
@@ -32,7 +35,10 @@ public final class ExerciseContract {
                     ExerciseEntry.COLUMN_NAME_ILLUSTRATION + " TEXT," +
                     ExerciseEntry.COLUMN_NAME_TARGET_MUSCLE_GROUP + " TEXT," +
                     ExerciseEntry.COLUMN_NAME_EQUIPMENT + " TEXT," +
-                    ExerciseEntry.COLUMN_NAME_DIFFICULTY + " INTEGER)";
+                    ExerciseEntry.COLUMN_NAME_DIFFICULTY + " TEXT" +
+                    ExerciseEntry.COLUMN_NAME_SETS + " INTEGER," +
+                    ExerciseEntry.COLUMN_NAME_REPS + " INTEGER," +
+                    ExerciseEntry.COLUMN_NAME_TIME + " INTEGER)";
 
     static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + ExerciseEntry.TABLE_NAME;

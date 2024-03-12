@@ -29,7 +29,7 @@ public class LocalDb {
         db = localDbHelper.getWritableDatabase();
     }
 
-    public void insertExercise(String exerciseName, String description, String illustration, String targetMuscleGroup, String equipment, int difficulty) {
+    public void insertExercise(String exerciseName, String description, String illustration, String targetMuscleGroup, String equipment, String difficulty, int sets, int reps, int time) {
         ContentValues values = new ContentValues();
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_EXERCISE_NAME, exerciseName);
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_DESCRIPTION, description);
@@ -37,6 +37,9 @@ public class LocalDb {
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_TARGET_MUSCLE_GROUP, targetMuscleGroup);
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_EQUIPMENT, equipment);
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_DIFFICULTY, difficulty);
+        values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_SETS, sets);
+        values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_REPS, reps);
+        values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_TIME, time);
 
         long newRowId = db.insert(ExerciseContract.ExerciseEntry.TABLE_NAME, null, values);
     }
@@ -49,7 +52,10 @@ public class LocalDb {
                 ExerciseContract.ExerciseEntry.COLUMN_NAME_ILLUSTRATION,
                 ExerciseContract.ExerciseEntry.COLUMN_NAME_TARGET_MUSCLE_GROUP,
                 ExerciseContract.ExerciseEntry.COLUMN_NAME_EQUIPMENT,
-                ExerciseContract.ExerciseEntry.COLUMN_NAME_DIFFICULTY
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_DIFFICULTY,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_SETS,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_REPS,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_TIME
         };
 
         String selection = ExerciseContract.ExerciseEntry.COLUMN_NAME_TARGET_MUSCLE_GROUP + " = ?";
@@ -85,7 +91,10 @@ public class LocalDb {
                 ExerciseContract.ExerciseEntry.COLUMN_NAME_ILLUSTRATION,
                 ExerciseContract.ExerciseEntry.COLUMN_NAME_TARGET_MUSCLE_GROUP,
                 ExerciseContract.ExerciseEntry.COLUMN_NAME_EQUIPMENT,
-                ExerciseContract.ExerciseEntry.COLUMN_NAME_DIFFICULTY
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_DIFFICULTY,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_SETS,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_REPS,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_TIME
         };
 
         String selection = ExerciseContract.ExerciseEntry._ID + " = ?";
@@ -113,7 +122,7 @@ public class LocalDb {
         return itemIds;
     }
 
-    public void updateExercise(int exerciseID, String exerciseName, String description, String illustration, String targetMuscleGroup, String equipment, int difficulty) {
+    public void updateExercise(int exerciseID, String exerciseName, String description, String illustration, String targetMuscleGroup, String equipment, String difficulty, int sets, int reps, int time) {
         ContentValues values = new ContentValues();
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_EXERCISE_NAME, exerciseName);
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_DESCRIPTION, description);
@@ -121,6 +130,9 @@ public class LocalDb {
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_TARGET_MUSCLE_GROUP, targetMuscleGroup);
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_EQUIPMENT, equipment);
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_DIFFICULTY, difficulty);
+        values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_SETS, sets);
+        values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_REPS, reps);
+        values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_TIME, time);
 
         String selection = ExerciseContract.ExerciseEntry._ID + " = ?";
         String[] selectionArgs = {String.valueOf(exerciseID)};
@@ -133,9 +145,10 @@ public class LocalDb {
         );
     }
 
-    public void insertWorkout(int duration, String muscleGroup, String equipment, int difficulty) {
+    public void insertWorkout(String workoutName, int duration, String muscleGroup, String equipment, int difficulty) {
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
+        values.put(WorkoutEntry.COLUMN_NAME_WORKOUT_NAME, workoutName);
         values.put(WorkoutEntry.COLUMN_NAME_DURATION, duration);
         values.put(WorkoutEntry.COLUMN_NAME_MUSCLE_GROUP, muscleGroup);
         values.put(WorkoutEntry.COLUMN_NAME_EQUIPMENT, equipment);
@@ -148,6 +161,7 @@ public class LocalDb {
     public List<Long> readWorkout(int workoutId) {
         String[] projection = {
                 WorkoutEntry._ID,
+                WorkoutEntry.COLUMN_NAME_WORKOUT_NAME,
                 WorkoutEntry.COLUMN_NAME_DURATION,
                 WorkoutEntry.COLUMN_NAME_MUSCLE_GROUP,
                 WorkoutEntry.COLUMN_NAME_EQUIPMENT,
@@ -185,6 +199,7 @@ public class LocalDb {
         // you will actually use after this query.
         String[] projection = {
                 WorkoutEntry._ID,
+                WorkoutEntry.COLUMN_NAME_WORKOUT_NAME,
                 WorkoutEntry.COLUMN_NAME_DURATION,
                 WorkoutEntry.COLUMN_NAME_MUSCLE_GROUP,
                 WorkoutEntry.COLUMN_NAME_EQUIPMENT,
@@ -265,13 +280,13 @@ public class LocalDb {
         List<Long> existingExerciseIds = readExercise("Sample muscle group");
         if (existingExerciseIds.isEmpty()) {
             // If not, insert a sample row into the Exercise table
-            insertExercise("Sample Exercise", "This is a sample exercise.", "Sample illustration", "Sample muscle group", "Sample equipment", 1);
+            insertExercise("Sample Exercise", "This is a sample exercise.", "Sample illustration", "Sample muscle group", "Sample equipment", "Sample difficulty", 5, 10, 20);
         }
 
         // Check if the sample data already exists in the Workout table
         List<Long> existingWorkoutIds = readWorkout("Sample muscle group");
         if (existingWorkoutIds.isEmpty()) {
-            insertWorkout(30, "Sample muscle group", "Sample equipment", 1);
+            insertWorkout("Sample workout name", 30, "Sample muscle group", "Sample equipment", 1);
         }
 
         // Get the IDs of the inserted Exercise and Workout
