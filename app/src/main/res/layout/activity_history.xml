@@ -6,15 +6,6 @@
     android:orientation="vertical"
     tools:context=".Pages.Fragments.MainOptions.History">
 
-    <ScrollView
-        android:id="@+id/historyElements"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/margin_default"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="@dimen/margin_default"
-        android:layout_weight="1"
-        tools:ignore="SpeakableTextPresentCheck" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,16 +15,22 @@
         android:padding="10dp">
 
         <Button
-            android:id="@+id/goToSettings"
+            android:id="@+id/goToViewAll"
             style="@style/ButtonNormal"
             android:layout_width="wrap_content"
-            android:clickable="true"
-            android:elevation="1dp"
-            android:focusable="true"
-            android:maxHeight="10sp"
             android:text="View All" />
 
     </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/historyElements"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:layout_weight="1"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 
 </LinearLayout>

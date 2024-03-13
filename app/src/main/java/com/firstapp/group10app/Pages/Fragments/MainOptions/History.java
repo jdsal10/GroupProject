@@ -1,22 +1,28 @@
 package com.firstapp.group10app.Pages.Fragments.MainOptions;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.firstapp.group10app.DB.DbHelper;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.Session;
+import com.firstapp.group10app.Pages.Fragments.Workouts.WorkoutManual;
+import com.firstapp.group10app.Pages.HistoryContinued;
 import com.firstapp.group10app.R;
 
-public class History extends Fragment {
+public class History extends Fragment implements View.OnClickListener{
     LinearLayout historyLayout;
+    public Button viewAll;
 
     public History() {
         super(R.layout.activity_history);
@@ -34,6 +40,7 @@ public class History extends Fragment {
 
         historyLayout = new LinearLayout(getContext());
         historyLayout.setOrientation(LinearLayout.VERTICAL);
+        
 
         historyScrollView.addView(historyLayout);
 
@@ -51,5 +58,23 @@ public class History extends Fragment {
         }
 
         return rootView;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.goToViewAll) {
+            System.out.println("being clicked");
+//            startNewActivityonHistory(new HistoryContinued());
+        }
+    }
+
+    public void startNewActivityonHistory(AppCompatActivity newActivity) {
+        WorkoutOption parentFrag = ((WorkoutOption) History.this.getParentFragment());
+        if (parentFrag != null) {
+            parentFrag.tellParentToStartNewActivity(newActivity, R.anim.slide_down_in, R.anim.slide_down_out);
+        } else {
+            startActivity(new Intent(getContext(), newActivity.getClass()));
+        }
     }
 }
