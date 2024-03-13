@@ -40,7 +40,11 @@ public class History extends Fragment implements View.OnClickListener{
 
         historyLayout = new LinearLayout(getContext());
         historyLayout.setOrientation(LinearLayout.VERTICAL);
-        
+
+        //Initialise Buttons
+        viewAll = rootView.findViewById(R.id.goToViewAll);
+
+        viewAll.setOnClickListener(this);
 
         historyScrollView.addView(historyLayout);
 
@@ -65,7 +69,7 @@ public class History extends Fragment implements View.OnClickListener{
         int id = v.getId();
         if (id == R.id.goToViewAll) {
             System.out.println("being clicked");
-//            startNewActivityonHistory(new HistoryContinued());
+            startNewActivityonHistory(new HistoryContinued());
         }
     }
 
