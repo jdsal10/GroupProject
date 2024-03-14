@@ -27,7 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class WorkoutHub extends Fragment implements View.OnClickListener {
-    Button enhance, begin, calendar;
+    private Button enhance, begin, calendar;
     LinearLayout workoutHubLinear;
 
     public WorkoutHub() {

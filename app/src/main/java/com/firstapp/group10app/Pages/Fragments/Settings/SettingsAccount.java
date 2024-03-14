@@ -21,9 +21,6 @@ import com.firstapp.group10app.Pages.MainActivity;
 import com.firstapp.group10app.R;
 
 public class SettingsAccount extends Fragment implements View.OnClickListener {
-
-    Button deleteAccount, changePassword;
-
     public SettingsAccount() {
         // Required empty public constructor
     }
@@ -39,10 +36,10 @@ public class SettingsAccount extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.activity_settings_account, container, false);
 
-        deleteAccount = rootView.findViewById(R.id.deleteAccountButton);
+        Button deleteAccount = rootView.findViewById(R.id.deleteAccountButton);
         deleteAccount.setOnClickListener(this);
 
-        changePassword = rootView.findViewById(R.id.changePasswordSignedIn);
+        Button changePassword = rootView.findViewById(R.id.changePasswordSignedIn);
         changePassword.setOnClickListener(this);
 
         return rootView;

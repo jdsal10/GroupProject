@@ -28,23 +28,21 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class WorkoutAi extends AppCompatActivity implements View.OnClickListener {
-    LinearLayout page1, page2;
-    ScrollView page3;
-    Spinner muscleGroupSpinner, durationSpinner, difficultySpinner;
-    TextView mainGoalEdit;
-    EditText equipmentAnswer, mainGoalAnswer, injuriesAnswer, additionalInfoAnswer;
-    String muscleGroupAnswer, durationAnswer, difficultyAnswer;
-    TextView generateButton, continueButton;
-    Button beginWorkoutButton;
-    ImageButton backButton;
-    String output3;
+    private LinearLayout page1, page2;
+    private ScrollView page3;
+    private Spinner muscleGroupSpinner, durationSpinner, difficultySpinner;
+    private EditText equipmentAnswer, mainGoalAnswer, injuriesAnswer, additionalInfoAnswer;
+    private String muscleGroupAnswer, durationAnswer, difficultyAnswer;
+    private TextView generateButton, continueButton;
+    private Button beginWorkoutButton;
+    private String output3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_ai);
 
-        backButton = findViewById(R.id.backButton);
+        ImageButton backButton = findViewById(R.id.backButton);
         beginWorkoutButton = findViewById(R.id.beginWorkout);
         continueButton = findViewById(R.id.continueButton);
         generateButton = findViewById(R.id.generateWorkoutButton);
@@ -59,7 +57,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         page1.setVisibility(View.VISIBLE);
         page2.setVisibility(View.GONE);
         page3.setVisibility(View.GONE);
-        mainGoalEdit = findViewById(R.id.mainGoalTitle);
+        TextView mainGoalEdit = findViewById(R.id.mainGoalTitle);
         populateSpinners();
     }
 

@@ -46,18 +46,16 @@ import java.util.ArrayList;
  * It allows the user to create a new workout by selecting exercises and setting their details.
  */
 public class CreateWorkout extends AppCompatActivity implements View.OnClickListener {
-    String selected = "easy";
-    TextView easy, medium, hard;
-    EditText name, duration, equipment;
-    TextView durationTitle;
-    Drawable border;
-    Button cancelButton, continueButton;
-    ImageButton backButton;
-    LinearLayout p1, p2;
-    int activePage = 1; // 1 = page 1, 2 = page 2
-    Spinner target;
-    ArrayList<JSONObject> addedExercises;
-    ArrayList<String> addedExercisesID;
+    private String selected = "easy";
+    private TextView easy, medium, hard;
+    private EditText name, duration, equipment;
+    private Drawable border;
+    private Button continueButton;
+    private LinearLayout p1, p2;
+    private int activePage = 1; // 1 = page 1, 2 = page 2
+    private Spinner target;
+    private ArrayList<JSONObject> addedExercises;
+    private ArrayList<String> addedExercisesID;
 
 
     /**
@@ -69,7 +67,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_create);
 
-        durationTitle = findViewById(R.id.durationTitle);
+        TextView durationTitle = findViewById(R.id.durationTitle);
         border = ContextCompat.getDrawable(this, R.drawable.toggle_button_outline);
 
         name = findViewById(R.id.workoutNameInput);
@@ -80,9 +78,9 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         medium = findViewById(R.id.mediumSelect);
         hard = findViewById(R.id.hardSelect);
 
-        cancelButton = findViewById(R.id.cancelBtn);
+        Button cancelButton = findViewById(R.id.cancelBtn);
         continueButton = findViewById(R.id.continueBtn);
-        backButton = findViewById(R.id.backButton);
+        ImageButton backButton = findViewById(R.id.backButton);
 
         target = findViewById(R.id.workoutTargetInput);
 

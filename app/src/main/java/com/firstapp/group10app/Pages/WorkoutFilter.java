@@ -15,8 +15,8 @@ import android.widget.Spinner;
 import com.firstapp.group10app.R;
 
 public class WorkoutFilter extends AlertDialog implements View.OnClickListener {
-    Spinner difficulty, duration, target;
-    String durationValue, difficultyValue, targetValue;
+    private Spinner difficulty, duration, target;
+    private String durationValue, difficultyValue, targetValue;
     private FilterChangeListener filterChangeListener;
     Context context;
 

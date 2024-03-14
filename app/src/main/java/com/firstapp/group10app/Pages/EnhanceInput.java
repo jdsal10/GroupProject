@@ -17,8 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class EnhanceInput extends Dialog implements View.OnClickListener {
-    public EditText input;
-    public String result;
+    private EditText input;
 
     public EnhanceInput(Context context) {
         super(context);
@@ -70,7 +69,7 @@ public class EnhanceInput extends Dialog implements View.OnClickListener {
 //                }
 
                 // For testing, use below:
-                result = "{" +
+                String result = "{" +
                         "\"WorkoutName\": \"Cardio Abs Blast\"," +
                         "\"WorkoutDuration\": 35," +
                         "\"TargetMuscleGroup\": \"Abs\"," +

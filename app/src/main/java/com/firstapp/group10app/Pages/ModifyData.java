@@ -24,10 +24,10 @@ import com.firstapp.group10app.Pages.Fragments.Settings.SettingsDataControl;
 import com.firstapp.group10app.R;
 
 public class ModifyData extends Dialog implements View.OnClickListener {
-    String thingToUpdate, updateValue;
-    EditText edit;
-    Spinner dropdown;
-    TextView description;
+    private final String thingToUpdate;
+    private final String updateValue;
+    private EditText edit;
+    private Spinner dropdown;
 
     public ModifyData(Context context, String[] data) {
         super(context);
@@ -79,7 +79,7 @@ public class ModifyData extends Dialog implements View.OnClickListener {
         setContentView(R.layout.popup_settings_modify_data);
 
         LinearLayout area = findViewById(R.id.modificationArea);
-        description = findViewById(R.id.updateDescription);
+        TextView description = findViewById(R.id.updateDescription);
 
         switch (thingToUpdate) {
             case "DOB":

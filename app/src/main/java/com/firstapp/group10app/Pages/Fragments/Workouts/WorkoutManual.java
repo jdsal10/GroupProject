@@ -16,8 +16,6 @@ import com.firstapp.group10app.Pages.WorkoutSearch;
 import com.firstapp.group10app.R;
 
 public class WorkoutManual extends Fragment implements View.OnClickListener {
-    public Button goCreate, goSearch;
-
     public WorkoutManual() {
         super(R.layout.activity_workout_manual);
     }
@@ -29,8 +27,8 @@ public class WorkoutManual extends Fragment implements View.OnClickListener {
         View rootView = inflater.inflate(R.layout.activity_workout_manual, container, false);
 
         // Initialise Buttons
-        goCreate = rootView.findViewById(R.id.goToCreate);
-        goSearch = rootView.findViewById(R.id.goToSearch);
+        Button goCreate = rootView.findViewById(R.id.goToCreate);
+        Button goSearch = rootView.findViewById(R.id.goToSearch);
 
         goCreate.setOnClickListener(this);
         goSearch.setOnClickListener(this);

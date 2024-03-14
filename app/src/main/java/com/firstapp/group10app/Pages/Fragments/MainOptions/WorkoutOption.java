@@ -22,8 +22,6 @@ import com.firstapp.group10app.Pages.Fragments.Workouts.WorkoutManual;
 import com.firstapp.group10app.R;
 
 public class WorkoutOption extends Fragment implements CompoundButton.OnCheckedChangeListener {
-    public RadioButton AISelect, manualSelect;
-
     public WorkoutOption() {
         super(R.layout.activity_workout_option);
     }
@@ -42,8 +40,8 @@ public class WorkoutOption extends Fragment implements CompoundButton.OnCheckedC
         updateView(new WorkoutManual(), -1, -1);
 
         // Initialize RadioButtons
-        AISelect = rootView.findViewById(R.id.toggleAI);
-        manualSelect = rootView.findViewById(R.id.toggleManual);
+        RadioButton AISelect = rootView.findViewById(R.id.toggleAI);
+        RadioButton manualSelect = rootView.findViewById(R.id.toggleManual);
 
         // Set OnCheckedChangeListener
         AISelect.setOnCheckedChangeListener(this);

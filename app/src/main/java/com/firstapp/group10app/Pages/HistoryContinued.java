@@ -14,8 +14,7 @@ import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
 public class HistoryContinued extends AppCompatActivity implements View.OnClickListener {
-    LinearLayout continuedLayout;
-    ImageButton backButton;
+    private ImageButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +25,7 @@ public class HistoryContinued extends AppCompatActivity implements View.OnClickL
         backButton.setOnClickListener(this);
 
         ScrollView historyContinuedScrollView = findViewById(R.id.historyElementsContinued);
-        continuedLayout = new LinearLayout(this);
+        LinearLayout continuedLayout = new LinearLayout(this);
         continuedLayout.setOrientation(LinearLayout.VERTICAL);
 
         historyContinuedScrollView.addView(continuedLayout);

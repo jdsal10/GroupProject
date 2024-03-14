@@ -20,8 +20,8 @@ import com.firstapp.group10app.Pages.HistoryContinued;
 import com.firstapp.group10app.R;
 
 public class History extends Fragment implements View.OnClickListener{
-    LinearLayout historyLayout;
-    public Button viewAll;
+    private LinearLayout historyLayout;
+    private Button viewAll;
 
     public History() {
         super(R.layout.activity_history);

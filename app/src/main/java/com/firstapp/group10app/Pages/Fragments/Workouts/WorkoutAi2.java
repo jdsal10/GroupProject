@@ -18,8 +18,6 @@ import com.firstapp.group10app.Pages.WorkoutAi;
 import com.firstapp.group10app.R;
 
 public class WorkoutAi2 extends Fragment implements View.OnClickListener {
-    public Button goAI;
-
     public WorkoutAi2() {
         super(R.layout.activity_workout_ai2);
     }
@@ -31,7 +29,7 @@ public class WorkoutAi2 extends Fragment implements View.OnClickListener {
         View rootView = inflater.inflate(R.layout.activity_workout_ai2, container, false);
 
         // Initialise Buttons
-        goAI = rootView.findViewById(R.id.goToAI);
+        Button goAI = rootView.findViewById(R.id.goToAI);
 
         goAI.setOnClickListener(this);
 

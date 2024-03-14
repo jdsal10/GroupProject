@@ -48,8 +48,6 @@ public class DbConnection {
             return st.executeQuery(statement);
         } catch (Exception e) {
             Log.e("Error in DBConnection.executeQuery", e.toString());
-
-            // TODO: Add a proper error handling
             throw new RuntimeException(e);
         }
     }

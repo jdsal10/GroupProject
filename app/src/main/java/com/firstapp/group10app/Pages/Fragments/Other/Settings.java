@@ -15,8 +15,8 @@ import com.firstapp.group10app.Pages.Fragments.Settings.SettingsDataControl;
 import com.firstapp.group10app.R;
 
 public class Settings extends Fragment implements View.OnClickListener {
-    public int currentView;
-    public RadioButton dataControlButton, accessibilityButton, accountButton;
+    private int currentView;
+    private RadioButton dataControlButton, accessibilityButton, accountButton;
 
     public Settings() {
         super(R.layout.activity_settings);

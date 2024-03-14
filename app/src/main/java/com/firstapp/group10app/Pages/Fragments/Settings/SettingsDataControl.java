@@ -18,9 +18,7 @@ import java.util.ArrayList;
 
 public class SettingsDataControl extends Fragment implements View.OnClickListener {
     // Declared variables
-    static TextView dobValue, weightValue, heightValue, allergiesValue, sexValue, reasonsValue;
-    LinearLayout dobModify, weightModify, heightModify, sexModify, allergiesModify, reasonsModify;
-    ArrayList<String> details;
+    private static TextView dobValue, weightValue, heightValue, allergiesValue, sexValue, reasonsValue;
 
     public SettingsDataControl() {
         super(R.layout.activity_settings_data_control);
@@ -94,12 +92,12 @@ public class SettingsDataControl extends Fragment implements View.OnClickListene
         View rootView = inflater.inflate(R.layout.activity_settings_data_control, container, false);
 
         // Initialise the clear buttons
-        dobModify = rootView.findViewById(R.id.dobLayout);
-        weightModify = rootView.findViewById(R.id.weightLayout);
-        heightModify = rootView.findViewById(R.id.heightLayout);
-        sexModify = rootView.findViewById(R.id.sexLayout);
-        allergiesModify = rootView.findViewById(R.id.allergiesLayout);
-        reasonsModify = rootView.findViewById(R.id.reasonsLayout);
+        LinearLayout dobModify = rootView.findViewById(R.id.dobLayout);
+        LinearLayout weightModify = rootView.findViewById(R.id.weightLayout);
+        LinearLayout heightModify = rootView.findViewById(R.id.heightLayout);
+        LinearLayout sexModify = rootView.findViewById(R.id.sexLayout);
+        LinearLayout allergiesModify = rootView.findViewById(R.id.allergiesLayout);
+        LinearLayout reasonsModify = rootView.findViewById(R.id.reasonsLayout);
 
         // Initialize the value fields.
         dobValue = rootView.findViewById(R.id.DOBValue);
@@ -122,7 +120,7 @@ public class SettingsDataControl extends Fragment implements View.OnClickListene
         reasonsValue.setSelected(true);
 
         // Declares an array of the users details.
-        details = new ArrayList<>();
+        ArrayList<String> details = new ArrayList<>();
 
         // Gets the details of the current user.
         try {
