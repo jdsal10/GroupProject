@@ -6,11 +6,21 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * This class is responsible for interacting with the OpenAI GPT-3 API.
+ * It sends a chat message to the API and retrieves the response.
+ */
 public class ChatGptClient {
     private static final String apiKey = "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";
     private static final String model = "gpt-3.5-turbo";
     private static final String url = "https://api.openai.com/v1/chat/completions";
 
+    /**
+     * Sends a chat message to the OpenAI GPT-3 API and retrieves the response.
+     * @param input The chat message to send to the API.
+     * @return The response from the API.
+     * @throws Exception If an error occurs while interacting with the API.
+     */
     public static String chatGPT(String input) throws Exception {
         // Connect to the API
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
@@ -38,7 +48,7 @@ public class ChatGptClient {
         }
         in.close();
 
-        // extract the text from the response
+        // Extract the text from the response
         int start = responseRaw.indexOf("content\": \"") + 11;
         int end = responseRaw.indexOf("\"finish_reason\":") - 15;
 
