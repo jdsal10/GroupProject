@@ -34,7 +34,7 @@ public class EnhanceResults extends Dialog implements View.OnClickListener {
 
         LinearLayout show = findViewById(R.id.resultHolder);
 
-        showTextJSON(getContext(), show, Session.selectedWorkout);
+        showTextJSON(getContext(), show, Session.getSelectedWorkout());
     }
 
     @Override

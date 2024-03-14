@@ -51,7 +51,7 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
         calendar = rootView.findViewById(R.id.addToCalendar);
 
         // Gets the current workout.
-        JSONObject currentWorkout = Session.selectedWorkout;
+        JSONObject currentWorkout = Session.getSelectedWorkout();
         workoutHubLinear = rootView.findViewById(R.id.hubWorkoutHolder);
         try {
             // Sets the view.
@@ -61,7 +61,7 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
         }
 
         // If the user is not signed in / anonymous, they cannot add the workout to history.
-        if ((!Session.dbStatus) || (!Session.signedIn)) {
+        if ((!Session.isDbStatus()) || (!Session.getSignedIn())) {
             begin.setVisibility(GONE);
         }
 

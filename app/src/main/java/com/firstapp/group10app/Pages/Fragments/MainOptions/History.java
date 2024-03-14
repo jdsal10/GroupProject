@@ -16,7 +16,6 @@ import androidx.fragment.app.Fragment;
 import com.firstapp.group10app.DB.DbHelper;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.Session;
-import com.firstapp.group10app.Pages.Fragments.Workouts.WorkoutManual;
 import com.firstapp.group10app.Pages.HistoryContinued;
 import com.firstapp.group10app.R;
 
@@ -49,7 +48,7 @@ public class History extends Fragment implements View.OnClickListener{
         historyScrollView.addView(historyLayout);
 
         try {
-            String HistoryJSON = DbHelper.getUserWorkoutsLimited(Session.userEmail);
+            String HistoryJSON = DbHelper.getUserWorkoutsLimited(Session.getUserEmail());
             if (HistoryJSON == null) {
                 ItemVisualiser.showEmpty(historyLayout);
             } else {

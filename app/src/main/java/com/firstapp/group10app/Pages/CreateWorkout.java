@@ -396,7 +396,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
 
             // Converts to a String of JSON.
             try {
-                Session.selectedWorkout = createJSONString(data, addedExercises);
+                Session.setSelectedWorkout(createJSONString(data, addedExercises));
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
@@ -480,7 +480,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
             newWorkout.put("Equipment", equipment);
             newWorkout.put("Difficulty", difficulty);
 
-            Session.workoutID = JsonToDb.insertWorkout(newWorkout, exercises);
+            Session.setWorkoutID(JsonToDb.insertWorkout(newWorkout, exercises));
 
             Intent intent = new Intent(this, ActivityContainer.class);
             intent.putExtra("workoutHub", WorkoutHub.class);

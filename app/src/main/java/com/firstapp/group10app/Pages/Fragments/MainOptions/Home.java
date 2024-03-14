@@ -26,7 +26,7 @@ public class Home extends Fragment {
         View rootView = inflater.inflate(R.layout.activity_home, container, false);
 
         // For now, a check should run at the start of each file for DB connection.
-        Session.dbStatus = DbConnection.testConnection();
+        Session.setDbStatus(DbConnection.testConnection());
 
         super.onCreate(savedInstanceState);
 

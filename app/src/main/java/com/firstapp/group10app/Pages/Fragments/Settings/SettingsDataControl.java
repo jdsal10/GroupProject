@@ -126,12 +126,12 @@ public class SettingsDataControl extends Fragment implements View.OnClickListene
 
         // Gets the details of the current user.
         try {
-            details.add(Session.userDetails[0]);
-            details.add(Session.userDetails[1]);
-            details.add(Session.userDetails[2]);
-            details.add(Session.userDetails[3]);
-            details.add(Session.userDetails[4]);
-            details.add(Session.userDetails[5]);
+            details.add(Session.getUserDetails()[0]);
+            details.add(Session.getUserDetails()[1]);
+            details.add(Session.getUserDetails()[2]);
+            details.add(Session.getUserDetails()[3]);
+            details.add(Session.getUserDetails()[4]);
+            details.add(Session.getUserDetails()[5]);
 
         } catch (Exception e) {
             throw new RuntimeException(e);

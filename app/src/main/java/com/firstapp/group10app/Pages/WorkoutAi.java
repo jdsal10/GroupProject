@@ -17,7 +17,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.ChatGPT.ChatGptClient;
-import com.firstapp.group10app.Other.ExceptionHandler;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.JsonToDb;
 import com.firstapp.group10app.Other.Session;
@@ -212,8 +211,8 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     // Adds a workout to the database once the user confirms.
     public void addWorkout(String data) throws JSONException {
         JSONObject converted = new JSONObject(data);
-        Session.selectedWorkout = converted;
-        Session.workoutID = JsonToDb.insertWorkoutAI(converted);
+        Session.setSelectedWorkout(converted);
+        Session.setWorkoutID(JsonToDb.insertWorkoutAI(converted));
     }
 
     // Shows the workout to the user once generated.

@@ -198,7 +198,7 @@ public class DbHelper {
         }
 
         DbConnection db = new DbConnection();
-        db.executeStatement("UPDATE HealthData.Users SET " + toUpdate + " = '" + value + "' WHERE Email = '" + Session.userEmail + "'");
+        db.executeStatement("UPDATE HealthData.Users SET " + toUpdate + " = '" + value + "' WHERE Email = '" + Session.getUserEmail() + "'");
     }
 
     public void deleteUser(String email) {
@@ -349,8 +349,8 @@ public class DbHelper {
     public static void insertHistory() {
         DbConnection d = new DbConnection();
         String sqlHistory = "INSERT INTO HealthData.UserWorkoutHistory (Email, WorkoutID, Time, Date, Duration) VALUES (" +
-                "'" + Session.userEmail + "', " +
-                "'" + Session.workoutID + "', " +
+                "'" + Session.getUserEmail() + "', " +
+                "'" + Session.getWorkoutID() + "', " +
                 "CURRENT_TIME(), " +
                 "CURRENT_DATE(), " +
                 // Add with correct duration.

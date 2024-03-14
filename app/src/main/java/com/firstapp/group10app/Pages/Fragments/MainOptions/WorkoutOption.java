@@ -50,7 +50,7 @@ public class WorkoutOption extends Fragment implements CompoundButton.OnCheckedC
         manualSelect.setOnCheckedChangeListener(this);
 
         // If the user is not signed in / anonymous, they do not access to the AI or to create a workout.
-        if ((!Session.dbStatus) || (!Session.signedIn)) {
+        if ((!Session.isDbStatus()) || (!Session.getSignedIn())) {
             AISelect.setEnabled(false);
         }
 
@@ -62,7 +62,7 @@ public class WorkoutOption extends Fragment implements CompoundButton.OnCheckedC
         // If ensure only one is selected at once
         if (isChecked) {
             if (buttonView.getId() == R.id.toggleAI) {
-                if ((!Session.signedIn) || (!DbConnection.testConnection())) {
+                if ((!Session.getSignedIn()) || (!DbConnection.testConnection())) {
                     Toast.makeText(requireContext(), "No connection!", Toast.LENGTH_SHORT).show();
                     // Need to add capability to enable somehow.
                     // AISelect.setEnabled(false);

@@ -270,8 +270,8 @@ public class ItemVisualiser {
                 throw new RuntimeException(e);
             }
 
-            Session.selectedWorkout = workoutObject;
-            Session.workoutID = id;
+            Session.setSelectedWorkout(workoutObject);
+            Session.setWorkoutID(id);
 
             Intent intent = new Intent(cThis, ActivityContainer.class);
             intent.putExtra("workoutHub", WorkoutHub.class);

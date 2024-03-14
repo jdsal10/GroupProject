@@ -47,7 +47,7 @@ public class WorkoutAi2 extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.goToAI) {
-            if ((!Session.signedIn) || (!DbConnection.testConnection())) {
+            if ((!Session.getSignedIn()) || (!DbConnection.testConnection())) {
                 Toast.makeText(getContext(), "No connection!", Toast.LENGTH_SHORT).show();
             } else {
                 tellParentToStartNewActivity(new WorkoutAi());

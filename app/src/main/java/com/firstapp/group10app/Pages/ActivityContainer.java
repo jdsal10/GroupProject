@@ -35,7 +35,7 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (Session.localDB != null) {
+        if (Session.getLocalDB() != null) {
             LocalDb localDbPrint = new LocalDb(this);
             localDbPrint.printDataForDebugging();
         }
@@ -44,7 +44,7 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         setContentView(binding.getRoot());
 
         Button goSettings = findViewById(R.id.goToSettings);
-        if (Session.signedIn == null || !Session.signedIn) {
+        if (Session.getSignedIn() == null || !Session.getSignedIn()) {
             goSettings.setVisibility(View.GONE);
         } else {
             goSettings.setOnClickListener(this);

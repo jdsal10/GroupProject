@@ -5,7 +5,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class OnlineChecks {
     public static void checkNavigationBar(BottomNavigationView view) {
-        if ((!Session.dbStatus) || (!Session.signedIn)) {
+        if ((!Session.isDbStatus()) || (!Session.getSignedIn())) {
             view.getMenu().findItem(R.id.goToHistory).setEnabled(false);
         }
     }

@@ -17,7 +17,6 @@ import com.firstapp.group10app.R;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
     private EditText Email, Password;
@@ -54,8 +53,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 if (db.checkUser(emailText, passwordText)) { // .replace("[", "").replace("]", ""))) {
                     Toast.makeText(Login.this, "Welcome \n" + emailText + " ! ", Toast.LENGTH_SHORT).show();
                     setSessionData(emailText);
-                    Session.userEmail = emailText;
-                    Session.signedIn = true;
+                    Session.setUserEmail(emailText);
+                    Session.setSignedIn(true);
 
                     startActivity(new Intent(getApplicationContext(), ActivityContainer.class));
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -79,19 +78,19 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         ResultSet data = db.getUser(email);
 
         if (data.next()) {
-            Session.userDetails = new String[6];
-            Session.userDetails[0] = data.getString("DOB");
-            Session.userDetails[1] = data.getString("Weight");
-            Session.userDetails[2] = data.getString("Height");
+            Session.setUserDetails(new String[6]);
+            Session.getUserDetails()[0] = data.getString("DOB");
+            Session.getUserDetails()[1] = data.getString("Weight");
+            Session.getUserDetails()[2] = data.getString("Height");
 
             if (data.getString("Sex").equals("M")) {
-                Session.userDetails[3] = "Male";
+                Session.getUserDetails()[3] = "Male";
             } else if (data.getString("Sex").equals("F")) {
-                Session.userDetails[3] = "Female";
+                Session.getUserDetails()[3] = "Female";
             }
 
-            Session.userDetails[4] = data.getString("HealthCondition");
-            Session.userDetails[5] = data.getString("ReasonForDownloading");
+            Session.getUserDetails()[4] = data.getString("HealthCondition");
+            Session.getUserDetails()[5] = data.getString("ReasonForDownloading");
         } else {
             Log.d("Login.setSessionData", "No data found for the user with email: " + email);
         }

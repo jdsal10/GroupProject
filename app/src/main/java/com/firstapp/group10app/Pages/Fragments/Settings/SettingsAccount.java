@@ -73,9 +73,9 @@ public class SettingsAccount extends Fragment implements View.OnClickListener {
             String password = passwordDelete.getText().toString();
             DbHelper db = new DbHelper();
             try {
-                if (db.checkUser(Session.userEmail, password)) {
+                if (db.checkUser(Session.getUserEmail(), password)) {
                     // Add logic for deletion below - requires integration to workouts.
-                    db.deleteUser(Session.userEmail);
+                    db.deleteUser(Session.getUserEmail());
 
                     Log.d("SettingsAccount.showConfirmation", "CONFIRM DELETION!");
 
@@ -113,7 +113,7 @@ public class SettingsAccount extends Fragment implements View.OnClickListener {
 
             DbHelper db = new DbHelper();
             try {
-                if (!db.checkUser(Session.userEmail, cp)) {
+                if (!db.checkUser(Session.getUserEmail(), cp)) {
                     currentPassword.setError("Incorrect Password");
                 } else if (!np1.equals(np2)) {
                     newPassword1.setError("The passwords do not match");

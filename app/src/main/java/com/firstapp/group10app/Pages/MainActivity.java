@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         // Start the local database on a new thread
-        if (Session.localDB == null) {
+        if (Session.getLocalDB() == null) {
             new Thread(() -> {
                 try {
                     LocalDb localDb = new LocalDb(MainActivity.this);
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     // Insert sample data into the database
                     localDb.insertSampleData();
                     // Store the LocalDb instance in the Session.localDB variable
-                    Session.localDB = localDb.getReadableDatabase();
+                    Session.setLocalDB(localDb.getReadableDatabase());
 
                     // Close the database connection
                     localDb.close();
@@ -62,13 +62,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         skipText.setOnClickListener(this);
 
         // Test database connection
-        Session.dbStatus = DbConnection.testConnection();
+        Session.setDbStatus(DbConnection.testConnection());
 
         // Default value.
-        Session.signedIn = false;
+        Session.setSignedIn(false);
 
         // If the connection false, disable the login.
-        if (!Session.dbStatus) {
+        if (!Session.isDbStatus()) {
             goToLoginButton.setEnabled(false);
             goToLoginButton.setAlpha(.5f);
         }
@@ -81,8 +81,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(MainActivity.this, Login.class));
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         } else if (id == R.id.anonymous) {
-            Session.userEmail = null;
-            Session.signedIn = false;
+            Session.setUserEmail(null);
+            Session.setSignedIn(false);
 
             Intent intent = new Intent(getApplicationContext(), ActivityContainer.class);
             startActivity(intent);

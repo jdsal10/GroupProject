@@ -45,7 +45,7 @@ public class EnhanceInput extends Dialog implements View.OnClickListener {
             // Check theres data first.
             if (!enhanceData.isEmpty()) {
                 // Add code to generate workout using Session.currentWorkout and new prompt.
-                String workoutString = Session.selectedWorkout.toString();
+                String workoutString = Session.getSelectedWorkout().toString();
                 String prompt = "Given the following workout " + workoutString + ", apply the following request to the data, only returning the JSON, and in the exact format: " + enhanceData + ".";                System.out.println(prompt);
 
                 Toast.makeText(getContext(), "Generating...", Toast.LENGTH_SHORT).show();
@@ -142,7 +142,7 @@ public class EnhanceInput extends Dialog implements View.OnClickListener {
 
 //                 Update Session with new workout
                 try {
-                    Session.selectedWorkout = new JSONObject(result);
+                    Session.setSelectedWorkout(new JSONObject(result));
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }

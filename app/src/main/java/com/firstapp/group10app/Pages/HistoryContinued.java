@@ -33,7 +33,7 @@ public class HistoryContinued extends AppCompatActivity implements View.OnClickL
 
         try {
             // gets the workouts user has done, specific to the user
-            String HistoryContinuedJSON = DbHelper.getUserWorkouts(Session.userEmail);
+            String HistoryContinuedJSON = DbHelper.getUserWorkouts(Session.getUserEmail());
             ItemVisualiser.startWorkoutGeneration(HistoryContinuedJSON, this, continuedLayout, "tt", R.layout.popup_history, R.id.popupHistory);
         } catch (Exception e) {
             // TODO: handle exception better
