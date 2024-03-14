@@ -2,6 +2,7 @@ package com.firstapp.group10app.Other;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONObject;
@@ -48,6 +49,7 @@ public class Session {
         return selectedWorkout;
     }
 
+    @Nullable
     public static void setSelectedWorkout(JSONObject selectedWorkout) {
         Session.selectedWorkout = selectedWorkout;
     }
@@ -68,6 +70,7 @@ public class Session {
         Session.workoutID = workoutID;
     }
 
+    @Nullable
     public static AppCompatActivity getContainer() {
         return container;
     }
