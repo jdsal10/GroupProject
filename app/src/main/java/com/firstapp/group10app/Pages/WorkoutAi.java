@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.ChatGPT.ChatGptClient;
+import com.firstapp.group10app.Other.ExceptionHandler;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.JsonToDb;
 import com.firstapp.group10app.Other.Session;
