@@ -41,6 +41,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents the CreateWorkout activity in the application.
+ * It allows the user to create a new workout by selecting exercises and setting their details.
+ */
 public class CreateWorkout extends AppCompatActivity implements View.OnClickListener {
     String selected = "easy";
     TextView easy, medium, hard;
@@ -56,6 +60,10 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
     ArrayList<String> addedExercisesID;
 
 
+    /**
+     * This method is called when the activity is starting.
+     * It initializes the activity and sets up the UI elements.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,6 +125,10 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         setListeners();
     }
 
+    /**
+     * This method sets up the listeners for the difficulty views.
+     * It checks if the fields are empty and sets an error message if they are.
+     */
     public void setListeners() {
         name.addTextChangedListener(new TextWatcher() {
             @Override
@@ -170,6 +182,10 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         });
     }
 
+    /**
+     * This method creates the exercise view.
+     * It gets all the exercises from the database and displays them in a scroll view.
+     */
     public void createExerciseView() {
         String newData = DbHelper.getAllExercises();
 
@@ -196,18 +212,14 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         // For every exercise, we create a box containing the details.
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject workoutObject;
-
             try {
                 workoutObject = jsonArray.getJSONObject(i);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
 
-            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            LinearLayout exerciseCombo = (LinearLayout) inflater.inflate(R.layout.element_exercise_combo, null);
-
+            LinearLayout exerciseCombo = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.element_exercise_combo, null);
             View selectedExerciseToggle = exerciseCombo.findViewById(R.id.checkBox);
-
             LinearLayout exerciseBox = exerciseCombo.findViewById(R.id.exerciseDetails);
 
             // Sets correct measurements for toggles.
@@ -222,48 +234,11 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
             ImageView exerciseImage = exerciseBox.findViewById(R.id.exerciseImage);
             View difficultyScale = exerciseBox.findViewById(R.id.difficulty);
 
-            TextView exerciseNameView = exerciseBox.findViewById(R.id.exerciseNameView);
-            TextView exerciseDescriptionView = exerciseBox.findViewById(R.id.exerciseDescriptionView);
-            TextView exerciseTargetMuscleGroupView = exerciseBox.findViewById(R.id.exerciseTargetMuscleGroupView);
-            TextView exerciseEquipmentView = exerciseBox.findViewById(R.id.exerciseEquipmentView);
-            TextView exerciseSetsView = exerciseBox.findViewById(R.id.exerciseSetsView);
-            TextView exerciseRepsView = exerciseBox.findViewById(R.id.exerciseRepsView);
-            TextView exerciseTimeView = exerciseBox.findViewById(R.id.exerciseTimeView);
-
-
-            exerciseNameView.setText(String.format(workoutObject.optString("ExerciseName", "")));
-            exerciseDescriptionView.setText(workoutObject.optString("Description", ""));
-            exerciseTargetMuscleGroupView.setText(String.format("Exercise Target Group: %s", workoutObject.optString("TargetMuscleGroup", "")));
-            exerciseEquipmentView.setText(String.format("Exercise Equipment: %s", workoutObject.optString("Equipment", "")));
-            exerciseSetsView.setText(String.format("Exercise Sets: %s", workoutObject.optString("Sets", "")));
-            exerciseRepsView.setText(String.format("Exercise Reps: %s", workoutObject.optString("Reps", "")));
-            exerciseTimeView.setText(String.format("Exercise Time: %s", workoutObject.optString("Time", "")));
-
-
+            setExerciseDetails(exerciseBox, workoutObject);
             exerciseImage.setImageResource(R.drawable.icon_workout);
 
             String difficultyValue = workoutObject.optString("Difficulty", "");
-
-            // Create a GradientDrawable with a corner radius
-            GradientDrawable difficultyDrawable = new GradientDrawable();
-            difficultyDrawable.setShape(GradientDrawable.RECTANGLE);
-            difficultyDrawable.setCornerRadius(dpToPx(this, 8)); // set corner radius to 8dp
-
-            // Declares background colours.
-            switch (difficultyValue) {
-                case "Easy":
-                    difficultyDrawable.setColor(ContextCompat.getColor(this, R.color.pastel_green));
-                    break;
-                case "Medium":
-                    difficultyDrawable.setColor(ContextCompat.getColor(this, R.color.pastel_yellow));
-                    break;
-                case "Hard":
-                    difficultyDrawable.setColor(ContextCompat.getColor(this, R.color.pastel_red));
-                    break;
-            }
-
-            // Set the GradientDrawable as the background for the difficultyScale View
-            difficultyScale.setBackground(difficultyDrawable);
+            difficultyScale.setBackground(createDifficultyDrawable(difficultyValue));
 
             final int index = i;
 
@@ -298,6 +273,34 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
 
         // Adds the Linear layout containing all boxes to the scroll view.
         exerciseScroll.addView(exerciseHolder);
+    }
+
+    private void setExerciseDetails(LinearLayout exerciseBox, JSONObject workoutObject) {
+        ((TextView) exerciseBox.findViewById(R.id.exerciseNameView)).setText(workoutObject.optString("ExerciseName", ""));
+        ((TextView) exerciseBox.findViewById(R.id.exerciseDescriptionView)).setText(workoutObject.optString("Description", ""));
+        ((TextView) exerciseBox.findViewById(R.id.exerciseTargetMuscleGroupView)).setText(String.format("Exercise Target Group: %s", workoutObject.optString("TargetMuscleGroup", "")));
+        ((TextView) exerciseBox.findViewById(R.id.exerciseEquipmentView)).setText(String.format("Exercise Equipment: %s", workoutObject.optString("Equipment", "")));
+        ((TextView) exerciseBox.findViewById(R.id.exerciseSetsView)).setText(String.format("Exercise Sets: %s", workoutObject.optString("Sets", "")));
+        ((TextView) exerciseBox.findViewById(R.id.exerciseRepsView)).setText(String.format("Exercise Reps: %s", workoutObject.optString("Reps", "")));
+        ((TextView) exerciseBox.findViewById(R.id.exerciseTimeView)).setText(String.format("Exercise Time: %s", workoutObject.optString("Time", "")));
+    }
+
+    private GradientDrawable createDifficultyDrawable(String difficultyValue) {
+        GradientDrawable difficultyDrawable = new GradientDrawable();
+        difficultyDrawable.setShape(GradientDrawable.RECTANGLE);
+        difficultyDrawable.setCornerRadius(dpToPx(this, 8));
+        switch (difficultyValue) {
+            case "Easy":
+                difficultyDrawable.setColor(ContextCompat.getColor(this, R.color.pastel_green));
+                break;
+            case "Medium":
+                difficultyDrawable.setColor(ContextCompat.getColor(this, R.color.pastel_yellow));
+                break;
+            case "Hard":
+                difficultyDrawable.setColor(ContextCompat.getColor(this, R.color.pastel_red));
+                break;
+        }
+        return difficultyDrawable;
     }
 
     @Override
@@ -357,6 +360,10 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    /**
+     * This method is called when the user has finished selecting exercises and is ready to create the workout.
+     * It displays a final check dialog where the user can review their workout before creating it.
+     */
     public void finalCheck() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -400,6 +407,21 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         alertDialog.show();
     }
 
+    /**
+     * This method creates a JSON string that represents a workout.
+     * The workout consists of a name, duration, target muscle group, equipment, difficulty, and a list of exercises.
+     * Each exercise is a JSONObject that contains details about the exercise.
+     *
+     * @param data           An array of Strings where:
+     *                       data[0] is the workout name,
+     *                       data[1] is the workout duration,
+     *                       data[2] is the target muscle group,
+     *                       data[3] is the equipment, and
+     *                       data[4] is the difficulty.
+     * @param addedExercises An ArrayList of JSONObjects where each JSONObject is an exercise with its details.
+     * @return A JSONObject that represents the workout.
+     * @throws JSONException If there is a problem with the JSON syntax.
+     */
     public JSONObject createJSONString(String[] data, ArrayList<JSONObject> addedExercises) throws JSONException {
         StringBuilder json = new StringBuilder("{");
         json.append("\"WorkoutName\": \"").append(data[0]).append("\",");
@@ -436,6 +458,18 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         return new JSONObject(String.valueOf(json));
     }
 
+    /**
+     * This method adds a new workout to the database.
+     * It creates a JSONObject that represents the workout and then calls the insertWorkout method to add it to the database.
+     * After the workout is added, it starts the ActivityContainer activity.
+     *
+     * @param name       The name of the workout.
+     * @param duration   The duration of the workout.
+     * @param target     The target muscle group of the workout.
+     * @param equipment  The equipment needed for the workout.
+     * @param difficulty The difficulty level of the workout.
+     * @param exercises  An ArrayList of Strings where each String is the ID of an exercise in the workout.
+     */
     public void addWorkout(String name, String duration, String target, String equipment, String difficulty, ArrayList<String> exercises) {
         JSONObject newWorkout = new JSONObject();
 
@@ -457,6 +491,14 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    /**
+     * This method enables the border of a View.
+     * It creates a LayerDrawable with two layers: the first layer is a color drawable and the second layer is a border.
+     * The color of the first layer depends on the View that is passed as a parameter.
+     * The border is a Drawable that is stored as a field in the class.
+     *
+     * @param v The View that needs to have its border enabled.
+     */
     private void enableBorder(View v) {
         Drawable[] layers = new Drawable[2];
 
@@ -474,6 +516,13 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         v.setBackground(layerDrawable);
     }
 
+    /**
+     * This method disables the border of a View.
+     * It creates a GradientDrawable with a color that depends on the View that is passed as a parameter.
+     * The GradientDrawable is then set as the background of the View.
+     *
+     * @param v The View that needs to have its border disabled.
+     */
     private void disableBorder(View v) {
         GradientDrawable drawable = new GradientDrawable();
         drawable.setShape(GradientDrawable.RECTANGLE);
@@ -490,11 +539,26 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         v.setBackground(drawable);
     }
 
+    /**
+     * This method converts dp (density-independent pixels) to px (pixels).
+     * It uses the display metrics to get the density of the screen and then multiplies the dp value by the density to get the px value.
+     *
+     * @param context The context of the current state of the application.
+     * @param dp      The value in dp that needs to be converted to px.
+     * @return The value in px.
+     */
     public static int dpToPx(Context context, int dp) {
         float density = context.getResources().getDisplayMetrics().density;
         return Math.round((float) dp * density);
     }
 
+    /**
+     * This method creates a color drawable with a specific color.
+     * It creates a GradientDrawable, sets its shape to a rectangle, sets its color to the color that is passed as a parameter, and sets its corner radius to 8dp.
+     *
+     * @param color The color of the drawable.
+     * @return A Drawable that is a rectangle with a specific color and a corner radius of 8dp.
+     */
     private Drawable createColorDrawable(int color) {
         GradientDrawable drawable = new GradientDrawable();
         drawable.setShape(GradientDrawable.RECTANGLE);
