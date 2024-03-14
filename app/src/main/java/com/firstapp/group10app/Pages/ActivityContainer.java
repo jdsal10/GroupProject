@@ -59,7 +59,7 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         if (currentView != HOME && currentView != R.layout.activity_home
                 && currentView != WORKOUTS && currentView != R.layout.activity_workout_option
                 && currentView != HISTORY && currentView != R.layout.activity_history) {
-            Log.d("ActivityContainer.onCreate", "currentView static var not set, setting to 2 (Workouts)");
+            Log.d("ActivityContainer.onCreate", "currentView static var not set, setting to 1 (Home)");
             currentView = HOME;
         }
 
@@ -140,20 +140,7 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
 
     // Set the page title based on the current view.
     private void setPageTitle(Fragment view) {
-        switch (view.getClass().getSimpleName()) {
-            case "Home":
-                currentView = HOME;
-                pageTitle.setText("Home Page");
-                break;
-            case "WorkoutOption":
-                currentView = WORKOUTS;
-                pageTitle.setText("Workouts Page");
-                break;
-            case "History":
-                currentView = HISTORY;
-                pageTitle.setText("History Page");
-                break;
-        }
+        pageTitle.setText(view.getClass().getSimpleName() + " Page");
     }
 
     // Start new activity
