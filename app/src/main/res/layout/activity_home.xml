@@ -6,152 +6,120 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Header -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My Statistics"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:padding="16dp"
+            android:textColor="@android:color/background_dark"
+            android:layout_marginBottom="0dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/margin_large"
-            android:layout_marginEnd="@dimen/margin_large"
-            android:layout_weight="6.5"
-            android:orientation="vertical">
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/shape_transparent_very_curved_corners">
 
+            <!-- Workout Count -->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/shape_tetradic1"
-                android:orientation="horizontal"
-                android:padding="3dp">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_margin="5dp">
 
-                <LinearLayout
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/workouts_sym">
+
+                </ImageView>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:text="Workout"
+                    android:textColor="@android:color/black" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/homePageGoToWorkouts"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/font_size_large"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:text="@string/homePageGoToWorkouts"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/font_size_small" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="3dp"
-                android:background="@drawable/shape_gradient_main"
-                android:orientation="horizontal"
-                android:padding="3dp">
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/workoutCountTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/homePageGoToWorkouts"
-                        android:textSize="@dimen/font_size_large"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:text="@string/homePageGoToWorkouts"
-                        android:textSize="@dimen/font_size_small" />
-                </LinearLayout>
-
+                    android:text="0"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
             </LinearLayout>
 
+            <!-- Kcal -->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="3dp"
-                android:background="@drawable/shape_gradient_main"
-                android:orientation="horizontal"
-                android:padding="3dp">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
 
-                <LinearLayout
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/kcal_sym">
+
+                </ImageView>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:text="kcal"
+                    android:textColor="@android:color/black" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/homePageGoToWorkouts"
-                        android:textSize="@dimen/font_size_large"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:text="@string/homePageGoToWorkouts"
-                        android:textSize="@dimen/font_size_small" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="3dp"
-                android:background="@drawable/shape_gradient_main"
-                android:orientation="horizontal"
-                android:padding="3dp">
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/kcalTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/homePageGoToWorkouts"
-                        android:textSize="@dimen/font_size_large"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:text="@string/homePageGoToWorkouts"
-                        android:textSize="@dimen/font_size_small" />
-                </LinearLayout>
-
+                    android:text="0"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
             </LinearLayout>
 
+            <!-- Time -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/time_sym">
+
+                </ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Time"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/timeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 min"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
