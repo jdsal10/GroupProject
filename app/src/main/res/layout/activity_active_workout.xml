@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingStart="10sp"
+    android:paddingEnd="10sp"
+    tools:context=".Pages.active_workout">
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:gravity="center"
+        android:text="PLACEHOLER"
+        android:textSize="@dimen/font_size_large" />
+
+    <ImageView
+        android:id="@+id/exerciseImage"
+        android:layout_width="match_parent"
+        android:layout_height="10sp"
+        android:layout_weight="1"
+        android:background="@drawable/icon_workout" />
+
+    <LinearLayout
+        android:id="@+id/exerciseDetailsHolder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:id="@+id/buttonHolder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/pauseWorkout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pause" />
+
+        <Button
+            android:id="@+id/finishWorkout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Finish"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/resumeWorkout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Resume"
+            android:visibility="gone" />
+    </LinearLayout>
+</LinearLayout>

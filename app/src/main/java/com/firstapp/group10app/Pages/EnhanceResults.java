@@ -11,7 +11,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.firstapp.group10app.DB.DbHelper;
+//import com.firstapp.group10app.DB.DbHelper;
 import com.firstapp.group10app.Other.JsonToDb;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
