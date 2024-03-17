@@ -30,8 +30,7 @@ public class Home extends Fragment {
 
         // For now, a check should run at the start of each file for DB connection.
         Session.setOnlineDbStatus(OnlineDbConnection.testConnection());
-
-
+        
         //edit number values
         workoutsNum = rootView.findViewById(R.id.workoutCountTextView);
 
