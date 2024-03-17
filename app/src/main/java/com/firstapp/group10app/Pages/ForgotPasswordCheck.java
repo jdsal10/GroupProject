@@ -8,10 +8,10 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.OnlineDb.DbConnection;
+import com.firstapp.group10app.DB.DatabaseManager;
+import com.firstapp.group10app.DB.QueryResult;
 import com.firstapp.group10app.R;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ForgotPasswordCheck extends AppCompatActivity implements View.OnClickListener {
@@ -68,13 +68,26 @@ public class ForgotPasswordCheck extends AppCompatActivity implements View.OnCli
     }
 
     public boolean checkCode(String code) throws SQLException {
-        DbConnection db = new DbConnection();
-        ResultSet set = db.executeQuery("SELECT VerifyCode FROM HealthData.Users WHERE Email = '" + email + "'");
-        if (set.next()) {
-            String storedCode = set.getString("VerifyCode");
+        DatabaseManager dbManager = DatabaseManager.getInstance();
+        QueryResult queryResult = dbManager.executeQueryInOnlineDb("SELECT VerifyCode FROM HealthData.Users WHERE Email = '" + email + "'");
+
+        try {
+            queryResult.next();
+            String storedCode = queryResult.getString("VerifyCode");
             return storedCode.equals(code);
-        } else {
+        } catch (SQLException e) {
             return false;
         }
+
+        // Old code - before DatabaseManager
+        // Leave it here for reference for now
+//        DbConnection db = new DbConnection();
+//        ResultSet set = db.executeQuery("SELECT VerifyCode FROM HealthData.Users WHERE Email = '" + email + "'");
+//        if (set.next()) {
+//            String storedCode = set.getString("VerifyCode");
+//            return storedCode.equals(code);
+//        } else {
+//            return false;
+//        }
     }
 }

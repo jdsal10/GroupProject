@@ -28,7 +28,7 @@ public class Home extends Fragment {
         View rootView = inflater.inflate(R.layout.activity_home, container, false);
 
         // For now, a check should run at the start of each file for DB connection.
-        Session.setDbStatus(DbConnection.testConnection());
+        Session.setOnlineDbStatus(DbConnection.testConnection());
 
 
         //edit number values

@@ -48,7 +48,7 @@ public class WorkoutOption extends Fragment implements CompoundButton.OnCheckedC
         manualSelect.setOnCheckedChangeListener(this);
 
         // If the user is not signed in / anonymous, they do not access to the AI or to create a workout.
-        if ((!Session.isDbStatus()) || (!Session.getSignedIn())) {
+        if ((!Session.getOnlineDbStatus()) || (!Session.getSignedIn())) {
             AISelect.setEnabled(false);
         }
 

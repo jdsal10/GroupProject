@@ -61,7 +61,7 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
         }
 
         // If the user is not signed in / anonymous, they cannot add the workout to history.
-        if ((!Session.isDbStatus()) || (!Session.getSignedIn())) {
+        if ((!Session.getOnlineDbStatus()) || (!Session.getSignedIn())) {
             begin.setVisibility(GONE);
         }
 

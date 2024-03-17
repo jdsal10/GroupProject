@@ -17,11 +17,11 @@ import org.json.JSONObject;
  */
 public class Session {
     private static String userEmail;
-    private static boolean dbStatus;
+    private static boolean onlineDbStatus;
+    private static boolean internetStatus; // is connected to the internet? true or false
     private static JSONObject selectedWorkout;
     private static Boolean signedIn;
     private static int workoutID;
-
     private static AppCompatActivity container;
 
     // Format for userDetails is [DOB, Weight, Height, Sex, Health Condition, Reason for downloading]
@@ -41,12 +41,20 @@ public class Session {
         Session.userEmail = userEmail;
     }
 
-    public static boolean isDbStatus() {
-        return dbStatus;
+    public static boolean getOnlineDbStatus() {
+        return onlineDbStatus;
     }
 
-    public static void setDbStatus(boolean dbStatus) {
-        Session.dbStatus = dbStatus;
+    public static void setOnlineDbStatus(boolean onlineDbStatus) {
+        Session.onlineDbStatus = onlineDbStatus;
+    }
+
+    public static boolean getInternetStatus() {
+        return internetStatus;
+    }
+
+    public static void setInternetStatus(boolean internetStatus) {
+        Session.internetStatus = internetStatus;
     }
 
     public static JSONObject getSelectedWorkout() {
@@ -102,7 +110,7 @@ public class Session {
     public static void logout(Context context) {
         // Clear session data
         userEmail = null;
-        dbStatus = false;
+        onlineDbStatus = false;
         selectedWorkout = null;
         signedIn = false;
         workoutID = 0;

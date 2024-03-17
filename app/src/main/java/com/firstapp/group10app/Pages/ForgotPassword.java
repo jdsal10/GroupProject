@@ -10,10 +10,9 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DatabaseManager;
-import com.firstapp.group10app.DB.OnlineDb.DbConnection;
+import com.firstapp.group10app.DB.QueryResult;
 import com.firstapp.group10app.R;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Random;
@@ -88,13 +87,14 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
     }
 
     public boolean checkExists(String email) throws SQLException {
-        DbConnection d = new DbConnection();
-        ResultSet set = d.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "'");
-        int size = 0;
-        if (set.last()) {
-            size++;
+        DatabaseManager dbManager = DatabaseManager.getInstance();
+        QueryResult set = dbManager.executeQueryInOnlineDb("SELECT * FROM HealthData.Users WHERE Email = '" + email + "'");
+
+        try {
+            return set.next();
+        } catch (SQLException e) {
+            return false;
         }
-        return size != 0;
     }
 
 
