@@ -52,15 +52,16 @@ public class SettingsAccount extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.deleteAccountButton) {
-            showConfirmation();
+            showConfirmationDeleteAccount();
         } else if (id == R.id.changePasswordSignedIn) {
             changePassword();
         } else if (id == R.id.logoutButton) {
-            Session.logout(requireContext());
+            showConfirmationLogout();
+//            Session.logout(requireContext());
         }
     }
 
-    public void showConfirmation() {
+    public void showConfirmationDeleteAccount() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         LayoutInflater inflater = getLayoutInflater();
 
@@ -91,6 +92,23 @@ public class SettingsAccount extends Fragment implements View.OnClickListener {
             }
         });
         // Show the dialog
+        alertDialog.show();
+    }
+
+    public void showConfirmationLogout() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        LayoutInflater inflater = getLayoutInflater();
+
+        View dialogView = inflater.inflate(R.layout.popup_confirm_logout, null);
+        builder.setView(dialogView);
+        AlertDialog alertDialog = builder.create();
+
+        Button confirm = dialogView.findViewById(R.id.confirm);
+
+        confirm.setOnClickListener(v -> {
+            Session.logout(requireContext());
+        });
+
         alertDialog.show();
     }
 

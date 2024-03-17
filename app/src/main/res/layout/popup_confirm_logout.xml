@@ -1,0 +1,20 @@
+<!-- res/layout/dialog_password.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_default"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_default"
+        android:text="@string/logoutText" />
+
+    <Button
+        android:id="@+id/confirm"
+        style="@style/ButtonPastelRed"
+        android:layout_width="match_parent"
+        android:text="@string/deleteAccountConfirm" />
+
+</LinearLayout>

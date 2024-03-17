@@ -134,6 +134,9 @@
     <string name="confirmNewPassword">Confirm Password</string>
     <string name="changeConform">Confirm</string>
 
+    <!--Settings - Account Control - Logout-->
+    <string name="logoutText">Are you sure you want to do this?</string>
+
     <!--Settings - Account Control - Delete Account-->
     <string name="deleteAccountTitle">Are you sure you want to do this? \nYour workout history and account will be deleted.</string>
     <string name="deleteAccountSubtitle">Please enter your password to confirm:</string>
