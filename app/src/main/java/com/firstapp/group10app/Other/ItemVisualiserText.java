@@ -276,6 +276,4 @@ public class ItemVisualiserText {
             dataHolder.addView(view2);
         }
     }
-
-
 }

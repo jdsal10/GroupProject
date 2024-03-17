@@ -339,6 +339,21 @@ public class OnlineDbHelper {
      * @return A list of Exercise objects.
      */
     public static List<Exercise> getAllExercises() {
+        // Alternative way to build the query
+//        StringBuilder query = new StringBuilder();
+//        query.append("SELECT JSON_ARRAYAGG(JSON_OBJECT(");
+//        String[] fields = {"ExerciseID", "ExerciseName", "Description", "Illustration", "TargetMuscleGroup", "Equipment", "Difficulty", "Sets", "Reps", "Time"};
+//        String[] dbFields = {"e.ExerciseID", "e.ExerciseName", "e.Description", "e.Illustration", "e.TargetMuscleGroup", "e.Equipment", "e.Difficulty", "e.Sets", "e.Reps", "e.Time"};
+//
+//        for (int i = 0; i < fields.length; i++) {
+//            query.append("'").append(fields[i]).append("', ").append(dbFields[i]);
+//            if (i != fields.length - 1) {
+//                query.append(", ");
+//            }
+//        }
+//
+//        query.append(")) AS Result FROM HealthData.Exercises e");
+
         String query = "SELECT JSON_ARRAYAGG(\n" +
                 "          JSON_OBJECT(\n" +
                 "            'ExerciseID', e.ExerciseID,\n" +

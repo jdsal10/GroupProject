@@ -76,12 +76,12 @@ public class Workout {
         for (Workout workout : workouts) {
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("id", workout.getId());
-                jsonObject.put("workoutName", workout.getWorkoutName());
-                jsonObject.put("duration", workout.getDuration());
-                jsonObject.put("targetMuscleGroup", workout.getTargetMuscleGroup());
-                jsonObject.put("equipment", workout.getEquipment());
-                jsonObject.put("difficulty", workout.getDifficulty());
+                jsonObject.put("WorkoutID", workout.getId());
+                jsonObject.put("WorkoutName", workout.getWorkoutName());
+                jsonObject.put("WorkoutDuration", workout.getDuration());
+                jsonObject.put("TargetMuscleGroup", workout.getTargetMuscleGroup());
+                jsonObject.put("Equipment", workout.getEquipment());
+                jsonObject.put("Difficulty", workout.getDifficulty());
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
