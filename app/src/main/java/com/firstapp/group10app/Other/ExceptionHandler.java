@@ -32,9 +32,7 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
             Toast.makeText(context, "An error occurred. You are being logged out.", Toast.LENGTH_LONG).show();
         }
 
-        Intent intent = new Intent(context, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        Session.logout(context);
         System.exit(0);
     }
 }

@@ -1,9 +1,13 @@
 package com.firstapp.group10app.Other;
 
+import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.firstapp.group10app.Pages.MainActivity;
 
 import org.json.JSONObject;
 
@@ -93,5 +97,22 @@ public class Session {
 
     public static void setLocalDB(SQLiteDatabase localDB) {
         Session.localDB = localDB;
+    }
+
+    public static void logout(Context context) {
+        // Clear session data
+        userEmail = null;
+        dbStatus = false;
+        selectedWorkout = null;
+        signedIn = false;
+        workoutID = 0;
+        container = null;
+        userDetails = null;
+        localDB = null;
+
+        // Navigate back to MainActivity
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 }
