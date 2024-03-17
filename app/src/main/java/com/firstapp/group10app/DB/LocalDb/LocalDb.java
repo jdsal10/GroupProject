@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.firstapp.group10app.DB.Exercise;
 import com.firstapp.group10app.DB.LocalDb.WorkoutContract.WorkoutEntry;
+import com.firstapp.group10app.DB.Workout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -284,6 +285,28 @@ public class LocalDb {
         cursor.close();
 
         return itemIds;
+    }
+
+    public List<Workout> getAllWorkouts() {
+        List<Workout> workouts = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query("Workouts", null, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range") long id = cursor.getLong(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") String workoutName = cursor.getString(cursor.getColumnIndex("workoutName"));
+                @SuppressLint("Range") int duration = cursor.getInt(cursor.getColumnIndex("duration"));
+                @SuppressLint("Range") String targetMuscleGroup = cursor.getString(cursor.getColumnIndex("targetMuscleGroup"));
+                @SuppressLint("Range") String equipment = cursor.getString(cursor.getColumnIndex("equipment"));
+                @SuppressLint("Range") String difficulty = cursor.getString(cursor.getColumnIndex("difficulty"));
+
+                Workout workout = new Workout(id, workoutName, duration, targetMuscleGroup, equipment, difficulty);
+                workouts.add(workout);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return workouts;
     }
 
     public void insertExerciseWorkoutPair(int exerciseID, int workoutID) {

@@ -50,10 +50,10 @@ public class OnlineDbConnection {
     /**
      * Executes a query that returns no data
      */
-    public ResultSet executeQuery(String statement) {
+    public ResultSet executeQuery(String query) {
         try {
-            Log.i("DBConnection.executeQuery", "Executing " + statement);
-            return st.executeQuery(statement);
+            Log.i("DBConnection.executeQuery", "Executing " + query);
+            return st.executeQuery(query);
         } catch (Exception e) {
             Log.e("Error in DBConnection.executeQuery", e.toString());
             throw new RuntimeException(e);

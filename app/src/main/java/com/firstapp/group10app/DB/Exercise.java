@@ -112,7 +112,7 @@ public class Exercise {
         this.time = time;
     }
 
-    public static String exercisesToJson(List<Exercise> exercises) {
+    public static String exercisesToJsonString(List<Exercise> exercises) {
         JSONArray jsonArray = new JSONArray();
         for (Exercise exercise : exercises) {
             JSONObject jsonObject = new JSONObject();

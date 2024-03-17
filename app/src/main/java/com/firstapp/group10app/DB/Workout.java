@@ -1,5 +1,11 @@
 package com.firstapp.group10app.DB;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
+
 public class Workout {
     private long id;
     private String workoutName;
@@ -63,5 +69,24 @@ public class Workout {
 
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
+    }
+
+    public static String workoutsToJsonString(List<Workout> workouts) {
+        JSONArray jsonArray = new JSONArray();
+        for (Workout workout : workouts) {
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("id", workout.getId());
+                jsonObject.put("workoutName", workout.getWorkoutName());
+                jsonObject.put("duration", workout.getDuration());
+                jsonObject.put("targetMuscleGroup", workout.getTargetMuscleGroup());
+                jsonObject.put("equipment", workout.getEquipment());
+                jsonObject.put("difficulty", workout.getDifficulty());
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            jsonArray.put(jsonObject);
+        }
+        return jsonArray.toString();
     }
 }

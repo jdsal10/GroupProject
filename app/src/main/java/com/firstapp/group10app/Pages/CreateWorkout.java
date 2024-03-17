@@ -189,7 +189,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
     public void createExerciseView() {
         // New code 17.03.2024
         List<Exercise> exercises = DatabaseManager.getInstance().getAllExercises();
-        String newData = Exercise.exercisesToJson(exercises);
+        String newData = Exercise.exercisesToJsonString(exercises);
 
         // Old code, keep it for now
 //        String newData = OnlineDbHelper.getAllExercises();

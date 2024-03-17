@@ -95,4 +95,15 @@ public class DatabaseManager {
             return localDb.getAllExercises();
         }
     }
+
+//    public List<Workout> getAllWorkouts(String filter) {
+//        if (Session.getSignedIn()) {
+//            // Call the getAllExercises method from the OnlineDbHelper class
+////            return OnlineDbHelper.getAllWorkouts(filter);
+//            return null;
+//        } else {
+//            // Call the getAllExercises method from the LocalDb class
+//            return localDb.getAllWorkouts();
+//        }
+//    }
 }
