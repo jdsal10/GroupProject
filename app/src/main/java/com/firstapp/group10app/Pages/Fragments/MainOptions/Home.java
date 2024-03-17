@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.firstapp.group10app.DB.OnlineDb.DbConnection;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbConnection;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
@@ -28,7 +28,7 @@ public class Home extends Fragment {
         View rootView = inflater.inflate(R.layout.activity_home, container, false);
 
         // For now, a check should run at the start of each file for DB connection.
-        Session.setOnlineDbStatus(DbConnection.testConnection());
+        Session.setOnlineDbStatus(OnlineDbConnection.testConnection());
 
 
         //edit number values

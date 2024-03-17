@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.firstapp.group10app.DB.OnlineDb.DbHelper;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Other.Validator;
 import com.firstapp.group10app.Pages.Fragments.Settings.SettingsDataControl;
@@ -261,12 +261,12 @@ public class ModifyData extends Dialog implements View.OnClickListener {
             switch (thingToUpdate) {
                 case "DOB":
                     if (edit.getText().toString().isEmpty()) {
-                        DbHelper.updateData("DOB", "");
+                        OnlineDbHelper.updateData("DOB", "");
                         SettingsDataControl.updateValue("DOB", "");
                         Session.getUserDetails()[0] = "";
                         dismiss();
                     } else if (Validator.dobValid(edit.getText().toString())) {
-                        DbHelper.updateData("DOB", edit.getText().toString());
+                        OnlineDbHelper.updateData("DOB", edit.getText().toString());
                         SettingsDataControl.updateValue("DOB", edit.getText().toString());
                         Session.getUserDetails()[0] = edit.getText().toString();
                         dismiss();
@@ -277,17 +277,17 @@ public class ModifyData extends Dialog implements View.OnClickListener {
 
                 case "Sex":
                     if (dropdown.getSelectedItem().equals("Male")) {
-                        DbHelper.updateData("Sex", "M");
+                        OnlineDbHelper.updateData("Sex", "M");
                         SettingsDataControl.updateValue("Sex", dropdown.getSelectedItem().toString());
                         Session.getUserDetails()[3] = dropdown.getSelectedItem().toString();
                         dismiss();
                     } else if (dropdown.getSelectedItem().equals("Female")) {
-                        DbHelper.updateData("Sex", "F");
+                        OnlineDbHelper.updateData("Sex", "F");
                         SettingsDataControl.updateValue("Sex", dropdown.getSelectedItem().toString());
                         Session.getUserDetails()[3] = dropdown.getSelectedItem().toString();
                         dismiss();
                     } else if (dropdown.getSelectedItem().equals("Other")) {
-                        DbHelper.updateData("Sex", "O");
+                        OnlineDbHelper.updateData("Sex", "O");
                         SettingsDataControl.updateValue("Sex", dropdown.getSelectedItem().toString());
                         Session.getUserDetails()[3] = dropdown.getSelectedItem().toString();
                         dismiss();
@@ -300,12 +300,12 @@ public class ModifyData extends Dialog implements View.OnClickListener {
                     if (edit.getText().toString().isEmpty() && !dropdown.getSelectedItem().toString().isEmpty()) {
                         edit.setError("Invalid format!");
                     } else if (edit.getText().toString().isEmpty() && dropdown.getSelectedItem().toString().isEmpty()) {
-                        DbHelper.updateData("Weight", "");
+                        OnlineDbHelper.updateData("Weight", "");
                         SettingsDataControl.updateValue("Weight", "");
                         Session.getUserDetails()[1] = "";
                         dismiss();
                     } else if (Validator.weightValid(edit.getText().toString(), dropdown.getSelectedItem().toString())) {
-                        DbHelper.updateData("Weight", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
+                        OnlineDbHelper.updateData("Weight", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
                         SettingsDataControl.updateValue("Weight", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
                         Session.getUserDetails()[1] = edit.getText().toString() + " " + dropdown.getSelectedItem().toString();
                         dismiss();
@@ -318,12 +318,12 @@ public class ModifyData extends Dialog implements View.OnClickListener {
                     if (edit.getText().toString().isEmpty() && !dropdown.getSelectedItem().toString().isEmpty()) {
                         edit.setError("Invalid format!");
                     } else if (edit.getText().toString().isEmpty() && dropdown.getSelectedItem().toString().isEmpty()) {
-                        DbHelper.updateData("Height", "");
+                        OnlineDbHelper.updateData("Height", "");
                         SettingsDataControl.updateValue("Height", "");
                         Session.getUserDetails()[2] = "";
                         dismiss();
                     } else if (Validator.heightValid(edit.getText().toString(), dropdown.getSelectedItem().toString())) {
-                        DbHelper.updateData("Height", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
+                        OnlineDbHelper.updateData("Height", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
                         SettingsDataControl.updateValue("Height", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
                         Session.getUserDetails()[2] = edit.getText().toString() + " " + dropdown.getSelectedItem().toString();
                         dismiss();
@@ -334,12 +334,12 @@ public class ModifyData extends Dialog implements View.OnClickListener {
 
                 case "Allergies":
                     if (edit.getText().toString().isEmpty()) {
-                        DbHelper.updateData("HealthCondition", "");
+                        OnlineDbHelper.updateData("HealthCondition", "");
                         SettingsDataControl.updateValue("Allergies", "");
                         Session.getUserDetails()[4] = "";
                         dismiss();
                     } else {
-                        DbHelper.updateData("HealthCondition", edit.getText().toString());
+                        OnlineDbHelper.updateData("HealthCondition", edit.getText().toString());
                         SettingsDataControl.updateValue("Allergies", edit.getText().toString());
                         Session.getUserDetails()[4] = edit.getText().toString();
                         dismiss();
@@ -348,12 +348,12 @@ public class ModifyData extends Dialog implements View.OnClickListener {
 
                 case "Reasons":
                     if (dropdown.getSelectedItem().toString().isEmpty()) {
-                        DbHelper.updateData("ReasonForDownloading", "");
+                        OnlineDbHelper.updateData("ReasonForDownloading", "");
                         SettingsDataControl.updateValue("Reasons", "");
                         Session.getUserDetails()[5] = "";
                         dismiss();
                     } else {
-                        DbHelper.updateData("ReasonForDownloading", dropdown.getSelectedItem().toString());
+                        OnlineDbHelper.updateData("ReasonForDownloading", dropdown.getSelectedItem().toString());
                         SettingsDataControl.updateValue("Reasons", dropdown.getSelectedItem().toString());
                         Session.getUserDetails()[5] = dropdown.getSelectedItem().toString();
                         dismiss();
@@ -363,37 +363,37 @@ public class ModifyData extends Dialog implements View.OnClickListener {
         } else if (id == R.id.clearUpdate) {
             switch (thingToUpdate) {
                 case "DOB":
-                    DbHelper.updateData("DOB", "");
+                    OnlineDbHelper.updateData("DOB", "");
                     SettingsDataControl.updateValue("DOB", "");
                     Session.getUserDetails()[0] = "";
                     break;
 
                 case "Weight":
-                    DbHelper.updateData("Weight", "");
+                    OnlineDbHelper.updateData("Weight", "");
                     SettingsDataControl.updateValue("Weight", "");
                     Session.getUserDetails()[1] = "";
                     break;
 
                 case "Height":
-                    DbHelper.updateData("Height", "");
+                    OnlineDbHelper.updateData("Height", "");
                     SettingsDataControl.updateValue("Height", "");
                     Session.getUserDetails()[2] = "";
                     break;
 
                 case "Sex":
-                    DbHelper.updateData("Sex", "");
+                    OnlineDbHelper.updateData("Sex", "");
                     SettingsDataControl.updateValue("Sex", "");
                     Session.getUserDetails()[3] = "";
                     break;
 
                 case "Allergies":
-                    DbHelper.updateData("HealthCondition", "");
+                    OnlineDbHelper.updateData("HealthCondition", "");
                     SettingsDataControl.updateValue("Allergies", "");
                     Session.getUserDetails()[4] = "";
                     break;
 
                 case "Reasons":
-                    DbHelper.updateData("ReasonForDownloading", "");
+                    OnlineDbHelper.updateData("ReasonForDownloading", "");
                     SettingsDataControl.updateValue("Reasons", "");
                     Session.getUserDetails()[5] = "";
                     break;

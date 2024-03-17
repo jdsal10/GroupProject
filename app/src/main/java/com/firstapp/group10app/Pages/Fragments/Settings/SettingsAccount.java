@@ -15,7 +15,7 @@ import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 
-import com.firstapp.group10app.DB.OnlineDb.DbHelper;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.MainActivity;
 import com.firstapp.group10app.R;
@@ -74,7 +74,7 @@ public class SettingsAccount extends Fragment implements View.OnClickListener {
 
         confirm.setOnClickListener(v -> {
             String password = passwordDelete.getText().toString();
-            DbHelper db = new DbHelper();
+            OnlineDbHelper db = new OnlineDbHelper();
             try {
                 if (db.checkUser(Session.getUserEmail(), password)) {
                     // Add logic for deletion below - requires integration to workouts.
@@ -131,7 +131,7 @@ public class SettingsAccount extends Fragment implements View.OnClickListener {
             String np1 = newPassword1.getText().toString();
             String np2 = newPassword2.getText().toString();
 
-            DbHelper db = new DbHelper();
+            OnlineDbHelper db = new OnlineDbHelper();
             try {
                 if (!db.checkUser(Session.getUserEmail(), cp)) {
                     currentPassword.setError("Incorrect Password");
@@ -140,7 +140,7 @@ public class SettingsAccount extends Fragment implements View.OnClickListener {
                 } else if (!passwordValid(np1)) {
                     newPassword1.setError(passwordValidator(np1));
                 } else {
-                    DbHelper.updateData("Password", np1);
+                    OnlineDbHelper.updateData("Password", np1);
                     alertDialog.dismiss();
                 }
             } catch (Exception e) {

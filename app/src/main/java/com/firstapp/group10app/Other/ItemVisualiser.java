@@ -7,8 +7,6 @@ import android.content.res.ColorStateList;
 
 import androidx.core.content.ContextCompat;
 
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.firstapp.group10app.DB.OnlineDb.DbHelper;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Pages.ActivityContainer;
 import com.firstapp.group10app.Pages.WorkoutHub;
 import com.firstapp.group10app.R;
@@ -269,7 +267,7 @@ public class ItemVisualiser {
         Button selectWorkout = v.findViewById(R.id.selectWorkout);
         selectWorkout.setOnClickListener(v1 -> {
             JSONObject workoutObject;
-            String out = DbHelper.getAllWorkouts("WHERE w.WorkoutID = '" + id + "'");
+            String out = OnlineDbHelper.getAllWorkouts("WHERE w.WorkoutID = '" + id + "'");
             JSONArray jsonArray;
 
             try {

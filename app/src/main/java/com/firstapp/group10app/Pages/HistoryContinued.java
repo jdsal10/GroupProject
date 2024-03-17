@@ -8,7 +8,7 @@ import android.widget.ScrollView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.OnlineDb.DbHelper;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
@@ -32,7 +32,7 @@ public class HistoryContinued extends AppCompatActivity implements View.OnClickL
 
         try {
             // gets the workouts user has done, specific to the user
-            String HistoryContinuedJSON = DbHelper.getUserWorkouts(Session.getUserEmail());
+            String HistoryContinuedJSON = OnlineDbHelper.getUserWorkouts(Session.getUserEmail());
             ItemVisualiser.startWorkoutGeneration(HistoryContinuedJSON, this, continuedLayout, "tt", R.layout.popup_history, R.id.popupHistory);
         } catch (Exception e) {
             // TODO: handle exception better

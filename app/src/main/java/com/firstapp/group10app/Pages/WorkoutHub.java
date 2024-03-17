@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import androidx.fragment.app.FragmentTransaction;
 
-import com.firstapp.group10app.DB.OnlineDb.DbHelper;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.History;
 import com.firstapp.group10app.R;
@@ -229,7 +229,7 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
             EnhanceInput enhance = new EnhanceInput(getContext());
             enhance.show();
         } else if (id == R.id.beginWorkout) {
-            DbHelper.insertHistory();
+            OnlineDbHelper.insertHistory();
             FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
             transaction.replace(R.id.fragmentHolder, new History());
             transaction.addToBackStack(null);

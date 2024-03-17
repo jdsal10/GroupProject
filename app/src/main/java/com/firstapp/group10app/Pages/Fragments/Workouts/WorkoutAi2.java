@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.firstapp.group10app.DB.OnlineDb.DbConnection;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbConnection;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.WorkoutOption;
 import com.firstapp.group10app.Pages.WorkoutAi;
@@ -45,7 +45,7 @@ public class WorkoutAi2 extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.goToAI) {
-            if ((!Session.getSignedIn()) || (!DbConnection.testConnection())) {
+            if ((!Session.getSignedIn()) || (!OnlineDbConnection.testConnection())) {
                 Toast.makeText(getContext(), "No connection!", Toast.LENGTH_SHORT).show();
             } else {
                 tellParentToStartNewActivity(new WorkoutAi());

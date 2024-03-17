@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.firstapp.group10app.DB.OnlineDb.DbConnection;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbConnection;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.ActivityContainer;
 import com.firstapp.group10app.Pages.Fragments.Workouts.WorkoutAi2;
@@ -60,7 +60,7 @@ public class WorkoutOption extends Fragment implements CompoundButton.OnCheckedC
         // If ensure only one is selected at once
         if (isChecked) {
             if (buttonView.getId() == R.id.toggleAI) {
-                if ((!Session.getSignedIn()) || (!DbConnection.testConnection())) {
+                if ((!Session.getSignedIn()) || (!OnlineDbConnection.testConnection())) {
                     Toast.makeText(requireContext(), "No connection!", Toast.LENGTH_SHORT).show();
                     // Need to add capability to enable somehow.
                     // AISelect.setEnabled(false);

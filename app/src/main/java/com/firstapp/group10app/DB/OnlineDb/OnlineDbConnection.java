@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class DbConnection {
+public class OnlineDbConnection {
     public static Connection conn;
     public static Statement st;
 
@@ -17,7 +17,7 @@ public class DbConnection {
      * Used to initialise a connection to the database.
      */
 
-    public DbConnection() {
+    public OnlineDbConnection() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         try {

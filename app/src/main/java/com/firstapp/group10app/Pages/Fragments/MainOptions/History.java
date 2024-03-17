@@ -13,7 +13,7 @@ import android.widget.ScrollView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.firstapp.group10app.DB.OnlineDb.DbHelper;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.HistoryContinued;
@@ -48,7 +48,7 @@ public class History extends Fragment implements View.OnClickListener{
         historyScrollView.addView(historyLayout);
 
         try {
-            String HistoryJSON = DbHelper.getUserWorkoutsLimited(Session.getUserEmail());
+            String HistoryJSON = OnlineDbHelper.getUserWorkoutsLimited(Session.getUserEmail());
             if (HistoryJSON == null) {
                 ItemVisualiser.showEmpty(historyLayout);
             } else {

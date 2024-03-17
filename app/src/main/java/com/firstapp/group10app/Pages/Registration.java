@@ -26,7 +26,7 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.OnlineDb.DbHelper;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.R;
 
@@ -266,7 +266,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             saveUserDetails();
 
             details[Index.PASSWORD] = passwordText();
-            DbHelper.insertUser(details);
+            OnlineDbHelper.insertUser(details);
 
             goToLogin();
         }

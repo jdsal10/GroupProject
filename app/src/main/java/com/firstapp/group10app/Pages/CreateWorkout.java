@@ -29,7 +29,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.firstapp.group10app.DB.OnlineDb.DbHelper;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Other.ItemVisualiserText;
 import com.firstapp.group10app.Other.JsonToDb;
 import com.firstapp.group10app.Other.Session;
@@ -185,7 +185,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
      * It gets all the exercises from the database and displays them in a scroll view.
      */
     public void createExerciseView() {
-        String newData = DbHelper.getAllExercises();
+        String newData = OnlineDbHelper.getAllExercises();
 
         ScrollView exerciseScroll = findViewById(R.id.exerciseSelector);
         exerciseScroll.removeAllViews();

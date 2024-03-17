@@ -11,7 +11,7 @@ import android.widget.ScrollView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.OnlineDb.DbHelper;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.R;
 
@@ -42,7 +42,7 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
         } else {
             initializeLayout();
             try {
-                String data = DbHelper.getAllWorkouts(null);
+                String data = OnlineDbHelper.getAllWorkouts(null);
                 ItemVisualiser.startWorkoutGeneration(data, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
@@ -109,7 +109,7 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
 
         try {
             if (toFilter.isEmpty()) {
-                String newData = DbHelper.getAllWorkouts(null);
+                String newData = OnlineDbHelper.getAllWorkouts(null);
                 ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
             } else {
                 for (int i = 0; i < toFilter.size() - 1; i++) {
@@ -119,7 +119,7 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
                 filter.append(toFilter.get(toFilter.size() - 1));
 
                 String newFilter = filter.toString();
-                String newData = DbHelper.getAllWorkouts(newFilter);
+                String newData = OnlineDbHelper.getAllWorkouts(newFilter);
                 ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
             }
         } catch (JSONException e) {

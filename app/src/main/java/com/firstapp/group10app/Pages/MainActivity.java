@@ -26,9 +26,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final Runnable internetCheckRunnable = new Runnable() {
         @Override
         public void run() {
+            // Test internet connection
             Session.setInternetStatus(isInternetAvailable());
-            // If the connection false, disable the login.
 
+            // If the connection false, disable the login.
             if (!Session.getInternetStatus()) {
                 goToLoginButton.setEnabled(false);
                 goToLoginButton.setAlpha(.5f);
@@ -89,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Default value.
         Session.setSignedIn(false);
-
 
         // Start the periodic internet check
         handler.post(internetCheckRunnable);

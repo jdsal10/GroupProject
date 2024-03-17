@@ -3,14 +3,14 @@ package com.firstapp.group10app.DB;
 import android.content.Context;
 
 import com.firstapp.group10app.DB.LocalDb.LocalDb;
-import com.firstapp.group10app.DB.OnlineDb.DbConnection;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbConnection;
 
 import java.sql.SQLException;
 
 public class DatabaseManager {
     private static DatabaseManager instance;
     private LocalDb localDb;
-    private DbConnection onlineDb;
+    private OnlineDbConnection onlineDb;
 
     private DatabaseManager() {
     }
@@ -27,7 +27,7 @@ public class DatabaseManager {
     }
 
     private void connectToOnlineDb() {
-        onlineDb = new DbConnection();
+        onlineDb = new OnlineDbConnection();
     }
 
     public Object getDatabaseConnection(boolean signedIn) {
@@ -42,7 +42,7 @@ public class DatabaseManager {
         }
     }
 
-    private DbConnection getOnlineDbConnection() {
+    private OnlineDbConnection getOnlineDbConnection() {
         if (onlineDb == null) connectToOnlineDb();
 
         return onlineDb;
@@ -52,7 +52,7 @@ public class DatabaseManager {
         Object dbConnection = getDatabaseConnection(signedIn);
 
         if (signedIn) {
-            DbConnection onlineDb = (DbConnection) dbConnection;
+            OnlineDbConnection onlineDb = (OnlineDbConnection) dbConnection;
             return new QueryResult(onlineDb.executeQuery(query));
         } else {
             LocalDb localDb = (LocalDb) dbConnection;
@@ -61,7 +61,7 @@ public class DatabaseManager {
     }
 
     public QueryResult executeQueryInOnlineDb(String query) throws SQLException {
-        DbConnection thisOnlineDb = getOnlineDbConnection();
+        OnlineDbConnection thisOnlineDb = getOnlineDbConnection();
         return new QueryResult(thisOnlineDb.executeQuery(query));
     }
 
@@ -69,7 +69,7 @@ public class DatabaseManager {
         Object dbConnection = getDatabaseConnection(signedIn);
 
         if (signedIn) {
-            DbConnection onlineDb = (DbConnection) dbConnection;
+            OnlineDbConnection onlineDb = (OnlineDbConnection) dbConnection;
             onlineDb.executeStatement(statement);
         } else {
             LocalDb localDb = (LocalDb) dbConnection;
@@ -79,7 +79,7 @@ public class DatabaseManager {
     }
 
     public void executeStatementInOnlineDb(String statement) throws SQLException {
-        DbConnection thisOnlineDb = getOnlineDbConnection();
+        OnlineDbConnection thisOnlineDb = getOnlineDbConnection();
         thisOnlineDb.executeStatement(statement);
     }
 }
