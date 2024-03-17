@@ -35,7 +35,7 @@
             android:layout_gravity="center"
             android:contentDescription="@string/welcomeBackgroundImage"
             android:foregroundGravity="top"
-            android:src="@drawable/icon_app_logo" />
+            android:src="@drawable/icon_app_logo_new" />
     </FrameLayout>
 
     <LinearLayout
