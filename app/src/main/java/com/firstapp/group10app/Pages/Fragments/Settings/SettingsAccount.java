@@ -76,7 +76,7 @@ public class SettingsAccount extends Fragment implements View.OnClickListener {
             String password = passwordDelete.getText().toString();
             OnlineDbHelper db = new OnlineDbHelper();
             try {
-                if (db.checkUser(Session.getUserEmail(), password)) {
+                if (db.checkUserExistsAndCorrectPassword(Session.getUserEmail(), password)) {
                     // Add logic for deletion below - requires integration to workouts.
                     db.deleteUser(Session.getUserEmail());
 
@@ -133,14 +133,14 @@ public class SettingsAccount extends Fragment implements View.OnClickListener {
 
             OnlineDbHelper db = new OnlineDbHelper();
             try {
-                if (!db.checkUser(Session.getUserEmail(), cp)) {
+                if (!db.checkUserExistsAndCorrectPassword(Session.getUserEmail(), cp)) {
                     currentPassword.setError("Incorrect Password");
                 } else if (!np1.equals(np2)) {
                     newPassword1.setError("The passwords do not match");
                 } else if (!passwordValid(np1)) {
                     newPassword1.setError(passwordValidator(np1));
                 } else {
-                    OnlineDbHelper.updateData("Password", np1);
+                    OnlineDbHelper.updateUserData("Password", np1);
                     alertDialog.dismiss();
                 }
             } catch (Exception e) {

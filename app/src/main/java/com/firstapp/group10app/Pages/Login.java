@@ -50,7 +50,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             // I commented out the encryption code because I globalized the encryption method
             try {
                 OnlineDbHelper db = new OnlineDbHelper();
-                if (db.checkUser(emailText, passwordText)) { // .replace("[", "").replace("]", ""))) {
+                if (db.checkUserExistsAndCorrectPassword(emailText, passwordText)) { // .replace("[", "").replace("]", ""))) {
                     Toast.makeText(Login.this, "Welcome \n" + emailText + " ! ", Toast.LENGTH_SHORT).show();
                     setSessionData(emailText);
                     Session.setUserEmail(emailText);

@@ -20,7 +20,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class provides helper methods for interacting with the online database.
+ */
 public class OnlineDbHelper {
+    /**
+     * Inserts a new user into the database.
+     *
+     * @param userDetails An array of user details to be inserted.
+     */
     public static void insertUser(String[] userDetails) {
         try {
             Log.d("DBHelper.insertUser", "Beginning to go through the process of inserting a user");
@@ -66,7 +74,7 @@ public class OnlineDbHelper {
             sql.append(");");
 
             // Execute the SQL query
-            Log.d("DbHelper.class.getName()",".insertUser: preparing to execute " + sql);
+            Log.d("DbHelper.class.getName()", ".insertUser: preparing to execute " + sql);
 
             // DO NOT CHANGE THIS LINE
             OnlineDbConnection db = new OnlineDbConnection();
@@ -77,6 +85,12 @@ public class OnlineDbHelper {
         }
     }
 
+    /**
+     * Inserts a new workout into the database.
+     *
+     * @param values An array of workout details to be inserted.
+     * @return The ID of the inserted workout.
+     */
     public static Integer insertWorkout(String[] values) {
         try {
             StringBuilder sql = new StringBuilder();
@@ -109,12 +123,17 @@ public class OnlineDbHelper {
             rs.close();
 
             return id;
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Inserts a new exercise into the database.
+     *
+     * @param values    An array of exercise details to be inserted.
+     * @param workoutID The ID of the workout the exercise belongs to.
+     */
     public static void insertExercise(String[] values, int workoutID) {
         try {
             StringBuilder sql = new StringBuilder();
@@ -157,6 +176,12 @@ public class OnlineDbHelper {
         }
     }
 
+    /**
+     * Retrieves a user from the database based on their email.
+     *
+     * @param email The email of the user to retrieve.
+     * @return A ResultSet containing the user's details.
+     */
     public static ResultSet getUser(String email) {
         try {
             // Create and SQL query
@@ -172,8 +197,14 @@ public class OnlineDbHelper {
         }
     }
 
-    // Returns true if the user exists in the database
-    public static boolean checkExists(String email) throws SQLException {
+    /**
+     * Checks if a user exists in the database based on their email.
+     *
+     * @param email The email of the user to check.
+     * @return True if the user exists, false otherwise.
+     * @throws SQLException If a database access error occurs.
+     */
+    public static boolean checkUserExists(String email) throws SQLException {
         String st = "SELECT * FROM HealthData.Users WHERE Email = '" +
                 email +
                 "';";
@@ -181,10 +212,18 @@ public class OnlineDbHelper {
         return db.executeQuery(st).next();
     }
 
-    // Checks if a user exists
-    public boolean checkUser(String email, String password) throws Exception {
+    /**
+     * Checks if a user with the following email and password exists.
+     *
+     * @param email    The email of the user to check.
+     * @param password The password of the user to check.
+     * @return True if the user exists, false otherwise.
+     * @throws Exception If a database access error occurs.
+     */
+    public boolean checkUserExistsAndCorrectPassword(String email, String password) throws Exception {
         OnlineDbConnection db = new OnlineDbConnection();
         ResultSet result = db.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "' AND Password = '" + encryptPassword(password) + "'");
+
         int size = 0;
 
         if (result.last()) {
@@ -194,8 +233,13 @@ public class OnlineDbHelper {
         return size != 0;
     }
 
-
-    public static void updateData(String toUpdate, String value) {
+    /**
+     * Updates a user's data in the database.
+     *
+     * @param toUpdate The field to update.
+     * @param value    The new value for the field.
+     */
+    public static void updateUserData(String toUpdate, String value) {
         if (toUpdate.equals("Password")) {
             try {
                 value = encryptPassword(value);
@@ -208,16 +252,33 @@ public class OnlineDbHelper {
         db.executeStatement("UPDATE HealthData.Users SET " + toUpdate + " = '" + value + "' WHERE Email = '" + Session.getUserEmail() + "'");
     }
 
+    /**
+     * Deletes a user from the database based on their email.
+     *
+     * @param email The email of the user to delete.
+     */
     public void deleteUser(String email) {
         OnlineDbConnection db = new OnlineDbConnection();
         db.executeStatement("DELETE FROM HealthData.Users WHERE Email = '" + email + "'");
     }
 
-    public static void linkExercise(int workoutID, int exerciseID) {
+    /**
+     * Links an exercise to a workout in the database.
+     *
+     * @param workoutID  The ID of the workout.
+     * @param exerciseID The ID of the exercise.
+     */
+    public static void linkExerciseToWorkout(int workoutID, int exerciseID) {
         OnlineDbConnection db = new OnlineDbConnection();
         db.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUES ('" + workoutID + "','" + exerciseID + "')");
     }
 
+    /**
+     * Retrieves all workouts from the database.
+     *
+     * @param filter An optional filter to apply to the workouts.
+     * @return A JSON string containing the workouts.
+     */
     public static String getAllWorkouts(String filter) {
         String out = "SELECT\n" +
                 "  JSON_ARRAYAGG(\n" +
@@ -271,6 +332,11 @@ public class OnlineDbHelper {
         return "";
     }
 
+    /**
+     * Retrieves all exercises from the database.
+     *
+     * @return A list of Exercise objects.
+     */
     public static List<Exercise> getAllExercises() {
         String query = "SELECT JSON_ARRAYAGG(\n" +
                 "          JSON_OBJECT(\n" +
@@ -321,6 +387,12 @@ public class OnlineDbHelper {
         return exercises;
     }
 
+    /**
+     * Retrieves a user's workouts from the database.
+     *
+     * @param filter The email of the user to retrieve workouts for.
+     * @return A JSON string containing the user's workouts.
+     */
     public static String getUserWorkouts(String filter) {
         String query = "SELECT " +
                 "JSON_ARRAYAGG(" +
@@ -369,7 +441,9 @@ public class OnlineDbHelper {
         return "";
     }
 
-
+    /**
+     * Inserts a new workout history record into the database.
+     */
     public static void insertHistory() {
         OnlineDbConnection d = new OnlineDbConnection();
         String sqlHistory = "INSERT INTO HealthData.UserWorkoutHistory (Email, WorkoutID, Time, Date, Duration) VALUES (" +
@@ -382,6 +456,12 @@ public class OnlineDbHelper {
         d.executeStatement(sqlHistory);
     }
 
+    /**
+     * Retrieves a limited (4) number of a user's workouts from the database.
+     *
+     * @param filter The email of the user to retrieve workouts for.
+     * @return A JSON string containing the user's workouts.
+     */
     public static String getUserWorkoutsLimited(String filter) {
         String query = "SELECT " +
                 "JSON_ARRAYAGG(" +
@@ -431,10 +511,23 @@ public class OnlineDbHelper {
         return "";
     }
 
+    /**
+     * Encrypts a password using SHA encryption.
+     *
+     * @param password The password to encrypt.
+     * @return The encrypted password.
+     * @throws Exception If an error occurs during encryption.
+     */
     public static String encryptPassword(String password) throws Exception {
         return toHexString(getSHA(password));
     }
 
+    /**
+     * Changes a user's password in the database.
+     *
+     * @param email    The email of the user to change the password for.
+     * @param password The new password.
+     */
     public static void changeUserPassword(String email, String password) {
         try {
             OnlineDbConnection db = new OnlineDbConnection();

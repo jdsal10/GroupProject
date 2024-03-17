@@ -1,6 +1,6 @@
 package com.firstapp.group10app.Other;
 
-import static com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper.linkExercise;
+import static com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper.linkExerciseToWorkout;
 
 import android.util.Log;
 
@@ -26,7 +26,7 @@ public class JsonToDb {
 
         for (String e : exerciseID) {
             int eid = Integer.parseInt(e);
-            linkExercise(id, eid);
+            linkExerciseToWorkout(id, eid);
         }
         return id;
     }
