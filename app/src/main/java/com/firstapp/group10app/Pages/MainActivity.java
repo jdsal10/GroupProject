@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -20,6 +21,26 @@ import com.firstapp.group10app.R;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private Button goToLoginButton;
+    private final Handler handler = new Handler();
+    private final Runnable internetCheckRunnable = new Runnable() {
+        @Override
+        public void run() {
+            Session.setInternetStatus(isInternetAvailable());
+            // If the connection false, disable the login.
+
+            if (!Session.getInternetStatus()) {
+                goToLoginButton.setEnabled(false);
+                goToLoginButton.setAlpha(.5f);
+            } else {
+                goToLoginButton.setEnabled(true);
+                goToLoginButton.setAlpha(1f);
+            }
+
+            handler.postDelayed(this, 10000); // 10 seconds delay
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fadeInAnimation.setDuration(1000);
 
         rootLayout.startAnimation(fadeInAnimation);
-        Button goToLoginButton = findViewById(R.id.goToLogin);
+        goToLoginButton = findViewById(R.id.goToLogin);
         goToLoginButton.setOnClickListener(this);
 
         TextView goToRegisterButton = findViewById(R.id.goToRegister);
@@ -69,11 +90,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Default value.
         Session.setSignedIn(false);
 
-        // If the connection false, disable the login.
-        if (!Session.getInternetStatus()) {
-            goToLoginButton.setEnabled(false);
-            goToLoginButton.setAlpha(.5f);
-        }
+
+        // Start the periodic internet check
+        handler.post(internetCheckRunnable);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacks(internetCheckRunnable); // Stop the periodic internet check when activity is destroyed
     }
 
     @Override
