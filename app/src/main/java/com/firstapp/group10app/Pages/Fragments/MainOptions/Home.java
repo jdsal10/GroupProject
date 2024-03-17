@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -12,6 +13,7 @@ import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
 public class Home extends Fragment {
+    private TextView workoutsNum;
     public Home() {
         super(R.layout.activity_home);
     }
@@ -28,8 +30,22 @@ public class Home extends Fragment {
         // For now, a check should run at the start of each file for DB connection.
         Session.setDbStatus(DbConnection.testConnection());
 
+
+        //edit number values
+        workoutsNum = rootView.findViewById(R.id.workoutCountTextView);
+
+        //Dynamically add value
+        setWorkoutCount();
+
         super.onCreate(savedInstanceState);
 
         return rootView;
+    }
+
+    // Method to dynamically edit workoutCountTextView
+    public void setWorkoutCount() {
+        if (workoutsNum != null) {
+            workoutsNum.setText(String.valueOf(2));
+        }
     }
 }
