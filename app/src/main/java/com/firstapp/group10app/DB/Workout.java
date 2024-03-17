@@ -1,4 +1,4 @@
-package com.firstapp.group10app.DB.LocalDb;
+package com.firstapp.group10app.DB;
 
 public class Workout {
     private long id;

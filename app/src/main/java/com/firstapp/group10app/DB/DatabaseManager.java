@@ -4,8 +4,11 @@ import android.content.Context;
 
 import com.firstapp.group10app.DB.LocalDb.LocalDb;
 import com.firstapp.group10app.DB.OnlineDb.OnlineDbConnection;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
+import com.firstapp.group10app.Other.Session;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class DatabaseManager {
     private static DatabaseManager instance;
@@ -81,5 +84,15 @@ public class DatabaseManager {
     public void executeStatementInOnlineDb(String statement) throws SQLException {
         OnlineDbConnection thisOnlineDb = getOnlineDbConnection();
         thisOnlineDb.executeStatement(statement);
+    }
+
+    public List<Exercise> getAllExercises() {
+        if (Session.getSignedIn()) {
+            // Call the getAllExercises method from the OnlineDbHelper class
+            return OnlineDbHelper.getAllExercises();
+        } else {
+            // Call the getAllExercises method from the LocalDb class
+            return localDb.getAllExercises();
+        }
     }
 }

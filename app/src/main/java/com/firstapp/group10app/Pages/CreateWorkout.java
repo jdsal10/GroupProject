@@ -29,7 +29,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
+import com.firstapp.group10app.DB.DatabaseManager;
+import com.firstapp.group10app.DB.Exercise;
 import com.firstapp.group10app.Other.ItemVisualiserText;
 import com.firstapp.group10app.Other.JsonToDb;
 import com.firstapp.group10app.Other.Session;
@@ -40,6 +41,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represents the CreateWorkout activity in the application.
@@ -185,7 +187,12 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
      * It gets all the exercises from the database and displays them in a scroll view.
      */
     public void createExerciseView() {
-        String newData = OnlineDbHelper.getAllExercises();
+        // New code 17.03.2024
+        List<Exercise> exercises = DatabaseManager.getInstance().getAllExercises();
+        String newData = Exercise.exercisesToJson(exercises);
+
+        // Old code, keep it for now
+//        String newData = OnlineDbHelper.getAllExercises();
 
         ScrollView exerciseScroll = findViewById(R.id.exerciseSelector);
         exerciseScroll.removeAllViews();

@@ -6,12 +6,19 @@ import static com.firstapp.group10app.Other.Encryption.toHexString;
 
 import android.util.Log;
 
+import com.firstapp.group10app.DB.Exercise;
 import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.Other.Session;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OnlineDbHelper {
     public static void insertUser(String[] userDetails) {
@@ -264,8 +271,8 @@ public class OnlineDbHelper {
         return "";
     }
 
-    public static String getAllExercises() {
-        String out = "SELECT JSON_ARRAYAGG(\n" +
+    public static List<Exercise> getAllExercises() {
+        String query = "SELECT JSON_ARRAYAGG(\n" +
                 "          JSON_OBJECT(\n" +
                 "            'ExerciseID', e.ExerciseID,\n" +
                 "            'ExerciseName', e.ExerciseName,\n" +
@@ -281,20 +288,37 @@ public class OnlineDbHelper {
                 "        ) AS Result\n" +
                 "FROM HealthData.Exercises e";
 
-        out += ";";
+        query += ";";
 
         OnlineDbConnection db = new OnlineDbConnection();
-        ResultSet q = db.executeQuery(out);
+        ResultSet resultSet = db.executeQuery(query);
 
+        List<Exercise> exercises = new ArrayList<>();
         try {
-            if (q.next()) {
-                return q.getString("Result");
+            if (resultSet.next()) {
+                String result = resultSet.getString("Result");
+                JSONArray jsonArray = new JSONArray(result);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    long id = jsonObject.getLong("ExerciseID");
+                    String name = jsonObject.getString("ExerciseName");
+                    String description = jsonObject.getString("Description");
+                    String illustration = jsonObject.getString("Illustration");
+                    String targetMuscleGroup = jsonObject.getString("TargetMuscleGroup");
+                    String equipment = jsonObject.getString("Equipment");
+                    String difficulty = jsonObject.getString("Difficulty");
+                    int sets = jsonObject.getInt("Sets");
+                    int reps = jsonObject.getInt("Reps");
+                    int time = jsonObject.getInt("Time");
+                    Exercise exercise = new Exercise(id, name, description, illustration, targetMuscleGroup, equipment, difficulty, sets, reps, time);
+                    exercises.add(exercise);
+                }
             }
-        } catch (SQLException e) {
+        } catch (SQLException | JSONException e) {
             throw new RuntimeException("Error processing ResultSet", e);
         }
 
-        return "";
+        return exercises;
     }
 
     public static String getUserWorkouts(String filter) {

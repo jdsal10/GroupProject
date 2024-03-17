@@ -1,4 +1,11 @@
-package com.firstapp.group10app.DB.LocalDb;
+package com.firstapp.group10app.DB;
+
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 public class Exercise {
     private long id;
@@ -103,5 +110,28 @@ public class Exercise {
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    public static String exercisesToJson(List<Exercise> exercises) {
+        JSONArray jsonArray = new JSONArray();
+        for (Exercise exercise : exercises) {
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("id", exercise.getId());
+                jsonObject.put("name", exercise.getName());
+                jsonObject.put("description", exercise.getDescription());
+                jsonObject.put("illustration", exercise.getIllustration());
+                jsonObject.put("targetMuscleGroup", exercise.getTargetMuscleGroup());
+                jsonObject.put("equipment", exercise.getEquipment());
+                jsonObject.put("difficulty", exercise.getDifficulty());
+                jsonObject.put("sets", exercise.getSets());
+                jsonObject.put("reps", exercise.getReps());
+                jsonObject.put("time", exercise.getTime());
+                jsonArray.put(jsonObject);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return jsonArray.toString();
     }
 }
