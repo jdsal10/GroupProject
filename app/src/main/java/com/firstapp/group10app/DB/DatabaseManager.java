@@ -5,7 +5,6 @@ import android.content.Context;
 import com.firstapp.group10app.DB.LocalDb.LocalDb;
 import com.firstapp.group10app.DB.OnlineDb.DbConnection;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DatabaseManager {
@@ -52,6 +51,19 @@ public class DatabaseManager {
         } else {
             LocalDb localDb = (LocalDb) dbConnection;
             return new QueryResult(localDb.executeQuery(query));
+        }
+    }
+
+    public void executeStatement(String statement, boolean signedIn) throws SQLException {
+        Object dbConnection = getDatabaseConnection(signedIn);
+
+        if (signedIn) {
+            DbConnection onlineDb = (DbConnection) dbConnection;
+            onlineDb.executeStatement(statement);
+        } else {
+            LocalDb localDb = (LocalDb) dbConnection;
+            // Assuming LocalDb has a similar method to execute statements
+            localDb.executeStatement(statement);
         }
     }
 }

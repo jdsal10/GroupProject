@@ -355,4 +355,8 @@ public class LocalDb {
     public Cursor executeQuery(String query) {
         return db.rawQuery(query, null);
     }
+
+    public void executeStatement(String statement) {
+        db.execSQL(statement);
+    }
 }
