@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.firstapp.group10app.DB.DbHelper;
+import com.firstapp.group10app.DB.OnlineDb.DbHelper;
 import com.firstapp.group10app.Pages.ActivityContainer;
 import com.firstapp.group10app.Pages.WorkoutHub;
 import com.firstapp.group10app.R;

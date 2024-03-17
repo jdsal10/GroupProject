@@ -29,7 +29,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.firstapp.group10app.DB.DbHelper;
+import com.firstapp.group10app.DB.OnlineDb.DbHelper;
 import com.firstapp.group10app.Other.ItemVisualiserText;
 import com.firstapp.group10app.Other.JsonToDb;
 import com.firstapp.group10app.Other.Session;

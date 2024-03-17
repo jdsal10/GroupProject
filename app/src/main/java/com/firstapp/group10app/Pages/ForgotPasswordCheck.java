@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.DbConnection;
+import com.firstapp.group10app.DB.OnlineDb.DbConnection;
 import com.firstapp.group10app.R;
 
 import java.sql.ResultSet;

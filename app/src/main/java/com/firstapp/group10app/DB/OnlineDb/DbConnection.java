@@ -1,4 +1,4 @@
-package com.firstapp.group10app.DB;
+package com.firstapp.group10app.DB.OnlineDb;
 
 import android.os.StrictMode;
 import android.util.Log;

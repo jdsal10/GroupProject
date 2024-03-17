@@ -26,7 +26,7 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.DbHelper;
+import com.firstapp.group10app.DB.OnlineDb.DbHelper;
 import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.R;
 

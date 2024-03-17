@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.DbConnection;
+import com.firstapp.group10app.DB.OnlineDb.DbConnection;
 import com.firstapp.group10app.DB.LocalDb.LocalDb;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;

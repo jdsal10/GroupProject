@@ -1,6 +1,6 @@
-package com.firstapp.group10app.DB;
+package com.firstapp.group10app.DB.OnlineDb;
 
-import static com.firstapp.group10app.DB.DbConnection.conn;
+import static com.firstapp.group10app.DB.OnlineDb.DbConnection.conn;
 import static com.firstapp.group10app.Other.Encryption.getSHA;
 import static com.firstapp.group10app.Other.Encryption.toHexString;
 

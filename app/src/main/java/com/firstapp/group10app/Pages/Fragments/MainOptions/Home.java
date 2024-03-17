@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.firstapp.group10app.DB.DbConnection;
+import com.firstapp.group10app.DB.OnlineDb.DbConnection;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 

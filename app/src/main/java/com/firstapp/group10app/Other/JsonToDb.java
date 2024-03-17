@@ -1,10 +1,10 @@
 package com.firstapp.group10app.Other;
 
-import static com.firstapp.group10app.DB.DbHelper.linkExercise;
+import static com.firstapp.group10app.DB.OnlineDb.DbHelper.linkExercise;
 
 import android.util.Log;
 
-import com.firstapp.group10app.DB.DbHelper;
+import com.firstapp.group10app.DB.OnlineDb.DbHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;

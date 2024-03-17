@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import androidx.fragment.app.FragmentTransaction;
 
-import com.firstapp.group10app.DB.DbHelper;
+import com.firstapp.group10app.DB.OnlineDb.DbHelper;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.History;
 import com.firstapp.group10app.R;
