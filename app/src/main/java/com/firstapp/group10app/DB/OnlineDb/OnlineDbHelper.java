@@ -390,10 +390,26 @@ public class OnlineDbHelper {
                     String targetMuscleGroup = jsonObject.getString("TargetMuscleGroup");
                     String equipment = jsonObject.getString("Equipment");
                     String difficulty = jsonObject.getString("Difficulty");
-                    int sets = jsonObject.getInt("Sets");
-                    int reps = jsonObject.getInt("Reps");
-                    int time = jsonObject.getInt("Time");
-                    Exercise exercise = new Exercise(id, name, description, illustration, targetMuscleGroup, equipment, difficulty, sets, reps, time);
+
+                    Object sets = jsonObject.get("Sets");
+                    Object reps = jsonObject.get("Reps");
+                    Object time = jsonObject.get("Time");
+
+                    Integer setsInt = null;
+                    Integer repsInt = null;
+                    Integer timeInt = null;
+
+                    if (sets instanceof Integer) {
+                        setsInt = (Integer) sets;
+                    }
+                    if (reps instanceof Integer) {
+                        repsInt = (Integer) reps;
+                    }
+                    if (time instanceof Integer) {
+                        timeInt = (Integer) time;
+                    }
+
+                    Exercise exercise = new Exercise(id, name, description, illustration, targetMuscleGroup, equipment, difficulty, setsInt, repsInt, timeInt);
                     exercises.add(exercise);
                 }
             }
