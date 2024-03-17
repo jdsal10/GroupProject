@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 
 import androidx.core.content.ContextCompat;
+
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -168,14 +171,20 @@ public class ItemVisualiser {
                     case "Easy":
                         difficultyScale.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(cThis, R.color.pastel_green)));
                         difficultyText.setText("Easy");
+                        difficultyText.setTextColor(ContextCompat.getColor(cThis, R.color.white));
+                        difficultyText.setTextSize(14);
                         break;
                     case "Medium":
                         difficultyScale.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(cThis, R.color.pastel_yellow)));
                         difficultyText.setText("Medium");
+                        difficultyText.setTextColor(ContextCompat.getColor(cThis, R.color.black));
+                        difficultyText.setTextSize(14);
                         break;
                     case "Hard":
                         difficultyScale.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(cThis, R.color.pastel_red)));
                         difficultyText.setText("Hard");
+                        difficultyText.setTextColor(ContextCompat.getColor(cThis, R.color.white));
+                        difficultyText.setTextSize(14);
                         break;
                 }
 
