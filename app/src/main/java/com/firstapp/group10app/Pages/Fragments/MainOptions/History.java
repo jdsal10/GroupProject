@@ -19,7 +19,7 @@ import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.HistoryContinued;
 import com.firstapp.group10app.R;
 
-public class History extends Fragment implements View.OnClickListener{
+public class History extends Fragment implements View.OnClickListener {
     private LinearLayout historyLayout;
     private Button viewAll;
 

@@ -14,6 +14,7 @@ import com.firstapp.group10app.R;
 
 public class Home extends Fragment {
     private TextView workoutsNum;
+
     public Home() {
         super(R.layout.activity_home);
     }

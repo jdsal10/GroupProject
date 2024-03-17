@@ -1,11 +1,8 @@
 package com.firstapp.group10app.Other;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.firstapp.group10app.Pages.MainActivity;
 
 import java.io.IOException;
 

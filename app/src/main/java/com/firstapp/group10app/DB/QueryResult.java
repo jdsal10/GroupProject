@@ -38,6 +38,4 @@ public class QueryResult {
             throw new IllegalStateException("Both Cursor and ResultSet are null");
         }
     }
-
-    // Add more methods as needed to retrieve other types of data (e.g., getInt, getLong, etc.)
 }

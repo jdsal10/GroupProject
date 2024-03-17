@@ -7,7 +7,6 @@ import static com.firstapp.group10app.Other.Encryption.toHexString;
 import android.util.Log;
 
 import com.firstapp.group10app.DB.Exercise;
-import com.firstapp.group10app.DB.Workout;
 import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.Other.Session;
 
