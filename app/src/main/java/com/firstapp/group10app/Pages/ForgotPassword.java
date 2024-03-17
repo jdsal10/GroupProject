@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.DB.DatabaseManager;
 import com.firstapp.group10app.DB.OnlineDb.DbConnection;
 import com.firstapp.group10app.R;
 
@@ -60,6 +61,10 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                     try {
                         String validate = generateString();
                         toSend(emailText, validate);
+
+                        DatabaseManager dbManager = DatabaseManager.getInstance();
+                        Object dbConnection = dbManager.getDatabaseConnection(com.firstapp.group10app.Other.Session.getSignedIn());
+
                         DbConnection db = new DbConnection();
                         db.executeStatement("UPDATE HealthData.Users " +
                                 "SET VerifyCode = '" + validate + "' " +

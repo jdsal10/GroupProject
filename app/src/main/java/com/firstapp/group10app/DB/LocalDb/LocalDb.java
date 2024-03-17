@@ -351,4 +351,8 @@ public class LocalDb {
     public SQLiteDatabase getReadableDatabase() {
         return this.db;
     }
+
+    public Cursor executeQuery(String query) {
+        return db.rawQuery(query, null);
+    }
 }

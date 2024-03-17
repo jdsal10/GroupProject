@@ -5,6 +5,9 @@ import android.content.Context;
 import com.firstapp.group10app.DB.LocalDb.LocalDb;
 import com.firstapp.group10app.DB.OnlineDb.DbConnection;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class DatabaseManager {
     private static DatabaseManager instance;
     private LocalDb localDb;
@@ -20,19 +23,35 @@ public class DatabaseManager {
         return instance;
     }
 
-    public void connectToLocalDb(Context context) {
+    private void connectToLocalDb(Context context) {
         localDb = new LocalDb(context);
     }
 
-    public void connectToOnlineDb() {
+    private void connectToOnlineDb() {
         onlineDb = new DbConnection();
     }
 
-    public Object getDatabaseConnection(boolean isAnonymous) {
-        if (isAnonymous) {
-            return localDb;
-        } else {
+    public Object getDatabaseConnection(boolean signedIn) {
+        if (signedIn) {
+            if (onlineDb == null) connectToOnlineDb();
+
             return onlineDb;
+        } else {
+            if (localDb == null) connectToLocalDb(null);
+
+            return localDb;
+        }
+    }
+
+    public QueryResult executeQuery(String query, boolean signedIn) throws SQLException {
+        Object dbConnection = getDatabaseConnection(signedIn);
+
+        if (signedIn) {
+            DbConnection onlineDb = (DbConnection) dbConnection;
+            return new QueryResult(onlineDb.executeQuery(query));
+        } else {
+            LocalDb localDb = (LocalDb) dbConnection;
+            return new QueryResult(localDb.executeQuery(query));
         }
     }
 }
