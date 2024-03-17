@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.DatabaseManager;
 import com.firstapp.group10app.DB.OnlineDb.DbConnection;
-import com.firstapp.group10app.DB.QueryResult;
 import com.firstapp.group10app.R;
 
 import java.sql.ResultSet;
@@ -58,22 +57,15 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             Matcher matcher = pattern.matcher(emailText);
             Log.d("ForgotPassword Email Chekc", "EMAIL: " + emailText);
             try {
-                DatabaseManager dbManager = DatabaseManager.getInstance();
-                boolean isSignedIn = com.firstapp.group10app.Other.Session.getSignedIn();
-                QueryResult result = dbManager.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + emailText + "'", isSignedIn);
-                int size = 0;
-                while (result.next()) {
-                    size++;
-                }
-
                 if ((!(emailText.isEmpty())) && (matcher.matches()) && checkExists(emailText)) {
                     try {
                         String validate = generateString();
                         toSend(emailText, validate);
 
-                        dbManager.executeStatement("UPDATE HealthData.Users " +
+                        DatabaseManager dbManager = DatabaseManager.getInstance();
+                        dbManager.executeStatementInOnlineDb("UPDATE HealthData.Users " +
                                 "SET VerifyCode = '" + validate + "' " +
-                                "WHERE Email = '" + emailText + "';", isSignedIn);
+                                "WHERE Email = '" + emailText + "';");
 
                         Intent in = new Intent(ForgotPassword.this, ForgotPasswordCheck.class);
                         in.putExtra("email", emailText);

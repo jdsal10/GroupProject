@@ -42,6 +42,12 @@ public class DatabaseManager {
         }
     }
 
+    private DbConnection getOnlineDbConnection() {
+        if (onlineDb == null) connectToOnlineDb();
+
+        return onlineDb;
+    }
+
     public QueryResult executeQuery(String query, boolean signedIn) throws SQLException {
         Object dbConnection = getDatabaseConnection(signedIn);
 
@@ -52,6 +58,11 @@ public class DatabaseManager {
             LocalDb localDb = (LocalDb) dbConnection;
             return new QueryResult(localDb.executeQuery(query));
         }
+    }
+
+    public QueryResult executeQueryInOnlineDb(String query) throws SQLException {
+        DbConnection thisOnlineDb = getOnlineDbConnection();
+        return new QueryResult(thisOnlineDb.executeQuery(query));
     }
 
     public void executeStatement(String statement, boolean signedIn) throws SQLException {
@@ -65,5 +76,10 @@ public class DatabaseManager {
             // Assuming LocalDb has a similar method to execute statements
             localDb.executeStatement(statement);
         }
+    }
+
+    public void executeStatementInOnlineDb(String statement) throws SQLException {
+        DbConnection thisOnlineDb = getOnlineDbConnection();
+        thisOnlineDb.executeStatement(statement);
     }
 }
