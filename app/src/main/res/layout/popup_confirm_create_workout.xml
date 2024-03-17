@@ -16,11 +16,10 @@
         android:textStyle="bold" />
 
     <TextView
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/margin_small"
         android:text="This will create your workout in the Database. Please ensure the details are correct:" />
 
     <ScrollView
