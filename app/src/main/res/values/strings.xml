@@ -122,6 +122,8 @@
     <string name="deleteAccountText">Delete Account</string>
     <string name="deleteAccountButton">Delete Account</string>
 
+    <string name="logout">Log Out</string>
+
     <!-- Settings - Account Control - Change Password-->
     <string name="changePasswordSignedInTitle">Please enter your current and new password below.</string>
     <string name="passwordCurrentInput">Current Password:</string>

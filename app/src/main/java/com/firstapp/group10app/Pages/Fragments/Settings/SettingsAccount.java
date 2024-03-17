@@ -42,6 +42,9 @@ public class SettingsAccount extends Fragment implements View.OnClickListener {
         Button changePassword = rootView.findViewById(R.id.changePasswordSignedIn);
         changePassword.setOnClickListener(this);
 
+        Button logout = rootView.findViewById(R.id.logoutButton);
+        logout.setOnClickListener(this);
+
         return rootView;
     }
 
@@ -52,6 +55,8 @@ public class SettingsAccount extends Fragment implements View.OnClickListener {
             showConfirmation();
         } else if (id == R.id.changePasswordSignedIn) {
             changePassword();
+        } else if (id == R.id.logoutButton) {
+            Session.logout(requireContext());
         }
     }
 
