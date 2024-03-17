@@ -280,7 +280,7 @@ public class OnlineDbHelper {
      * @param filter An optional filter to apply to the workouts.
      * @return A JSON string containing the workouts.
      */
-    public static List<Workout> getAllWorkouts(String filter) {
+    public static String getAllWorkouts(String filter) {
         String out = "SELECT\n" +
                 "  JSON_ARRAYAGG(\n" +
                 "    JSON_OBJECT(\n" +
@@ -320,43 +320,19 @@ public class OnlineDbHelper {
         out += ";";
 
         OnlineDbConnection db = new OnlineDbConnection();
-        ResultSet resultSet = db.executeQuery(out);
-
-        // Create a List to hold the Workout objects
-        List<Workout> workouts = new ArrayList<>();
+        ResultSet q = db.executeQuery(out);
 
         try {
-            if (resultSet.next()) {
-                // Get the JSON string from the ResultSet
-                String result = resultSet.getString("Result");
-                JSONArray jsonArray = new JSONArray(result);
-
-                // Iterate over the JSONArray
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    // Get each JSONObject
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                    // Extract the data and create a Workout object
-                    long id = jsonObject.getLong("WorkoutID");
-                    String workoutName = jsonObject.getString("WorkoutName");
-                    int duration = jsonObject.getInt("WorkoutDuration");
-                    String targetMuscleGroup = jsonObject.getString("TargetMuscleGroup");
-                    String equipment = jsonObject.getString("Equipment");
-                    String difficulty = jsonObject.getString("Difficulty");
-
-                    Workout workout = new Workout(id, workoutName, duration, targetMuscleGroup, equipment, difficulty);
-
-                    // Add the Workout object to the list
-                    workouts.add(workout);
-                }
+            if (q.next()) {
+                return q.getString("Result");
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error processing ResultSet", e);
         }
 
-        // Return the list of Workout objects
-        return workouts;
+        return "";
     }
+
 
     /**
      * Retrieves all exercises from the database.
