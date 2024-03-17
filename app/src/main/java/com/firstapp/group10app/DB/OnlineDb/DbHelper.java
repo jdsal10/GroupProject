@@ -413,7 +413,8 @@ public class DbHelper {
 
     public static void changeUserPassword(String email, String password) {
         try {
-            DbConnection.executeStatement("UPDATE HealthData.Users SET Password = '" + encryptPassword(password) + "' WHERE Email = '" + email + "';");
+            DbConnection db = new DbConnection();
+            db.executeStatement("UPDATE HealthData.Users SET Password = '" + encryptPassword(password) + "' WHERE Email = '" + email + "';");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
