@@ -9,8 +9,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class OnlineDbConnection {
-    public static Connection conn;
-    public static Statement st;
+    static Connection conn;
+    private static Statement st;
 
     /**
      * Constructor for the DBConnection class.
@@ -24,16 +24,32 @@ public class OnlineDbConnection {
             Log.i("DBConnection", "Initialising connection");
 
             String connectionString = "jdbc:mysql://gateway01.eu-central-1.prod.aws.tidbcloud.com:4000/test?user=2xn9WQ6ma8aHYPp.root&password=6Tzop9pIbbE6dCbk&sslMode=VERIFY_IDENTITY&enabledTLSProtocols=TLSv1.2,TLSv1.3";
-            conn = DriverManager.getConnection(connectionString);
+            setConnection(DriverManager.getConnection(connectionString));
 
-            if (conn == null) {
+            if (getConnection() == null) {
                 Log.w("DBConnection", "Attention, DBConnection.conn is null");
             }
 
-            st = conn.createStatement();
+            setStatement(getConnection().createStatement());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static Connection getConnection() {
+        return conn;
+    }
+
+    public static void setConnection(Connection conn) {
+        OnlineDbConnection.conn = conn;
+    }
+
+    public static Statement getStatement() {
+        return st;
+    }
+
+    public static void setStatement(Statement st) {
+        OnlineDbConnection.st = st;
     }
 
     /**
@@ -41,7 +57,7 @@ public class OnlineDbConnection {
      */
     public void executeStatement(String createStatement) {
         try {
-            st.execute(createStatement);
+            getStatement().execute(createStatement);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -53,7 +69,7 @@ public class OnlineDbConnection {
     public ResultSet executeQuery(String query) {
         try {
             Log.i("DBConnection.executeQuery", "Executing " + query);
-            return st.executeQuery(query);
+            return getStatement().executeQuery(query);
         } catch (Exception e) {
             Log.e("Error in DBConnection.executeQuery", e.toString());
             throw new RuntimeException(e);
@@ -71,8 +87,8 @@ public class OnlineDbConnection {
 
         try {
             String connectionString = "jdbc:mysql://gateway01.eu-central-1.prod.aws.tidbcloud.com:4000/test?user=2xn9WQ6ma8aHYPp.root&password=6Tzop9pIbbE6dCbk&sslMode=VERIFY_IDENTITY&enabledTLSProtocols=TLSv1.2,TLSv1.3";
-            conn = DriverManager.getConnection(connectionString);
-            return conn.isValid(1);
+            setConnection(DriverManager.getConnection(connectionString));
+            return getConnection().isValid(1);
         } catch (Exception e) {
             return false;
         }
