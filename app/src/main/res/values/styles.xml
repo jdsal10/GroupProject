@@ -24,6 +24,15 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
+    <style name="ButtonRedStroke" parent="Widget.AppCompat.Button">
+        <item name="android:layout_height">@dimen/button_height_default</item>
+        <item name="android:background">@drawable/button_red_stroke</item>
+        <item name="android:textColor">@color/accent_grayscale</item>
+        <item name="android:textFontWeight">700</item>
+        <item name="android:textSize">@dimen/font_size_large</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
     <style name="ButtonGradient" parent="Widget.AppCompat.Button">
         <item name="android:layout_height">@dimen/button_height_default</item>
         <item name="android:background">@drawable/shape_gradient_main</item>

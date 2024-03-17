@@ -48,7 +48,7 @@
 
         <Button
             android:id="@+id/logoutButton"
-            style="@style/ButtonPastelRed"
+            style="@style/ButtonRedStroke"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@string/logout"
