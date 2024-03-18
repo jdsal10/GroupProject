@@ -17,7 +17,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class ItemVisualiserText {
-    public static void showText(Context context, LinearLayout dataHolder, String[] workoutDetails, ArrayList<Exercise> addedExercisesNew) { // ArrayList<JSONObject> addedExercises) {
+    public static void showText(Context context, LinearLayout dataHolder, String[] workoutDetails, ArrayList<Exercise> addedExercisesNew) {
         LinearLayout workoutView = new LinearLayout(context);
         workoutView.setOrientation(LinearLayout.VERTICAL);
 

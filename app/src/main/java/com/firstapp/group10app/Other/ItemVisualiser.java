@@ -241,7 +241,6 @@ public class ItemVisualiser {
         } else {
             JSONObject workoutObject = new JSONObject(data);
             addDetails(workoutObject, buttonType);
-
         }
     }
 
@@ -250,9 +249,6 @@ public class ItemVisualiser {
         empty.setGravity(1);
 
         empty.setText("No workouts were found");
-
-//        Resource linking not working:
-//        empty.setText("@strings/noWorkouts");
 
         layout.removeAllViews();
         layout.addView(empty);

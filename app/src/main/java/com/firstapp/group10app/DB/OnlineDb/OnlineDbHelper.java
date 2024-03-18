@@ -1,6 +1,6 @@
 package com.firstapp.group10app.DB.OnlineDb;
 
-import static com.firstapp.group10app.DB.OnlineDb.OnlineDbConnection.conn;
+import static com.firstapp.group10app.DB.OnlineDb.OnlineDbConnection.connection;
 import static com.firstapp.group10app.Other.Encryption.getSHA;
 import static com.firstapp.group10app.Other.Encryption.toHexString;
 
@@ -113,7 +113,7 @@ public class OnlineDbHelper {
             sql.append(");");
 
             Integer id = null;
-            Statement st = conn.createStatement();
+            Statement st = connection.createStatement();
             Integer test = st.executeUpdate(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 
             ResultSet rs = st.getGeneratedKeys();
@@ -157,7 +157,7 @@ public class OnlineDbHelper {
             sql.append(");");
 
             Integer id = null;
-            Statement st = conn.createStatement();
+            Statement st = connection.createStatement();
 
             OnlineDbConnection db = new OnlineDbConnection();
             db.executeStatement(String.valueOf(sql));

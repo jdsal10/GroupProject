@@ -9,8 +9,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class OnlineDbConnection {
-    static Connection conn;
-    private static Statement st;
+    static Connection connection;
+    private static Statement statement;
 
     /**
      * Constructor for the DBConnection class.
@@ -37,19 +37,19 @@ public class OnlineDbConnection {
     }
 
     public static Connection getConnection() {
-        return conn;
+        return connection;
     }
 
     public static void setConnection(Connection conn) {
-        OnlineDbConnection.conn = conn;
+        OnlineDbConnection.connection = conn;
     }
 
     public static Statement getStatement() {
-        return st;
+        return statement;
     }
 
-    public static void setStatement(Statement st) {
-        OnlineDbConnection.st = st;
+    public static void setStatement(Statement statement) {
+        OnlineDbConnection.statement = statement;
     }
 
     /**
