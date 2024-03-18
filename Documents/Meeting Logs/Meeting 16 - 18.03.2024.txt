@@ -1,0 +1,50 @@
+Last week
+
+Ethan:
+- Task 1 (text and colors to difficulty square) - done
+- Task 2 (globalize ...) - done
+- Task 3 (Generating a workout causes duplicate exercises) - to finish this week
+- Task 4 (Enhance workout) - 90% done
+
+Misha:
+- Task 1: Add Session Data to AI prompt" - done
+- Task 2: Ethan started it, but Misha will try to finish it in the next one or two days (max)
+
+Juan:
+- Task 1: History button - done
+- Task 2: Home page - working on that (around 50% done) - should be done in the next 2 days
+
+Nikola:
+- Task 1: to do today!
+- Task 2: Disable settings - done
+- Task 3: Set up local db (90%)
+
+Manu:
+- did nothing last week, but will meet with Ethan tomorrow to Enhance Workout off (done by Wednesday)
+
+
+-----------------
+This week
+
+Nikola:
+- Reg check missing
+- Remove "Add to calendar"
+- Switch between LocalDb and OnlineDb depending on anonymously vs normally signed in
+
+Ethan:
+- ChatGPT not working in EnhanceInput (w/ Manu)
+- Generating workout causes duplicate exercises
+- work on active workout w/ Misha
+
+Misha:
+- ChatGPT not working in EnhanceInput
+- work on Active Workout page (get on a call with Ethan tonight)
+
+Manu:
+- will meet with Ethan tomorrow to finish Enhance Workout (done by Wednesday)
+
+Juan:
+- Finalizing Home Page
+
+ALL:
+- Work
