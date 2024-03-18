@@ -6,8 +6,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Locale;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -22,7 +20,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class active_workout extends AppCompatActivity implements View.OnClickListener {
+import java.util.Locale;
+
+public class ActiveWorkout extends AppCompatActivity implements View.OnClickListener {
     TextView timerText;
     int time = 0;
     boolean paused;
@@ -103,7 +103,6 @@ public class active_workout extends AppCompatActivity implements View.OnClickLis
                 timerText.postDelayed(this, 1000);
             }
         };
-
         timerText.post(timerRunnable);
     }
 

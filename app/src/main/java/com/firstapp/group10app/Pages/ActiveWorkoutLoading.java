@@ -17,8 +17,7 @@ import com.firstapp.group10app.R;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class active_workout_loading extends AppCompatActivity {
-
+public class ActiveWorkoutLoading extends AppCompatActivity {
     Timer countdownClock;
     TextView countdownText;
 
@@ -65,11 +64,10 @@ public class active_workout_loading extends AppCompatActivity {
             }
         };
 
-
         TimerTask startWorkout = new TimerTask() {
             @Override
             public void run() {
-                startActivity(new Intent(getBaseContext(), active_workout.class));
+                startActivity(new Intent(getBaseContext(), ActiveWorkout.class));
             }
         };
 

@@ -16,11 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
-import androidx.fragment.app.FragmentTransaction;
-
 import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Other.Session;
-import com.firstapp.group10app.Pages.Fragments.MainOptions.History;
 import com.firstapp.group10app.R;
 
 import org.json.JSONArray;
@@ -230,8 +227,8 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
             EnhanceInput enhance = new EnhanceInput(getContext());
             enhance.show();
         } else if (id == R.id.beginWorkout) {
-            DbHelper.insertHistory();
-            startActivity(new Intent(getContext(), active_workout_loading.class));
+            OnlineDbHelper.insertHistory();
+            startActivity(new Intent(getContext(), ActiveWorkoutLoading.class));
         } else if (id == R.id.addToCalendar) {
             Toast.makeText(getContext(), "Currently in beta!", Toast.LENGTH_SHORT).show();
         }

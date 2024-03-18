@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.firstapp.group10app.DB.OnlineDb.OnlineDbConnection;
 import com.firstapp.group10app.Other.Session;
-import com.firstapp.group10app.Pages.active_workout_loading;
+import com.firstapp.group10app.Pages.ActiveWorkoutLoading;
 import com.firstapp.group10app.R;
 
 public class Home extends Fragment {
@@ -43,7 +43,7 @@ public class Home extends Fragment {
         super.onCreate(savedInstanceState);
 
         Button temp = rootView.findViewById(R.id.TEMP);
-        temp.setOnClickListener(v -> startActivity(new Intent(getContext(), active_workout_loading.class)));
+        temp.setOnClickListener(v -> startActivity(new Intent(getContext(), ActiveWorkoutLoading.class)));
 
         return rootView;
     }

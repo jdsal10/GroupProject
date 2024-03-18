@@ -7,4 +7,4 @@
     android:gravity="center"
     android:text="3"
     android:textSize="@dimen/font_size_title"
-    tools:context=".Pages.active_workout_loading" />
+    tools:context=".Pages.ActiveWorkoutLoading" />

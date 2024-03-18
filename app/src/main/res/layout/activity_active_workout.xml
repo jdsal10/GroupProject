@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:paddingStart="10sp"
     android:paddingEnd="10sp"
-    tools:context=".Pages.active_workout">
+    tools:context=".Pages.ActiveWorkout">
 
     <TextView
         android:id="@+id/timer"
