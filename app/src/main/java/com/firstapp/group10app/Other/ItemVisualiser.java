@@ -287,7 +287,6 @@ public class ItemVisualiser {
         closeWorkout.setOnClickListener(v1 -> popup.dismiss());
     }
 
-
     public static void addCloseButton(View v, AlertDialog popup) {
         Button closeWorkout = v.findViewById(R.id.closeButton);
         closeWorkout.setOnClickListener(v1 -> popup.dismiss());

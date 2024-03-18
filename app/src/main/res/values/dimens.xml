@@ -19,7 +19,9 @@
     <dimen name="corner_radius_default">8dp</dimen>
     <dimen name="corner_radius_large">16dp</dimen>
 
+    <!-- stroke width -->
     <dimen name="stroke_width_default">2dp</dimen>
+    <dimen name="stroke_width_small">1dp</dimen>
 
     <!-- margin -->
     <dimen name="margin_default">12dp</dimen>

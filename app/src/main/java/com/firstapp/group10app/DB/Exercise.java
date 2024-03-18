@@ -15,11 +15,11 @@ public class Exercise {
     private String targetMuscleGroup;
     private String equipment;
     private String difficulty;
-    private int sets;
-    private int reps;
-    private int time;
+    private Integer sets;
+    private Integer reps;
+    private Integer time;
 
-    public Exercise(long id, String name, String description, String illustration, String targetMuscleGroup, String equipment, String difficulty, int sets, int reps, int time) {
+    public Exercise(long id, String name, String description, String illustration, String targetMuscleGroup, String equipment, String difficulty, Integer sets, Integer reps, Integer time) {
         this.setId(id);
         this.setName(name);
         this.setDescription(description);
@@ -88,27 +88,27 @@ public class Exercise {
         this.difficulty = difficulty;
     }
 
-    public int getSets() {
+    public Integer getSets() {
         return sets;
     }
 
-    public void setSets(int sets) {
+    public void setSets(Integer sets) {
         this.sets = sets;
     }
 
-    public int getReps() {
+    public Integer getReps() {
         return reps;
     }
 
-    public void setReps(int reps) {
+    public void setReps(Integer reps) {
         this.reps = reps;
     }
 
-    public int getTime() {
+    public Integer getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(Integer time) {
         this.time = time;
     }
 
@@ -117,16 +117,16 @@ public class Exercise {
         for (Exercise exercise : exercises) {
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("id", exercise.getId());
-                jsonObject.put("name", exercise.getName());
-                jsonObject.put("description", exercise.getDescription());
-                jsonObject.put("illustration", exercise.getIllustration());
-                jsonObject.put("targetMuscleGroup", exercise.getTargetMuscleGroup());
-                jsonObject.put("equipment", exercise.getEquipment());
-                jsonObject.put("difficulty", exercise.getDifficulty());
-                jsonObject.put("sets", exercise.getSets());
-                jsonObject.put("reps", exercise.getReps());
-                jsonObject.put("time", exercise.getTime());
+                jsonObject.put("ExerciseID", exercise.getId());
+                jsonObject.put("ExerciseName", exercise.getName());
+                jsonObject.put("Description", exercise.getDescription());
+                jsonObject.put("Illustration", exercise.getIllustration());
+                jsonObject.put("TargetMuscleGroup", exercise.getTargetMuscleGroup());
+                jsonObject.put("Equipment", exercise.getEquipment());
+                jsonObject.put("Difficulty", exercise.getDifficulty());
+                jsonObject.put("Sets", exercise.getSets());
+                jsonObject.put("Reps", exercise.getReps());
+                jsonObject.put("Time", exercise.getTime());
                 jsonArray.put(jsonObject);
             } catch (JSONException e) {
                 e.printStackTrace();

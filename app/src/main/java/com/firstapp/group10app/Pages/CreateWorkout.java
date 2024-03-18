@@ -11,6 +11,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -42,6 +44,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * This class represents the CreateWorkout activity in the application.
@@ -58,7 +62,14 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
     private Spinner target;
     private ArrayList<JSONObject> addedExercises;
     private ArrayList<String> addedExercisesID;
+    private ExecutorService executor;
+    private Handler handler;
 
+    public CreateWorkout() {
+        super(R.layout.activity_workout_create);
+        executor = Executors.newSingleThreadExecutor();
+        handler = new Handler(Looper.getMainLooper());
+    }
 
     /**
      * This method is called when the activity is starting.
@@ -485,13 +496,25 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
             newWorkout.put("Equipment", equipment);
             newWorkout.put("Difficulty", difficulty);
 
-            Session.setWorkoutID(JsonToDb.insertWorkout(newWorkout, exercises));
+            executor.execute(() -> {
+                try {
+                    final int workoutId = JsonToDb.insertWorkout(newWorkout, exercises);
 
-            Intent intent = new Intent(this, ActivityContainer.class);
-            intent.putExtra("workoutHub", WorkoutHub.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    handler.post(() -> {
+                        Session.setWorkoutID(workoutId);
+
+                        Intent intent = new Intent(CreateWorkout.this, ActivityContainer.class);
+                        intent.putExtra("workoutHub", WorkoutHub.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    });
+                } catch (Exception e) {
+                    // TODO: Add proper error handling
+                    throw new RuntimeException(e);
+                }
+            });
         } catch (JSONException e) {
+            // TODO: Add proper error handling
             throw new RuntimeException(e);
         }
     }

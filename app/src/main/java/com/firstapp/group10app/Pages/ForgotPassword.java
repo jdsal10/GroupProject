@@ -54,7 +54,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             String pat = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
             Pattern pattern = Pattern.compile(pat);
             Matcher matcher = pattern.matcher(emailText);
-            Log.d("ForgotPassword Email Chekc", "EMAIL: " + emailText);
+            Log.d("ForgotPassword Email Check", "EMAIL: " + emailText);
             try {
                 if ((!(emailText.isEmpty())) && (matcher.matches()) && checkExists(emailText)) {
                     try {
