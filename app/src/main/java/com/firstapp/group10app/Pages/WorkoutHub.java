@@ -2,6 +2,7 @@ package com.firstapp.group10app.Pages;
 
 import static android.view.View.GONE;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -229,11 +230,8 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
             EnhanceInput enhance = new EnhanceInput(getContext());
             enhance.show();
         } else if (id == R.id.beginWorkout) {
-            OnlineDbHelper.insertHistory();
-            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragmentHolder, new History());
-            transaction.addToBackStack(null);
-            transaction.commit();
+            DbHelper.insertHistory();
+            startActivity(new Intent(getContext(), active_workout_loading.class));
         } else if (id == R.id.addToCalendar) {
             Toast.makeText(getContext(), "Currently in beta!", Toast.LENGTH_SHORT).show();
         }

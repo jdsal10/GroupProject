@@ -1,15 +1,18 @@
 package com.firstapp.group10app.Pages.Fragments.MainOptions;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 import com.firstapp.group10app.DB.OnlineDb.OnlineDbConnection;
 import com.firstapp.group10app.Other.Session;
+import com.firstapp.group10app.Pages.active_workout_loading;
 import com.firstapp.group10app.R;
 
 public class Home extends Fragment {
@@ -39,6 +42,9 @@ public class Home extends Fragment {
         setWorkoutCount();
 
         super.onCreate(savedInstanceState);
+
+        Button temp = rootView.findViewById(R.id.TEMP);
+        temp.setOnClickListener(v -> startActivity(new Intent(getContext(), active_workout_loading.class)));
 
         return rootView;
     }
