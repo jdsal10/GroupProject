@@ -1,9 +1,9 @@
 package com.firstapp.group10app.Pages;
 
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,13 +12,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import androidx.activity.EdgeToEdge;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.FragmentContainerView;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.firstapp.group10app.Other.ActiveExerciseUpdate;
+import com.firstapp.group10app.Other.ExerciseAdapter;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
@@ -29,12 +30,12 @@ import org.json.JSONObject;
 public class active_workout extends AppCompatActivity implements View.OnClickListener {
     TextView timerText;
     int time = 0;
-    boolean paused;
-    boolean complete;
+    boolean paused, complete;
     Button pause, resume, finish;
     Runnable timerRunnable;
-    int currentExerciseIndex = 0;
-    FragmentContainerView activeView;
+    LinearLayout activeView;
+    JSONArray exerciseArray;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,39 +65,20 @@ public class active_workout extends AppCompatActivity implements View.OnClickLis
 
         startTimer();
 
-        activeView = findViewById(R.id.activeView);
-        activeView.setOnTouchListener(new OnSwipeTouchLisqtener(MainActivity.this) {
-            @Override
-            public void onSwipeLeft(View v, MotionEvent event) {
-                return false;
-            }
-        });
+        ViewPager2 viewPager = findViewById(R.id.viewPager);
+        ExerciseAdapter pagerAdapter = new ExerciseAdapter(this, exerciseArray);
+        viewPager.setAdapter(pagerAdapter);
+
     }
 
     public void showWorkouts(JSONObject currentWorkout) throws JSONException {
         String exerciseString = currentWorkout.optString("Exercises");
 
-        JSONArray exerciseArray;
         try {
             exerciseArray = new JSONArray(exerciseString);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-
-        showExerciseDetails(exerciseArray.getJSONObject(currentExerciseIndex));
-    }
-
-    public void showExerciseDetails(JSONObject exercise) throws JSONException {
-        String description = exercise.getString("Description");
-        String sets = exercise.getString("Sets");
-        String reps = exercise.getString("Reps");
-        String time = exercise.getString("Time");
-
-        ActiveExerciseUpdate fragment = ActiveExerciseUpdate.newInstance(description, sets, reps, time);
-
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.activeView, fragment)
-                .commit();
     }
 
     public void startTimer() {
@@ -150,27 +132,27 @@ public class active_workout extends AppCompatActivity implements View.OnClickLis
 
     public void flashPaused() {
         Timer timer = new Timer();
-        TimerTask setPaused = new TimerTask() {
+        TimerTask flashTask = new TimerTask() {
+            boolean pausedBoolean = true;
+
             @Override
             public void run() {
-                timerText = findViewById(R.id.timer);
-                timerText.setText("Paused");
+                runOnUiThread(() -> {
+                    timerText = findViewById(R.id.timer);
+                    if (pausedBoolean) {
+                        timerText.setText("Paused");
+                    } else {
+                        int hours = time / 3600;
+                        int minutes = (time % 3600) / 60;
+                        int secs = time % 60;
+                        timerText.setText(String.format(Locale.ENGLISH, "%d:%02d:%02d", hours, minutes, secs));
+                    }
+                    pausedBoolean = !pausedBoolean;
+                });
             }
         };
 
-        TimerTask setTime = new TimerTask() {
-            @Override
-            public void run() {
-                timerText = findViewById(R.id.timer);
-                int hours = time / 3600;
-                int minutes = (time % 3600) / 60;
-                int secs = time % 60;
-
-                timerText.setText(String.format(Locale.ENGLISH, "%d:%02d:%02d", hours, minutes, secs));
-            }
-        };
-
-        timer.schedule(setPaused, 1000, 1000);
-        timer.schedule(setTime, 2000, 2000);
+        timer.schedule(flashTask, 1000, 2000);
     }
+
 }
