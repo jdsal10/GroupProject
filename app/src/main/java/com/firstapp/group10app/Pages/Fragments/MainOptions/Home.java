@@ -38,7 +38,6 @@ public class Home extends Fragment {
         totalWorkouts = Session.getUserDetails()[6];
         System.out.println("show you num = " + totalWorkouts);
 
-
         //edit number values
         workoutsNum = rootView.findViewById(R.id.workoutCountTextView);
 
@@ -46,9 +45,6 @@ public class Home extends Fragment {
         setWorkoutCount();
 
         super.onCreate(savedInstanceState);
-
-        Button temp = rootView.findViewById(R.id.TEMP);
-        temp.setOnClickListener(v -> startActivity(new Intent(getContext(), ActiveWorkoutLoading.class)));
 
         return rootView;
     }
