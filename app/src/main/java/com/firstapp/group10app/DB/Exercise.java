@@ -134,4 +134,23 @@ public class Exercise {
         }
         return jsonArray.toString();
     }
+
+    public static JSONObject exerciseToJson(Exercise exercise) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("ExerciseID", exercise.getId());
+            jsonObject.put("ExerciseName", exercise.getName());
+            jsonObject.put("Description", exercise.getDescription());
+            jsonObject.put("Illustration", exercise.getIllustration());
+            jsonObject.put("TargetMuscleGroup", exercise.getTargetMuscleGroup());
+            jsonObject.put("Equipment", exercise.getEquipment());
+            jsonObject.put("Difficulty", exercise.getDifficulty());
+            jsonObject.put("Sets", exercise.getSets());
+            jsonObject.put("Reps", exercise.getReps());
+            jsonObject.put("Time", exercise.getTime());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
+    }
 }
