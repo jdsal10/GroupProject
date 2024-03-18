@@ -33,13 +33,11 @@ import androidx.core.content.ContextCompat;
 
 import com.firstapp.group10app.DB.DatabaseManager;
 import com.firstapp.group10app.DB.Exercise;
-import com.firstapp.group10app.DB.Workout;
 import com.firstapp.group10app.Other.ItemVisualiserText;
 import com.firstapp.group10app.Other.JsonToDb;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -61,7 +59,6 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
     private LinearLayout p1, p2;
     private int activePage = 1; // 1 = page 1, 2 = page 2
     private Spinner target;
-//    private ArrayList<JSONObject> addedExercises;
     private ArrayList<Exercise> addedExercisesNew;
     private ArrayList<String> addedExercisesID;
     private ExecutorService executor;
@@ -200,12 +197,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
      * It gets all the exercises from the database and displays them in a scroll view.
      */
     public void createExerciseView() {
-        // New code 17.03.2024
         List<Exercise> exercises = DatabaseManager.getInstance().getAllExercises();
-//        String newData = Exercise.exercisesToJsonString(exercises);
-
-        // Old code, keep it for now
-//        String newData = OnlineDbHelper.getAllExercises();
 
         ScrollView exerciseScroll = findViewById(R.id.exerciseSelector);
         exerciseScroll.removeAllViews();
@@ -215,28 +207,14 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         exerciseHolder.setOrientation(LinearLayout.VERTICAL);
 
         // Creates a layout containing the exercise boxes.
-//        JSONArray jsonArray;
-//        try {
-//            jsonArray = new JSONArray(newData);
-//        } catch (JSONException e) {
-//            throw new RuntimeException(e);
-//        }
-//        boolean[] toggles = new boolean[jsonArray.length()];
         boolean[] toggles = new boolean[exercises.size()];
 
         // We use arrays to hold details of the chosen exercises.
-//        addedExercises = new ArrayList<>();
         addedExercisesNew = new ArrayList<>();
         addedExercisesID = new ArrayList<>();
 
         // For every exercise, we create a box containing the details.
         for (int i = 0; i < exercises.size(); i++) {
-//            JSONObject exerciseJsonObject;
-//            try {
-//                exerciseJsonObject = jsonArray.getJSONObject(i);
-//            } catch (JSONException e) {
-//                throw new RuntimeException(e);
-//            }
             Exercise exercise = exercises.get(i);
 
             LinearLayout exerciseCombo = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.element_exercise_combo, null);
@@ -255,11 +233,9 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
             ImageView exerciseImage = exerciseBox.findViewById(R.id.exerciseImage);
             View difficultyScale = exerciseBox.findViewById(R.id.difficulty);
 
-//            setExerciseDetails(exerciseBox, exerciseJsonObject);
             setExerciseDetails(exerciseBox, exercise);
             exerciseImage.setImageResource(R.drawable.icon_workout);
 
-//            String difficultyValue = exerciseJsonObject.optString("Difficulty", "");
             String difficultyValue = exercise.getDifficulty();
             difficultyScale.setBackground(createDifficultyDrawable(difficultyValue));
 
@@ -269,14 +245,10 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
             exerciseCombo.setOnClickListener(v -> {
                 if (toggles[index]) {
                     selectedExerciseToggle.setBackgroundColor(Color.TRANSPARENT);
-//                    addedExercisesID.remove(exerciseJsonObject.optString("ExerciseID", ""));
-//                    addedExercises.remove(exerciseJsonObject);
                     addedExercisesID.remove(String.valueOf(exercise.getId()));
                     addedExercisesNew.remove(exercise);
                 } else {
                     selectedExerciseToggle.setBackgroundColor(ContextCompat.getColor(this, R.color.pastel_green));
-//                    addedExercises.add(exerciseJsonObject);
-//                    addedExercisesID.add(exerciseJsonObject.optString("ExerciseID", ""));
                     addedExercisesNew.add(exercise);
                     addedExercisesID.add(String.valueOf(exercise.getId()));
                 }
@@ -299,16 +271,6 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
 
         // Adds the Linear layout containing all boxes to the scroll view.
         exerciseScroll.addView(exerciseHolder);
-    }
-
-    private void setExerciseDetails(LinearLayout exerciseBox, JSONObject workoutObject) {
-        ((TextView) exerciseBox.findViewById(R.id.exerciseNameView)).setText(workoutObject.optString("ExerciseName", ""));
-        ((TextView) exerciseBox.findViewById(R.id.exerciseDescriptionView)).setText(workoutObject.optString("Description", ""));
-        ((TextView) exerciseBox.findViewById(R.id.exerciseTargetMuscleGroupView)).setText(String.format("Exercise Target Group: %s", workoutObject.optString("TargetMuscleGroup", "")));
-        ((TextView) exerciseBox.findViewById(R.id.exerciseEquipmentView)).setText(String.format("Exercise Equipment: %s", workoutObject.optString("Equipment", "")));
-        ((TextView) exerciseBox.findViewById(R.id.exerciseSetsView)).setText(String.format("Exercise Sets: %s", workoutObject.optString("Sets", "")));
-        ((TextView) exerciseBox.findViewById(R.id.exerciseRepsView)).setText(String.format("Exercise Reps: %s", workoutObject.optString("Reps", "")));
-        ((TextView) exerciseBox.findViewById(R.id.exerciseTimeView)).setText(String.format("Exercise Time: %s", workoutObject.optString("Time", "")));
     }
 
     private void setExerciseDetails(LinearLayout exerciseBox, Exercise exercise) {
@@ -505,14 +467,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
 
         for (int i = 0; i <= addedExercises.size() - 1; i++) {
             json.append("{");
-//            json.append("\"ExerciseName\": \"").append(addedExercises.get(i).optString("ExerciseName", "")).append("\",");
-//            json.append("\"Description\": \"").append(addedExercises.get(i).optString("Description", "")).append("\",");
-//            json.append("\"TargetMuscleGroup\": \"").append(addedExercises.get(i).optString("TargetMuscleGroup", "")).append("\",");
-//            json.append("\"Equipment\": \"").append(addedExercises.get(i).optString("Equipment", "")).append("\",");
-//            json.append("\"Difficulty\": \"").append(addedExercises.get(i).optString("Difficulty", "")).append("\",");
-//            json.append("\"Sets\": \"").append(addedExercises.get(i).optString("Sets", "")).append("\",");
-//            json.append("\"Reps\": \"").append(addedExercises.get(i).optString("Reps", "")).append("\",");
-//            json.append("\"Time\": \"").append(addedExercises.get(i).optString("Time", "")).append("\"},");
+
             json.append("\"ExerciseName\": \"").append(addedExercises.get(i).getName()).append("\",");
             json.append("\"Description\": \"").append(addedExercises.get(i).getDescription()).append("\",");
             json.append("\"TargetMuscleGroup\": \"").append(addedExercises.get(i).getTargetMuscleGroup()).append("\",");
@@ -520,18 +475,13 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
             json.append("\"Difficulty\": \"").append(addedExercises.get(i).getDifficulty()).append("\",");
             json.append("\"Sets\": \"").append(addedExercises.get(i).getSets()).append("\",");
             json.append("\"Reps\": \"").append(addedExercises.get(i).getReps()).append("\",");
-            json.append("\"Time\": \"").append(addedExercises.get(i).getTime()).append("\"},");
-        }
 
-//        json.append("{");
-//        json.append("\"ExerciseName\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("ExerciseName", "")).append("\",");
-//        json.append("\"Description\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("Description", "")).append("\",");
-//        json.append("\"TargetMuscleGroup\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("TargetMuscleGroup", "")).append("\",");
-//        json.append("\"Equipment\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("Equipment", "")).append("\",");
-//        json.append("\"Difficulty\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("Difficulty", "")).append("\",");
-//        json.append("\"Sets\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("Sets", "")).append("\",");
-//        json.append("\"Reps\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("Reps", "")).append("\",");
-//        json.append("\"Time\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("Time", "")).append("\"}");
+            if (i == addedExercises.size() - 1) {
+                json.append("\"Time\": \"").append(addedExercises.get(i).getTime()).append("\"}");
+            } else {
+                json.append("\"Time\": \"").append(addedExercises.get(i).getTime()).append("\"},");
+            }
+        }
 
         json.append("]}");
         Log.d("CreateWorkout JSON", json.toString());
