@@ -14,7 +14,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.firstapp.group10app.Other.ActiveExerciseUpdate;
+import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class active_workout extends AppCompatActivity implements View.OnClickListener {
     TextView timerText;
@@ -23,6 +29,7 @@ public class active_workout extends AppCompatActivity implements View.OnClickLis
     boolean complete;
     Button pause, resume, finish;
     Runnable timerRunnable;
+    int currentExerciseIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +51,38 @@ public class active_workout extends AppCompatActivity implements View.OnClickLis
         finish = findViewById(R.id.finishWorkout);
         finish.setOnClickListener(this);
 
+        try {
+            showWorkouts(Session.getSelectedWorkout());
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
         startTimer();
+    }
+
+    public void showWorkouts(JSONObject currentWorkout) throws JSONException {
+        String exerciseString = currentWorkout.optString("Exercises");
+
+        JSONArray exerciseArray;
+        try {
+            exerciseArray = new JSONArray(exerciseString);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        showExerciseDetails(exerciseArray.getJSONObject(currentExerciseIndex));
+    }
+
+    public void showExerciseDetails(JSONObject exercise) throws JSONException {
+        String description = exercise.getString("Description");
+        String sets = exercise.getString("Sets");
+        String reps = exercise.getString("Reps");
+        String time = exercise.getString("Time");
+
+        ActiveExerciseUpdate fragment = ActiveExerciseUpdate.newInstance(description, sets, reps, time);
+
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.activeView, fragment)
+                .commit();
     }
 
     public void startTimer() {

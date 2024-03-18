@@ -18,18 +18,11 @@
         android:text="PLACEHOLER"
         android:textSize="@dimen/font_size_large" />
 
-    <ImageView
-        android:id="@+id/exerciseImage"
-        android:layout_width="match_parent"
-        android:layout_height="10sp"
-        android:layout_weight="1"
-        android:background="@drawable/icon_workout" />
-
-    <LinearLayout
-        android:id="@+id/exerciseDetailsHolder"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/activeView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="2" />
 
     <LinearLayout
         android:id="@+id/buttonHolder"
