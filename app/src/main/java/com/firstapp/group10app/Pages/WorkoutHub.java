@@ -234,6 +234,7 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
         } else if (id == R.id.beginWorkout) {
             OnlineDbHelper.insertHistory();
             startActivity(new Intent(getContext(), ActiveWorkoutLoading.class));
+//            OnlineDbHelper.insertHistory();
         } else if (id == R.id.addToCalendar) {
             Toast.makeText(getContext(), "Currently in beta!", Toast.LENGTH_SHORT).show();
         }

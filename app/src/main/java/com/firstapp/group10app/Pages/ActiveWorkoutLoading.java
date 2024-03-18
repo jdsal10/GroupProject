@@ -74,7 +74,7 @@ public class ActiveWorkoutLoading extends AppCompatActivity {
         countdownClock.schedule(setTwo, 1000);
         countdownClock.schedule(setOne, 2000);
         countdownClock.schedule(go, 3000);
-        countdownClock.schedule(startWorkout, 4000);
+        countdownClock.schedule(startWorkout, 3500);
     }
 
     private void vibrate(int duration) {

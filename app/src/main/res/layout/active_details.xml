@@ -9,20 +9,23 @@
     <ImageView
         android:id="@+id/exerciseImage"
         android:layout_width="match_parent"
-        android:layout_height="10sp"
+        android:layout_height="0sp"
         android:layout_weight="1"
         android:background="@drawable/icon_workout" />
 
     <LinearLayout
         android:id="@+id/exerciseDetailsHolder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:paddingStart="10sp"
+        android:paddingEnd="10sp"
+        android:layout_height="0sp"
         android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/activeDescription"
             android:layout_width="match_parent"
+            android:textSize="@dimen/font_size_very_large"
             android:layout_height="wrap_content" />
 
         <TextView
