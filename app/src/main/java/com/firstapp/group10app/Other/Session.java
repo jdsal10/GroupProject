@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.DB.Exercise;
 import com.firstapp.group10app.Pages.MainActivity;
 
 import org.json.JSONObject;
@@ -19,7 +20,8 @@ public class Session {
     private static String userEmail;
     private static boolean onlineDbStatus;
     private static boolean internetStatus; // is connected to the internet? true or false
-    private static JSONObject selectedWorkout;
+    private static JSONObject selectedWorkout; // It looks like it should be "selectedExercise" instead of "selectedWorkout"
+    private static Exercise selectedExercise;
     private static Boolean signedIn;
     private static int workoutID;
     private static AppCompatActivity container;
@@ -64,6 +66,11 @@ public class Session {
     @Nullable
     public static void setSelectedWorkout(JSONObject selectedWorkout) {
         Session.selectedWorkout = selectedWorkout;
+    }
+
+    @Nullable
+    public static void setSelectedExercise(Exercise selectedExercise) {
+        Session.selectedExercise = selectedExercise;
     }
 
     public static Boolean getSignedIn() {

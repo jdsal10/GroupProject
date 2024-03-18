@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.firstapp.group10app.DB.Exercise;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,7 +17,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class ItemVisualiserText {
-    public static void showText(Context context, LinearLayout dataHolder, String[] workoutDetails, ArrayList<JSONObject> addedExercises) {
+    public static void showText(Context context, LinearLayout dataHolder, String[] workoutDetails, ArrayList<Exercise> addedExercisesNew) { // ArrayList<JSONObject> addedExercises) {
         LinearLayout workoutView = new LinearLayout(context);
         workoutView.setOrientation(LinearLayout.VERTICAL);
 
@@ -57,8 +59,8 @@ public class ItemVisualiserText {
         // Creates a layout containing the exercise boxes.
         JSONArray jsonArray;
         jsonArray = new JSONArray();
-        for (JSONObject exercise : addedExercises) {
-            jsonArray.put(exercise);
+        for (Exercise exercise : addedExercisesNew) {
+            jsonArray.put(Exercise.exerciseToJson(exercise));
         }
 
         // For every exercise, we create a box containing the details.
