@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import com.firstapp.group10app.R;
 
 public class ActiveExerciseUpdate extends Fragment {
-
     private String description;
     private String sets;
     private String reps;

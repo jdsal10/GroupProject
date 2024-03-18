@@ -230,7 +230,7 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
             EnhanceInput enhance = new EnhanceInput(getContext());
             enhance.show();
         } else if (id == R.id.beginWorkout) {
-            DbHelper.insertHistory();
+            OnlineDbHelper.insertHistory();
             startActivity(new Intent(getContext(), active_workout_loading.class));
         } else if (id == R.id.addToCalendar) {
             Toast.makeText(getContext(), "Currently in beta!", Toast.LENGTH_SHORT).show();

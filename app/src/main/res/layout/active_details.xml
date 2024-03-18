@@ -16,6 +16,8 @@
     <LinearLayout
         android:id="@+id/exerciseDetailsHolder"
         android:layout_width="match_parent"
+        android:paddingStart="10sp"
+        android:paddingEnd="10sp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
@@ -23,6 +25,7 @@
         <TextView
             android:id="@+id/activeDescription"
             android:layout_width="match_parent"
+            android:textSize="@dimen/font_size_very_large"
             android:layout_height="wrap_content" />
 
         <TextView
