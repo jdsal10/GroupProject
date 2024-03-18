@@ -129,6 +129,7 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
 
         // For every exercise, we create a box containing the details.
         for (int i = 0; i < t.length(); i++) {
+            // If the exercise is null, we break the loop. Otherwise a null pointer exception is thrown.
             if (t.isNull(i)) {
                 break;
             }

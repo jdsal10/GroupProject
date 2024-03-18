@@ -61,8 +61,8 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
     private Spinner target;
     private ArrayList<Exercise> addedExercisesNew;
     private ArrayList<String> addedExercisesID;
-    private ExecutorService executor;
-    private Handler handler;
+    private final ExecutorService executor;
+    private final Handler handler;
 
     public CreateWorkout() {
         super(R.layout.activity_workout_create);
@@ -79,7 +79,6 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_create);
 
-        TextView durationTitle = findViewById(R.id.durationTitle);
         border = ContextCompat.getDrawable(this, R.drawable.toggle_button_outline);
 
         name = findViewById(R.id.workoutNameInput);
@@ -416,46 +415,10 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
      *                       data[2] is the target muscle group,
      *                       data[3] is the equipment, and
      *                       data[4] is the difficulty.
-     * @param addedExercises An ArrayList of JSONObjects where each JSONObject is an exercise with its details.
+     * @param addedExercises An ArrayList of Exercise objects that represent the exercises in the workout.
      * @return A JSONObject that represents the workout.
      * @throws JSONException If there is a problem with the JSON syntax.
      */
-    public JSONObject createJSONString(String[] data, ArrayList<JSONObject> addedExercises) throws JSONException {
-        StringBuilder json = new StringBuilder("{");
-        json.append("\"WorkoutName\": \"").append(data[0]).append("\",");
-        json.append("\"WorkoutDuration\": \"").append(data[1]).append("\",");
-        json.append("\"TargetMuscleGroup\": \"").append(data[2]).append("\",");
-        json.append("\"Equipment\": \"").append(data[3]).append("\",");
-        json.append("\"Difficulty\": \"").append(data[4]).append("\",");
-        json.append("\"Exercises\": [");
-
-        for (int i = 0; i < addedExercises.size() - 1; i++) {
-            json.append("{");
-            json.append("\"ExerciseName\": \"").append(addedExercises.get(i).optString("ExerciseName", "")).append("\",");
-            json.append("\"Description\": \"").append(addedExercises.get(i).optString("Description", "")).append("\",");
-            json.append("\"TargetMuscleGroup\": \"").append(addedExercises.get(i).optString("TargetMuscleGroup", "")).append("\",");
-            json.append("\"Equipment\": \"").append(addedExercises.get(i).optString("Equipment", "")).append("\",");
-            json.append("\"Difficulty\": \"").append(addedExercises.get(i).optString("Difficulty", "")).append("\",");
-            json.append("\"Sets\": \"").append(addedExercises.get(i).optString("Sets", "")).append("\",");
-            json.append("\"Reps\": \"").append(addedExercises.get(i).optString("Reps", "")).append("\",");
-            json.append("\"Time\": \"").append(addedExercises.get(i).optString("Time", "")).append("\"},");
-        }
-
-        json.append("{");
-        json.append("\"ExerciseName\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("ExerciseName", "")).append("\",");
-        json.append("\"Description\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("Description", "")).append("\",");
-        json.append("\"TargetMuscleGroup\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("TargetMuscleGroup", "")).append("\",");
-        json.append("\"Equipment\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("Equipment", "")).append("\",");
-        json.append("\"Difficulty\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("Difficulty", "")).append("\",");
-        json.append("\"Sets\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("Sets", "")).append("\",");
-        json.append("\"Reps\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("Reps", "")).append("\",");
-        json.append("\"Time\": \"").append(addedExercises.get(addedExercises.size() - 1).optString("Time", "")).append("\"}");
-
-        json.append("]}");
-        Log.d("CreateWorkout JSON", json.toString());
-        return new JSONObject(String.valueOf(json));
-    }
-
     public JSONObject createJSONStringNew(String[] data, ArrayList<Exercise> addedExercises) throws JSONException {
         StringBuilder json = new StringBuilder("{");
         json.append("\"WorkoutName\": \"").append(data[0]).append("\",");
