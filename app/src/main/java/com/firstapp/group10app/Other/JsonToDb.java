@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
 public class JsonToDb {
     public static Integer insertWorkout(JSONObject data, ArrayList<String> exerciseID) throws JSONException {
+
+
         String[] workoutDetails = new String[5];
 
         workoutDetails[0] = data.getString("WorkoutName");

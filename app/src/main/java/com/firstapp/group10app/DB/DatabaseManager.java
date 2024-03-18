@@ -96,14 +96,31 @@ public class DatabaseManager {
         }
     }
 
-//    public List<Workout> getAllWorkouts(String filter) {
-//        if (Session.getSignedIn()) {
-//            // Call the getAllExercises method from the OnlineDbHelper class
-////            return OnlineDbHelper.getAllWorkouts(filter);
-//            return null;
-//        } else {
-//            // Call the getAllExercises method from the LocalDb class
-//            return localDb.getAllWorkouts();
-//        }
-//    }
+    public void updateUserData(String toUpdate, String value) {
+        try {
+            if (Session.getSignedIn()) {
+                // Call the updateUserData method from the OnlineDbHelper class
+                OnlineDbHelper.updateUserData(toUpdate, value);
+            } else {
+                throw new UnsupportedOperationException("Cannot update user data while anonymous because there is no user");
+            }
+        } catch (UnsupportedOperationException e) {
+            // TODO: In the future we might want to handle this exception differently
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteUser(String email) {
+        try {
+            if (Session.getSignedIn()) {
+                // Call the deleteUser method from the OnlineDbHelper class
+                OnlineDbHelper.deleteUser(email);
+            } else {
+                throw new UnsupportedOperationException("Cannot delete user while anonymous because there is no user");
+            }
+        } catch (UnsupportedOperationException e) {
+            // TODO: In the future we might want to handle this exception differently
+            e.printStackTrace();
+        }
+    }
 }

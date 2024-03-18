@@ -6,7 +6,10 @@ import static com.firstapp.group10app.Other.Encryption.toHexString;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.firstapp.group10app.DB.Exercise;
+import com.firstapp.group10app.DB.Workout;
 import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.Other.Session;
 
@@ -49,7 +52,7 @@ public class OnlineDbHelper {
             StringBuilder sql = new StringBuilder();
             sql.append("INSERT INTO HealthData.Users (");
             for (int i = 0; i < userDetails.length; i++) {
-                if (userDetails[i] != null && !userDetails[i].equals("") && !userDetails[i].equals("null") && !userDetails[i].equals(" ")) {
+                if (userDetails[i] != null && !userDetails[i].isEmpty() && !userDetails[i].equals("null") && !userDetails[i].equals(" ")) {
                     Log.d("DBHelper.insertUser", "Debugging -> userDetails[" + i + "] = " + userDetails[i]);
                     sql.append(Index.USER_DETAILS[i]);
                     sql.append(", ");
@@ -63,7 +66,7 @@ public class OnlineDbHelper {
                     userDetails[i] = encryptPassword(userDetails[i]);
                 }
 
-                if (userDetails[i] != null && !userDetails[i].equals("") && !userDetails[i].equals("null") && !userDetails[i].equals(" ")) {
+                if (userDetails[i] != null && !userDetails[i].isEmpty() && !userDetails[i].equals("null") && !userDetails[i].equals(" ")) {
                     sql.append("'");
                     sql.append(userDetails[i]);
                     sql.append("', ");
@@ -93,34 +96,37 @@ public class OnlineDbHelper {
      */
     public static Integer insertWorkout(String[] values) {
         try {
-            StringBuilder sql = new StringBuilder();
-            sql.append("INSERT INTO HealthData.Workouts (");
-            for (int i = 0; i < values.length; i++) {
-                sql.append(Index.WORKOUT_DETAILS[i]);
-                sql.append(", ");
-            }
-
-            sql.deleteCharAt(sql.length() - 2);
-            sql.append(") VALUES (");
-
-            for (String field : values) {
-                sql.append("'");
-                sql.append(field);
-                sql.append("', ");
-            }
-
-            sql.deleteCharAt(sql.length() - 2);
-            sql.append(");");
+            getStringBuilder("INSERT INTO HealthData.Workouts (", values, Index.WORKOUT_DETAILS);
 
             Integer id = null;
             Statement st = connection.createStatement();
-            Integer test = st.executeUpdate(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 
             ResultSet rs = st.getGeneratedKeys();
             if (rs.next()) {
                 id = rs.getInt(1);
             }
             rs.close();
+
+            return id;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Integer insertWorkout(Workout workout) {
+        String[] values = workout.getWorkoutDetails();
+
+        try {
+            getStringBuilder("INSERT INTO HealthData.Workouts (", values, Index.WORKOUT_DETAILS);
+
+            Integer id = null;
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.getGeneratedKeys();
+            if (resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
+            resultSet.close();
 
             return id;
         } catch (Exception e) {
@@ -136,33 +142,13 @@ public class OnlineDbHelper {
      */
     public static void insertExercise(String[] values, int workoutID) {
         try {
-            StringBuilder sql = new StringBuilder();
-            sql.append("INSERT INTO HealthData.Exercises (");
-
-            for (int i = 0; i < values.length; i++) {
-                sql.append(Index.EXERCISE_DETAILS[i]);
-                sql.append(", ");
-            }
-
-            sql.deleteCharAt(sql.length() - 2);
-            sql.append(") VALUES (");
-
-            for (String field : values) {
-                sql.append("'");
-                sql.append(field);
-                sql.append("', ");
-            }
-
-            sql.deleteCharAt(sql.length() - 2);
-            sql.append(");");
+            StringBuilder sql = getStringBuilder("INSERT INTO HealthData.Exercises (", values, Index.EXERCISE_DETAILS);
 
             Integer id = null;
             Statement st = connection.createStatement();
 
             OnlineDbConnection db = new OnlineDbConnection();
             db.executeStatement(String.valueOf(sql));
-
-            Integer test = st.executeUpdate(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 
             ResultSet rs = st.getGeneratedKeys();
             if (rs.next()) {
@@ -174,6 +160,30 @@ public class OnlineDbHelper {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @NonNull
+    private static StringBuilder getStringBuilder(String str, String[] values, String[] exerciseDetails) {
+        StringBuilder sql = new StringBuilder();
+        sql.append(str);
+
+        for (int i = 0; i < values.length; i++) {
+            sql.append(exerciseDetails[i]);
+            sql.append(", ");
+        }
+
+        sql.deleteCharAt(sql.length() - 2);
+        sql.append(") VALUES (");
+
+        for (String field : values) {
+            sql.append("'");
+            sql.append(field);
+            sql.append("', ");
+        }
+
+        sql.deleteCharAt(sql.length() - 2);
+        sql.append(");");
+        return sql;
     }
 
     /**
@@ -257,7 +267,7 @@ public class OnlineDbHelper {
      *
      * @param email The email of the user to delete.
      */
-    public void deleteUser(String email) {
+    public static void deleteUser(String email) {
         OnlineDbConnection db = new OnlineDbConnection();
         db.executeStatement("DELETE FROM HealthData.Users WHERE Email = '" + email + "'");
     }
@@ -332,48 +342,13 @@ public class OnlineDbHelper {
         return "";
     }
 
-
     /**
      * Retrieves all exercises from the database.
      *
      * @return A list of Exercise objects.
      */
     public static List<Exercise> getAllExercises() {
-        // Alternative way to build the query
-//        StringBuilder query = new StringBuilder();
-//        query.append("SELECT JSON_ARRAYAGG(JSON_OBJECT(");
-//        String[] fields = {"ExerciseID", "ExerciseName", "Description", "Illustration", "TargetMuscleGroup", "Equipment", "Difficulty", "Sets", "Reps", "Time"};
-//        String[] dbFields = {"e.ExerciseID", "e.ExerciseName", "e.Description", "e.Illustration", "e.TargetMuscleGroup", "e.Equipment", "e.Difficulty", "e.Sets", "e.Reps", "e.Time"};
-//
-//        for (int i = 0; i < fields.length; i++) {
-//            query.append("'").append(fields[i]).append("', ").append(dbFields[i]);
-//            if (i != fields.length - 1) {
-//                query.append(", ");
-//            }
-//        }
-//
-//        query.append(")) AS Result FROM HealthData.Exercises e");
-
-        String query = "SELECT JSON_ARRAYAGG(\n" +
-                "          JSON_OBJECT(\n" +
-                "            'ExerciseID', e.ExerciseID,\n" +
-                "            'ExerciseName', e.ExerciseName,\n" +
-                "            'Description', e.Description,\n" +
-                "            'Illustration', e.Illustration,\n" +
-                "            'TargetMuscleGroup', e.TargetMuscleGroup,\n" +
-                "            'Equipment', e.Equipment,\n" +
-                "            'Difficulty', e.Difficulty,\n" +
-                "            'Sets', e.Sets,\n" +
-                "            'Reps', e.Reps,\n" +
-                "            'Time', e.Time\n" +
-                "          )\n" +
-                "        ) AS Result\n" +
-                "FROM HealthData.Exercises e";
-
-        query += ";";
-
-        OnlineDbConnection db = new OnlineDbConnection();
-        ResultSet resultSet = db.executeQuery(query);
+        ResultSet resultSet = getResultSet();
 
         List<Exercise> exercises = new ArrayList<>();
 
@@ -418,6 +393,29 @@ public class OnlineDbHelper {
         }
 
         return exercises;
+    }
+
+    private static ResultSet getResultSet() {
+        String query = "SELECT JSON_ARRAYAGG(\n" +
+                "          JSON_OBJECT(\n" +
+                "            'ExerciseID', e.ExerciseID,\n" +
+                "            'ExerciseName', e.ExerciseName,\n" +
+                "            'Description', e.Description,\n" +
+                "            'Illustration', e.Illustration,\n" +
+                "            'TargetMuscleGroup', e.TargetMuscleGroup,\n" +
+                "            'Equipment', e.Equipment,\n" +
+                "            'Difficulty', e.Difficulty,\n" +
+                "            'Sets', e.Sets,\n" +
+                "            'Reps', e.Reps,\n" +
+                "            'Time', e.Time\n" +
+                "          )\n" +
+                "        ) AS Result\n" +
+                "FROM HealthData.Exercises e";
+
+        query += ";";
+
+        OnlineDbConnection db = new OnlineDbConnection();
+        return db.executeQuery(query);
     }
 
     /**

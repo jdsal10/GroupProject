@@ -71,6 +71,16 @@ public class Workout {
         this.difficulty = difficulty;
     }
 
+    public String[] getWorkoutDetails() {
+        String[] workoutDetails = new String[5];
+        workoutDetails[0] = this.getWorkoutName();
+        workoutDetails[1] = Integer.toString(this.getDuration());
+        workoutDetails[2] = this.getTargetMuscleGroup();
+        workoutDetails[3] = this.getEquipment();
+        workoutDetails[4] = this.getDifficulty();
+        return workoutDetails;
+    }
+
     public static String workoutsToJsonString(List<Workout> workouts) {
         JSONArray jsonArray = new JSONArray();
         for (Workout workout : workouts) {
