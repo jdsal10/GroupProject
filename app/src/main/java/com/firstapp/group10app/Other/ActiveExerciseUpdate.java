@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.firstapp.group10app.R;
@@ -43,36 +45,39 @@ public class ActiveExerciseUpdate extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.active_details, container, false);
+        return inflater.inflate(R.layout.active_details, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         TextView descriptionTextView = view.findViewById(R.id.activeDescription);
         TextView setsTextView = view.findViewById(R.id.activeSets);
         TextView repsTextView = view.findViewById(R.id.activeReps);
         TextView timeTextView = view.findViewById(R.id.activeTime);
         ProgressBar progressBar = view.findViewById(R.id.activeTimer);
 
+        progressBar.setVisibility(View.GONE);
+
         descriptionTextView.setText(description);
 
-        if(!sets.isEmpty()) {
-            setsTextView.setText(sets);
-        }
-        else {
+        if (!sets.equals("null")) {
+            setsTextView.setText(String.format("%s sets", sets));
+        } else {
             setsTextView.setVisibility(View.GONE);
         }
 
-        if(!reps.isEmpty()) {
-            repsTextView.setText(reps);
-        }
-        else {
+        if (!reps.equals("null")) {
+            repsTextView.setText(String.format("%s reps", reps));
+        } else {
             repsTextView.setVisibility(View.GONE);
         }
 
-        if(!time.isEmpty()) {
-            timeTextView.setText(time);
-        }
-        else {
+        if (!time.equals("null")) {
+            timeTextView.setText(String.format("%seconds?", time));
+        } else {
             timeTextView.setVisibility(View.GONE);
         }
-
-        return view;
     }
 }
