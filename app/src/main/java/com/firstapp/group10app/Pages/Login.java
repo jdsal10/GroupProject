@@ -77,6 +77,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         OnlineDbHelper db = new OnlineDbHelper();
         ResultSet data = db.getUser(email);
 
+        //db get historytotal elements
+        //data2 = db.gettotalworkoutsnum(email)
+        Integer workouts = db.getTotalinHistory(email);
+        System.out.println("Porfa :" + workouts);
+
+
         if (data.next()) {
             Session.setUserDetails(new String[6]);
             Session.getUserDetails()[0] = data.getString("DOB");
@@ -91,6 +97,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             Session.getUserDetails()[4] = data.getString("HealthCondition");
             Session.getUserDetails()[5] = data.getString("ReasonForDownloading");
+            //Add history element to session
         } else {
             Log.d("Login.setSessionData", "No data found for the user with email: " + email);
         }
