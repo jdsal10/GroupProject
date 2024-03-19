@@ -303,9 +303,10 @@ public class LocalDbConnection {
         try {
             JSONArray workoutsArray = new JSONArray();
 
-            String workoutQuery = "SELECT * FROM " + WorkoutContract.WorkoutEntry.TABLE_NAME;
+            String workoutQuery = "SELECT * FROM " + WorkoutContract.WorkoutEntry.TABLE_NAME + " " + WorkoutContract.WorkoutEntry.TABLE_NAME.toLowerCase().charAt(0);
             if (filter != null && !filter.isEmpty()) {
-                workoutQuery += " WHERE " + filter;
+                if (filter.contains("WHERE")) workoutQuery += " " + filter;
+                else workoutQuery += " WHERE " + filter;
             }
 
             Cursor workoutCursor = sqLiteDatabase.rawQuery(workoutQuery, null);
