@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.firstapp.group10app.DB.DatabaseManager;
+import com.firstapp.group10app.DB.LocalDb.LocalDb;
 import com.firstapp.group10app.Other.FragmentHolderUpdate;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.History;
@@ -23,6 +25,8 @@ import com.firstapp.group10app.R;
 import com.firstapp.group10app.databinding.ActivityContainerBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+
+import java.util.Arrays;
 
 public class ActivityContainer extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
     // This is a public variable that is used to store the current view.
@@ -79,6 +83,36 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         else {
             goSettings.setVisibility(View.GONE);
             bottomNavigationView.getMenu().findItem(R.id.goToHistory).setVisible(false);
+
+            new Thread(() -> {
+                boolean localDbIsConnected = true;
+                try {
+                    DatabaseManager.getInstance().getLocalDb();
+                } catch (UnsupportedOperationException e) {
+                    Log.i("Local DB Creation", "LocalDb is not connected");
+                    localDbIsConnected = false;
+                }
+
+                // Start the local database on a new thread
+                if (!localDbIsConnected) {
+                    try {
+                        // Create and store the LocalDb instance
+                        DatabaseManager.getInstance().connectToLocalDb(this);
+                        LocalDb localDb = DatabaseManager.getInstance().getLocalDb();
+
+                        // Insert sample data into the database
+                        localDb.insertSampleData();
+
+                        // Close the database connection
+//                        localDb.close();
+                    } catch (Exception e) {
+                        Log.e("Local DB Creation", "MainActivity.onCreate cause an error");
+                        Log.e("Local DB Creation", "toString(): " + e);
+                        Log.e("Local DB Creation", "getMessage(): " + e.getMessage());
+                        Log.e("Local DB Creation", "StackTrace: " + Arrays.toString(e.getStackTrace()));
+                    }
+                }
+            }).start();
         }
     }
 

@@ -22,8 +22,8 @@ public class DatabaseManager {
         return instance;
     }
 
-    private LocalDb getLocalDb() {
-        if (localDb == null) connectToLocalDb(null);
+    public LocalDb getLocalDb() {
+        if (localDb == null) throw new UnsupportedOperationException("LocalDb is not connected");
         return localDb;
     }
 
@@ -32,20 +32,12 @@ public class DatabaseManager {
         return onlineDb;
     }
 
-    private void connectToLocalDb(Context context) {
+    public void connectToLocalDb(Context context) {
         localDb = new LocalDb(context);
     }
 
     private void connectToOnlineDb() {
         onlineDb = OnlineDbConnection.getInstance();
-    }
-
-    public Object getDatabaseConnection(boolean signedIn) {
-        if (signedIn) {
-            return getOnlineDb();
-        } else {
-            return getLocalDb();
-        }
     }
 
     public List<Exercise> getAllExercises() {
@@ -62,6 +54,7 @@ public class DatabaseManager {
         } else {
             getLocalDb().printDataForDebugging();
 
+//            return OnlineDbHelper.getWorkoutsAsJsonArray(filter);
             return getLocalDb().getWorkoutsAsJsonArray(filter);
         }
     }

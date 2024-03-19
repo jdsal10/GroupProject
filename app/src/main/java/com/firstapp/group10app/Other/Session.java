@@ -31,7 +31,6 @@ public class Session {
 
     // Format for userDetails is [DOB, Weight, Height, Sex, Health Condition, Reason for downloading]
     private static String[] userDetails;
-    private static SQLiteDatabase localDB;
 
 
     public Session(String userEmail) {
@@ -109,14 +108,6 @@ public class Session {
         Session.userDetails = userDetails;
     }
 
-    public static SQLiteDatabase getLocalDB() {
-        return localDB;
-    }
-
-    public static void setLocalDB(SQLiteDatabase localDB) {
-        Session.localDB = localDB;
-    }
-
     public static void logout(Context context) {
         clearSessionData();
 
@@ -151,7 +142,6 @@ public class Session {
         workoutID = 0;
         container = null;
         userDetails = null;
-        localDB = null;
 
         // Clear the ActivityContainer's current view
         ActivityContainer.currentView = 1;
