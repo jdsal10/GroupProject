@@ -13,10 +13,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
 
-import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
@@ -57,9 +56,11 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
             throw new RuntimeException(e);
         }
 
-        // If the user is not signed in / anonymous, they cannot add the workout to history.
-        if ((!Session.getOnlineDbStatus()) || (!Session.getSignedIn())) {
-            begin.setVisibility(GONE);
+        // Behaviour when the user is signed in
+        if (Session.getSignedIn()) {
+            enhance.setVisibility(View.VISIBLE);
+        } else { // Behaviour when the user is anonymous
+            enhance.setVisibility(GONE);
         }
 
         return rootView;
