@@ -25,7 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class WorkoutHub extends Fragment implements View.OnClickListener {
-    private Button enhance, begin, calendar;
+    private Button enhance, begin;
     LinearLayout workoutHubLinear;
 
     public WorkoutHub() {
@@ -46,7 +46,6 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
         enhance.setOnClickListener(this);
         begin = rootView.findViewById(R.id.beginWorkout);
         begin.setOnClickListener(this);
-        calendar = rootView.findViewById(R.id.addToCalendar);
 
         // Gets the current workout.
         JSONObject currentWorkout = Session.getSelectedWorkout();
@@ -234,9 +233,6 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
         } else if (id == R.id.beginWorkout) {
             OnlineDbHelper.insertHistory();
             startActivity(new Intent(getContext(), ActiveWorkoutLoading.class));
-//            OnlineDbHelper.insertHistory();
-        } else if (id == R.id.addToCalendar) {
-            Toast.makeText(getContext(), "Currently in beta!", Toast.LENGTH_SHORT).show();
         }
     }
 }

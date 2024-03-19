@@ -48,24 +48,18 @@
                 android:layout_height="@dimen/button_height_large"
                 android:layout_marginEnd="3dp"
                 android:layout_weight="1"
-                android:text="Enhance Workout (AI)" />
+                android:text="Enhance (AI)" />
 
             <Button
-                android:id="@+id/addToCalendar"
-                style="@style/ButtonNormal"
+                android:id="@+id/beginWorkout"
+                style="@style/ButtonTetradic1"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/button_height_large"
                 android:layout_marginStart="3dp"
                 android:layout_weight="1"
-                android:text="Add to Calendar (BETA)" />
+                android:text="Begin" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/beginWorkout"
-            style="@style/ButtonTetradic1"
-            android:layout_width="match_parent"
-            android:layout_marginTop="6dp"
-            android:text="Done" />
     </LinearLayout>
 
 </LinearLayout>
