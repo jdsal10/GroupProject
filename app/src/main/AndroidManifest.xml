@@ -47,7 +47,7 @@
             android:name=".Pages.Fragments.MainOptions.History"
             android:exported="false" />
         <activity
-            android:name=".Pages.ModifyData"
+            android:name=".Pages.Fragments.Settings.SettingsModifyData_Dialog"
             android:exported="false" />
         <activity
             android:name=".Pages.Fragments.MainOptions.WorkoutOption"

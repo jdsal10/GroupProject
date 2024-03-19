@@ -1,4 +1,4 @@
-package com.firstapp.group10app.Pages;
+package com.firstapp.group10app.Pages.Fragments.Settings;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -21,16 +21,15 @@ import android.widget.TextView;
 import com.firstapp.group10app.DB.DatabaseManager;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Other.Validator;
-import com.firstapp.group10app.Pages.Fragments.Settings.SettingsDataControl;
 import com.firstapp.group10app.R;
 
-public class ModifyData extends Dialog implements View.OnClickListener {
+public class SettingsModifyData_Dialog extends Dialog implements View.OnClickListener {
     private String thingToUpdate;
     private String updateValue;
     private EditText edit;
     private Spinner dropdown;
 
-    public ModifyData(Context context, String[] data) {
+    public SettingsModifyData_Dialog(Context context, String[] data) {
         super(context);
 
         if (Session.getSignedIn()) {

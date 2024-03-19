@@ -31,16 +31,19 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_workout_search);
         Intent intent = getIntent();
 
+        initializeLayout();
+
+        // Behaviour when a filter is applied
         if (intent != null && getIntent().hasExtra("duration") && getIntent().hasExtra("difficulty") && getIntent().hasExtra("targetMuscle")) {
             difficultyString = getIntent().getStringExtra("difficulty");
             durationString = getIntent().getStringExtra("duration");
             targetString = getIntent().getStringExtra("targetMuscle");
 
-            initializeLayout();
-            applyChange(difficultyString, durationString, targetString);
+            visualizeWorkoutsWithFilter(difficultyString, durationString, targetString);
+        }
 
-        } else {
-            initializeLayout();
+        // Behaviour when there are no filters applied
+        else {
             try {
                 String data = OnlineDbHelper.getAllWorkouts(null);
                 ItemVisualiser.startWorkoutGeneration(data, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
@@ -65,7 +68,7 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
     @Override
     public void onFilterChanged(String difficulty, String duration, String target) {
         // Update UI or perform actions based on the new filter values
-        applyChange(difficulty, duration, target);
+        visualizeWorkoutsWithFilter(difficulty, duration, target);
     }
 
     @Override
@@ -79,7 +82,7 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
             // After creating an instance of workout_filter
             WorkoutFilter customDialog = new WorkoutFilter(this);
 
-            customDialog.setFilterChangeListener(this::applyChange);
+            customDialog.setFilterChangeListener(this::visualizeWorkoutsWithFilter);
 
             Objects.requireNonNull(customDialog.getWindow()).setWindowAnimations(R.style.filterAnimations);
 
@@ -90,7 +93,7 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    public void applyChange(String difficulty, String duration, String target) {
+    public void visualizeWorkoutsWithFilter(String difficulty, String duration, String target) {
         ArrayList<String> toFilter = new ArrayList<>();
         workoutLayout.removeAllViews();
         StringBuilder filter = new StringBuilder();
