@@ -18,11 +18,11 @@
         android:text="PLACEHOLER"
         android:textSize="@dimen/font_size_large" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/activeView"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2" />
+        android:layout_weight="2"/>
 
     <LinearLayout
         android:id="@+id/buttonHolder"

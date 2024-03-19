@@ -17,6 +17,7 @@ import com.firstapp.group10app.R;
 
 public class Home extends Fragment {
     private TextView workoutsNum;
+    private String totalWorkouts;
 
     public Home() {
         super(R.layout.activity_home);
@@ -34,6 +35,9 @@ public class Home extends Fragment {
         // For now, a check should run at the start of each file for DB connection.
         Session.setOnlineDbStatus(OnlineDbConnection.testConnection());
 
+        totalWorkouts = Session.getUserDetails()[6];
+        System.out.println("show you num = " + totalWorkouts);
+
         //edit number values
         workoutsNum = rootView.findViewById(R.id.workoutCountTextView);
 
@@ -42,16 +46,13 @@ public class Home extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        Button temp = rootView.findViewById(R.id.TEMP);
-        temp.setOnClickListener(v -> startActivity(new Intent(getContext(), ActiveWorkoutLoading.class)));
-
         return rootView;
     }
 
     // Method to dynamically edit workoutCountTextView
     public void setWorkoutCount() {
         if (workoutsNum != null) {
-            workoutsNum.setText(String.valueOf(2));
+            workoutsNum.setText(totalWorkouts);
         }
     }
 }

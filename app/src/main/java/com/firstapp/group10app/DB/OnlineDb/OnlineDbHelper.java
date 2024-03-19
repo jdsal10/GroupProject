@@ -483,6 +483,26 @@ public class OnlineDbHelper {
         OnlineDbConnection.getInstance().executeStatement(sqlHistory);
     }
 
+    //create get history
+    public static Integer getTotalinHistory(String email){
+        String query = "SELECT COUNT(*) AS total FROM HealthData.UserWorkoutHistory uwh " +
+                " WHERE uwh.Email = '"+ email +"';";
+
+        OnlineDbConnection db = new OnlineDbConnection();
+        ResultSet out = db.executeQuery(query);
+
+        Integer total = null;
+
+        try {
+            if(out.next()) {
+                total = out.getInt("total");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error processing ResultSet", e);
+        }
+        return total;
+    }
+
     /**
      * Retrieves a limited (4) number of a user's workouts from the database.
      *
