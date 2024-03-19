@@ -180,7 +180,6 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
             paused = true;
             flashPaused();
             findViewById(R.id.pauseWorkout).setVisibility(View.GONE);
-
             findViewById(R.id.resumeWorkout).setVisibility(View.VISIBLE);
             findViewById(R.id.finishWorkout).setVisibility(View.VISIBLE);
 
@@ -191,8 +190,11 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
 
             next.setClickable(true);
             previous.setClickable(true);
-            findViewById(R.id.pauseWorkout).setVisibility(View.VISIBLE);
 
+            next.setAlpha(1f);
+            previous.setAlpha(1f);
+            
+            findViewById(R.id.pauseWorkout).setVisibility(View.VISIBLE);
             findViewById(R.id.resumeWorkout).setVisibility(View.GONE);
             findViewById(R.id.finishWorkout).setVisibility(View.GONE);
         } else if (id == R.id.finishWorkout) {
@@ -221,30 +223,30 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
                 });
 
             } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    LayoutInflater inflater = getLayoutInflater();
-                    View dialogView = inflater.inflate(R.layout.popup_finish_workout, null);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                LayoutInflater inflater = getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.popup_finish_workout, null);
 
-                    builder.setView(dialogView);
-                    AlertDialog alertDialog = builder.create();
-                    alertDialog.show();
+                builder.setView(dialogView);
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
 
-                    TextView title = dialogView.findViewById(R.id.confirmFinishTitle);
-                    title.setText("You haven't finished your workout! You can still save your progress!");
-                    Button cancelFinish = dialogView.findViewById(R.id.cancelWorkoutFinish);
-                    Button finish = dialogView.findViewById(R.id.confirmWorkoutFinish);
+                TextView title = dialogView.findViewById(R.id.confirmFinishTitle);
+                title.setText("You haven't finished your workout! You can still save your progress!");
+                Button cancelFinish = dialogView.findViewById(R.id.cancelWorkoutFinish);
+                Button finish = dialogView.findViewById(R.id.confirmWorkoutFinish);
 
-                    cancelFinish.setOnClickListener(v1 -> alertDialog.dismiss());
+                cancelFinish.setOnClickListener(v1 -> alertDialog.dismiss());
 
-                    finish.setOnClickListener(v12 -> {
-                        int minutes = (time % 3600) / 60;
-                        OnlineDbHelper.insertHistory(minutes);
-                        alertDialog.dismiss();
-                        startActivity(new Intent(this, ActivityContainer.class));
+                finish.setOnClickListener(v12 -> {
+                    int minutes = (time % 3600) / 60;
+                    OnlineDbHelper.insertHistory(minutes);
+                    alertDialog.dismiss();
+                    startActivity(new Intent(this, ActivityContainer.class));
 
 
-                    });
-                }
+                });
+            }
 
         }
     }
