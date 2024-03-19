@@ -2,46 +2,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Pages.Fragments.MainOptions.Home">
 
     <LinearLayout
+        android:id="@+id/signedInLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <!-- Header -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="My Statistics"
-            android:textSize="24sp"
-            android:textStyle="bold"
             android:padding="16dp"
-            android:textColor="@android:color/background_dark"
-            android:layout_marginBottom="0dp"/>
+            android:text="My Statistics"
+            android:textSize="@dimen/font_size_larger"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_transparent_very_curved_corners"
             android:gravity="center_vertical"
-            android:layout_marginStart="@dimen/margin_default"
-            android:layout_marginEnd="@dimen/margin_default"
-            android:layout_marginTop="1dp"
-            android:background="@drawable/shape_transparent_very_curved_corners">
+            android:orientation="horizontal">
 
             <!-- Workout Count -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_very_small"
                 android:layout_weight="1"
-                android:orientation="vertical"
                 android:gravity="center"
-                android:layout_margin="5dp">
+                android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="100dp"
+                    android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/workouts_sym">
 
@@ -50,28 +49,26 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Workout"
-                    android:textColor="@android:color/black" />
+                    android:text="Workout" />
 
                 <TextView
                     android:id="@+id/workoutCountTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp" />
+                    android:text="0" />
             </LinearLayout>
 
             <!-- Kcal -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_very_small"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="100dp"
+                    android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/kcal_sym">
 
@@ -80,28 +77,26 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kcal"
-                    android:textColor="@android:color/black" />
+                    android:text="Kcal" />
 
                 <TextView
                     android:id="@+id/kcalTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp" />
+                    android:text="0" />
             </LinearLayout>
 
             <!-- Time -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_very_small"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="100dp"
+                    android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/time_sym">
 
@@ -110,19 +105,78 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Time"
-                    android:textColor="@android:color/black" />
+                    android:text="Time" />
 
                 <TextView
                     android:id="@+id/timeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0 min"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp" />
+                    android:text="0 min" />
             </LinearLayout>
         </LinearLayout>
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/anonymousLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/anonymousTitle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="You are in Anonymous Mode"
+            android:textSize="@dimen/font_size_larger" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:text="You have access to limited functionality, but you can search our rich database of workouts." />
+
+            <Button
+                android:id="@+id/searchWorkoutButton"
+                style="@style/ButtonNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/workoutsSearchButton" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:text="To access all functionality, including AI Workout generation, exit and then log in regularly." />
+
+            <Button
+                android:id="@+id/logoutButton"
+                style="@style/ButtonRedStroke"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Log out" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

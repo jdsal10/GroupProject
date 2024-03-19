@@ -1,18 +1,16 @@
 package com.firstapp.group10app.Pages.Fragments.MainOptions;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 import com.firstapp.group10app.DB.OnlineDb.OnlineDbConnection;
 import com.firstapp.group10app.Other.Session;
-import com.firstapp.group10app.Pages.ActiveWorkoutLoading;
 import com.firstapp.group10app.R;
 
 public class Home extends Fragment {
@@ -32,19 +30,34 @@ public class Home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_home, container, false);
 
-        // For now, a check should run at the start of each file for DB connection.
-        Session.setOnlineDbStatus(OnlineDbConnection.testConnection());
+        LinearLayout signedInLayout = rootView.findViewById(R.id.signedInLayout);
+        LinearLayout anonymousLayout = rootView.findViewById(R.id.anonymousLayout);
 
-        totalWorkouts = Session.getUserDetails()[6];
-        System.out.println("show you num = " + totalWorkouts);
+        // Behaviour if signed in
+        if (Session.getSignedIn()) {
+            signedInLayout.setVisibility(View.VISIBLE);
+            anonymousLayout.setVisibility(View.GONE);
 
-        //edit number values
-        workoutsNum = rootView.findViewById(R.id.workoutCountTextView);
+            // For now, a check should run at the start of each file for DB connection.
+            Session.setOnlineDbStatus(OnlineDbConnection.testConnection());
 
-        //Dynamically add value
-        setWorkoutCount();
+            totalWorkouts = Session.getUserDetails()[6];
+            System.out.println("show you num = " + totalWorkouts);
 
-        super.onCreate(savedInstanceState);
+            //edit number values
+            workoutsNum = rootView.findViewById(R.id.workoutCountTextView);
+
+            //Dynamically add value
+            setWorkoutCount();
+
+            super.onCreate(savedInstanceState);
+        }
+
+        // Behaviour if anonymous
+        else {
+            signedInLayout.setVisibility(View.GONE);
+            anonymousLayout.setVisibility(View.VISIBLE);
+        }
 
         return rootView;
     }
