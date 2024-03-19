@@ -16,8 +16,8 @@ public final class ExerciseWorkoutPairContract {
     /* Inner class that defines the table contents */
     public static class ExerciseWorkoutPairEntry implements BaseColumns {
         public static final String TABLE_NAME = "exerciseWorkoutPair";
-        public static final String COLUMN_NAME_EXERCISE_ID = "exerciseID";
-        public static final String COLUMN_NAME_WORKOUT_ID = "workoutID";
+        public static final String COLUMN_NAME_EXERCISE_ID = "ExerciseID";
+        public static final String COLUMN_NAME_WORKOUT_ID = "WorkoutID";
     }
 
     static final String SQL_CREATE_ENTRIES =

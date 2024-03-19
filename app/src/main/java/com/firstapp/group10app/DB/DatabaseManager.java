@@ -19,10 +19,18 @@ public class DatabaseManager {
     }
 
     public static synchronized DatabaseManager getInstance() {
-        if (instance == null) {
-            instance = new DatabaseManager();
-        }
+        if (instance == null) instance = new DatabaseManager();
         return instance;
+    }
+
+    private LocalDb getLocalDb() {
+        if (localDb == null) connectToLocalDb(null);
+        return localDb;
+    }
+
+    private OnlineDbConnection getOnlineDb() {
+        if (onlineDb == null) connectToOnlineDb();
+        return onlineDb;
     }
 
     private void connectToLocalDb(Context context) {
@@ -30,69 +38,46 @@ public class DatabaseManager {
     }
 
     private void connectToOnlineDb() {
-        onlineDb = new OnlineDbConnection();
+        onlineDb = OnlineDbConnection.getInstance();
     }
 
     public Object getDatabaseConnection(boolean signedIn) {
         if (signedIn) {
-            if (onlineDb == null) connectToOnlineDb();
-
-            return onlineDb;
+            return getOnlineDb();
         } else {
-            if (localDb == null) connectToLocalDb(null);
-
-            return localDb;
+            return getLocalDb();
         }
     }
 
-    private OnlineDbConnection getOnlineDbConnection() {
-        if (onlineDb == null) connectToOnlineDb();
-
-        return onlineDb;
-    }
-
-    public QueryResult executeQuery(String query, boolean signedIn) throws SQLException {
-        Object dbConnection = getDatabaseConnection(signedIn);
-
+    public QueryResult executeQuery(String query, boolean signedIn) {
         if (signedIn) {
-            OnlineDbConnection onlineDb = (OnlineDbConnection) dbConnection;
-            return new QueryResult(onlineDb.executeQuery(query));
+            return new QueryResult(getOnlineDb().executeQuery(query));
         } else {
-            LocalDb localDb = (LocalDb) dbConnection;
-            return new QueryResult(localDb.executeQuery(query));
+            return new QueryResult(getLocalDb().executeQuery(query));
         }
     }
 
-    public QueryResult executeQueryInOnlineDb(String query) throws SQLException {
-        OnlineDbConnection thisOnlineDb = getOnlineDbConnection();
-        return new QueryResult(thisOnlineDb.executeQuery(query));
+    public QueryResult executeQueryInOnlineDb(String query) {
+        return new QueryResult(getOnlineDb().executeQuery(query));
     }
 
-    public void executeStatement(String statement, boolean signedIn) throws SQLException {
-        Object dbConnection = getDatabaseConnection(signedIn);
-
+    public void executeStatement(String statement, boolean signedIn) {
         if (signedIn) {
-            OnlineDbConnection onlineDb = (OnlineDbConnection) dbConnection;
-            onlineDb.executeStatement(statement);
+            getOnlineDb().executeStatement(statement);
         } else {
-            LocalDb localDb = (LocalDb) dbConnection;
-            // Assuming LocalDb has a similar method to execute statements
-            localDb.executeStatement(statement);
+            getLocalDb().executeStatement(statement);
         }
     }
 
     public void executeStatementInOnlineDb(String statement) throws SQLException {
-        OnlineDbConnection thisOnlineDb = getOnlineDbConnection();
-        thisOnlineDb.executeStatement(statement);
+        getOnlineDb().executeStatement(statement);
     }
 
     public List<Exercise> getAllExercises() {
         if (Session.getSignedIn()) {
-            // Call the getAllExercises method from the OnlineDbHelper class
             return OnlineDbHelper.getAllExercises();
         } else {
-            // Call the getAllExercises method from the LocalDb class
-            return localDb.getAllExercises();
+            return getLocalDb().getAllExercises();
         }
     }
 
