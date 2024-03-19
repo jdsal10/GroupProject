@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.DB.OnlineDb.DbHelper;
+import com.firstapp.group10app.Other.Session;
+
 import com.firstapp.group10app.ChatGPT.ChatGptClient;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.JsonToDb;
@@ -25,6 +28,8 @@ import com.firstapp.group10app.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class WorkoutAi extends AppCompatActivity implements View.OnClickListener {
@@ -36,6 +41,9 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     private TextView generateButton, continueButton;
     private Button beginWorkoutButton;
     private String output3;
+
+    private String[] sessionData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +67,8 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         page3.setVisibility(View.GONE);
         TextView mainGoalEdit = findViewById(R.id.mainGoalTitle);
         populateSpinners();
+
+
     }
 
     @Override
@@ -70,6 +80,12 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             startActivity(new Intent(getApplicationContext(), ActivityContainer.class));
             overridePendingTransition(R.anim.slide_up_in, R.anim.slide_up_out);
         } else if (id == R.id.continueButton) {
+            try {
+                sessionData = getSessionData();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
             // To move the variables to the 2nd button
             muscleGroupAnswer = muscleGroupSpinner.getSelectedItem().toString();
             durationAnswer = durationSpinner.getSelectedItem().toString();
@@ -98,7 +114,8 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             mainGoalAnswer = findViewById(R.id.mainGoalEdit);
             injuriesAnswer = findViewById(R.id.injuriesEdit);
             additionalInfoAnswer = findViewById(R.id.additionalInfoEdit);
-            String input = fillGptInput();
+            String input = fillGptInput(sessionData);
+
             Toast.makeText(WorkoutAi.this, "Generating...", Toast.LENGTH_SHORT).show();
 
             Runnable task = () -> {
@@ -301,19 +318,33 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         difficultyList.add("Hard");
     }
 
-    public String fillGptInput() {
+    public String fillGptInput(String[] sessionData) {
         String additionalInfo = additionalInfoAnswer.getText().toString().trim();
         String injuriesInfo = injuriesAnswer.getText().toString().trim();
         String equipmentInfo = equipmentAnswer.getText().toString().trim();
         String mainGoalInfo = mainGoalAnswer.getText().toString().trim();
+
         if (!additionalInfo.isEmpty()) {
-            additionalInfo = "Additional Info: " + additionalInfo;
+            additionalInfo = "Additional Info: " + additionalInfo+". ";
         }
         if (!equipmentInfo.isEmpty()) {
-            equipmentInfo = "User has the following equipment: " + equipmentInfo;
+            equipmentInfo = "User has the following equipment: " + equipmentInfo+". ";
         }
         if (!injuriesInfo.isEmpty()) {
-            injuriesInfo = "User suffers from the following injuries: " + injuriesInfo;
+            injuriesInfo = "User suffers from the following injuries: " + injuriesInfo+". ";
+        }
+        if (sessionData[0] != null){
+            sessionData[0] = "This is the weight of the user: "+ sessionData[0]+". ";
+        }
+        else{
+            sessionData[0] = "";
+        }
+
+        if (sessionData[1] != null){
+            sessionData[1] = "This is the user's sex: "+ sessionData[1]+". ";
+        }
+        else{
+            sessionData[1] = "";
         }
 
 
@@ -322,19 +353,43 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                 ". " +
                 "Some info about a user: [37 years old] [67 kg] [M]" +
                 " " +
-                equipmentInfo + ". " +
-                injuriesInfo + ". " +
+                equipmentInfo +
+                injuriesInfo +
                 mainGoalInfo + ". " +
 
                 "Generate a workout in exact same JSON format of (WorkoutName, WorkoutDuration (in minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), " +
                 "Exercises (ExerciseName, Description, TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps, Time (if exercise isn't rep based, otherwise leave null))). output only the JSON" +
                 ". " +
                 "Some info about the required workout: [" + durationAnswer + "] [" + muscleGroupAnswer + "] [" + difficultyAnswer + "]. " +
-                ". " +
-                additionalInfo + ". " +
 
-                ". " +
+
+
+                additionalInfo +
+
+                sessionData[0] +
+
+                sessionData[1]+
+
+
                 "If you cannot generate a workout or there is not enough info, return (unsure). "
                 + "Do it on one line as a String, only output JSON";
     }
+
+    public String[] getSessionData() throws SQLException {
+        String[] sessionVariables = new String[2];
+        DbHelper db = new DbHelper();
+        ResultSet userData = db.getUser(Session.getUserEmail());
+        String weight = "", sex = "", healthCondition = "";
+        if(userData.next()){
+            sessionVariables[0] = userData.getString("Weight" );
+            sessionVariables[1] = userData.getString("Sex");
+            //healthCondition = userData.getString("reasons"); TODO
+        }
+
+
+
+
+        return sessionVariables;
+    }
+
 }

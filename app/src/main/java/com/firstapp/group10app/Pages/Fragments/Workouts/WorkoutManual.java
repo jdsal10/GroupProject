@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.firstapp.group10app.Pages.CreateWorkout;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.WorkoutOption;
 import com.firstapp.group10app.Pages.WorkoutSearch;
+
 import com.firstapp.group10app.R;
 
 public class WorkoutManual extends Fragment implements View.OnClickListener {
@@ -47,6 +48,7 @@ public class WorkoutManual extends Fragment implements View.OnClickListener {
         if (id == R.id.goToSearch) {
             tellParentToStartNewActivity(new WorkoutSearch());
         } else if (id == R.id.goToCreate) {
+
             tellParentToStartNewActivity(new CreateWorkout());
         }
     }
