@@ -58,7 +58,6 @@ public class SettingsAccount extends Fragment implements View.OnClickListener {
             changePassword();
         } else if (id == R.id.logoutButton) {
             showConfirmationLogout();
-//            Session.logout(requireContext());
         }
     }
 

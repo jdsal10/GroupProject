@@ -51,8 +51,8 @@ public class WorkoutManual extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void tellParentToStartNewActivity(AppCompatActivity newActivity) {
-        WorkoutOption parentFrag = ((WorkoutOption) WorkoutManual.this.getParentFragment());
+    private void tellParentToStartNewActivity(AppCompatActivity newActivity) {
+        WorkoutOption parentFrag = (WorkoutOption) WorkoutManual.this.getParentFragment();
         if (parentFrag != null) {
             parentFrag.tellParentToStartNewActivity(newActivity, R.anim.slide_down_in, R.anim.slide_down_out);
         } else {
