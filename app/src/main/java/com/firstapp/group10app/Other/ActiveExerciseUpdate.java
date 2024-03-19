@@ -31,7 +31,6 @@ public class ActiveExerciseUpdate extends Fragment {
         fragment.setArguments(args);
         System.out.println("CREATED");
         return fragment;
-
     }
 
     @Override
@@ -65,19 +64,19 @@ public class ActiveExerciseUpdate extends Fragment {
         descriptionTextView.setText(description);
 
         if (!sets.equals("null")) {
-            setsTextView.setText(String.format("%s sets", sets));
+            setsTextView.setText(String.format("- %s sets", sets));
         } else {
             setsTextView.setVisibility(View.GONE);
         }
 
         if (!reps.equals("null")) {
-            repsTextView.setText(String.format("%s reps", reps));
+            repsTextView.setText(String.format("- %s reps", reps));
         } else {
             repsTextView.setVisibility(View.GONE);
         }
 
         if (!time.equals("null")) {
-            timeTextView.setText(String.format("%seconds?", time));
+            timeTextView.setText(String.format("- %s seconds?", time));
         } else {
             timeTextView.setVisibility(View.GONE);
         }

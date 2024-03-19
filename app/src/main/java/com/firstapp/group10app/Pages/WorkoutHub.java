@@ -24,7 +24,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class WorkoutHub extends Fragment implements View.OnClickListener {
-    private Button enhance, begin;
     LinearLayout workoutHubLinear;
 
     public WorkoutHub() {
@@ -41,9 +40,9 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
         View rootView = inflater.inflate(R.layout.activity_workout_hub, container, false);
 
         // Button declaration.
-        enhance = rootView.findViewById(R.id.enhance);
+        Button enhance = rootView.findViewById(R.id.enhance);
         enhance.setOnClickListener(this);
-        begin = rootView.findViewById(R.id.beginWorkout);
+        Button begin = rootView.findViewById(R.id.beginWorkout);
         begin.setOnClickListener(this);
 
         // Gets the current workout.
