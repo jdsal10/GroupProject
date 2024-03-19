@@ -10,7 +10,10 @@ import android.util.Log;
 
 import com.firstapp.group10app.DB.Exercise;
 import com.firstapp.group10app.DB.LocalDb.WorkoutContract.WorkoutEntry;
-import com.firstapp.group10app.DB.Workout;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -287,26 +290,68 @@ public class LocalDb {
         return itemIds;
     }
 
-    public List<Workout> getAllWorkouts() {
-        List<Workout> workouts = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
+    /**
+     * Retrieves all workouts and associate exercises from the database.
+     * To achieve this, the method uses a complex SQL query to join the Workouts, ExerciseWorkoutPairs,
+     * and Exercises tables.
+     *
+     * @param filter An optional filter to apply to the workouts.
+     * @return A JSON string containing the workouts.
+     */
+    @SuppressLint("Range")
+    public String getWorkoutsAsJsonArray(String filter) {
+        try {
+            JSONArray workoutsArray = new JSONArray();
 
-        Cursor cursor = db.query("Workouts", null, null, null, null, null, null);
-        if (cursor.moveToFirst()) {
-            do {
-                @SuppressLint("Range") long id = cursor.getLong(cursor.getColumnIndex("id"));
-                @SuppressLint("Range") String workoutName = cursor.getString(cursor.getColumnIndex("workoutName"));
-                @SuppressLint("Range") int duration = cursor.getInt(cursor.getColumnIndex("duration"));
-                @SuppressLint("Range") String targetMuscleGroup = cursor.getString(cursor.getColumnIndex("targetMuscleGroup"));
-                @SuppressLint("Range") String equipment = cursor.getString(cursor.getColumnIndex("equipment"));
-                @SuppressLint("Range") String difficulty = cursor.getString(cursor.getColumnIndex("difficulty"));
+            String workoutQuery = "SELECT * FROM " + WorkoutContract.WorkoutEntry.TABLE_NAME;
+            if (filter != null && !filter.isEmpty()) {
+                workoutQuery += " WHERE " + filter;
+            }
 
-                Workout workout = new Workout(id, workoutName, duration, targetMuscleGroup, equipment, difficulty);
-                workouts.add(workout);
-            } while (cursor.moveToNext());
+            Cursor workoutCursor = db.rawQuery(workoutQuery, null);
+            while (workoutCursor.moveToNext()) {
+                JSONObject workoutObject = new JSONObject();
+                workoutObject.put("WorkoutID", workoutCursor.getInt(workoutCursor.getColumnIndex(WorkoutContract.WorkoutEntry._ID)));
+                workoutObject.put("WorkoutName", workoutCursor.getString(workoutCursor.getColumnIndex(WorkoutContract.WorkoutEntry.COLUMN_NAME_WORKOUT_NAME)));
+                workoutObject.put("WorkoutDuration", workoutCursor.getInt(workoutCursor.getColumnIndex(WorkoutContract.WorkoutEntry.COLUMN_NAME_DURATION)));
+                workoutObject.put("TargetMuscleGroup", workoutCursor.getString(workoutCursor.getColumnIndex(WorkoutContract.WorkoutEntry.COLUMN_NAME_MUSCLE_GROUP)));
+                workoutObject.put("Equipment", workoutCursor.getString(workoutCursor.getColumnIndex(WorkoutContract.WorkoutEntry.COLUMN_NAME_EQUIPMENT)));
+                workoutObject.put("Difficulty", workoutCursor.getInt(workoutCursor.getColumnIndex(WorkoutContract.WorkoutEntry.COLUMN_NAME_DIFFICULTY)));
+
+                int workoutId = workoutCursor.getInt(workoutCursor.getColumnIndex(WorkoutContract.WorkoutEntry._ID));
+                String exerciseQuery = "SELECT * FROM " + ExerciseContract.ExerciseEntry.TABLE_NAME +
+                        " WHERE " + ExerciseContract.ExerciseEntry._ID + " IN (" +
+                        "SELECT " + ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_EXERCISE_ID +
+                        " FROM " + ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.TABLE_NAME +
+                        " WHERE " + ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_WORKOUT_ID + " = " + workoutId + ")";
+
+                Cursor exerciseCursor = db.rawQuery(exerciseQuery, null);
+                JSONArray exercisesArray = new JSONArray();
+                while (exerciseCursor.moveToNext()) {
+                    JSONObject exerciseObject = new JSONObject();
+                    exerciseObject.put("ExerciseID", exerciseCursor.getInt(exerciseCursor.getColumnIndex(ExerciseContract.ExerciseEntry._ID)));
+                    exerciseObject.put("ExerciseName", exerciseCursor.getString(exerciseCursor.getColumnIndex(ExerciseContract.ExerciseEntry.COLUMN_NAME_EXERCISE_NAME)));
+                    exerciseObject.put("Description", exerciseCursor.getString(exerciseCursor.getColumnIndex(ExerciseContract.ExerciseEntry.COLUMN_NAME_DESCRIPTION)));
+                    exerciseObject.put("Illustration", exerciseCursor.getString(exerciseCursor.getColumnIndex(ExerciseContract.ExerciseEntry.COLUMN_NAME_ILLUSTRATION)));
+                    exerciseObject.put("TargetMuscleGroup", exerciseCursor.getString(exerciseCursor.getColumnIndex(ExerciseContract.ExerciseEntry.COLUMN_NAME_TARGET_MUSCLE_GROUP)));
+                    exerciseObject.put("Equipment", exerciseCursor.getString(exerciseCursor.getColumnIndex(ExerciseContract.ExerciseEntry.COLUMN_NAME_EQUIPMENT)));
+                    exerciseObject.put("Difficulty", exerciseCursor.getString(exerciseCursor.getColumnIndex(ExerciseContract.ExerciseEntry.COLUMN_NAME_DIFFICULTY)));
+                    exerciseObject.put("Sets", exerciseCursor.getInt(exerciseCursor.getColumnIndex(ExerciseContract.ExerciseEntry.COLUMN_NAME_SETS)));
+                    exerciseObject.put("Reps", exerciseCursor.getInt(exerciseCursor.getColumnIndex(ExerciseContract.ExerciseEntry.COLUMN_NAME_REPS)));
+                    exerciseObject.put("Time", exerciseCursor.getInt(exerciseCursor.getColumnIndex(ExerciseContract.ExerciseEntry.COLUMN_NAME_TIME)));
+                    exercisesArray.put(exerciseObject);
+                }
+                exerciseCursor.close();
+
+                workoutObject.put("Exercises", exercisesArray);
+                workoutsArray.put(workoutObject);
+            }
+            workoutCursor.close();
+
+            return workoutsArray.toString();
+        } catch (JSONException e) {
+            throw new RuntimeException("Error creating JSON", e);
         }
-        cursor.close();
-        return workouts;
     }
 
     public void insertExerciseWorkoutPair(int exerciseID, int workoutID) {

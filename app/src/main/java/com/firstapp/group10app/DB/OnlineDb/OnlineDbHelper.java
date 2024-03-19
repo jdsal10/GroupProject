@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * This class provides helper methods for interacting with the online database.
- *
+ * <p>
  * TODO (in the future): Mainly DatabaseManager should make calls to this class.
  *      Right now a lot of pages access this class directly.
  */
@@ -286,7 +286,9 @@ public class OnlineDbHelper {
     }
 
     /**
-     * Retrieves all workouts from the database.
+     * Retrieves all workouts and associate exercises from the database.
+     * To achieve this, the method uses a complex SQL query to join the Workouts, ExerciseWorkoutPairs,
+     * and Exercises tables.
      *
      * @param filter An optional filter to apply to the workouts.
      * @return A JSON string containing the workouts.
@@ -485,9 +487,9 @@ public class OnlineDbHelper {
     }
 
     //create get history
-    public static Integer getTotalinHistory(String email){
+    public static Integer getTotalinHistory(String email) {
         String query = "SELECT COUNT(*) AS total FROM HealthData.UserWorkoutHistory uwh " +
-                " WHERE uwh.Email = '"+ email +"';";
+                " WHERE uwh.Email = '" + email + "';";
 
         OnlineDbConnection db = new OnlineDbConnection();
         ResultSet out = db.executeQuery(query);
@@ -495,7 +497,7 @@ public class OnlineDbHelper {
         Integer total = null;
 
         try {
-            if(out.next()) {
+            if (out.next()) {
                 total = out.getInt("total");
             }
         } catch (SQLException e) {

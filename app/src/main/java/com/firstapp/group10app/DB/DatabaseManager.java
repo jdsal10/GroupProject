@@ -60,8 +60,9 @@ public class DatabaseManager {
         if (Session.getSignedIn()) {
             return OnlineDbHelper.getWorkoutsAsJsonArray(filter);
         } else {
-//            return getLocalDb().getAllWorkoutsAsJsonArray();
-            return OnlineDbHelper.getWorkoutsAsJsonArray(filter);
+            getLocalDb().printDataForDebugging();
+
+            return getLocalDb().getWorkoutsAsJsonArray(filter);
         }
     }
 
