@@ -27,14 +27,14 @@ public class WorkoutManual extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.activity_workout_manual, container, false);
 
-        // If the user is signed in, they can both create and search for workouts.
+        // Behaviour when the user is signed in, can both create and search for workouts.
         if (Session.getSignedIn()) {
             rootView.findViewById(R.id.searchBox).setVisibility(View.VISIBLE);
             rootView.findViewById(R.id.orText).setVisibility(View.VISIBLE);
             rootView.findViewById(R.id.createBox).setVisibility(View.VISIBLE);
         }
 
-        // If the user is not signed in, they can only search for workouts.
+        // Behaviour when the user is anonymous, can only search for workouts.
         else {
             rootView.findViewById(R.id.searchBox).setVisibility(View.VISIBLE);
             rootView.findViewById(R.id.orText).setVisibility(View.GONE);

@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.firstapp.group10app.DB.OnlineDb.OnlineDbConnection;
 import com.firstapp.group10app.Other.Session;
+import com.firstapp.group10app.Pages.ActivityContainer;
 import com.firstapp.group10app.Pages.WorkoutSearch;
 import com.firstapp.group10app.R;
 
@@ -98,7 +99,9 @@ public class Home extends Fragment implements View.OnClickListener {
 
         Button confirm = dialogView.findViewById(R.id.confirm);
 
-        confirm.setOnClickListener(v -> Session.logout(requireContext()));
+        confirm.setOnClickListener(v -> {
+            tellParentToFinish();
+        });
 
         alertDialog.show();
     }
@@ -109,6 +112,15 @@ public class Home extends Fragment implements View.OnClickListener {
             parentFrag.tellParentToStartNewActivity(newActivity, R.anim.slide_down_in, R.anim.slide_down_out);
         } else {
             startActivity(new Intent(getContext(), newActivity.getClass()));
+        }
+    }
+
+    private void tellParentToFinish() {
+        ActivityContainer parent = (ActivityContainer) getActivity();
+        if (parent != null) {
+            parent.logOut();
+        } else {
+            Session.logout(getContext());
         }
     }
 }
