@@ -231,7 +231,6 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
             EnhanceInput enhance = new EnhanceInput(getContext());
             enhance.show();
         } else if (id == R.id.beginWorkout) {
-            OnlineDbHelper.insertHistory();
             startActivity(new Intent(getContext(), ActiveWorkoutLoading.class));
         }
     }
