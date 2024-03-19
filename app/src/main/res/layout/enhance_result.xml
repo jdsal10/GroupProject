@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingStart="10sp"
-    android:paddingEnd="10sp">
+    android:paddingStart="1dp"
+    android:paddingEnd="1dp">
 
     <TextView
         android:id="@+id/enhanceTitle"
@@ -25,8 +25,8 @@
     <ScrollView
         android:id="@+id/resultView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
         <LinearLayout
             android:id="@+id/resultHolder"
@@ -43,16 +43,20 @@
 
         <Button
             android:id="@+id/regenerateEnhance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ButtonNormal"
+            android:layout_width="0dp"
             android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/margin_very_small"
+            android:layout_weight="1"
             android:text="Regenerate" />
 
         <Button
             android:id="@+id/useEnhance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ButtonTetradic1"
+            android:layout_width="0dp"
             android:layout_gravity="center"
+            android:layout_marginStart="@dimen/margin_very_small"
+            android:layout_weight="1"
             android:text="Use Workout" />
     </LinearLayout>
 </LinearLayout>

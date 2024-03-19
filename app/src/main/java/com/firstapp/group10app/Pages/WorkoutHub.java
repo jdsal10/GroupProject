@@ -228,7 +228,7 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.enhance) {
-            EnhanceInput enhance = new EnhanceInput(getContext());
+            EnhanceInput enhance = new EnhanceInput(requireContext());
             enhance.show();
         } else if (id == R.id.beginWorkout) {
             startActivity(new Intent(getContext(), ActiveWorkoutLoading.class));

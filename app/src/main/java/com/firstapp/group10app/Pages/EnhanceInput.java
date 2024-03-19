@@ -21,7 +21,6 @@ public class EnhanceInput extends Dialog implements View.OnClickListener {
 
     public EnhanceInput(Context context) {
         super(context);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.enhance_input);
     }
 
@@ -48,27 +47,27 @@ public class EnhanceInput extends Dialog implements View.OnClickListener {
                 String prompt = "Given the following workout " + workoutString + ", apply the following request to the data, only returning the JSON, and in the exact format: " + enhanceData + ".";                System.out.println(prompt);
 
                 Toast.makeText(getContext(), "Generating...", Toast.LENGTH_SHORT).show();
-
-//                Runnable task = () -> {
-//                    try {
-//                        result = (ChatGptClient.chatGPT(prompt));
-//                        result = result.replaceAll("\\\\", "");
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                };
 //
-//                Thread newThread = new Thread(task);
-//                newThread.start();
+////                Runnable task = () -> {
+////                    try {
+////                        result = (ChatGptClient.chatGPT(prompt));
+////                        result = result.replaceAll("\\\\", "");
+////                    } catch (Exception e) {
+////                        e.printStackTrace();
+////                    }
+////                };
+////
+////                Thread newThread = new Thread(task);
+////                newThread.start();
+////
+////                try {
+////                    newThread.join();
+////                    System.out.println("Result " + result);
+////                } catch (InterruptedException e) {
+////                    throw new RuntimeException(e);
+////                }
 //
-//                try {
-//                    newThread.join();
-//                    System.out.println("Result " + result);
-//                } catch (InterruptedException e) {
-//                    throw new RuntimeException(e);
-//                }
-
-                // For testing, use below:
+//                // For testing, use below:
                 String result = "{" +
                         "\"WorkoutName\": \"Cardio Abs Blast\"," +
                         "\"WorkoutDuration\": 35," +
@@ -153,4 +152,6 @@ public class EnhanceInput extends Dialog implements View.OnClickListener {
             }
         }
     }
+
+
 }
