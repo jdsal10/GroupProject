@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.firstapp.group10app.R;
 
 public class ActiveExerciseUpdate extends Fragment {
+    private String exerciseName;
     private String description;
     private String sets;
     private String reps;
@@ -21,9 +22,10 @@ public class ActiveExerciseUpdate extends Fragment {
 
     public ActiveExerciseUpdate() {}
 
-    public static ActiveExerciseUpdate newInstance(String description, String sets, String reps, String time) {
+    public static ActiveExerciseUpdate newInstance(String exerciseName, String description, String sets, String reps, String time) {
         ActiveExerciseUpdate fragment = new ActiveExerciseUpdate();
         Bundle args = new Bundle();
+        args.putString("exerciseName", exerciseName);
         args.putString("description", description);
         args.putString("sets", sets);
         args.putString("reps", reps);
@@ -37,6 +39,7 @@ public class ActiveExerciseUpdate extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            exerciseName = getArguments().getString("exerciseName");
             description = getArguments().getString("description");
             sets = getArguments().getString("sets");
             reps = getArguments().getString("reps");
@@ -52,7 +55,7 @@ public class ActiveExerciseUpdate extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        TextView exerciseNameTextView = view.findViewById(R.id.activeExerciceName);
         TextView descriptionTextView = view.findViewById(R.id.activeDescription);
         TextView setsTextView = view.findViewById(R.id.activeSets);
         TextView repsTextView = view.findViewById(R.id.activeReps);
@@ -61,6 +64,7 @@ public class ActiveExerciseUpdate extends Fragment {
 
         progressBar.setVisibility(View.GONE);
 
+        exerciseNameTextView.setText(exerciseName);
         descriptionTextView.setText(description);
 
         if (!sets.equals("null")) {

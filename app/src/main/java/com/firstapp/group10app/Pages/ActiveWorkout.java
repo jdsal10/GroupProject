@@ -95,6 +95,7 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
                 JSONObject exercise = exerciseArray.getJSONObject(i);
 
                 f1 = ActiveExerciseUpdate.newInstance(
+                        exercise.getString("ExerciseName"),
                         exercise.getString("Description"),
                         exercise.getString("Sets"),
                         exercise.getString("Reps"),
