@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.DB.Exercise;
+import com.firstapp.group10app.Pages.ActivityContainer;
 import com.firstapp.group10app.Pages.MainActivity;
 
 import org.json.JSONObject;
@@ -151,5 +152,8 @@ public class Session {
         container = null;
         userDetails = null;
         localDB = null;
+
+        // Clear the ActivityContainer's current view
+        ActivityContainer.currentView = 1;
     }
 }

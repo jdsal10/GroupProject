@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
+import com.firstapp.group10app.DB.DatabaseManager;
 import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Pages.ActivityContainer;
 import com.firstapp.group10app.Pages.WorkoutHub;
@@ -25,11 +26,11 @@ import org.json.JSONObject;
 
 public class ItemVisualiser {
     private static LinearLayout workoutLayout;
-    private static Context cThis;
-    static int exerciseID, popID;
+    private static Context context;
+    static int exerciseID, popupID;
 
     public static void addDetails(JSONObject details, String buttonType) {
-        LayoutInflater inflate = (LayoutInflater) cThis.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout box = (LinearLayout) inflate.inflate(R.layout.element_workout_view, null);
 
         TextView nameView = box.findViewById(R.id.workoutNameView);
@@ -56,7 +57,7 @@ public class ItemVisualiser {
         workoutLayout.addView(box);
 
         // Creates a block
-        View view = new View(cThis);
+        View view = new View(context);
 
         LinearLayout.LayoutParams layoutParamsView = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -65,7 +66,7 @@ public class ItemVisualiser {
 
         layoutParamsView.setMargins(10, 10, 10, 10);
 
-        view.setBackgroundColor(cThis.getResources().getColor(android.R.color.darker_gray));
+        view.setBackgroundColor(context.getResources().getColor(android.R.color.darker_gray));
 
         view.setLayoutParams(layoutParamsView);
 
@@ -75,7 +76,7 @@ public class ItemVisualiser {
         box.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
-            View popupView = inflate.inflate(popID, null);
+            View popupView = inflate.inflate(popupID, null);
             builder.setView(popupView);
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
@@ -91,7 +92,7 @@ public class ItemVisualiser {
                 addCloseButton(popupView, alertDialog);
             }
 
-            LinearLayout exerciseLayout = new LinearLayout(cThis);
+            LinearLayout exerciseLayout = new LinearLayout(context);
             exerciseLayout.setOrientation(LinearLayout.VERTICAL);
 
             // Creates a layout containing the exercise boxes.
@@ -166,21 +167,21 @@ public class ItemVisualiser {
 
                 switch (difficultyValue) {
                     case "Easy":
-                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(cThis, R.color.pastel_green)));
+                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.pastel_green)));
                         difficultyText.setText("Easy");
-                        difficultyText.setTextColor(ContextCompat.getColor(cThis, R.color.white));
+                        difficultyText.setTextColor(ContextCompat.getColor(context, R.color.white));
                         difficultyText.setTextSize(14);
                         break;
                     case "Medium":
-                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(cThis, R.color.pastel_yellow)));
+                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.pastel_yellow)));
                         difficultyText.setText("Medium");
-                        difficultyText.setTextColor(ContextCompat.getColor(cThis, R.color.black));
+                        difficultyText.setTextColor(ContextCompat.getColor(context, R.color.black));
                         difficultyText.setTextSize(14);
                         break;
                     case "Hard":
-                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(cThis, R.color.pastel_red)));
+                        difficultyScale.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.pastel_red)));
                         difficultyText.setText("Hard");
-                        difficultyText.setTextColor(ContextCompat.getColor(cThis, R.color.white));
+                        difficultyText.setTextColor(ContextCompat.getColor(context, R.color.white));
                         difficultyText.setTextSize(14);
                         break;
                 }
@@ -196,10 +197,10 @@ public class ItemVisualiser {
     }
 
     public static void startWorkoutGeneration(String data, Context context, LinearLayout layout, String buttonType, int popupID, int exerciseScrollID) throws JSONException {
-        cThis = context;
+        ItemVisualiser.context = context;
         workoutLayout = layout;
         exerciseID = exerciseScrollID;
-        popID = popupID;
+        ItemVisualiser.popupID = popupID;
 
         if (data == null) {
             showEmpty(layout);
@@ -214,10 +215,10 @@ public class ItemVisualiser {
     }
 
     public static void startWorkoutGenerationLimiting(String data, Context context, LinearLayout layout, String buttonType, int popupID, int exerciseScrollID) throws JSONException {
-        cThis = context;
+        ItemVisualiser.context = context;
         workoutLayout = layout;
         exerciseID = exerciseScrollID;
-        popID = popupID;
+        ItemVisualiser.popupID = popupID;
 
         if (data == null) {
             showEmpty(layout);
@@ -232,10 +233,10 @@ public class ItemVisualiser {
     }
 
     public static void startWorkoutGenerationAI(String data, Context context, LinearLayout layout, String buttonType, int popupID, int exerciseScrollID) throws JSONException {
-        cThis = context;
+        ItemVisualiser.context = context;
         workoutLayout = layout;
         exerciseID = exerciseScrollID;
-        popID = popupID;
+        ItemVisualiser.popupID = popupID;
 
         if (data == null) {
             showEmpty(layout);
@@ -262,7 +263,7 @@ public class ItemVisualiser {
         Button selectWorkout = v.findViewById(R.id.selectWorkout);
         selectWorkout.setOnClickListener(v1 -> {
             JSONObject workoutObject;
-            String out = OnlineDbHelper.getAllWorkouts("WHERE w.WorkoutID = '" + id + "'");
+            String out = DatabaseManager.getInstance().getWorkoutsAsJsonArray("WHERE w.WorkoutID = '" + id + "'");
             JSONArray jsonArray;
 
             try {
@@ -275,9 +276,9 @@ public class ItemVisualiser {
             Session.setSelectedWorkout(workoutObject);
             Session.setWorkoutID(id);
 
-            Intent intent = new Intent(cThis, ActivityContainer.class);
+            Intent intent = new Intent(context, ActivityContainer.class);
             intent.putExtra("workoutHub", WorkoutHub.class);
-            cThis.startActivity(intent);
+            context.startActivity(intent);
         });
 
         Button closeWorkout = v.findViewById(R.id.closeExercise);

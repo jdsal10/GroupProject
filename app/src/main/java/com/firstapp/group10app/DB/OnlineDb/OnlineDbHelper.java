@@ -9,7 +9,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.firstapp.group10app.DB.Exercise;
-import com.firstapp.group10app.DB.QueryResult;
 import com.firstapp.group10app.DB.Workout;
 import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.Other.Session;
@@ -26,6 +25,9 @@ import java.util.List;
 
 /**
  * This class provides helper methods for interacting with the online database.
+ *
+ * TODO (in the future): Mainly DatabaseManager should make calls to this class.
+ *      Right now a lot of pages access this class directly.
  */
 public class OnlineDbHelper {
     /**
@@ -289,8 +291,8 @@ public class OnlineDbHelper {
      * @param filter An optional filter to apply to the workouts.
      * @return A JSON string containing the workouts.
      */
-    public static String getAllWorkouts(String filter) {
-        String out = "SELECT\n" +
+    public static String getWorkoutsAsJsonArray(String filter) {
+        String query = "SELECT\n" +
                 "  JSON_ARRAYAGG(\n" +
                 "    JSON_OBJECT(\n" +
                 "      'WorkoutID', w.WorkoutID,\n" +
@@ -324,11 +326,11 @@ public class OnlineDbHelper {
                 "  HealthData.Workouts w ";
 
         if (filter != null) {
-            out += filter;
+            query += filter;
         }
-        out += ";";
+        query += ";";
 
-        ResultSet resultSet = OnlineDbConnection.getInstance().executeQuery(out);
+        ResultSet resultSet = OnlineDbConnection.getInstance().executeQuery(query);
 
         try {
             if (resultSet.next()) {

@@ -56,6 +56,15 @@ public class DatabaseManager {
         }
     }
 
+    public String getWorkoutsAsJsonArray(String filter) {
+        if (Session.getSignedIn()) {
+            return OnlineDbHelper.getWorkoutsAsJsonArray(filter);
+        } else {
+//            return getLocalDb().getAllWorkoutsAsJsonArray();
+            return OnlineDbHelper.getWorkoutsAsJsonArray(filter);
+        }
+    }
+
     public void updateUserData(String toUpdate, String value) {
         try {
             if (Session.getSignedIn()) {
