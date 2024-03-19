@@ -99,11 +99,12 @@ public class Home extends Fragment implements View.OnClickListener {
 
         Button confirm = dialogView.findViewById(R.id.confirm);
 
+        alertDialog.show();
+
         confirm.setOnClickListener(v -> {
+            alertDialog.dismiss();
             tellParentToFinish();
         });
-
-        alertDialog.show();
     }
 
     public void tellParentToStartNewActivity(AppCompatActivity newActivity) {
