@@ -9,6 +9,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.firstapp.group10app.DB.Exercise;
+import com.firstapp.group10app.DB.QueryResult;
 import com.firstapp.group10app.DB.Workout;
 import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.Other.Session;
@@ -80,7 +81,6 @@ public class OnlineDbHelper {
             Log.d("DbHelper.class.getName()", ".insertUser: preparing to execute " + sql);
 
             // DO NOT CHANGE THIS LINE
-//            OnlineDbConnection db = new OnlineDbConnection();
             OnlineDbConnection.getInstance().executeStatement(sql.toString());
         } catch (Exception e) {
             Log.e("Error in DBHelper.insertUser()", e.toString());
@@ -551,6 +551,15 @@ public class OnlineDbHelper {
                 "WHERE Email = '" + emailText + "';";
 
         OnlineDbConnection.getInstance().executeStatement(statement);
+    }
+
+    public static String getVerifyCode(String email) {
+        try {
+            return OnlineDbConnection.getInstance().executeQuery("SELECT VerifyCode FROM HealthData.Users WHERE Email = '" + email + "'").getString("VerifyCode");
+        } catch (SQLException e) {
+            // TODO: Handle this exception better
+            throw new RuntimeException(e);
+        }
     }
 
     /**

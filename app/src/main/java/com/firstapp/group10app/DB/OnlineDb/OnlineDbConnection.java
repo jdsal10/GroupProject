@@ -39,18 +39,18 @@ public class OnlineDbConnection {
         return instance;
     }
 
-    public static Connection getConnection() {
+    protected static Connection getConnection() {
         return connection;
     }
 
-    public static void setConnection(Connection connection) {
+    private static void setConnection(Connection connection) {
         OnlineDbConnection.connection = connection;
     }
 
     /**
      * Executes a query that returns no data
      */
-    public void executeStatement(String createStatement) {
+    protected void executeStatement(String createStatement) {
         try {
             getConnection().createStatement().execute(createStatement);
         } catch (Exception e) {
@@ -61,7 +61,7 @@ public class OnlineDbConnection {
     /**
      * Executes a query that returns no data
      */
-    public ResultSet executeQuery(String query) {
+    protected ResultSet executeQuery(String query) {
         try {
             Log.i("DBConnection.executeQuery", "Executing " + query);
             return getConnection().createStatement().executeQuery(query);

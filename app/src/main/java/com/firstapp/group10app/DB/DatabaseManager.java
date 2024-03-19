@@ -48,18 +48,6 @@ public class DatabaseManager {
         }
     }
 
-    public QueryResult executeQuery(String query, boolean signedIn) {
-        if (signedIn) {
-            return new QueryResult(getOnlineDb().executeQuery(query));
-        } else {
-            return new QueryResult(getLocalDb().executeQuery(query));
-        }
-    }
-
-    public QueryResult executeQueryInOnlineDb(String query) {
-        return new QueryResult(getOnlineDb().executeQuery(query));
-    }
-
     public List<Exercise> getAllExercises() {
         if (Session.getSignedIn()) {
             return OnlineDbHelper.getAllExercises();
