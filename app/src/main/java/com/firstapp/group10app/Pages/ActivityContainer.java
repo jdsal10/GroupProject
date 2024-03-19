@@ -77,7 +77,7 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         // Behaviour if anonymous
         else {
             goSettings.setVisibility(View.GONE);
-            bottomNavigationView.getMenu().findItem(R.id.goToHistory).setVisible(false);
+//            bottomNavigationView.getMenu().findItem(R.id.goToHistory).setVisible(false);
         }
     }
 

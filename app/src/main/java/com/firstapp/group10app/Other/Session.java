@@ -3,6 +3,7 @@ package com.firstapp.group10app.Other;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -115,6 +116,25 @@ public class Session {
     }
 
     public static void logout(Context context) {
+        clearSessionData();
+
+        // Navigate back to MainActivity
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    public static void logout(Context context, String message) {
+        clearSessionData();
+
+        // Navigate back to MainActivity
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private static void clearSessionData() {
         // Clear session data
         userEmail = null;
         onlineDbStatus = false;
@@ -124,10 +144,5 @@ public class Session {
         container = null;
         userDetails = null;
         localDB = null;
-
-        // Navigate back to MainActivity
-        Intent intent = new Intent(context, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
     }
 }
