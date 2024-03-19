@@ -2,6 +2,7 @@ package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -37,30 +38,38 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     private Button beginWorkoutButton;
     private String output3;
     private View loadingAnimation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_workout_ai);
+        if (Session.getSignedIn()) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_workout_ai);
 
-        ImageButton backButton = findViewById(R.id.backButton);
-        beginWorkoutButton = findViewById(R.id.beginWorkout);
-        continueButton = findViewById(R.id.continueButton);
-        generateButton = findViewById(R.id.generateWorkoutButton);
-        backButton.setOnClickListener(this);
-        continueButton.setOnClickListener(this);
-        generateButton.setOnClickListener(this);
-        beginWorkoutButton.setOnClickListener(this);
+            ImageButton backButton = findViewById(R.id.backButton);
+            beginWorkoutButton = findViewById(R.id.beginWorkout);
+            continueButton = findViewById(R.id.continueButton);
+            generateButton = findViewById(R.id.generateWorkoutButton);
+            backButton.setOnClickListener(this);
+            continueButton.setOnClickListener(this);
+            generateButton.setOnClickListener(this);
+            beginWorkoutButton.setOnClickListener(this);
 
-        page1 = findViewById(R.id.page1);
-        page2 = findViewById(R.id.page2);
-        page3 = findViewById(R.id.page3);
-        page1.setVisibility(View.VISIBLE);
-        page2.setVisibility(View.GONE);
-        page3.setVisibility(View.GONE);
-        TextView mainGoalEdit = findViewById(R.id.mainGoalTitle);
-        populateSpinners();
+            page1 = findViewById(R.id.page1);
+            page2 = findViewById(R.id.page2);
+            page3 = findViewById(R.id.page3);
+            page1.setVisibility(View.VISIBLE);
+            page2.setVisibility(View.GONE);
+            page3.setVisibility(View.GONE);
+            TextView mainGoalEdit = findViewById(R.id.mainGoalTitle);
+            populateSpinners();
 
-        loadingAnimation = findViewById(R.id.loadingScreen);
+            loadingAnimation = findViewById(R.id.loadingScreen);
+        } else {
+            Log.e("WorkoutAI", "User is not signed in. This page should not be accessible.");
+
+            Toast.makeText(this, "This page should not be accessible.. You are being logged out.", Toast.LENGTH_LONG).show();
+            Session.logout(this);
+        }
     }
 
     @Override
@@ -346,10 +355,9 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     }
 
     public void performAnimation(View v, int visibility) {
-        if(visibility == View.GONE) {
+        if (visibility == View.GONE) {
             v.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             v.setVisibility(View.VISIBLE);
         }
 
