@@ -131,14 +131,13 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
             mimeMessage.setSubject("Health App Password Reset");
-            mimeMessage.setText("Hi " + email + " .\n" +
+            mimeMessage.setText("Hello " + email + " .\n" +
                     "A request was recently made to reset.\n" +
                     "If you didn't send a request, please ignore this email and check your " +
                     "account security.\n" +
-                    "Your code: \n" +
+                    "\nYour code: \n" +
                     code +
-                    "\n" +
-                    "Many Thanks,\n" +
+                    "\n Many Thanks,\n" +
                     "The Health App Team\n");
 
             Thread thread = new Thread(() -> {
