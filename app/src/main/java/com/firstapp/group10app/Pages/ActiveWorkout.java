@@ -1,15 +1,12 @@
 package com.firstapp.group10app.Pages;
 
-import android.app.FragmentManagerNonConfig;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.fragment.*;
-
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,15 +21,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager2.widget.ViewPager2;
 
-import com.firstapp.group10app.DB.DatabaseManager;
 import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Other.ActiveExerciseUpdate;
-import com.firstapp.group10app.Other.ExerciseAdapter;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
@@ -40,11 +33,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Locale;
-
 public class ActiveWorkout extends AppCompatActivity implements View.OnClickListener {
     TextView timerText;
-    int time, clicks, currentPage = 0;
+    int time, currentPage = 0;
     boolean paused, complete;
     Button pause, resume, finish, next, previous;
     Runnable timerRunnable;
@@ -102,29 +93,6 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
                 Fragment f1;
 
                 JSONObject exercise = exerciseArray.getJSONObject(i);
-                System.out.println("DATA: " + exercise);
-
-//                String sets;
-//                String reps;
-//                String time;
-
-//                if (exercise.getString("Sets").equals("null")) {
-//                    sets = "null";
-//                } else {
-//                    sets = exercise.getString("Sets");
-//                }
-//
-//                if (exercise.getString("Reps").equals("null")) {
-//                    reps = "null";
-//                } else {
-//                    reps = exercise.getString("Reps");
-//                }
-//
-//                if (exercise.getString("Time").equals("null")) {
-//                    time = "null";
-//                } else {
-//                    time = exercise.getString("Time");
-//                }
 
                 f1 = ActiveExerciseUpdate.newInstance(
                         exercise.getString("Description"),
@@ -134,8 +102,6 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
                 );
 
                 fragmentList.add(f1);
-
-                System.out.println("ADDED");
 
             } catch (JSONException e) {
                 throw new RuntimeException(e);
@@ -208,6 +174,9 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
                 previous.setVisibility(View.VISIBLE);
             }
         } else if (id == R.id.pauseWorkout) {
+            next.setAlpha(.5f);
+            previous.setAlpha(.5f);
+
             paused = true;
             flashPaused();
             findViewById(R.id.pauseWorkout).setVisibility(View.GONE);
@@ -227,22 +196,56 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
             findViewById(R.id.resumeWorkout).setVisibility(View.GONE);
             findViewById(R.id.finishWorkout).setVisibility(View.GONE);
         } else if (id == R.id.finishWorkout) {
+            complete = currentPage == fragmentList.size() - 1;
             if (complete) {
-                // Do code when workout is finished
-                Toast.makeText(this, "FINISH", Toast.LENGTH_LONG).show();
-            } else {
-                /// Do code when workout isn't (inform user, ask for double click etc).
-                if (clicks < 2) {
-                    Toast.makeText(this, "You have not finished your workout! Click again to confirm!", Toast.LENGTH_LONG).show();
-                    clicks++;
-                } else {
-                    // Add workout to database.
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                LayoutInflater inflater = getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.popup_finish_workout, null);
+
+                builder.setView(dialogView);
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+                TextView title = dialogView.findViewById(R.id.confirmFinishTitle);
+                title.setText("You have finished your workout! Confirm below to save!");
+                Button cancelFinish = dialogView.findViewById(R.id.cancelWorkoutFinish);
+                Button finish = dialogView.findViewById(R.id.confirmWorkoutFinish);
+
+                cancelFinish.setOnClickListener(v1 -> alertDialog.dismiss());
+
+                finish.setOnClickListener(v12 -> {
                     int minutes = (time % 3600) / 60;
                     OnlineDbHelper.insertHistory(minutes);
+                    alertDialog.dismiss();
+                    startActivity(new Intent(this, ActivityContainer.class));
+                });
 
+            } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    LayoutInflater inflater = getLayoutInflater();
+                    View dialogView = inflater.inflate(R.layout.popup_finish_workout, null);
+
+                    builder.setView(dialogView);
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+
+                    TextView title = dialogView.findViewById(R.id.confirmFinishTitle);
+                    title.setText("You haven't finished your workout! You can still save your progress!");
+                    Button cancelFinish = dialogView.findViewById(R.id.cancelWorkoutFinish);
+                    Button finish = dialogView.findViewById(R.id.confirmWorkoutFinish);
+
+                    cancelFinish.setOnClickListener(v1 -> alertDialog.dismiss());
+
+                    finish.setOnClickListener(v12 -> {
+                        int minutes = (time % 3600) / 60;
+                        OnlineDbHelper.insertHistory(minutes);
+                        alertDialog.dismiss();
+                        startActivity(new Intent(this, ActivityContainer.class));
+
+
+                    });
                 }
 
-            }
         }
     }
 
