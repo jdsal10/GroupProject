@@ -223,7 +223,8 @@ public class ItemVisualiser {
             showEmpty(layout);
         } else {
             JSONArray jsonArray = new JSONArray(data);
-            for (int i = 0; i < 4; i++) {
+            int length = Math.min(jsonArray.length(), 4);
+            for (int i = 0; i < length; i++) {
                 JSONObject workoutObject = jsonArray.getJSONObject(i);
                 addDetails(workoutObject, buttonType);
             }

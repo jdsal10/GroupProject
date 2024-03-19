@@ -96,8 +96,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             Session.getUserDetails()[4] = data.getString("HealthCondition");
             Session.getUserDetails()[5] = data.getString("ReasonForDownloading");
+            //Get statistic details
             Session.getUserDetails()[6] = Integer.toString(workouts);
-            //Add history element to session
         } else {
             Log.d("Login.setSessionData", "No data found for the user with email: " + email);
         }
