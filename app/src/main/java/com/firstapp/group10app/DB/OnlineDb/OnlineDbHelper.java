@@ -150,16 +150,19 @@ public class OnlineDbHelper {
 
             Integer id = null;
 
-            OnlineDbConnection db = OnlineDbConnection.getInstance();
-            db.executeStatement(String.valueOf(sql));
+            // Specify that you want to retrieve generated keys
+            Statement statement = getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, Statement.RETURN_GENERATED_KEYS);
 
-            ResultSet resultSet = getConnection().createStatement().getGeneratedKeys();
+            // Execute the SQL query and get the generated keys
+            statement.executeUpdate(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+            ResultSet resultSet = statement.getGeneratedKeys();
+
             if (resultSet.next()) {
                 id = resultSet.getInt(1);
             }
             resultSet.close();
 
-            db.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUE (" + workoutID + ", " + id + ");");
+            OnlineDbConnection.getInstance().executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUE (" + workoutID + ", " + id + ");");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
