@@ -2,7 +2,7 @@ package com.firstapp.group10app.DB;
 
 import android.content.Context;
 
-import com.firstapp.group10app.DB.LocalDb.LocalDb;
+import com.firstapp.group10app.DB.LocalDb.LocalDbConnection;
 import com.firstapp.group10app.DB.OnlineDb.OnlineDbConnection;
 import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Other.Session;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DatabaseManager {
     private static DatabaseManager instance;
-    private LocalDb localDb;
+    private LocalDbConnection localDb;
     private OnlineDbConnection onlineDb;
 
     private DatabaseManager() {
@@ -22,8 +22,12 @@ public class DatabaseManager {
         return instance;
     }
 
-    private LocalDb getLocalDb() {
-        if (localDb == null) connectToLocalDb(null);
+    public LocalDbConnection getLocalDb() {
+        if (localDb == null) throw new UnsupportedOperationException("LocalDb is not connected");
+        return localDb;
+    }
+
+    public LocalDbConnection getLocalDbIfConnected() {
         return localDb;
     }
 
@@ -32,20 +36,16 @@ public class DatabaseManager {
         return onlineDb;
     }
 
-    private void connectToLocalDb(Context context) {
-        localDb = new LocalDb(context);
+    public OnlineDbConnection getOnlineDbIfConnected() {
+        return onlineDb;
+    }
+
+    public void connectToLocalDb(Context context) {
+        localDb = new LocalDbConnection(context);
     }
 
     private void connectToOnlineDb() {
         onlineDb = OnlineDbConnection.getInstance();
-    }
-
-    public Object getDatabaseConnection(boolean signedIn) {
-        if (signedIn) {
-            return getOnlineDb();
-        } else {
-            return getLocalDb();
-        }
     }
 
     public List<Exercise> getAllExercises() {
@@ -53,6 +53,17 @@ public class DatabaseManager {
             return OnlineDbHelper.getAllExercises();
         } else {
             return getLocalDb().getAllExercises();
+        }
+    }
+
+    public String getWorkoutsAsJsonArray(String filter) {
+        if (Session.getSignedIn()) {
+            return OnlineDbHelper.getWorkoutsAsJsonArray(filter);
+        } else {
+            getLocalDb().printDataForDebugging();
+
+//            return OnlineDbHelper.getWorkoutsAsJsonArray(filter);
+            return getLocalDb().getWorkoutsAsJsonArray(filter);
         }
     }
 

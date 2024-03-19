@@ -3,13 +3,14 @@ package com.firstapp.group10app.Other;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.DB.DatabaseManager;
 import com.firstapp.group10app.DB.Exercise;
+import com.firstapp.group10app.Pages.ActivityContainer;
 import com.firstapp.group10app.Pages.MainActivity;
 
 import org.json.JSONObject;
@@ -30,7 +31,6 @@ public class Session {
 
     // Format for userDetails is [DOB, Weight, Height, Sex, Health Condition, Reason for downloading]
     private static String[] userDetails;
-    private static SQLiteDatabase localDB;
 
 
     public Session(String userEmail) {
@@ -108,14 +108,6 @@ public class Session {
         Session.userDetails = userDetails;
     }
 
-    public static SQLiteDatabase getLocalDB() {
-        return localDB;
-    }
-
-    public static void setLocalDB(SQLiteDatabase localDB) {
-        Session.localDB = localDB;
-    }
-
     public static void logout(Context context) {
         clearSessionData();
 
@@ -150,6 +142,18 @@ public class Session {
         workoutID = 0;
         container = null;
         userDetails = null;
-        localDB = null;
+
+        // Clear the ActivityContainer's current view
+        ActivityContainer.currentView = 1;
+
+        // Close the localDb connection
+        if (DatabaseManager.getInstance().getLocalDbIfConnected() != null) {
+            DatabaseManager.getInstance().getLocalDbIfConnected().close();
+        }
+
+        // Close the onlineDb connection
+        if (DatabaseManager.getInstance().getOnlineDbIfConnected() != null) {
+            DatabaseManager.getInstance().getOnlineDbIfConnected().closeConnection();
+        }
     }
 }

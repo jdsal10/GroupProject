@@ -11,7 +11,7 @@ import android.widget.ScrollView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
+import com.firstapp.group10app.DB.DatabaseManager;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.R;
 
@@ -23,7 +23,6 @@ import java.util.Objects;
 public class WorkoutSearch extends AppCompatActivity implements View.OnClickListener, WorkoutFilter.FilterChangeListener {
     private LinearLayout workoutLayout;
     private String durationString, difficultyString, targetString;
-    private ImageButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,7 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
         // Behaviour when there are no filters applied
         else {
             try {
-                String data = OnlineDbHelper.getAllWorkouts(null);
+                String data = DatabaseManager.getInstance().getWorkoutsAsJsonArray(null);
                 ItemVisualiser.startWorkoutGeneration(data, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
@@ -54,9 +53,9 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
     }
 
     private void initializeLayout() {
-        ScrollView workoutScrollView = findViewById(R.id.resultSearchWorkout);
         workoutLayout = new LinearLayout(getApplicationContext());
         workoutLayout.setOrientation(LinearLayout.VERTICAL);
+        ScrollView workoutScrollView = findViewById(R.id.resultSearchWorkout);
         workoutScrollView.addView(workoutLayout);
 
         Button filterWorkout = findViewById(R.id.openFilter);
@@ -112,7 +111,7 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
 
         try {
             if (toFilter.isEmpty()) {
-                String newData = OnlineDbHelper.getAllWorkouts(null);
+                String newData = DatabaseManager.getInstance().getWorkoutsAsJsonArray(null);
                 ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
             } else {
                 for (int i = 0; i < toFilter.size() - 1; i++) {
@@ -122,7 +121,7 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
                 filter.append(toFilter.get(toFilter.size() - 1));
 
                 String newFilter = filter.toString();
-                String newData = OnlineDbHelper.getAllWorkouts(newFilter);
+                String newData = DatabaseManager.getInstance().getWorkoutsAsJsonArray(newFilter);
                 ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
             }
         } catch (JSONException e) {

@@ -88,4 +88,12 @@ public class OnlineDbConnection {
             return false;
         }
     }
+
+    public void closeConnection() {
+        try {
+            getConnection().close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
