@@ -6,23 +6,12 @@
     android:orientation="vertical"
     tools:ignore="ButtonStyle">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_weight="0.5"
-        android:text="Settings"
-        android:textSize="@dimen/font_size_very_large"
-        android:textStyle="bold" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center">
-
-        <!--            android:background="@drawable/toggle_button_group_settings_outline"-->
+        
         <RadioGroup
             android:id="@+id/toggle"
             android:layout_width="match_parent"
@@ -43,18 +32,6 @@
                 android:button="@null"
                 android:gravity="center"
                 android:text="@string/dataControlButtonTitle" />
-
-            <RadioButton
-                android:id="@+id/goAccessibility"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="1dp"
-                android:layout_marginEnd="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/toggle_buttons_settings_background"
-                android:button="@null"
-                android:gravity="center"
-                android:text="@string/accessibilityButtonTitle" />
 
             <RadioButton
                 android:id="@+id/goAccount"
