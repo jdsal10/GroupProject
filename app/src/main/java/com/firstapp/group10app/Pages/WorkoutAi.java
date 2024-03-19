@@ -66,7 +66,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             loadingAnimation = findViewById(R.id.loadingScreen);
         } else {
             Log.e("WorkoutAI", "User is not signed in. This page should not be accessible.");
-            Session.logout(this, "This page should not be accessible. You are being logged out");
+//            Session.logout(this, "This page should not be accessible. You are being logged out");
             finish();
         }
     }

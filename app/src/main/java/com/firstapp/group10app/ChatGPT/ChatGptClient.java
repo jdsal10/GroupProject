@@ -36,6 +36,8 @@ public class ChatGptClient {
         // Send the request
         connection.setDoOutput(true);
         OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+        System.out.println("Message: " + body);
+
         writer.write(body);
         writer.flush();
 
