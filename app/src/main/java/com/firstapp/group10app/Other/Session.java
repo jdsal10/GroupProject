@@ -3,12 +3,12 @@ package com.firstapp.group10app.Other;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.DB.DatabaseManager;
 import com.firstapp.group10app.DB.Exercise;
 import com.firstapp.group10app.Pages.ActivityContainer;
 import com.firstapp.group10app.Pages.MainActivity;
@@ -145,5 +145,15 @@ public class Session {
 
         // Clear the ActivityContainer's current view
         ActivityContainer.currentView = 1;
+
+        // Close the localDb connection
+        if (DatabaseManager.getInstance().getLocalDbIfConnected() != null) {
+            DatabaseManager.getInstance().getLocalDbIfConnected().close();
+        }
+
+        // Close the onlineDb connection
+        if (DatabaseManager.getInstance().getOnlineDbIfConnected() != null) {
+            DatabaseManager.getInstance().getOnlineDbIfConnected().closeConnection();
+        }
     }
 }

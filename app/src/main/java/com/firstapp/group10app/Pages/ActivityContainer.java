@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.firstapp.group10app.DB.DatabaseManager;
-import com.firstapp.group10app.DB.LocalDb.LocalDb;
+import com.firstapp.group10app.DB.LocalDb.LocalDbConnection;
 import com.firstapp.group10app.Other.FragmentHolderUpdate;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.History;
@@ -98,10 +98,10 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
                     try {
                         // Create and store the LocalDb instance
                         DatabaseManager.getInstance().connectToLocalDb(this);
-                        LocalDb localDb = DatabaseManager.getInstance().getLocalDb();
+                        LocalDbConnection localDbConnection = DatabaseManager.getInstance().getLocalDb();
 
                         // Insert sample data into the database
-                        localDb.insertSampleData();
+                        localDbConnection.insertSampleData();
 
                         // Close the database connection
 //                        localDb.close();
@@ -183,8 +183,7 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
     }
 
     public void logOut() {
-        Log.e("ActivityContainer", "User is not signed in, and tried to access a page that requires sign in. Logging out.");
-        Session.logout(this, "You tried to access a page that requires sign in. You are being logged out");
+        Session.logout(this);
         finish();
     }
 }
