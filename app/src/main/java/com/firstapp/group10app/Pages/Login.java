@@ -76,12 +76,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void setSessionData(String email) throws SQLException {
         OnlineDbHelper db = new OnlineDbHelper();
         ResultSet data = db.getUser(email);
-
-        //Include user statistics in Session
-        Integer workouts = db.getTotalinHistory(email);
-        System.out.println("workouts num :" + workouts);
-
-
+        
         if (data.next()) {
             Session.setUserDetails(new String[7]);
             Session.getUserDetails()[0] = data.getString("DOB");
@@ -96,8 +91,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             Session.getUserDetails()[4] = data.getString("HealthCondition");
             Session.getUserDetails()[5] = data.getString("ReasonForDownloading");
-            //Get statistic details
-            Session.getUserDetails()[6] = Integer.toString(workouts);
+            //Get username
+            Session.getUserDetails()[6] = email;
         } else {
             Log.d("Login.setSessionData", "No data found for the user with email: " + email);
         }
