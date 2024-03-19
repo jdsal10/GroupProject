@@ -7,19 +7,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 
-
 public class OnlineDbConnection {
     private static OnlineDbConnection instance;
     private static Connection connection;
-    //    private static Statement statement;
     private static final String CONNECTION_STRING = "jdbc:mysql://gateway01.eu-central-1.prod.aws.tidbcloud.com:4000/test?user=2xn9WQ6ma8aHYPp.root&password=6Tzop9pIbbE6dCbk&sslMode=VERIFY_IDENTITY&enabledTLSProtocols=TLSv1.2,TLSv1.3";
-
 
     /**
      * Constructor for the DBConnection class.
      * Used to initialise a connection to the database.
      */
-
     public OnlineDbConnection() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -31,8 +27,6 @@ public class OnlineDbConnection {
             if (getConnection() == null) {
                 Log.w("DBConnection", "Attention, DBConnection.conn is null");
             }
-
-//            setStatement(getConnection().createStatement());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -53,21 +47,12 @@ public class OnlineDbConnection {
         OnlineDbConnection.connection = connection;
     }
 
-//    public static Statement getStatement() {
-//        return statement;
-//    }
-//
-//    public static void setStatement(Statement statement) {
-//        OnlineDbConnection.statement = statement;
-//    }
-
     /**
      * Executes a query that returns no data
      */
     public void executeStatement(String createStatement) {
         try {
             getConnection().createStatement().execute(createStatement);
-//            getStatement().execute(createStatement);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -79,7 +64,6 @@ public class OnlineDbConnection {
     public ResultSet executeQuery(String query) {
         try {
             Log.i("DBConnection.executeQuery", "Executing " + query);
-//            return getStatement().executeQuery(query);
             return getConnection().createStatement().executeQuery(query);
         } catch (Exception e) {
             Log.e("Error in DBConnection.executeQuery", e.toString());

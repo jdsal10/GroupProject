@@ -125,7 +125,6 @@ public class OnlineDbHelper {
             getStringBuilder("INSERT INTO HealthData.Workouts (", values, Index.WORKOUT_DETAILS);
 
             Integer id = null;
-//            Statement statement = getConnection().createStatement();
 
             ResultSet resultSet = getConnection().createStatement().getGeneratedKeys();
             if (resultSet.next()) {
@@ -150,9 +149,7 @@ public class OnlineDbHelper {
             StringBuilder sql = getStringBuilder("INSERT INTO HealthData.Exercises (", values, Index.EXERCISE_DETAILS);
 
             Integer id = null;
-//            Statement statement = getConnection().createStatement();
 
-//            OnlineDbConnection db = new OnlineDbConnection();
             OnlineDbConnection db = OnlineDbConnection.getInstance();
             db.executeStatement(String.valueOf(sql));
 
@@ -206,7 +203,6 @@ public class OnlineDbHelper {
                     "';";
 
             // Execute the SQL query`
-//            OnlineDbConnection db = new OnlineDbConnection();
             return OnlineDbConnection.getInstance().executeQuery(sql);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -225,7 +221,6 @@ public class OnlineDbHelper {
                 email +
                 "';";
 
-//        OnlineDbConnection db = new OnlineDbConnection();
         return OnlineDbConnection.getInstance().executeQuery(query).next();
     }
 
@@ -238,7 +233,6 @@ public class OnlineDbHelper {
      * @throws Exception If a database access error occurs.
      */
     public boolean checkUserExistsAndCorrectPassword(String email, String password) throws Exception {
-//        OnlineDbConnection db = new OnlineDbConnection();
         ResultSet result = OnlineDbConnection.getInstance().executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "' AND Password = '" + encryptPassword(password) + "'");
 
         int size = 0;
@@ -264,7 +258,6 @@ public class OnlineDbHelper {
             }
         }
 
-//        OnlineDbConnection db = new OnlineDbConnection();
         OnlineDbConnection.getInstance().executeStatement("UPDATE HealthData.Users SET " + toUpdate + " = '" + value + "' WHERE Email = '" + Session.getUserEmail() + "'");
     }
 
@@ -274,7 +267,6 @@ public class OnlineDbHelper {
      * @param email The email of the user to delete.
      */
     public static void deleteUser(String email) {
-//        OnlineDbConnection db = new OnlineDbConnection();
         OnlineDbConnection.getInstance().executeStatement("DELETE FROM HealthData.Users WHERE Email = '" + email + "'");
     }
 
@@ -285,7 +277,6 @@ public class OnlineDbHelper {
      * @param exerciseID The ID of the exercise.
      */
     public static void linkExerciseToWorkout(int workoutID, int exerciseID) {
-//        OnlineDbConnection db = new OnlineDbConnection();
         OnlineDbConnection.getInstance().executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUES ('" + workoutID + "','" + exerciseID + "')");
     }
 
@@ -334,7 +325,6 @@ public class OnlineDbHelper {
         }
         out += ";";
 
-//        OnlineDbConnection db = new OnlineDbConnection();
         ResultSet resultSet = OnlineDbConnection.getInstance().executeQuery(out);
 
         try {
@@ -420,7 +410,6 @@ public class OnlineDbHelper {
 
         query += ";";
 
-//        OnlineDbConnection db = new OnlineDbConnection();
         return OnlineDbConnection.getInstance().executeQuery(query);
     }
 
@@ -464,7 +453,6 @@ public class OnlineDbHelper {
                 " WHERE uwh.Email = '" + filter + "'" +
                 " ORDER BY uwh.Date DESC";
 
-//        OnlineDbConnection db = new OnlineDbConnection();
         ResultSet resultSet = OnlineDbConnection.getInstance().executeQuery(query);
 
         try {
@@ -482,7 +470,6 @@ public class OnlineDbHelper {
      * Inserts a new workout history record into the database.
      */
     public static void insertHistory() {
-//        OnlineDbConnection d = new OnlineDbConnection();
         String sqlHistory = "INSERT INTO HealthData.UserWorkoutHistory (Email, WorkoutID, Time, Date, Duration) VALUES (" +
                 "'" + Session.getUserEmail() + "', " +
                 "'" + Session.getWorkoutID() + "', " +
@@ -534,7 +521,6 @@ public class OnlineDbHelper {
                 " ORDER BY uwh.Date DESC" +
                 " LIMIT 4";
 
-//        OnlineDbConnection db = new OnlineDbConnection();
         ResultSet resultSet = OnlineDbConnection.getInstance().executeQuery(query);
 
         try {
@@ -567,7 +553,6 @@ public class OnlineDbHelper {
      */
     public static void changeUserPassword(String email, String password) {
         try {
-//            OnlineDbConnection db = new OnlineDbConnection();
             OnlineDbConnection.getInstance().executeStatement("UPDATE HealthData.Users SET Password = '" + encryptPassword(password) + "' WHERE Email = '" + email + "';");
         } catch (Exception e) {
             throw new RuntimeException(e);
