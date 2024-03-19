@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.OnlineDb.DbHelper;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Other.Validator;
 import com.firstapp.group10app.R;
 
@@ -48,7 +48,7 @@ public class ForgotPasswordContinued extends AppCompatActivity implements View.O
             if ((password1 != null) && (!password2.getText().toString().equals(password1.getText().toString()))) {
                 passwordchangeconfirm.setError("The passwords do not match");
             } else if (Validator.passwordValidator(password1.getText().toString()) == null) {
-                DbHelper.changeUserPassword(email, password1.getText().toString());
+                OnlineDbHelper.changeUserPassword(email, password1.getText().toString());
                 Intent t = new Intent(ForgotPasswordContinued.this, Login.class);
                 startActivity(t);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

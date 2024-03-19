@@ -9,12 +9,9 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.DatabaseManager;
-import com.firstapp.group10app.DB.OnlineDb.DbConnection;
-import com.firstapp.group10app.DB.QueryResult;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.R;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Random;
@@ -56,24 +53,14 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             String pat = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
             Pattern pattern = Pattern.compile(pat);
             Matcher matcher = pattern.matcher(emailText);
-            Log.d("ForgotPassword Email Chekc", "EMAIL: " + emailText);
+            Log.d("ForgotPassword Email Check", "EMAIL: " + emailText);
             try {
-                DatabaseManager dbManager = DatabaseManager.getInstance();
-                boolean isSignedIn = com.firstapp.group10app.Other.Session.getSignedIn();
-                QueryResult result = dbManager.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + emailText + "'", isSignedIn);
-                int size = 0;
-                while (result.next()) {
-                    size++;
-                }
-
-                if ((!(emailText.isEmpty())) && (matcher.matches()) && checkExists(emailText)) {
+                if ((!(emailText.isEmpty())) && (matcher.matches()) && OnlineDbHelper.checkUserExists(emailText)) {
                     try {
                         String validate = generateString();
                         toSend(emailText, validate);
 
-                        dbManager.executeStatement("UPDATE HealthData.Users " +
-                                "SET VerifyCode = '" + validate + "' " +
-                                "WHERE Email = '" + emailText + "';", isSignedIn);
+                        OnlineDbHelper.changeUserPasswordVerifyCode(emailText, validate);
 
                         Intent in = new Intent(ForgotPassword.this, ForgotPasswordCheck.class);
                         in.putExtra("email", emailText);
@@ -93,16 +80,6 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             startActivity(new Intent(ForgotPassword.this, Login.class));
             overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
         }
-    }
-
-    public boolean checkExists(String email) throws SQLException {
-        DbConnection d = new DbConnection();
-        ResultSet set = d.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "'");
-        int size = 0;
-        if (set.last()) {
-            size++;
-        }
-        return size != 0;
     }
 
 
@@ -139,14 +116,13 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
             mimeMessage.setSubject("Health App Password Reset");
-            mimeMessage.setText("Hi " + email + " .\n" +
+            mimeMessage.setText("Hello " + email + " .\n" +
                     "A request was recently made to reset.\n" +
                     "If you didn't send a request, please ignore this email and check your " +
                     "account security.\n" +
-                    "Your code: \n" +
+                    "\nYour code: \n" +
                     code +
-                    "\n" +
-                    "Many Thanks,\n" +
+                    "\n Many Thanks,\n" +
                     "The Health App Team\n");
 
             Thread thread = new Thread(() -> {

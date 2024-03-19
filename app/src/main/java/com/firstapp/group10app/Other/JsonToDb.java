@@ -1,10 +1,10 @@
 package com.firstapp.group10app.Other;
 
-import static com.firstapp.group10app.DB.OnlineDb.DbHelper.linkExercise;
+import static com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper.linkExerciseToWorkout;
 
 import android.util.Log;
 
-import com.firstapp.group10app.DB.OnlineDb.DbHelper;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,11 +22,11 @@ public class JsonToDb {
         workoutDetails[3] = data.getString("Equipment");
         workoutDetails[4] = data.getString("Difficulty");
 
-        Integer id = DbHelper.insertWorkout(workoutDetails);
+        Integer id = OnlineDbHelper.insertWorkout(workoutDetails);
 
         for (String e : exerciseID) {
             int eid = Integer.parseInt(e);
-            linkExercise(id, eid);
+            linkExerciseToWorkout(id, eid);
         }
         return id;
     }
@@ -40,7 +40,7 @@ public class JsonToDb {
         workoutDetails[3] = data.getString("Equipment");
         workoutDetails[4] = data.getString("Difficulty");
 
-        Integer id = DbHelper.insertWorkout(workoutDetails);
+        Integer id = OnlineDbHelper.insertWorkout(workoutDetails);
 
         String exerciseList = data.getString("Exercises");
 
@@ -62,7 +62,7 @@ public class JsonToDb {
             exerciseData[3] = individualExercise.getString("Equipment");
             exerciseData[4] = individualExercise.getString("Difficulty");
 
-            DbHelper.insertExercise(exerciseData, id);
+            OnlineDbHelper.insertExercise(exerciseData, id);
         }
     }
 }

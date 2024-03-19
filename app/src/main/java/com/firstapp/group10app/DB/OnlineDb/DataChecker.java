@@ -48,7 +48,7 @@ public class DataChecker {
         else {
             try {
                 Log.i("DataChecker.checkEmail", "Checking if email is already in the database");
-                return !DbHelper.checkExists(email);
+                return !OnlineDbHelper.checkUserExists(email);
             } catch (Exception e) {
                 return false;
             }

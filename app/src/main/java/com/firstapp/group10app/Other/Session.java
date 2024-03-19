@@ -3,10 +3,12 @@ package com.firstapp.group10app.Other;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firstapp.group10app.DB.Exercise;
 import com.firstapp.group10app.Pages.MainActivity;
 
 import org.json.JSONObject;
@@ -17,11 +19,12 @@ import org.json.JSONObject;
  */
 public class Session {
     private static String userEmail;
-    private static boolean dbStatus;
-    private static JSONObject selectedWorkout;
-    private static Boolean signedIn;
+    private static boolean onlineDbStatus;
+    private static boolean internetStatus; // is connected to the internet? true or false
+    private static JSONObject selectedWorkout; // It looks like it should be "selectedExercise" instead of "selectedWorkout"
+    private static Exercise selectedExercise;
+    private static boolean signedIn; // is the user signed in? true or false (if false, the user is anonymous)
     private static int workoutID;
-
     private static AppCompatActivity container;
 
     // Format for userDetails is [DOB, Weight, Height, Sex, Health Condition, Reason for downloading]
@@ -41,12 +44,20 @@ public class Session {
         Session.userEmail = userEmail;
     }
 
-    public static boolean isDbStatus() {
-        return dbStatus;
+    public static boolean getOnlineDbStatus() {
+        return onlineDbStatus;
     }
 
-    public static void setDbStatus(boolean dbStatus) {
-        Session.dbStatus = dbStatus;
+    public static void setOnlineDbStatus(boolean onlineDbStatus) {
+        Session.onlineDbStatus = onlineDbStatus;
+    }
+
+    public static boolean getInternetStatus() {
+        return internetStatus;
+    }
+
+    public static void setInternetStatus(boolean internetStatus) {
+        Session.internetStatus = internetStatus;
     }
 
     public static JSONObject getSelectedWorkout() {
@@ -56,6 +67,11 @@ public class Session {
     @Nullable
     public static void setSelectedWorkout(JSONObject selectedWorkout) {
         Session.selectedWorkout = selectedWorkout;
+    }
+
+    @Nullable
+    public static void setSelectedExercise(Exercise selectedExercise) {
+        Session.selectedExercise = selectedExercise;
     }
 
     public static Boolean getSignedIn() {
@@ -100,19 +116,33 @@ public class Session {
     }
 
     public static void logout(Context context) {
+        clearSessionData();
+
+        // Navigate back to MainActivity
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    public static void logout(Context context, String message) {
+        clearSessionData();
+
+        // Navigate back to MainActivity
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private static void clearSessionData() {
         // Clear session data
         userEmail = null;
-        dbStatus = false;
+        onlineDbStatus = false;
         selectedWorkout = null;
         signedIn = false;
         workoutID = 0;
         container = null;
         userDetails = null;
         localDB = null;
-
-        // Navigate back to MainActivity
-        Intent intent = new Intent(context, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
     }
 }

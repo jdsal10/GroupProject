@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.firstapp.group10app.DB.OnlineDb.DbConnection;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbConnection;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.ActivityContainer;
 import com.firstapp.group10app.Pages.Fragments.Workouts.WorkoutAi2;
@@ -39,17 +39,24 @@ public class WorkoutOption extends Fragment implements CompoundButton.OnCheckedC
 
         updateView(new WorkoutManual(), -1, -1);
 
-        // Initialize RadioButtons
-        RadioButton AISelect = rootView.findViewById(R.id.toggleAI);
-        RadioButton manualSelect = rootView.findViewById(R.id.toggleManual);
+        // Behaviour if signed in
+        if (Session.getSignedIn()) {
+            rootView.findViewById(R.id.toggle).setVisibility(View.VISIBLE);
+            rootView.findViewById(R.id.toggleParent).setVisibility(View.VISIBLE);
 
-        // Set OnCheckedChangeListener
-        AISelect.setOnCheckedChangeListener(this);
-        manualSelect.setOnCheckedChangeListener(this);
+            // Initialize RadioButtons
+            RadioButton AISelect = rootView.findViewById(R.id.toggleAI);
+            RadioButton manualSelect = rootView.findViewById(R.id.toggleManual);
 
-        // If the user is not signed in / anonymous, they do not access to the AI or to create a workout.
-        if ((!Session.isDbStatus()) || (!Session.getSignedIn())) {
-            AISelect.setEnabled(false);
+            // Set OnCheckedChangeListener
+            AISelect.setOnCheckedChangeListener(this);
+            manualSelect.setOnCheckedChangeListener(this);
+        }
+
+        // Behaviour if anonymous, they do not access to the AI or to create a workout.
+        else {
+            rootView.findViewById(R.id.toggle).setVisibility(View.GONE);
+            rootView.findViewById(R.id.toggleParent).setVisibility(View.GONE);
         }
 
         return rootView;
@@ -60,7 +67,7 @@ public class WorkoutOption extends Fragment implements CompoundButton.OnCheckedC
         // If ensure only one is selected at once
         if (isChecked) {
             if (buttonView.getId() == R.id.toggleAI) {
-                if ((!Session.getSignedIn()) || (!DbConnection.testConnection())) {
+                if ((!Session.getSignedIn()) || (!OnlineDbConnection.testConnection())) {
                     Toast.makeText(requireContext(), "No connection!", Toast.LENGTH_SHORT).show();
                     // Need to add capability to enable somehow.
                     // AISelect.setEnabled(false);

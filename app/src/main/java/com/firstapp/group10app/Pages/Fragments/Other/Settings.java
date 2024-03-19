@@ -5,19 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.firstapp.group10app.Pages.Fragments.Settings.SettingsAccessibility;
 import com.firstapp.group10app.Pages.Fragments.Settings.SettingsAccount;
 import com.firstapp.group10app.Pages.Fragments.Settings.SettingsDataControl;
 import com.firstapp.group10app.R;
 
 public class Settings extends Fragment implements View.OnClickListener {
     private int currentView;
-    private RadioButton dataControlButton, accessibilityButton, accountButton;
+    private RadioButton dataControlButton, accountButton;
 
     public Settings() {
         super(R.layout.activity_settings);
@@ -41,9 +39,6 @@ public class Settings extends Fragment implements View.OnClickListener {
         dataControlButton = rootView.findViewById(R.id.goDataControl);
         dataControlButton.setOnClickListener(this);
 
-        accessibilityButton = rootView.findViewById(R.id.goAccessibility);
-        accessibilityButton.setOnClickListener(this);
-
         accountButton = rootView.findViewById(R.id.goAccount);
         accountButton.setOnClickListener(this);
 
@@ -62,14 +57,6 @@ public class Settings extends Fragment implements View.OnClickListener {
 
                 resetButtonTextColor();
                 dataControlButton.setTextColor(getResources().getColor(R.color.white));
-            }
-        } else if (id == R.id.goAccessibility) {
-            if (currentView != R.layout.activity_settings_accessibility) {
-                updateView(new SettingsAccessibility(), currentView == R.layout.activity_settings_account);
-                currentView = R.layout.activity_settings_accessibility;
-
-                resetButtonTextColor();
-                accessibilityButton.setTextColor(getResources().getColor(R.color.white));
             }
         } else if (id == R.id.goAccount) {
             if (currentView != R.layout.activity_settings_account) {
@@ -98,7 +85,6 @@ public class Settings extends Fragment implements View.OnClickListener {
 
     private void resetButtonTextColor() {
         dataControlButton.setTextColor(getResources().getColor(R.color.accent_grayscale));
-        accessibilityButton.setTextColor(getResources().getColor(R.color.accent_grayscale));
         accountButton.setTextColor(getResources().getColor(R.color.accent_grayscale));
     }
 }

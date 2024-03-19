@@ -8,7 +8,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.firstapp.group10app.DB.Exercise;
 import com.firstapp.group10app.DB.LocalDb.WorkoutContract.WorkoutEntry;
+import com.firstapp.group10app.DB.Workout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,6 +122,56 @@ public class LocalDb {
         cursor.close();
 
         return itemIds;
+    }
+
+    public List<Exercise> getAllExercises() {
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                ExerciseContract.ExerciseEntry._ID,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_EXERCISE_NAME,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_DESCRIPTION,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_ILLUSTRATION,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_TARGET_MUSCLE_GROUP,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_EQUIPMENT,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_DIFFICULTY,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_SETS,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_REPS,
+                ExerciseContract.ExerciseEntry.COLUMN_NAME_TIME
+        };
+
+        // How you want the results sorted in the resulting Cursor
+        String sortOrder = ExerciseContract.ExerciseEntry.COLUMN_NAME_EXERCISE_NAME + " ASC";
+
+        Cursor cursor = db.query(
+                ExerciseContract.ExerciseEntry.TABLE_NAME,   // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                null,              // The columns for the WHERE clause
+                null,          // The values for the WHERE clause
+                null,                   // don't group the rows
+                null,                   // don't filter by row groups
+                sortOrder               // The sort order
+        );
+
+        List<Exercise> exercises = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            long id = cursor.getLong(cursor.getColumnIndexOrThrow(ExerciseContract.ExerciseEntry._ID));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(ExerciseContract.ExerciseEntry.COLUMN_NAME_EXERCISE_NAME));
+            String description = cursor.getString(cursor.getColumnIndexOrThrow(ExerciseContract.ExerciseEntry.COLUMN_NAME_DESCRIPTION));
+            String illustration = cursor.getString(cursor.getColumnIndexOrThrow(ExerciseContract.ExerciseEntry.COLUMN_NAME_ILLUSTRATION));
+            String targetMuscleGroup = cursor.getString(cursor.getColumnIndexOrThrow(ExerciseContract.ExerciseEntry.COLUMN_NAME_TARGET_MUSCLE_GROUP));
+            String equipment = cursor.getString(cursor.getColumnIndexOrThrow(ExerciseContract.ExerciseEntry.COLUMN_NAME_EQUIPMENT));
+            String difficulty = cursor.getString(cursor.getColumnIndexOrThrow(ExerciseContract.ExerciseEntry.COLUMN_NAME_DIFFICULTY));
+            int sets = cursor.getInt(cursor.getColumnIndexOrThrow(ExerciseContract.ExerciseEntry.COLUMN_NAME_SETS));
+            int reps = cursor.getInt(cursor.getColumnIndexOrThrow(ExerciseContract.ExerciseEntry.COLUMN_NAME_REPS));
+            int time = cursor.getInt(cursor.getColumnIndexOrThrow(ExerciseContract.ExerciseEntry.COLUMN_NAME_TIME));
+
+            Exercise exercise = new Exercise(id, name, description, illustration, targetMuscleGroup, equipment, difficulty, sets, reps, time);
+            exercises.add(exercise);
+        }
+        cursor.close();
+
+        return exercises;
     }
 
     public void updateExercise(int exerciseID, String exerciseName, String description, String illustration, String targetMuscleGroup, String equipment, String difficulty, int sets, int reps, int time) {
@@ -235,6 +287,28 @@ public class LocalDb {
         return itemIds;
     }
 
+    public List<Workout> getAllWorkouts() {
+        List<Workout> workouts = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query("Workouts", null, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range") long id = cursor.getLong(cursor.getColumnIndex("id"));
+                @SuppressLint("Range") String workoutName = cursor.getString(cursor.getColumnIndex("workoutName"));
+                @SuppressLint("Range") int duration = cursor.getInt(cursor.getColumnIndex("duration"));
+                @SuppressLint("Range") String targetMuscleGroup = cursor.getString(cursor.getColumnIndex("targetMuscleGroup"));
+                @SuppressLint("Range") String equipment = cursor.getString(cursor.getColumnIndex("equipment"));
+                @SuppressLint("Range") String difficulty = cursor.getString(cursor.getColumnIndex("difficulty"));
+
+                Workout workout = new Workout(id, workoutName, duration, targetMuscleGroup, equipment, difficulty);
+                workouts.add(workout);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return workouts;
+    }
+
     public void insertExerciseWorkoutPair(int exerciseID, int workoutID) {
         ContentValues values = new ContentValues();
         values.put(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_EXERCISE_ID, exerciseID);
@@ -334,7 +408,9 @@ public class LocalDb {
         if (!exerciseWorkoutPairWorkoutIds.isEmpty()) {
             long exerciseWorkoutPairWorkoutId = exerciseWorkoutPairWorkoutIds.get(0);
             int exerciseWorkoutPairWorkoutIdInt = (int) exerciseWorkoutPairWorkoutId;
-            Cursor cursor = db.rawQuery("SELECT * FROM exerciseWorkoutPair WHERE workoutId = " + exerciseWorkoutPairWorkoutIdInt, null);
+
+            Cursor cursor = db.rawQuery("SELECT * FROM ExerciseWorkoutPairs WHERE WorkoutID = " + exerciseWorkoutPairWorkoutIdInt, null);
+
             if (cursor.moveToFirst()) {
                 @SuppressLint("Range") int exerciseID = cursor.getInt(cursor.getColumnIndex(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_EXERCISE_ID));
 

@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class LocalDbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 4; // last change: 2024-03-12 (added more columns to the exercise and workout tables)
+    public static final int DATABASE_VERSION = 5;
     public static final String DATABASE_NAME = "AppDatabase.db";
 
     public LocalDbHelper(Context context) {

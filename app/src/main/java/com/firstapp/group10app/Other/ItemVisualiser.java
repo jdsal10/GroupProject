@@ -4,11 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-
-import androidx.core.content.ContextCompat;
-
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.firstapp.group10app.DB.OnlineDb.DbHelper;
+import androidx.core.content.ContextCompat;
+
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Pages.ActivityContainer;
 import com.firstapp.group10app.Pages.WorkoutHub;
 import com.firstapp.group10app.R;
@@ -27,8 +24,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ItemVisualiser {
-    static LinearLayout workoutLayout;
-    static Context cThis;
+    private static LinearLayout workoutLayout;
+    private static Context cThis;
     static int exerciseID, popID;
 
     public static void addDetails(JSONObject details, String buttonType) {
@@ -226,7 +223,8 @@ public class ItemVisualiser {
             showEmpty(layout);
         } else {
             JSONArray jsonArray = new JSONArray(data);
-            for (int i = 0; i < 4; i++) {
+            int length = Math.min(jsonArray.length(), 4);
+            for (int i = 0; i < length; i++) {
                 JSONObject workoutObject = jsonArray.getJSONObject(i);
                 addDetails(workoutObject, buttonType);
             }
@@ -244,7 +242,6 @@ public class ItemVisualiser {
         } else {
             JSONObject workoutObject = new JSONObject(data);
             addDetails(workoutObject, buttonType);
-
         }
     }
 
@@ -254,9 +251,6 @@ public class ItemVisualiser {
 
         empty.setText("No workouts were found");
 
-//        Resource linking not working:
-//        empty.setText("@strings/noWorkouts");
-
         layout.removeAllViews();
         layout.addView(empty);
     }
@@ -264,12 +258,11 @@ public class ItemVisualiser {
 
     // ALL BUTTON FUNCTIONS SHOULD BE DECLARED BELOW, WITH THE INPUTS BEING THE VIEW. CONTEXT AND
     // DIALOG GENERATED
-
     public static void addSearchButtons(View v, AlertDialog popup, int id) {
         Button selectWorkout = v.findViewById(R.id.selectWorkout);
         selectWorkout.setOnClickListener(v1 -> {
             JSONObject workoutObject;
-            String out = DbHelper.getAllWorkouts("WHERE w.WorkoutID = '" + id + "'");
+            String out = OnlineDbHelper.getAllWorkouts("WHERE w.WorkoutID = '" + id + "'");
             JSONArray jsonArray;
 
             try {
@@ -285,12 +278,11 @@ public class ItemVisualiser {
             Intent intent = new Intent(cThis, ActivityContainer.class);
             intent.putExtra("workoutHub", WorkoutHub.class);
             cThis.startActivity(intent);
-            });
+        });
 
         Button closeWorkout = v.findViewById(R.id.closeExercise);
         closeWorkout.setOnClickListener(v1 -> popup.dismiss());
     }
-
 
     public static void addCloseButton(View v, AlertDialog popup) {
         Button closeWorkout = v.findViewById(R.id.closeButton);

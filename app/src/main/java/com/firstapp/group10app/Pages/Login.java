@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.OnlineDb.DbHelper;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
@@ -49,8 +49,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             // I commented out the encryption code because I globalized the encryption method
             try {
-                DbHelper db = new DbHelper();
-                if (db.checkUser(emailText, passwordText)) { // .replace("[", "").replace("]", ""))) {
+                OnlineDbHelper db = new OnlineDbHelper();
+                if (db.checkUserExistsAndCorrectPassword(emailText, passwordText)) { // .replace("[", "").replace("]", ""))) {
                     Toast.makeText(Login.this, "Welcome \n" + emailText + " ! ", Toast.LENGTH_SHORT).show();
                     setSessionData(emailText);
                     Session.setUserEmail(emailText);
@@ -74,11 +74,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void setSessionData(String email) throws SQLException {
-        DbHelper db = new DbHelper();
+        OnlineDbHelper db = new OnlineDbHelper();
         ResultSet data = db.getUser(email);
 
+        //Include user statistics in Session
+        Integer workouts = db.getTotalinHistory(email);
+        System.out.println("workouts num :" + workouts);
+
+
         if (data.next()) {
-            Session.setUserDetails(new String[6]);
+            Session.setUserDetails(new String[7]);
             Session.getUserDetails()[0] = data.getString("DOB");
             Session.getUserDetails()[1] = data.getString("Weight");
             Session.getUserDetails()[2] = data.getString("Height");
@@ -91,6 +96,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             Session.getUserDetails()[4] = data.getString("HealthCondition");
             Session.getUserDetails()[5] = data.getString("ReasonForDownloading");
+            //Get statistic details
+            Session.getUserDetails()[6] = Integer.toString(workouts);
         } else {
             Log.d("Login.setSessionData", "No data found for the user with email: " + email);
         }

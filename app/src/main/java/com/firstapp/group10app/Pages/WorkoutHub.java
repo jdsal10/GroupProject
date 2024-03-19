@@ -2,6 +2,7 @@ package com.firstapp.group10app.Pages;
 
 import static android.view.View.GONE;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -15,11 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
-import androidx.fragment.app.FragmentTransaction;
-
-import com.firstapp.group10app.DB.OnlineDb.DbHelper;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Other.Session;
-import com.firstapp.group10app.Pages.Fragments.MainOptions.History;
 import com.firstapp.group10app.R;
 
 import org.json.JSONArray;
@@ -27,7 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class WorkoutHub extends Fragment implements View.OnClickListener {
-    private Button enhance, begin, calendar;
+    private Button enhance, begin;
     LinearLayout workoutHubLinear;
 
     public WorkoutHub() {
@@ -48,7 +46,6 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
         enhance.setOnClickListener(this);
         begin = rootView.findViewById(R.id.beginWorkout);
         begin.setOnClickListener(this);
-        calendar = rootView.findViewById(R.id.addToCalendar);
 
         // Gets the current workout.
         JSONObject currentWorkout = Session.getSelectedWorkout();
@@ -61,7 +58,7 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
         }
 
         // If the user is not signed in / anonymous, they cannot add the workout to history.
-        if ((!Session.isDbStatus()) || (!Session.getSignedIn())) {
+        if ((!Session.getOnlineDbStatus()) || (!Session.getSignedIn())) {
             begin.setVisibility(GONE);
         }
 
@@ -131,6 +128,11 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
 
         // For every exercise, we create a box containing the details.
         for (int i = 0; i < t.length(); i++) {
+            // If the exercise is null, we break the loop. Otherwise a null pointer exception is thrown.
+            if (t.isNull(i)) {
+                break;
+            }
+
             JSONObject workoutObject;
 
             try {
@@ -229,13 +231,7 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
             EnhanceInput enhance = new EnhanceInput(getContext());
             enhance.show();
         } else if (id == R.id.beginWorkout) {
-            DbHelper.insertHistory();
-            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragmentHolder, new History());
-            transaction.addToBackStack(null);
-            transaction.commit();
-        } else if (id == R.id.addToCalendar) {
-            Toast.makeText(getContext(), "Currently in beta!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getContext(), ActiveWorkoutLoading.class));
         }
     }
 }

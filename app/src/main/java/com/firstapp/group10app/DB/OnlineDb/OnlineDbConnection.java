@@ -6,31 +6,53 @@ import android.util.Log;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
-public class DbConnection {
-    public static Connection conn;
-    public static Statement st;
+public class OnlineDbConnection {
+    private static OnlineDbConnection instance;
+    private static Connection connection;
+    private static final String CONNECTION_STRING = "jdbc:mysql://gateway01.eu-central-1.prod.aws.tidbcloud.com:4000/test?user=2xn9WQ6ma8aHYPp.root&password=6Tzop9pIbbE6dCbk&sslMode=VERIFY_IDENTITY&enabledTLSProtocols=TLSv1.2,TLSv1.3";
 
     /**
      * Constructor for the DBConnection class.
      * Used to initialise a connection to the database.
      */
-
-    public DbConnection() {
+    public OnlineDbConnection() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         try {
             Log.i("DBConnection", "Initialising connection");
 
-            String connectionString = "jdbc:mysql://gateway01.eu-central-1.prod.aws.tidbcloud.com:4000/test?user=2xn9WQ6ma8aHYPp.root&password=6Tzop9pIbbE6dCbk&sslMode=VERIFY_IDENTITY&enabledTLSProtocols=TLSv1.2,TLSv1.3";
-            conn = DriverManager.getConnection(connectionString);
+            setConnection(DriverManager.getConnection(CONNECTION_STRING));
 
-            if (conn == null) {
+            if (getConnection() == null) {
                 Log.w("DBConnection", "Attention, DBConnection.conn is null");
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-            st = conn.createStatement();
+    public static synchronized OnlineDbConnection getInstance() {
+        if (instance == null) {
+            instance = new OnlineDbConnection();
+        }
+        return instance;
+    }
+
+    protected static Connection getConnection() {
+        return connection;
+    }
+
+    private static void setConnection(Connection connection) {
+        OnlineDbConnection.connection = connection;
+    }
+
+    /**
+     * Executes a query that returns no data
+     */
+    protected void executeStatement(String createStatement) {
+        try {
+            getConnection().createStatement().execute(createStatement);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -39,21 +61,10 @@ public class DbConnection {
     /**
      * Executes a query that returns no data
      */
-    public void executeStatement(String createStatement) {
+    protected ResultSet executeQuery(String query) {
         try {
-            st.execute(createStatement);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * Executes a query that returns no data
-     */
-    public ResultSet executeQuery(String statement) {
-        try {
-            Log.i("DBConnection.executeQuery", "Executing " + statement);
-            return st.executeQuery(statement);
+            Log.i("DBConnection.executeQuery", "Executing " + query);
+            return getConnection().createStatement().executeQuery(query);
         } catch (Exception e) {
             Log.e("Error in DBConnection.executeQuery", e.toString());
             throw new RuntimeException(e);
@@ -71,8 +82,8 @@ public class DbConnection {
 
         try {
             String connectionString = "jdbc:mysql://gateway01.eu-central-1.prod.aws.tidbcloud.com:4000/test?user=2xn9WQ6ma8aHYPp.root&password=6Tzop9pIbbE6dCbk&sslMode=VERIFY_IDENTITY&enabledTLSProtocols=TLSv1.2,TLSv1.3";
-            conn = DriverManager.getConnection(connectionString);
-            return conn.isValid(1);
+            setConnection(DriverManager.getConnection(connectionString));
+            return getConnection().isValid(1);
         } catch (Exception e) {
             return false;
         }

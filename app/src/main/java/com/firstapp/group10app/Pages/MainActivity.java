@@ -1,7 +1,11 @@
 package com.firstapp.group10app.Pages;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -10,7 +14,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.OnlineDb.DbConnection;
 import com.firstapp.group10app.DB.LocalDb.LocalDb;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
@@ -18,6 +21,27 @@ import com.firstapp.group10app.R;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private Button goToLoginButton;
+    private final Handler handler = new Handler();
+    private final Runnable internetCheckRunnable = new Runnable() {
+        @Override
+        public void run() {
+            // Test internet connection
+            Session.setInternetStatus(isInternetAvailable());
+
+            // If the connection false, disable the login.
+            if (!Session.getInternetStatus()) {
+                goToLoginButton.setEnabled(false);
+                goToLoginButton.setAlpha(.5f);
+            } else {
+                goToLoginButton.setEnabled(true);
+                goToLoginButton.setAlpha(1f);
+            }
+
+            handler.postDelayed(this, 10000); // 10 seconds delay
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fadeInAnimation.setDuration(1000);
 
         rootLayout.startAnimation(fadeInAnimation);
-        Button goToLoginButton = findViewById(R.id.goToLogin);
+        goToLoginButton = findViewById(R.id.goToLogin);
         goToLoginButton.setOnClickListener(this);
 
         TextView goToRegisterButton = findViewById(R.id.goToRegister);
@@ -61,23 +85,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView skipText = findViewById(R.id.anonymous);
         skipText.setOnClickListener(this);
 
-        // Test database connection
-        Session.setDbStatus(DbConnection.testConnection());
+        // Test internet connection
+        Session.setInternetStatus(isInternetAvailable());
 
         // Default value.
         Session.setSignedIn(false);
 
-        // If the connection false, disable the login.
-        if (!Session.isDbStatus()) {
-            goToLoginButton.setEnabled(false);
-            goToLoginButton.setAlpha(.5f);
-        }
+        // Start the periodic internet check
+        handler.post(internetCheckRunnable);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacks(internetCheckRunnable); // Stop the periodic internet check when activity is destroyed
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.goToLogin) {
+        if (id == R.id.goToLogin && Session.getInternetStatus()) {
             startActivity(new Intent(MainActivity.this, Login.class));
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         } else if (id == R.id.anonymous) {
@@ -87,9 +114,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(getApplicationContext(), ActivityContainer.class);
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        } else if (id == R.id.goToRegister) {
+        } else if (id == R.id.goToRegister && Session.getInternetStatus()) {
             startActivity(new Intent(MainActivity.this, Registration.class));
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
+    }
+
+    public boolean isInternetAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 }

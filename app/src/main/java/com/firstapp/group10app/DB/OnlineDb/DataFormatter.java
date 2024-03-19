@@ -8,14 +8,14 @@ import java.util.ArrayList;
  * DB.DataFormatter contains methods to format the data before passing it to the database.
  */
 public class DataFormatter {
-    public static void preCheckFormatUserDetails(String[] userDetails) {
+    protected static void preCheckFormatUserDetails(String[] userDetails) {
         // Format the user details before passing them to the DataChecker
 //        userDetails[Index.WEIGHT] = preCheckFormatWeight(userDetails[Index.WEIGHT]);
 //        userDetails[Index.HEIGHT] = preCheckFormatHeight(userDetails[Index.HEIGHT]);
         userDetails[Index.SEX] = preCheckFormatSex(userDetails[Index.SEX]);
     }
 
-    public static String[] formatUserDetails(String[] userDetails) {
+    protected static String[] formatUserDetails(String[] userDetails) {
         ArrayList<String> formattedDetails = new ArrayList<>();
 
         formattedDetails.add(userDetails[Index.EMAIL]);
@@ -36,7 +36,7 @@ public class DataFormatter {
      * Formats jOhn dOe -> John Doe
      * Formats "" -> null
      */
-    public static String formatName(String name) {
+    private static String formatName(String name) {
         if (name.equals("")) {
             return null;
         }
@@ -58,7 +58,7 @@ public class DataFormatter {
      * Converts 100 lbs -> 45.3592
      * Converts "" -> null
      */
-    public static String preCheckFormatWeight(String weight) {
+    protected static String preCheckFormatWeight(String weight) {
         if (weight.equals("")) {
             return null;
         }
@@ -88,7 +88,7 @@ public class DataFormatter {
      * Converts 100 inch -> 254
      * Converts "" -> null
      */
-    public static String preCheckFormatHeight(String height) {
+    protected static String preCheckFormatHeight(String height) {
         if (height.equals("")) {
             return null;
         }
@@ -113,7 +113,7 @@ public class DataFormatter {
         }
     }
 
-    public static String preCheckFormatSex(String sex) {
+    protected static String preCheckFormatSex(String sex) {
         if (sex.equals("")) {
             return null;
         }
@@ -131,7 +131,7 @@ public class DataFormatter {
         }
     }
 
-    private static String formatDOB(String dob) {
+    protected static String formatDOB(String dob) {
         // Format the date of birth to the format YYYY-MM-DD
         if (dob.equals("")) {
             return null;

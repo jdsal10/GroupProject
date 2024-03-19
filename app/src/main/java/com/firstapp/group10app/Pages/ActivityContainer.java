@@ -14,7 +14,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.firstapp.group10app.Other.FragmentHolderUpdate;
-import com.firstapp.group10app.DB.LocalDb.LocalDb;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.History;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.Home;
@@ -35,20 +34,10 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (Session.getLocalDB() != null) {
-            LocalDb localDbPrint = new LocalDb(this);
-            localDbPrint.printDataForDebugging();
-        }
-
         com.firstapp.group10app.databinding.ActivityContainerBinding binding = ActivityContainerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         Button goSettings = findViewById(R.id.goToSettings);
-        if (Session.getSignedIn() == null || !Session.getSignedIn()) {
-            goSettings.setVisibility(View.GONE);
-        } else {
-            goSettings.setOnClickListener(this);
-        }
 
         pageTitle = findViewById(R.id.pageTitle);
 
@@ -65,21 +54,30 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
 
         if (currentView == HOME || currentView == R.layout.activity_home) {
             bottomNavigationView.getMenu().findItem(R.id.goToHome).setChecked(true);
-
             updateView(new Home());
         } else if (currentView == WORKOUTS || currentView == R.layout.activity_workout_option) {
             bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setChecked(true);
-
             updateView(new WorkoutOption());
         } else {
             bottomNavigationView.getMenu().findItem(R.id.goToSettings).setChecked(true);
-
             updateView(new History());
         }
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("workoutHub")) {
             FragmentHolderUpdate.updateView(new WorkoutHub(), this);
+        }
+
+        // Behaviour if signed in
+        if (Session.getSignedIn()) {
+            goSettings.setOnClickListener(this);
+            bottomNavigationView.getMenu().findItem(R.id.goToHistory).setVisible(true);
+        }
+
+        // Behaviour if anonymous
+        else {
+            goSettings.setVisibility(View.GONE);
+//            bottomNavigationView.getMenu().findItem(R.id.goToHistory).setVisible(false);
         }
     }
 

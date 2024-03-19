@@ -8,16 +8,15 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.OnlineDb.DbConnection;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.R;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ForgotPasswordCheck extends AppCompatActivity implements View.OnClickListener {
     private EditText code;
     private String email;
-    ForgotPassword f = new ForgotPassword();
+    ForgotPassword forgotPassword = new ForgotPassword();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,7 @@ public class ForgotPasswordCheck extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.tryAgain) {
-            f.toSend(email, f.generateString());
+            forgotPassword.toSend(email, forgotPassword.generateString());
             code.setText("Code has been resent");
         } else if (id == R.id.codeConfirm) {
             try {
@@ -68,13 +67,6 @@ public class ForgotPasswordCheck extends AppCompatActivity implements View.OnCli
     }
 
     public boolean checkCode(String code) throws SQLException {
-        DbConnection db = new DbConnection();
-        ResultSet set = db.executeQuery("SELECT VerifyCode FROM HealthData.Users WHERE Email = '" + email + "'");
-        if (set.next()) {
-            String storedCode = set.getString("VerifyCode");
-            return storedCode.equals(code);
-        } else {
-            return false;
-        }
+        return OnlineDbHelper.getVerifyCode(email).equals(code);
     }
 }

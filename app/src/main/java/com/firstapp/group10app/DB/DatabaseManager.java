@@ -3,23 +3,33 @@ package com.firstapp.group10app.DB;
 import android.content.Context;
 
 import com.firstapp.group10app.DB.LocalDb.LocalDb;
-import com.firstapp.group10app.DB.OnlineDb.DbConnection;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbConnection;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
+import com.firstapp.group10app.Other.Session;
 
-import java.sql.SQLException;
+import java.util.List;
 
 public class DatabaseManager {
     private static DatabaseManager instance;
     private LocalDb localDb;
-    private DbConnection onlineDb;
+    private OnlineDbConnection onlineDb;
 
     private DatabaseManager() {
     }
 
     public static synchronized DatabaseManager getInstance() {
-        if (instance == null) {
-            instance = new DatabaseManager();
-        }
+        if (instance == null) instance = new DatabaseManager();
         return instance;
+    }
+
+    private LocalDb getLocalDb() {
+        if (localDb == null) connectToLocalDb(null);
+        return localDb;
+    }
+
+    private OnlineDbConnection getOnlineDb() {
+        if (onlineDb == null) connectToOnlineDb();
+        return onlineDb;
     }
 
     private void connectToLocalDb(Context context) {
@@ -27,43 +37,50 @@ public class DatabaseManager {
     }
 
     private void connectToOnlineDb() {
-        onlineDb = new DbConnection();
+        onlineDb = OnlineDbConnection.getInstance();
     }
 
     public Object getDatabaseConnection(boolean signedIn) {
         if (signedIn) {
-            if (onlineDb == null) connectToOnlineDb();
-
-            return onlineDb;
+            return getOnlineDb();
         } else {
-            if (localDb == null) connectToLocalDb(null);
-
-            return localDb;
+            return getLocalDb();
         }
     }
 
-    public QueryResult executeQuery(String query, boolean signedIn) throws SQLException {
-        Object dbConnection = getDatabaseConnection(signedIn);
-
-        if (signedIn) {
-            DbConnection onlineDb = (DbConnection) dbConnection;
-            return new QueryResult(onlineDb.executeQuery(query));
+    public List<Exercise> getAllExercises() {
+        if (Session.getSignedIn()) {
+            return OnlineDbHelper.getAllExercises();
         } else {
-            LocalDb localDb = (LocalDb) dbConnection;
-            return new QueryResult(localDb.executeQuery(query));
+            return getLocalDb().getAllExercises();
         }
     }
 
-    public void executeStatement(String statement, boolean signedIn) throws SQLException {
-        Object dbConnection = getDatabaseConnection(signedIn);
+    public void updateUserData(String toUpdate, String value) {
+        try {
+            if (Session.getSignedIn()) {
+                // Call the updateUserData method from the OnlineDbHelper class
+                OnlineDbHelper.updateUserData(toUpdate, value);
+            } else {
+                throw new UnsupportedOperationException("Cannot update user data while anonymous because there is no user");
+            }
+        } catch (UnsupportedOperationException e) {
+            // TODO: In the future we might want to handle this exception differently
+            e.printStackTrace();
+        }
+    }
 
-        if (signedIn) {
-            DbConnection onlineDb = (DbConnection) dbConnection;
-            onlineDb.executeStatement(statement);
-        } else {
-            LocalDb localDb = (LocalDb) dbConnection;
-            // Assuming LocalDb has a similar method to execute statements
-            localDb.executeStatement(statement);
+    public void deleteUser(String email) {
+        try {
+            if (Session.getSignedIn()) {
+                // Call the deleteUser method from the OnlineDbHelper class
+                OnlineDbHelper.deleteUser(email);
+            } else {
+                throw new UnsupportedOperationException("Cannot delete user while anonymous because there is no user");
+            }
+        } catch (UnsupportedOperationException e) {
+            // TODO: In the future we might want to handle this exception differently
+            e.printStackTrace();
         }
     }
 }

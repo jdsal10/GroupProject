@@ -11,8 +11,13 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+//import com.firstapp.group10app.DB.DbHelper;
+import com.firstapp.group10app.Other.JsonToDb;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class EnhanceResults extends Dialog implements View.OnClickListener {
     public EnhanceResults(Context context) {
@@ -46,6 +51,13 @@ public class EnhanceResults extends Dialog implements View.OnClickListener {
             enhance.show();
         }
         else if (id == R.id.useEnhance) {
+            // Adds workout
+            try {
+                Session.setWorkoutID(JsonToDb.insertWorkoutAI(Session.getSelectedWorkout()));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
             // Goes to WorkoutHub
             Intent intent = new Intent(getContext(), ActivityContainer.class);
             intent.putExtra("workoutHub", WorkoutHub.class);

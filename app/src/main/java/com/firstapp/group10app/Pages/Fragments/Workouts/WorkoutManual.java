@@ -10,6 +10,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.CreateWorkout;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.WorkoutOption;
 import com.firstapp.group10app.Pages.WorkoutSearch;
@@ -26,6 +27,20 @@ public class WorkoutManual extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.activity_workout_manual, container, false);
+
+        // If the user is signed in, they can both create and search for workouts.
+        if (Session.getSignedIn()) {
+            rootView.findViewById(R.id.searchBox).setVisibility(View.VISIBLE);
+            rootView.findViewById(R.id.orText).setVisibility(View.VISIBLE);
+            rootView.findViewById(R.id.createBox).setVisibility(View.VISIBLE);
+        }
+
+        // If the user is not signed in, they can only search for workouts.
+        else {
+            rootView.findViewById(R.id.searchBox).setVisibility(View.VISIBLE);
+            rootView.findViewById(R.id.orText).setVisibility(View.GONE);
+            rootView.findViewById(R.id.createBox).setVisibility(View.GONE);
+        }
 
         // Initialise Buttons
         Button goCreate = rootView.findViewById(R.id.goToCreate);
@@ -53,8 +68,8 @@ public class WorkoutManual extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void tellParentToStartNewActivity(AppCompatActivity newActivity) {
-        WorkoutOption parentFrag = ((WorkoutOption) WorkoutManual.this.getParentFragment());
+    private void tellParentToStartNewActivity(AppCompatActivity newActivity) {
+        WorkoutOption parentFrag = (WorkoutOption) WorkoutManual.this.getParentFragment();
         if (parentFrag != null) {
             parentFrag.tellParentToStartNewActivity(newActivity, R.anim.slide_down_in, R.anim.slide_down_out);
         } else {
