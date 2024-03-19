@@ -22,7 +22,7 @@ public class Session {
     private static boolean internetStatus; // is connected to the internet? true or false
     private static JSONObject selectedWorkout; // It looks like it should be "selectedExercise" instead of "selectedWorkout"
     private static Exercise selectedExercise;
-    private static Boolean signedIn;
+    private static Boolean signedIn; // is the user signed in? true or false (if false, the user is anonymous)
     private static int workoutID;
     private static AppCompatActivity container;
 
