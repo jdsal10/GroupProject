@@ -18,14 +18,37 @@
         android:text="PLACEHOLER"
         android:textSize="@dimen/font_size_large" />
 
-    <androidx.viewpager2.widget.ViewPager2
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2"/>
+        android:layout_weight="2" />
 
     <LinearLayout
-        android:id="@+id/buttonHolder"
+        android:id="@+id/buttonHolderNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/previousExercise"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Previous" />
+
+        <Button
+            android:id="@+id/nextExercise"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Next" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonHolderControl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.2"

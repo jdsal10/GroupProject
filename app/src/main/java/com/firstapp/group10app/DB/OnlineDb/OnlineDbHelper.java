@@ -469,14 +469,13 @@ public class OnlineDbHelper {
     /**
      * Inserts a new workout history record into the database.
      */
-    public static void insertHistory() {
+    public static void insertHistory(int minutes) {
         String sqlHistory = "INSERT INTO HealthData.UserWorkoutHistory (Email, WorkoutID, Time, Date, Duration) VALUES (" +
                 "'" + Session.getUserEmail() + "', " +
                 "'" + Session.getWorkoutID() + "', " +
                 "CURRENT_TIME(), " +
                 "CURRENT_DATE(), " +
-                // Add with correct duration.
-                40 + ");";
+                minutes + ");";
         OnlineDbConnection.getInstance().executeStatement(sqlHistory);
     }
 
