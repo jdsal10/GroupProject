@@ -2,6 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/margin_very_small"
+    android:layout_marginBottom="@dimen/margin_very_small"
     android:orientation="vertical"
     tools:context=".Pages.Fragments.MainOptions.Home">
 
@@ -12,7 +14,7 @@
         android:layout_marginStart="@dimen/margin_default"
         android:layout_marginEnd="@dimen/margin_default"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <!-- Header -->
         <TextView
@@ -129,7 +131,7 @@
             android:id="@+id/anonymousTitle"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:gravity="center"
             android:text="You are in Anonymous Mode"
             android:textSize="@dimen/font_size_larger" />
@@ -137,45 +139,73 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_small"
             android:layout_weight="1"
+            android:background="@drawable/shape_transparent_very_curved_corners"
             android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingStart="@dimen/margin_small"
+            android:paddingEnd="@dimen/margin_small">
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="bottom"
                 android:text="You have access to limited functionality, but you can search our rich database of workouts." />
 
-            <Button
-                android:id="@+id/searchButton"
-                style="@style/ButtonNormal"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/workoutsSearchButton" />
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/searchButton"
+                    style="@style/ButtonTetradic1"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="@dimen/margin_large"
+                    android:layout_marginEnd="@dimen/margin_large"
+                    android:text="@string/workoutsSearchButton" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_small"
             android:layout_weight="1"
+            android:background="@drawable/shape_transparent_very_curved_corners"
             android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingStart="@dimen/margin_small"
+            android:paddingEnd="@dimen/margin_small">
 
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="bottom"
                 android:text="To access all functionality, including AI Workout generation, exit and then log in regularly." />
 
-            <Button
-                android:id="@+id/logoutButton"
-                style="@style/ButtonRedStroke"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Log out" />
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/logoutButton"
+                    style="@style/ButtonRedStroke"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="@dimen/margin_large"
+                    android:layout_marginEnd="@dimen/margin_large"
+                    android:text="Log out" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
