@@ -1,6 +1,7 @@
 package com.firstapp.group10app.Pages.Fragments.Other;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.RadioButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.firstapp.group10app.Other.Session;
+import com.firstapp.group10app.Pages.ActivityContainer;
 import com.firstapp.group10app.Pages.Fragments.Settings.SettingsAccount;
 import com.firstapp.group10app.Pages.Fragments.Settings.SettingsDataControl;
 import com.firstapp.group10app.R;
@@ -19,6 +22,12 @@ public class Settings extends Fragment implements View.OnClickListener {
 
     public Settings() {
         super(R.layout.activity_settings);
+
+        // Behaviour when the user is anonymous
+        if (!Session.getSignedIn()) {
+            Log.d("Settings.java", "User is not signed in. This page should not be accessible.");
+            tellParentToFinish();
+        }
     }
 
     @Override
@@ -86,5 +95,14 @@ public class Settings extends Fragment implements View.OnClickListener {
     private void resetButtonTextColor() {
         dataControlButton.setTextColor(getResources().getColor(R.color.accent_grayscale));
         accountButton.setTextColor(getResources().getColor(R.color.accent_grayscale));
+    }
+
+    private void tellParentToFinish() {
+        ActivityContainer parent = (ActivityContainer) getActivity();
+        if (parent != null) {
+            parent.logOut();
+        } else {
+            Session.logout(getContext());
+        }
     }
 }

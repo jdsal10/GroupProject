@@ -66,6 +66,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
 
     public CreateWorkout() {
         super(R.layout.activity_workout_create);
+
         executor = Executors.newSingleThreadExecutor();
         handler = new Handler(Looper.getMainLooper());
     }
@@ -77,61 +78,72 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_workout_create);
 
-        border = ContextCompat.getDrawable(this, R.drawable.toggle_button_outline);
+        // Behaviour when the user is signed in
+        if (Session.getSignedIn()) {
+            setContentView(R.layout.activity_workout_create);
 
-        name = findViewById(R.id.workoutNameInput);
-        duration = findViewById(R.id.workoutDurationInput);
-        equipment = findViewById(R.id.workoutEquipmentInput);
+            border = ContextCompat.getDrawable(this, R.drawable.toggle_button_outline);
 
-        easy = findViewById(R.id.easySelect);
-        medium = findViewById(R.id.mediumSelect);
-        hard = findViewById(R.id.hardSelect);
+            name = findViewById(R.id.workoutNameInput);
+            duration = findViewById(R.id.workoutDurationInput);
+            equipment = findViewById(R.id.workoutEquipmentInput);
 
-        Button cancelButton = findViewById(R.id.cancelBtn);
-        continueButton = findViewById(R.id.continueBtn);
-        ImageButton backButton = findViewById(R.id.backButton);
+            easy = findViewById(R.id.easySelect);
+            medium = findViewById(R.id.mediumSelect);
+            hard = findViewById(R.id.hardSelect);
 
-        target = findViewById(R.id.workoutTargetInput);
+            Button cancelButton = findViewById(R.id.cancelBtn);
+            continueButton = findViewById(R.id.continueBtn);
+            ImageButton backButton = findViewById(R.id.backButton);
 
-        ArrayAdapter<CharSequence> adapterTarget = ArrayAdapter.createFromResource(
-                this,
-                R.array.targetMuscleGroup,
-                android.R.layout.simple_spinner_item
-        );
+            target = findViewById(R.id.workoutTargetInput);
 
-        adapterTarget.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        target.setAdapter(adapterTarget);
-        target.setSelection(0);
+            ArrayAdapter<CharSequence> adapterTarget = ArrayAdapter.createFromResource(
+                    this,
+                    R.array.targetMuscleGroup,
+                    android.R.layout.simple_spinner_item
+            );
 
-        // Set the on click listeners for the difficulty buttons.
-        easy.setOnClickListener(this);
-        medium.setOnClickListener(this);
-        hard.setOnClickListener(this);
+            adapterTarget.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            target.setAdapter(adapterTarget);
+            target.setSelection(0);
 
-        // Set the background color of the difficulty buttons.
-        easy.setBackground(createColorDrawable(ContextCompat.getColor(this, R.color.pastel_green))); // Pastel green
-        medium.setBackground(createColorDrawable(ContextCompat.getColor(this, R.color.pastel_yellow))); // Pastel yellow
-        hard.setBackground(createColorDrawable(ContextCompat.getColor(this, R.color.pastel_red))); // Pastel red
+            // Set the on click listeners for the difficulty buttons.
+            easy.setOnClickListener(this);
+            medium.setOnClickListener(this);
+            hard.setOnClickListener(this);
 
-        // Set the default difficulty buttons border.
-        enableBorder(easy);
+            // Set the background color of the difficulty buttons.
+            easy.setBackground(createColorDrawable(ContextCompat.getColor(this, R.color.pastel_green))); // Pastel green
+            medium.setBackground(createColorDrawable(ContextCompat.getColor(this, R.color.pastel_yellow))); // Pastel yellow
+            hard.setBackground(createColorDrawable(ContextCompat.getColor(this, R.color.pastel_red))); // Pastel red
 
-        // Set the on click listeners for the other buttons.
-        cancelButton.setOnClickListener(this);
-        continueButton.setOnClickListener(this);
-        backButton.setOnClickListener(this);
+            // Set the default difficulty buttons border.
+            enableBorder(easy);
 
-        // get the linear layouts for the pages.
-        p1 = findViewById(R.id.page1);
-        p2 = findViewById(R.id.page2);
+            // Set the on click listeners for the other buttons.
+            cancelButton.setOnClickListener(this);
+            continueButton.setOnClickListener(this);
+            backButton.setOnClickListener(this);
 
-        p1.setVisibility(VISIBLE);
-        p2.setVisibility(GONE);
+            // get the linear layouts for the pages.
+            p1 = findViewById(R.id.page1);
+            p2 = findViewById(R.id.page2);
 
-        // Sets listeners for difficultly views.
-        setListeners();
+            p1.setVisibility(VISIBLE);
+            p2.setVisibility(GONE);
+
+            // Sets listeners for difficultly views.
+            setListeners();
+        }
+
+        // Behaviour when the user is anonymous
+        else {
+            Log.e("CreateWorkout", "User is not signed in. This page should not be accessible.");
+            Session.logout(this, "This page should not be accessible. You are being logged out");
+            finish();
+        }
     }
 
     /**
