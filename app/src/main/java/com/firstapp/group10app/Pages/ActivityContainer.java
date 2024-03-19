@@ -70,6 +70,7 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
 
         // Behaviour if signed in
         if (Session.getSignedIn()) {
+            goSettings.setVisibility(View.VISIBLE);
             goSettings.setOnClickListener(this);
             bottomNavigationView.getMenu().findItem(R.id.goToHistory).setVisible(true);
         }
@@ -77,7 +78,7 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         // Behaviour if anonymous
         else {
             goSettings.setVisibility(View.GONE);
-//            bottomNavigationView.getMenu().findItem(R.id.goToHistory).setVisible(false);
+            bottomNavigationView.getMenu().findItem(R.id.goToHistory).setVisible(false);
         }
     }
 
@@ -145,5 +146,11 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
     public void startNewActivity(AppCompatActivity newActivity, int enterAnim, int exitAnim) {
         startActivity(new Intent(this, newActivity.getClass()));
         overridePendingTransition(enterAnim, exitAnim);
+    }
+
+    public void logOut() {
+        Log.e("ActivityContainer", "User is not signed in, and tried to access a page that requires sign in. Logging out.");
+        Session.logout(this, "You tried to access a page that requires sign in. You are being logged out");
+        finish();
     }
 }

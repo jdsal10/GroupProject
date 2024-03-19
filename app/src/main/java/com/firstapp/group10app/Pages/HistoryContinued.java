@@ -47,7 +47,7 @@ public class HistoryContinued extends AppCompatActivity implements View.OnClickL
 
         // Behaviour when the user is anonymous
         else {
-            Log.e("WorkoutAI", "User is not signed in. This page should not be accessible.");
+            Log.e("HistoryContinued", "User is not signed in. This page should not be accessible.");
             Session.logout(this, "This page should not be accessible. You are being logged out");
             finish();
         }

@@ -13,10 +13,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
 
-import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
@@ -25,7 +24,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class WorkoutHub extends Fragment implements View.OnClickListener {
-    private Button enhance, begin;
     LinearLayout workoutHubLinear;
 
     public WorkoutHub() {
@@ -42,9 +40,9 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
         View rootView = inflater.inflate(R.layout.activity_workout_hub, container, false);
 
         // Button declaration.
-        enhance = rootView.findViewById(R.id.enhance);
+        Button enhance = rootView.findViewById(R.id.enhance);
         enhance.setOnClickListener(this);
-        begin = rootView.findViewById(R.id.beginWorkout);
+        Button begin = rootView.findViewById(R.id.beginWorkout);
         begin.setOnClickListener(this);
 
         // Gets the current workout.
@@ -57,9 +55,11 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
             throw new RuntimeException(e);
         }
 
-        // If the user is not signed in / anonymous, they cannot add the workout to history.
-        if ((!Session.getOnlineDbStatus()) || (!Session.getSignedIn())) {
-            begin.setVisibility(GONE);
+        // Behaviour when the user is signed in
+        if (Session.getSignedIn()) {
+            enhance.setVisibility(View.VISIBLE);
+        } else { // Behaviour when the user is anonymous
+            enhance.setVisibility(GONE);
         }
 
         return rootView;
@@ -228,7 +228,7 @@ public class WorkoutHub extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.enhance) {
-            EnhanceInput enhance = new EnhanceInput(getContext());
+            EnhanceInput enhance = new EnhanceInput(requireContext());
             enhance.show();
         } else if (id == R.id.beginWorkout) {
             startActivity(new Intent(getContext(), ActiveWorkoutLoading.class));

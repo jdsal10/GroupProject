@@ -105,9 +105,12 @@ public class SettingsAccount extends Fragment implements View.OnClickListener {
 
         Button confirm = dialogView.findViewById(R.id.confirm);
 
-        confirm.setOnClickListener(v -> Session.logout(requireContext()));
-
         alertDialog.show();
+
+        confirm.setOnClickListener(v -> {
+            alertDialog.dismiss();
+            Session.logout(requireContext());
+        });
     }
 
     public void changePassword() {

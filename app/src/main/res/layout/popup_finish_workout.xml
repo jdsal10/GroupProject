@@ -1,0 +1,26 @@
+<!-- res/layout/dialog_password.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_default"
+    android:layout_marginEnd="@dimen/margin_default"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/confirmFinishTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_default"/>
+
+    <Button
+        style="@style/ButtonNormal"
+        android:layout_width="match_parent"
+        android:text="Go back to Workout"
+        android:id="@+id/cancelWorkoutFinish" />
+    <Button
+        style="@style/ButtonPastelRed"
+        android:id="@+id/confirmWorkoutFinish"
+        android:layout_width="match_parent"
+        android:text="Finish Workout" />
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.firstapp.group10app.Other;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -131,6 +132,12 @@ public class Session {
         Intent intent = new Intent(context, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+
+        // If context is an Activity, finish all previous activities
+        if (context instanceof Activity) {
+            ((Activity) context).finishAffinity();
+        }
+
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 

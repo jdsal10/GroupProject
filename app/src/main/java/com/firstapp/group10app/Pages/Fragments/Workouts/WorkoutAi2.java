@@ -28,9 +28,7 @@ public class WorkoutAi2 extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.activity_workout_ai2, container, false);
 
-        // Initialise Buttons
         Button goAI = rootView.findViewById(R.id.goToAI);
-
         goAI.setOnClickListener(this);
 
         return rootView;
@@ -45,7 +43,10 @@ public class WorkoutAi2 extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.goToAI) {
-            if ((!Session.getSignedIn()) || (!OnlineDbConnection.testConnection())) {
+            if ((!Session.getSignedIn())) {
+                Toast.makeText(getContext(), "You are not signed in. Logging out...", Toast.LENGTH_SHORT).show();
+                Session.logout(getContext());
+            } else if ((!OnlineDbConnection.testConnection())) {
                 Toast.makeText(getContext(), "No connection!", Toast.LENGTH_SHORT).show();
             } else {
                 tellParentToStartNewActivity(new WorkoutAi());
