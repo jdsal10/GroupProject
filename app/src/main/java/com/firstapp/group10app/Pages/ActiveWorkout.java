@@ -104,45 +104,37 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
                 JSONObject exercise = exerciseArray.getJSONObject(i);
                 System.out.println("DATA: " + exercise);
 
-                String sets;
-                String reps;
-                String time;
+//                String sets;
+//                String reps;
+//                String time;
 
-                if (exercise.getString("Sets").equals("null")) {
-                    sets = "null";
-                } else {
-                    sets = exercise.getString("Sets");
-                }
-
-                if (exercise.getString("Reps").equals("null")) {
-                    reps = "null";
-                } else {
-                    reps = exercise.getString("Reps");
-                }
-
-                if (exercise.getString("Time").equals("null")) {
-                    time = "null";
-                } else {
-                    time = exercise.getString("Time");
-                }
+//                if (exercise.getString("Sets").equals("null")) {
+//                    sets = "null";
+//                } else {
+//                    sets = exercise.getString("Sets");
+//                }
+//
+//                if (exercise.getString("Reps").equals("null")) {
+//                    reps = "null";
+//                } else {
+//                    reps = exercise.getString("Reps");
+//                }
+//
+//                if (exercise.getString("Time").equals("null")) {
+//                    time = "null";
+//                } else {
+//                    time = exercise.getString("Time");
+//                }
 
                 f1 = ActiveExerciseUpdate.newInstance(
                         exercise.getString("Description"),
-                        sets,
-                        reps,
-                        time
+                        exercise.getString("Sets"),
+                        exercise.getString("Reps"),
+                        exercise.getString("Time")
                 );
 
-                if(f1 == null) {
-                    System.out.println("IT NULL");
-                }
-
                 fragmentList.add(f1);
-//                FragmentManager fragmentManager = getSupportFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.replace(R.id.viewPager, f1);
-//                fragmentTransaction.addToBackStack(null);
-//                fragmentTransaction.commit();
+
                 System.out.println("ADDED");
 
             } catch (JSONException e) {
@@ -197,13 +189,24 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
         if (id == R.id.nextExercise) {
             currentPage++;
             changePage(currentPage);
-            if(currentPage == fragmentList.size()) {
+            if (currentPage == fragmentList.size() - 1) {
                 next.setVisibility(View.GONE);
+                previous.setVisibility(View.VISIBLE);
+            } else {
+                next.setVisibility(View.VISIBLE);
                 previous.setVisibility(View.VISIBLE);
             }
         } else if (id == R.id.previousExercise) {
             currentPage--;
             changePage(currentPage);
+
+            if (currentPage == 0) {
+                next.setVisibility(View.VISIBLE);
+                previous.setVisibility(View.GONE);
+            } else {
+                next.setVisibility(View.VISIBLE);
+                previous.setVisibility(View.VISIBLE);
+            }
         } else if (id == R.id.pauseWorkout) {
             paused = true;
             flashPaused();
