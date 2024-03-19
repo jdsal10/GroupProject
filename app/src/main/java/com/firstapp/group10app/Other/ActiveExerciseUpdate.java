@@ -29,7 +29,9 @@ public class ActiveExerciseUpdate extends Fragment {
         args.putString("reps", reps);
         args.putString("time", time);
         fragment.setArguments(args);
+        System.out.println("CREATED");
         return fragment;
+
     }
 
     @Override

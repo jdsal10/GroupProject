@@ -36,7 +36,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     private TextView generateButton, continueButton;
     private Button beginWorkoutButton;
     private String output3;
-
+    private View loadingAnimation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +59,8 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         page3.setVisibility(View.GONE);
         TextView mainGoalEdit = findViewById(R.id.mainGoalTitle);
         populateSpinners();
+
+        loadingAnimation = findViewById(R.id.loadingScreen);
     }
 
     @Override
@@ -105,6 +107,9 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                 try {
                     output3 = (ChatGptClient.chatGPT(input)); // This is a test to see if the chatGPT function works.
                     output3 = output3.replaceAll("\\\\", "");
+
+                    // Show loading animation
+                    performAnimation(loadingAnimation, View.VISIBLE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -198,6 +203,8 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
 
             // Adds shows the generated workout to the user.
             try {
+                // Hide the animation.
+                performAnimation(loadingAnimation, View.GONE);
                 showWorkout(output3);
                 beginWorkoutButton.setVisibility(View.VISIBLE);
             } catch (JSONException e) {
@@ -336,5 +343,16 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                 ". " +
                 "If you cannot generate a workout or there is not enough info, return (unsure). "
                 + "Do it on one line as a String, only output JSON";
+    }
+
+    public void performAnimation(View v, int visibility) {
+        if(visibility == View.GONE) {
+            v.setVisibility(View.GONE);
+        }
+        else {
+            v.setVisibility(View.VISIBLE);
+        }
+
+        v.animate().setDuration(200);
     }
 }
