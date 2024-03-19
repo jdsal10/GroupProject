@@ -1,6 +1,6 @@
 package com.firstapp.group10app.DB.OnlineDb;
 
-import static com.firstapp.group10app.DB.OnlineDb.OnlineDbConnection.connection;
+import static com.firstapp.group10app.DB.OnlineDb.OnlineDbConnection.getConnection;
 import static com.firstapp.group10app.Other.Encryption.getSHA;
 import static com.firstapp.group10app.Other.Encryption.toHexString;
 
@@ -9,6 +9,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.firstapp.group10app.DB.Exercise;
+import com.firstapp.group10app.DB.QueryResult;
 import com.firstapp.group10app.DB.Workout;
 import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.Other.Session;
@@ -80,8 +81,7 @@ public class OnlineDbHelper {
             Log.d("DbHelper.class.getName()", ".insertUser: preparing to execute " + sql);
 
             // DO NOT CHANGE THIS LINE
-            OnlineDbConnection db = new OnlineDbConnection();
-            db.executeStatement(sql.toString());
+            OnlineDbConnection.getInstance().executeStatement(sql.toString());
         } catch (Exception e) {
             Log.e("Error in DBHelper.insertUser()", e.toString());
             throw new RuntimeException(e);
@@ -96,16 +96,21 @@ public class OnlineDbHelper {
      */
     public static Integer insertWorkout(String[] values) {
         try {
-            getStringBuilder("INSERT INTO HealthData.Workouts (", values, Index.WORKOUT_DETAILS);
+            StringBuilder sql = getStringBuilder("INSERT INTO HealthData.Workouts (", values, Index.WORKOUT_DETAILS);
 
             Integer id = null;
-            Statement st = connection.createStatement();
 
-            ResultSet rs = st.getGeneratedKeys();
-            if (rs.next()) {
-                id = rs.getInt(1);
+            // Specify that you want to retrieve generated keys
+            Statement statement = getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, Statement.RETURN_GENERATED_KEYS);
+
+            // Execute the SQL query and get the generated keys
+            statement.executeUpdate(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+            ResultSet resultSet = statement.getGeneratedKeys();
+
+            if (resultSet.next()) {
+                id = resultSet.getInt(1);
             }
-            rs.close();
+            resultSet.close();
 
             return id;
         } catch (Exception e) {
@@ -120,9 +125,8 @@ public class OnlineDbHelper {
             getStringBuilder("INSERT INTO HealthData.Workouts (", values, Index.WORKOUT_DETAILS);
 
             Integer id = null;
-            Statement statement = connection.createStatement();
 
-            ResultSet resultSet = statement.getGeneratedKeys();
+            ResultSet resultSet = getConnection().createStatement().getGeneratedKeys();
             if (resultSet.next()) {
                 id = resultSet.getInt(1);
             }
@@ -145,16 +149,15 @@ public class OnlineDbHelper {
             StringBuilder sql = getStringBuilder("INSERT INTO HealthData.Exercises (", values, Index.EXERCISE_DETAILS);
 
             Integer id = null;
-            Statement st = connection.createStatement();
 
-            OnlineDbConnection db = new OnlineDbConnection();
+            OnlineDbConnection db = OnlineDbConnection.getInstance();
             db.executeStatement(String.valueOf(sql));
 
-            ResultSet rs = st.getGeneratedKeys();
-            if (rs.next()) {
-                id = rs.getInt(1);
+            ResultSet resultSet = getConnection().createStatement().getGeneratedKeys();
+            if (resultSet.next()) {
+                id = resultSet.getInt(1);
             }
-            rs.close();
+            resultSet.close();
 
             db.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUE (" + workoutID + ", " + id + ");");
         } catch (Exception e) {
@@ -200,8 +203,7 @@ public class OnlineDbHelper {
                     "';";
 
             // Execute the SQL query`
-            OnlineDbConnection db = new OnlineDbConnection();
-            return db.executeQuery(sql);
+            return OnlineDbConnection.getInstance().executeQuery(sql);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -215,11 +217,11 @@ public class OnlineDbHelper {
      * @throws SQLException If a database access error occurs.
      */
     public static boolean checkUserExists(String email) throws SQLException {
-        String st = "SELECT * FROM HealthData.Users WHERE Email = '" +
+        String query = "SELECT * FROM HealthData.Users WHERE Email = '" +
                 email +
                 "';";
-        OnlineDbConnection db = new OnlineDbConnection();
-        return db.executeQuery(st).next();
+
+        return OnlineDbConnection.getInstance().executeQuery(query).next();
     }
 
     /**
@@ -231,11 +233,9 @@ public class OnlineDbHelper {
      * @throws Exception If a database access error occurs.
      */
     public boolean checkUserExistsAndCorrectPassword(String email, String password) throws Exception {
-        OnlineDbConnection db = new OnlineDbConnection();
-        ResultSet result = db.executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "' AND Password = '" + encryptPassword(password) + "'");
+        ResultSet result = OnlineDbConnection.getInstance().executeQuery("SELECT * FROM HealthData.Users WHERE Email = '" + email + "' AND Password = '" + encryptPassword(password) + "'");
 
         int size = 0;
-
         if (result.last()) {
             size++;
         }
@@ -258,8 +258,7 @@ public class OnlineDbHelper {
             }
         }
 
-        OnlineDbConnection db = new OnlineDbConnection();
-        db.executeStatement("UPDATE HealthData.Users SET " + toUpdate + " = '" + value + "' WHERE Email = '" + Session.getUserEmail() + "'");
+        OnlineDbConnection.getInstance().executeStatement("UPDATE HealthData.Users SET " + toUpdate + " = '" + value + "' WHERE Email = '" + Session.getUserEmail() + "'");
     }
 
     /**
@@ -268,8 +267,7 @@ public class OnlineDbHelper {
      * @param email The email of the user to delete.
      */
     public static void deleteUser(String email) {
-        OnlineDbConnection db = new OnlineDbConnection();
-        db.executeStatement("DELETE FROM HealthData.Users WHERE Email = '" + email + "'");
+        OnlineDbConnection.getInstance().executeStatement("DELETE FROM HealthData.Users WHERE Email = '" + email + "'");
     }
 
     /**
@@ -279,8 +277,7 @@ public class OnlineDbHelper {
      * @param exerciseID The ID of the exercise.
      */
     public static void linkExerciseToWorkout(int workoutID, int exerciseID) {
-        OnlineDbConnection db = new OnlineDbConnection();
-        db.executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUES ('" + workoutID + "','" + exerciseID + "')");
+        OnlineDbConnection.getInstance().executeStatement("INSERT INTO HealthData.ExerciseWorkoutPairs (WorkoutID, ExerciseID) VALUES ('" + workoutID + "','" + exerciseID + "')");
     }
 
     /**
@@ -328,12 +325,11 @@ public class OnlineDbHelper {
         }
         out += ";";
 
-        OnlineDbConnection db = new OnlineDbConnection();
-        ResultSet q = db.executeQuery(out);
+        ResultSet resultSet = OnlineDbConnection.getInstance().executeQuery(out);
 
         try {
-            if (q.next()) {
-                return q.getString("Result");
+            if (resultSet.next()) {
+                return resultSet.getString("Result");
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error processing ResultSet", e);
@@ -414,8 +410,7 @@ public class OnlineDbHelper {
 
         query += ";";
 
-        OnlineDbConnection db = new OnlineDbConnection();
-        return db.executeQuery(query);
+        return OnlineDbConnection.getInstance().executeQuery(query);
     }
 
     /**
@@ -458,12 +453,11 @@ public class OnlineDbHelper {
                 " WHERE uwh.Email = '" + filter + "'" +
                 " ORDER BY uwh.Date DESC";
 
-        OnlineDbConnection db = new OnlineDbConnection();
-        ResultSet out = db.executeQuery(query);
+        ResultSet resultSet = OnlineDbConnection.getInstance().executeQuery(query);
 
         try {
-            if (out.next()) {
-                return out.getString("Result");
+            if (resultSet.next()) {
+                return resultSet.getString("Result");
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error processing ResultSet", e);
@@ -476,7 +470,6 @@ public class OnlineDbHelper {
      * Inserts a new workout history record into the database.
      */
     public static void insertHistory() {
-        OnlineDbConnection d = new OnlineDbConnection();
         String sqlHistory = "INSERT INTO HealthData.UserWorkoutHistory (Email, WorkoutID, Time, Date, Duration) VALUES (" +
                 "'" + Session.getUserEmail() + "', " +
                 "'" + Session.getWorkoutID() + "', " +
@@ -484,7 +477,7 @@ public class OnlineDbHelper {
                 "CURRENT_DATE(), " +
                 // Add with correct duration.
                 40 + ");";
-        d.executeStatement(sqlHistory);
+        OnlineDbConnection.getInstance().executeStatement(sqlHistory);
     }
 
     //create get history
@@ -548,12 +541,11 @@ public class OnlineDbHelper {
                 " ORDER BY uwh.Date DESC" +
                 " LIMIT 4";
 
-        OnlineDbConnection db = new OnlineDbConnection();
-        ResultSet out = db.executeQuery(query);
+        ResultSet resultSet = OnlineDbConnection.getInstance().executeQuery(query);
 
         try {
-            if (out.next()) {
-                return out.getString("Result");
+            if (resultSet.next()) {
+                return resultSet.getString("Result");
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error processing ResultSet", e);
@@ -573,6 +565,23 @@ public class OnlineDbHelper {
         return toHexString(getSHA(password));
     }
 
+    public static void changeUserPasswordVerifyCode(String validate, String emailText) {
+        String statement = "UPDATE HealthData.Users " +
+                "SET VerifyCode = '" + validate + "' " +
+                "WHERE Email = '" + emailText + "';";
+
+        OnlineDbConnection.getInstance().executeStatement(statement);
+    }
+
+    public static String getVerifyCode(String email) {
+        try {
+            return OnlineDbConnection.getInstance().executeQuery("SELECT VerifyCode FROM HealthData.Users WHERE Email = '" + email + "'").getString("VerifyCode");
+        } catch (SQLException e) {
+            // TODO: Handle this exception better
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * Changes a user's password in the database.
      *
@@ -581,8 +590,7 @@ public class OnlineDbHelper {
      */
     public static void changeUserPassword(String email, String password) {
         try {
-            OnlineDbConnection db = new OnlineDbConnection();
-            db.executeStatement("UPDATE HealthData.Users SET Password = '" + encryptPassword(password) + "' WHERE Email = '" + email + "';");
+            OnlineDbConnection.getInstance().executeStatement("UPDATE HealthData.Users SET Password = '" + encryptPassword(password) + "' WHERE Email = '" + email + "';");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
