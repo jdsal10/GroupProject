@@ -13,6 +13,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/searchBox"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -31,6 +32,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_very_small"
+                android:layout_marginEnd="@dimen/margin_very_small"
                 android:layout_marginBottom="18dp"
                 android:gravity="center"
                 android:text="@string/searchButtonDescription"
@@ -45,7 +48,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/orText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -56,6 +59,7 @@
             android:textStyle="italic" />
 
         <LinearLayout
+            android:id="@+id/createBox"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -74,6 +78,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_very_small"
+                android:layout_marginEnd="@dimen/margin_very_small"
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
                 android:text="@string/createButtonDescription"

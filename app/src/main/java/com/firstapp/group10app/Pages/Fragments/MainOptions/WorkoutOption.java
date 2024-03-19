@@ -39,7 +39,11 @@ public class WorkoutOption extends Fragment implements CompoundButton.OnCheckedC
 
         updateView(new WorkoutManual(), -1, -1);
 
+        // Behaviour if signed in
         if (Session.getSignedIn()) {
+            rootView.findViewById(R.id.toggle).setVisibility(View.VISIBLE);
+            rootView.findViewById(R.id.toggleParent).setVisibility(View.VISIBLE);
+
             // Initialize RadioButtons
             RadioButton AISelect = rootView.findViewById(R.id.toggleAI);
             RadioButton manualSelect = rootView.findViewById(R.id.toggleManual);
@@ -51,7 +55,8 @@ public class WorkoutOption extends Fragment implements CompoundButton.OnCheckedC
 
         // If the user is not signed in / anonymous, they do not access to the AI or to create a workout.
         else {
-            rootView.findViewById(R.id.toggleAI).setVisibility(View.GONE);
+            rootView.findViewById(R.id.toggle).setVisibility(View.GONE);
+            rootView.findViewById(R.id.toggleParent).setVisibility(View.GONE);
         }
 
         return rootView;
