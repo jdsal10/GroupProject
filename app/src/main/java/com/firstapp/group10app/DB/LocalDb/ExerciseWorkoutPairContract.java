@@ -15,7 +15,7 @@ public final class ExerciseWorkoutPairContract {
 
     /* Inner class that defines the table contents */
     public static class ExerciseWorkoutPairEntry implements BaseColumns {
-        public static final String TABLE_NAME = "exerciseWorkoutPair";
+        public static final String TABLE_NAME = "ExerciseWorkoutPairs";
         public static final String COLUMN_NAME_EXERCISE_ID = "ExerciseID";
         public static final String COLUMN_NAME_WORKOUT_ID = "WorkoutID";
     }
@@ -25,8 +25,8 @@ public final class ExerciseWorkoutPairContract {
                     ExerciseWorkoutPairEntry.COLUMN_NAME_EXERCISE_ID + " INTEGER," +
                     ExerciseWorkoutPairEntry.COLUMN_NAME_WORKOUT_ID + " INTEGER," +
                     "PRIMARY KEY (" + ExerciseWorkoutPairEntry.COLUMN_NAME_EXERCISE_ID + ", " + ExerciseWorkoutPairEntry.COLUMN_NAME_WORKOUT_ID + ")," +
-                    "FOREIGN KEY (" + ExerciseWorkoutPairEntry.COLUMN_NAME_EXERCISE_ID + ") REFERENCES exercise(_ID)," +
-                    "FOREIGN KEY (" + ExerciseWorkoutPairEntry.COLUMN_NAME_WORKOUT_ID + ") REFERENCES workout(_ID))";
+                    "FOREIGN KEY (" + ExerciseWorkoutPairEntry.COLUMN_NAME_EXERCISE_ID + ") REFERENCES Exercise(_ID)," +
+                    "FOREIGN KEY (" + ExerciseWorkoutPairEntry.COLUMN_NAME_WORKOUT_ID + ") REFERENCES Workout(_ID))";
 
     static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + ExerciseWorkoutPairEntry.TABLE_NAME;

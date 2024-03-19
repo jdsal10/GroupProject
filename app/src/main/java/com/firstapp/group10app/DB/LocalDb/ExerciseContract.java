@@ -15,16 +15,16 @@ public final class ExerciseContract {
 
     /* Inner class that defines the table contents */
     public static class ExerciseEntry implements BaseColumns {
-        public static final String TABLE_NAME = "exercise";
-        public static final String COLUMN_NAME_EXERCISE_NAME = "exerciseName";
-        public static final String COLUMN_NAME_DESCRIPTION = "description";
-        public static final String COLUMN_NAME_ILLUSTRATION = "illustration";
-        public static final String COLUMN_NAME_TARGET_MUSCLE_GROUP = "targetMuscleGroup";
-        public static final String COLUMN_NAME_EQUIPMENT = "equipment";
-        public static final String COLUMN_NAME_DIFFICULTY = "difficulty";
-        public static final String COLUMN_NAME_SETS = "sets";
-        public static final String COLUMN_NAME_REPS = "reps";
-        public static final String COLUMN_NAME_TIME = "time";
+        public static final String TABLE_NAME = "Exercises";
+        public static final String COLUMN_NAME_EXERCISE_NAME = "ExerciseName";
+        public static final String COLUMN_NAME_DESCRIPTION = "Description";
+        public static final String COLUMN_NAME_ILLUSTRATION = "Illustration";
+        public static final String COLUMN_NAME_TARGET_MUSCLE_GROUP = "TargetMuscleGroup";
+        public static final String COLUMN_NAME_EQUIPMENT = "Equipment";
+        public static final String COLUMN_NAME_DIFFICULTY = "Difficulty";
+        public static final String COLUMN_NAME_SETS = "Sets";
+        public static final String COLUMN_NAME_REPS = "Reps";
+        public static final String COLUMN_NAME_TIME = "Time";
     }
 
     static final String SQL_CREATE_ENTRIES =

@@ -408,7 +408,9 @@ public class LocalDb {
         if (!exerciseWorkoutPairWorkoutIds.isEmpty()) {
             long exerciseWorkoutPairWorkoutId = exerciseWorkoutPairWorkoutIds.get(0);
             int exerciseWorkoutPairWorkoutIdInt = (int) exerciseWorkoutPairWorkoutId;
-            Cursor cursor = db.rawQuery("SELECT * FROM exerciseWorkoutPair WHERE workoutId = " + exerciseWorkoutPairWorkoutIdInt, null);
+
+            Cursor cursor = db.rawQuery("SELECT * FROM ExerciseWorkoutPairs WHERE WorkoutID = " + exerciseWorkoutPairWorkoutIdInt, null);
+
             if (cursor.moveToFirst()) {
                 @SuppressLint("Range") int exerciseID = cursor.getInt(cursor.getColumnIndex(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_EXERCISE_ID));
 
