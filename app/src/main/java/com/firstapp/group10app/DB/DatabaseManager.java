@@ -7,7 +7,6 @@ import com.firstapp.group10app.DB.OnlineDb.OnlineDbConnection;
 import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Other.Session;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class DatabaseManager {
@@ -59,18 +58,6 @@ public class DatabaseManager {
 
     public QueryResult executeQueryInOnlineDb(String query) {
         return new QueryResult(getOnlineDb().executeQuery(query));
-    }
-
-    public void executeStatement(String statement, boolean signedIn) {
-        if (signedIn) {
-            getOnlineDb().executeStatement(statement);
-        } else {
-            getLocalDb().executeStatement(statement);
-        }
-    }
-
-    public void executeStatementInOnlineDb(String statement) throws SQLException {
-        getOnlineDb().executeStatement(statement);
     }
 
     public List<Exercise> getAllExercises() {

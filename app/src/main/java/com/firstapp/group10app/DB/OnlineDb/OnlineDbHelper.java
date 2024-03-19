@@ -545,6 +545,14 @@ public class OnlineDbHelper {
         return toHexString(getSHA(password));
     }
 
+    public static void changeUserPasswordVerifyCode(String validate, String emailText) {
+        String statement = "UPDATE HealthData.Users " +
+                "SET VerifyCode = '" + validate + "' " +
+                "WHERE Email = '" + emailText + "';";
+
+        OnlineDbConnection.getInstance().executeStatement(statement);
+    }
+
     /**
      * Changes a user's password in the database.
      *

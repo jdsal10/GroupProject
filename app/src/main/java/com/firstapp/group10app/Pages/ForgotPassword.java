@@ -9,8 +9,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.DatabaseManager;
-import com.firstapp.group10app.DB.QueryResult;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.R;
 
 import java.sql.SQLException;
@@ -56,15 +55,12 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             Matcher matcher = pattern.matcher(emailText);
             Log.d("ForgotPassword Email Check", "EMAIL: " + emailText);
             try {
-                if ((!(emailText.isEmpty())) && (matcher.matches()) && checkExists(emailText)) {
+                if ((!(emailText.isEmpty())) && (matcher.matches()) && OnlineDbHelper.checkUserExists(emailText)) {
                     try {
                         String validate = generateString();
                         toSend(emailText, validate);
 
-                        DatabaseManager dbManager = DatabaseManager.getInstance();
-                        dbManager.executeStatementInOnlineDb("UPDATE HealthData.Users " +
-                                "SET VerifyCode = '" + validate + "' " +
-                                "WHERE Email = '" + emailText + "';");
+                        OnlineDbHelper.changeUserPasswordVerifyCode(emailText, validate);
 
                         Intent in = new Intent(ForgotPassword.this, ForgotPasswordCheck.class);
                         in.putExtra("email", emailText);
@@ -83,17 +79,6 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             Log.d("ForgotPassword Login Button", "Detected");
             startActivity(new Intent(ForgotPassword.this, Login.class));
             overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
-        }
-    }
-
-    public boolean checkExists(String email) throws SQLException {
-        DatabaseManager dbManager = DatabaseManager.getInstance();
-        QueryResult set = dbManager.executeQueryInOnlineDb("SELECT * FROM HealthData.Users WHERE Email = '" + email + "'");
-
-        try {
-            return set.next();
-        } catch (SQLException e) {
-            return false;
         }
     }
 
