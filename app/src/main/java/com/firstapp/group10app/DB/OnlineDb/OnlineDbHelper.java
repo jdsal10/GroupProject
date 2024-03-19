@@ -9,7 +9,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.firstapp.group10app.DB.Exercise;
-import com.firstapp.group10app.DB.QueryResult;
 import com.firstapp.group10app.DB.Workout;
 import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.Other.Session;
@@ -26,6 +25,9 @@ import java.util.List;
 
 /**
  * This class provides helper methods for interacting with the online database.
+ * <p>
+ * TODO (in the future): Mainly DatabaseManager should make calls to this class.
+ *      Right now a lot of pages access this class directly.
  */
 public class OnlineDbHelper {
     /**
@@ -284,13 +286,15 @@ public class OnlineDbHelper {
     }
 
     /**
-     * Retrieves all workouts from the database.
+     * Retrieves all workouts and associate exercises from the database.
+     * To achieve this, the method uses a complex SQL query to join the Workouts, ExerciseWorkoutPairs,
+     * and Exercises tables.
      *
      * @param filter An optional filter to apply to the workouts.
      * @return A JSON string containing the workouts.
      */
-    public static String getAllWorkouts(String filter) {
-        String out = "SELECT\n" +
+    public static String getWorkoutsAsJsonArray(String filter) {
+        String query = "SELECT\n" +
                 "  JSON_ARRAYAGG(\n" +
                 "    JSON_OBJECT(\n" +
                 "      'WorkoutID', w.WorkoutID,\n" +
@@ -324,11 +328,11 @@ public class OnlineDbHelper {
                 "  HealthData.Workouts w ";
 
         if (filter != null) {
-            out += filter;
+            query += filter;
         }
-        out += ";";
+        query += ";";
 
-        ResultSet resultSet = OnlineDbConnection.getInstance().executeQuery(out);
+        ResultSet resultSet = OnlineDbConnection.getInstance().executeQuery(query);
 
         try {
             if (resultSet.next()) {
@@ -483,9 +487,9 @@ public class OnlineDbHelper {
     }
 
     //create get history
-    public static Integer getTotalinHistory(String email){
+    public static Integer getTotalinHistory(String email) {
         String query = "SELECT COUNT(*) AS total FROM HealthData.UserWorkoutHistory uwh " +
-                " WHERE uwh.Email = '"+ email +"';";
+                " WHERE uwh.Email = '" + email + "';";
 
         OnlineDbConnection db = new OnlineDbConnection();
         ResultSet out = db.executeQuery(query);
@@ -493,7 +497,7 @@ public class OnlineDbHelper {
         Integer total = null;
 
         try {
-            if(out.next()) {
+            if (out.next()) {
                 total = out.getInt("total");
             }
         } catch (SQLException e) {

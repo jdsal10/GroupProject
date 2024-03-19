@@ -10,7 +10,10 @@ import android.util.Log;
 
 import com.firstapp.group10app.DB.Exercise;
 import com.firstapp.group10app.DB.LocalDb.WorkoutContract.WorkoutEntry;
-import com.firstapp.group10app.DB.Workout;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,15 +23,15 @@ import java.util.List;
  * <p>
  * To create this class, I used the <a href="https://developer.android.com/training/data-storage/sqlite">Android Studio documentation</a>
  */
-public class LocalDb {
+public class LocalDbConnection {
     LocalDbHelper localDbHelper;
-    private SQLiteDatabase db;
+    private SQLiteDatabase sqLiteDatabase;
 
-    public LocalDb(Context context) {
+    public LocalDbConnection(Context context) {
         localDbHelper = new LocalDbHelper(context);
 
         // Gets the data repository in write mode
-        db = localDbHelper.getWritableDatabase();
+        sqLiteDatabase = localDbHelper.getWritableDatabase();
     }
 
     public void insertExercise(String exerciseName, String description, String illustration, String targetMuscleGroup, String equipment, String difficulty, int sets, int reps, int time) {
@@ -43,7 +46,7 @@ public class LocalDb {
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_REPS, reps);
         values.put(ExerciseContract.ExerciseEntry.COLUMN_NAME_TIME, time);
 
-        long newRowId = db.insert(ExerciseContract.ExerciseEntry.TABLE_NAME, null, values);
+        long newRowId = sqLiteDatabase.insert(ExerciseContract.ExerciseEntry.TABLE_NAME, null, values);
     }
 
     public List<Long> readExercise(String targetMuscleGroup) {
@@ -65,7 +68,7 @@ public class LocalDb {
 
         String sortOrder = ExerciseContract.ExerciseEntry.COLUMN_NAME_EXERCISE_NAME + " DESC";
 
-        Cursor cursor = db.query(
+        Cursor cursor = sqLiteDatabase.query(
                 ExerciseContract.ExerciseEntry.TABLE_NAME,
                 projection,
                 selection,
@@ -104,7 +107,7 @@ public class LocalDb {
 
         String sortOrder = ExerciseContract.ExerciseEntry.COLUMN_NAME_EXERCISE_NAME + " DESC";
 
-        Cursor cursor = db.query(
+        Cursor cursor = sqLiteDatabase.query(
                 ExerciseContract.ExerciseEntry.TABLE_NAME,
                 projection,
                 selection,
@@ -143,7 +146,7 @@ public class LocalDb {
         // How you want the results sorted in the resulting Cursor
         String sortOrder = ExerciseContract.ExerciseEntry.COLUMN_NAME_EXERCISE_NAME + " ASC";
 
-        Cursor cursor = db.query(
+        Cursor cursor = sqLiteDatabase.query(
                 ExerciseContract.ExerciseEntry.TABLE_NAME,   // The table to query
                 projection,             // The array of columns to return (pass null to get all)
                 null,              // The columns for the WHERE clause
@@ -189,7 +192,7 @@ public class LocalDb {
         String selection = ExerciseContract.ExerciseEntry._ID + " = ?";
         String[] selectionArgs = {String.valueOf(exerciseID)};
 
-        int count = db.update(
+        int count = sqLiteDatabase.update(
                 ExerciseContract.ExerciseEntry.TABLE_NAME,
                 values,
                 selection,
@@ -207,7 +210,7 @@ public class LocalDb {
         values.put(WorkoutEntry.COLUMN_NAME_DIFFICULTY, difficulty);
 
         // Insert the new row, returning the primary key value of the new row
-        long newRowId = db.insert(WorkoutEntry.TABLE_NAME, null, values);
+        long newRowId = sqLiteDatabase.insert(WorkoutEntry.TABLE_NAME, null, values);
     }
 
     public List<Long> readWorkout(int workoutId) {
@@ -225,7 +228,7 @@ public class LocalDb {
 
         String sortOrder = WorkoutEntry.COLUMN_NAME_DURATION + " DESC";
 
-        Cursor cursor = db.query(
+        Cursor cursor = sqLiteDatabase.query(
                 WorkoutEntry.TABLE_NAME,
                 projection,
                 selection,
@@ -266,7 +269,7 @@ public class LocalDb {
         String sortOrder =
                 WorkoutEntry.COLUMN_NAME_DURATION + " DESC";
 
-        Cursor cursor = db.query(
+        Cursor cursor = sqLiteDatabase.query(
                 WorkoutEntry.TABLE_NAME,   // The table to query
                 projection,             // The array of columns to return (pass null to get all)
                 selection,              // The columns for the WHERE clause
@@ -287,26 +290,69 @@ public class LocalDb {
         return itemIds;
     }
 
-    public List<Workout> getAllWorkouts() {
-        List<Workout> workouts = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
+    /**
+     * Retrieves all workouts and associate exercises from the database.
+     * To achieve this, the method uses a complex SQL query to join the Workouts, ExerciseWorkoutPairs,
+     * and Exercises tables.
+     *
+     * @param filter An optional filter to apply to the workouts.
+     * @return A JSON string containing the workouts.
+     */
+    @SuppressLint("Range")
+    public String getWorkoutsAsJsonArray(String filter) {
+        try {
+            JSONArray workoutsArray = new JSONArray();
 
-        Cursor cursor = db.query("Workouts", null, null, null, null, null, null);
-        if (cursor.moveToFirst()) {
-            do {
-                @SuppressLint("Range") long id = cursor.getLong(cursor.getColumnIndex("id"));
-                @SuppressLint("Range") String workoutName = cursor.getString(cursor.getColumnIndex("workoutName"));
-                @SuppressLint("Range") int duration = cursor.getInt(cursor.getColumnIndex("duration"));
-                @SuppressLint("Range") String targetMuscleGroup = cursor.getString(cursor.getColumnIndex("targetMuscleGroup"));
-                @SuppressLint("Range") String equipment = cursor.getString(cursor.getColumnIndex("equipment"));
-                @SuppressLint("Range") String difficulty = cursor.getString(cursor.getColumnIndex("difficulty"));
+            String workoutQuery = "SELECT * FROM " + WorkoutContract.WorkoutEntry.TABLE_NAME + " " + WorkoutContract.WorkoutEntry.TABLE_NAME.toLowerCase().charAt(0);
+            if (filter != null && !filter.isEmpty()) {
+                if (filter.contains("WHERE")) workoutQuery += " " + filter;
+                else workoutQuery += " WHERE " + filter;
+            }
 
-                Workout workout = new Workout(id, workoutName, duration, targetMuscleGroup, equipment, difficulty);
-                workouts.add(workout);
-            } while (cursor.moveToNext());
+            Cursor workoutCursor = sqLiteDatabase.rawQuery(workoutQuery, null);
+            while (workoutCursor.moveToNext()) {
+                JSONObject workoutObject = new JSONObject();
+                workoutObject.put("WorkoutID", workoutCursor.getInt(workoutCursor.getColumnIndex(WorkoutContract.WorkoutEntry._ID)));
+                workoutObject.put("WorkoutName", workoutCursor.getString(workoutCursor.getColumnIndex(WorkoutContract.WorkoutEntry.COLUMN_NAME_WORKOUT_NAME)));
+                workoutObject.put("WorkoutDuration", workoutCursor.getInt(workoutCursor.getColumnIndex(WorkoutContract.WorkoutEntry.COLUMN_NAME_DURATION)));
+                workoutObject.put("TargetMuscleGroup", workoutCursor.getString(workoutCursor.getColumnIndex(WorkoutContract.WorkoutEntry.COLUMN_NAME_MUSCLE_GROUP)));
+                workoutObject.put("Equipment", workoutCursor.getString(workoutCursor.getColumnIndex(WorkoutContract.WorkoutEntry.COLUMN_NAME_EQUIPMENT)));
+                workoutObject.put("Difficulty", workoutCursor.getInt(workoutCursor.getColumnIndex(WorkoutContract.WorkoutEntry.COLUMN_NAME_DIFFICULTY)));
+
+                int workoutId = workoutCursor.getInt(workoutCursor.getColumnIndex(WorkoutContract.WorkoutEntry._ID));
+                String exerciseQuery = "SELECT * FROM " + ExerciseContract.ExerciseEntry.TABLE_NAME +
+                        " WHERE " + ExerciseContract.ExerciseEntry._ID + " IN (" +
+                        "SELECT " + ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_EXERCISE_ID +
+                        " FROM " + ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.TABLE_NAME +
+                        " WHERE " + ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_WORKOUT_ID + " = " + workoutId + ")";
+
+                Cursor exerciseCursor = sqLiteDatabase.rawQuery(exerciseQuery, null);
+                JSONArray exercisesArray = new JSONArray();
+                while (exerciseCursor.moveToNext()) {
+                    JSONObject exerciseObject = new JSONObject();
+                    exerciseObject.put("ExerciseID", exerciseCursor.getInt(exerciseCursor.getColumnIndex(ExerciseContract.ExerciseEntry._ID)));
+                    exerciseObject.put("ExerciseName", exerciseCursor.getString(exerciseCursor.getColumnIndex(ExerciseContract.ExerciseEntry.COLUMN_NAME_EXERCISE_NAME)));
+                    exerciseObject.put("Description", exerciseCursor.getString(exerciseCursor.getColumnIndex(ExerciseContract.ExerciseEntry.COLUMN_NAME_DESCRIPTION)));
+                    exerciseObject.put("Illustration", exerciseCursor.getString(exerciseCursor.getColumnIndex(ExerciseContract.ExerciseEntry.COLUMN_NAME_ILLUSTRATION)));
+                    exerciseObject.put("TargetMuscleGroup", exerciseCursor.getString(exerciseCursor.getColumnIndex(ExerciseContract.ExerciseEntry.COLUMN_NAME_TARGET_MUSCLE_GROUP)));
+                    exerciseObject.put("Equipment", exerciseCursor.getString(exerciseCursor.getColumnIndex(ExerciseContract.ExerciseEntry.COLUMN_NAME_EQUIPMENT)));
+                    exerciseObject.put("Difficulty", exerciseCursor.getString(exerciseCursor.getColumnIndex(ExerciseContract.ExerciseEntry.COLUMN_NAME_DIFFICULTY)));
+                    exerciseObject.put("Sets", exerciseCursor.getInt(exerciseCursor.getColumnIndex(ExerciseContract.ExerciseEntry.COLUMN_NAME_SETS)));
+                    exerciseObject.put("Reps", exerciseCursor.getInt(exerciseCursor.getColumnIndex(ExerciseContract.ExerciseEntry.COLUMN_NAME_REPS)));
+                    exerciseObject.put("Time", exerciseCursor.getInt(exerciseCursor.getColumnIndex(ExerciseContract.ExerciseEntry.COLUMN_NAME_TIME)));
+                    exercisesArray.put(exerciseObject);
+                }
+                exerciseCursor.close();
+
+                workoutObject.put("Exercises", exercisesArray);
+                workoutsArray.put(workoutObject);
+            }
+            workoutCursor.close();
+
+            return workoutsArray.toString();
+        } catch (JSONException e) {
+            throw new RuntimeException("Error creating JSON", e);
         }
-        cursor.close();
-        return workouts;
     }
 
     public void insertExerciseWorkoutPair(int exerciseID, int workoutID) {
@@ -314,7 +360,7 @@ public class LocalDb {
         values.put(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_EXERCISE_ID, exerciseID);
         values.put(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_WORKOUT_ID, workoutID);
 
-        long newRowId = db.insert(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.TABLE_NAME, null, values);
+        long newRowId = sqLiteDatabase.insert(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.TABLE_NAME, null, values);
     }
 
     public List<Long> readExerciseWorkoutPair(int workoutID) {
@@ -328,7 +374,7 @@ public class LocalDb {
 
         String sortOrder = ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_WORKOUT_ID + " DESC";
 
-        Cursor cursor = db.query(
+        Cursor cursor = sqLiteDatabase.query(
                 ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.TABLE_NAME,
                 projection,
                 selection,
@@ -409,7 +455,7 @@ public class LocalDb {
             long exerciseWorkoutPairWorkoutId = exerciseWorkoutPairWorkoutIds.get(0);
             int exerciseWorkoutPairWorkoutIdInt = (int) exerciseWorkoutPairWorkoutId;
 
-            Cursor cursor = db.rawQuery("SELECT * FROM ExerciseWorkoutPairs WHERE WorkoutID = " + exerciseWorkoutPairWorkoutIdInt, null);
+            Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM ExerciseWorkoutPairs WHERE WorkoutID = " + exerciseWorkoutPairWorkoutIdInt, null);
 
             if (cursor.moveToFirst()) {
                 @SuppressLint("Range") int exerciseID = cursor.getInt(cursor.getColumnIndex(ExerciseWorkoutPairContract.ExerciseWorkoutPairEntry.COLUMN_NAME_EXERCISE_ID));
@@ -425,14 +471,14 @@ public class LocalDb {
     }
 
     public SQLiteDatabase getReadableDatabase() {
-        return this.db;
+        return this.sqLiteDatabase;
     }
 
     public Cursor executeQuery(String query) {
-        return db.rawQuery(query, null);
+        return sqLiteDatabase.rawQuery(query, null);
     }
 
     public void executeStatement(String statement) {
-        db.execSQL(statement);
+        sqLiteDatabase.execSQL(statement);
     }
 }

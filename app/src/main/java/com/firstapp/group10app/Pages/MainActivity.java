@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
@@ -14,11 +13,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firstapp.group10app.DB.LocalDb.LocalDb;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
-
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button goToLoginButton;
@@ -46,29 +42,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Start the local database on a new thread
-        if (Session.getLocalDB() == null) {
-            new Thread(() -> {
-                try {
-                    LocalDb localDb = new LocalDb(MainActivity.this);
-
-                    // Perform database operations
-                    // Insert sample data into the database
-                    localDb.insertSampleData();
-                    // Store the LocalDb instance in the Session.localDB variable
-                    Session.setLocalDB(localDb.getReadableDatabase());
-
-                    // Close the database connection
-                    localDb.close();
-                } catch (Exception e) {
-                    Log.e("Local DB Creation", "MainActivity.onCreate cause an error");
-                    Log.e("Local DB Creation", "toString(): " + e);
-                    Log.e("Local DB Creation", "getMessage(): " + e.getMessage());
-                    Log.e("Local DB Creation", "StackTrace: " + Arrays.toString(e.getStackTrace()));
-                }
-            }).start();
-        }
 
         View rootLayout = findViewById(android.R.id.content);
 
