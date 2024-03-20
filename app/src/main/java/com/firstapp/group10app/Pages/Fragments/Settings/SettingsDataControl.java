@@ -135,6 +135,7 @@ public class SettingsDataControl extends Fragment implements View.OnClickListene
         }
 
         updateValues(details);
+        System.out.println("checking user details: " + details);
         return rootView;
     }
 
