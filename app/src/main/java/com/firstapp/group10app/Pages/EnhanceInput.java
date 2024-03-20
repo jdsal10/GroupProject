@@ -62,7 +62,7 @@ public class EnhanceInput extends Dialog implements View.OnClickListener {
                 // Add code to generate workout using Session.currentWorkout and new prompt.
                 String workoutString = Session.getSelectedWorkout().toString();
                 workoutString = workoutString.replace("\"", "\\\"");
-                String prompt = "Given the following workout: " + workoutString + ", apply the following request to the data, only returning the JSON, and in the exact format: " + enhanceData + ".";
+                String prompt = "Given the following workout: " + workoutString + ", apply the following request to the data, only returning the JSON, and in the exact format: " + enhanceData + ". Include values for all fields, but set time, sets and reps to null when needed. ExerciseID and WorkoutID are not needed.";
                 System.out.println(prompt);
 
                 Toast.makeText(getContext(), "Generating...", Toast.LENGTH_SHORT).show();
