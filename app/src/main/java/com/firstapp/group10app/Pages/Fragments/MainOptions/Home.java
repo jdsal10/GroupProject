@@ -25,8 +25,6 @@ public class Home extends Fragment implements View.OnClickListener {
     private TextView workoutsNum;
     private TextView totalTimeNum;
     private String CurrentUser;
-//    private String totalWorkouts;
-//    private String totalTime;
 
     public Home() {
         super(R.layout.activity_home);
@@ -49,22 +47,20 @@ public class Home extends Fragment implements View.OnClickListener {
             signedInLayout.setVisibility(View.VISIBLE);
             anonymousLayout.setVisibility(View.GONE);
 
-            // For now, a check should run at the start of each file for DB connection.
-            Session.setOnlineDbStatus(OnlineDbConnection.testConnection());
-
-            CurrentUser = Session.getUserDetails()[6];
-            System.out.println("show you num = " + CurrentUser);
-
-            String totalWorkouts = Integer.toString(OnlineDbHelper.getTotalinHistory(CurrentUser));
-            String totalTime = Integer.toString(OnlineDbHelper.getTotalMinutesFromHistory(CurrentUser));
-            System.out.println("totalTime: " + totalTime);
-
-            //edit number values
             workoutsNum = rootView.findViewById(R.id.workoutCountTextView);
             totalTimeNum = rootView.findViewById(R.id.timeTextView);
 
-            //Dynamically add value
-            setWorkoutCount(totalWorkouts, totalTime);
+            new Thread(() -> {
+                Session.setOnlineDbStatus(OnlineDbConnection.testConnection());
+
+                CurrentUser = Session.getUserDetails()[6];
+
+                String totalWorkouts = Integer.toString(OnlineDbHelper.getTotalinHistory(CurrentUser));
+                String totalTime = Integer.toString(OnlineDbHelper.getTotalMinutesFromHistory(CurrentUser));
+
+                // Update UI on the main thread after fetching data
+                getActivity().runOnUiThread(() -> setWorkoutCount(totalWorkouts, totalTime));
+            }).start();
         }
 
         // Behaviour if anonymous
@@ -97,7 +93,6 @@ public class Home extends Fragment implements View.OnClickListener {
         if (val1 != null) {
             workoutsNum.setText(val1);
             totalTimeNum.setText(val2 + " min");
-
         }
     }
 
