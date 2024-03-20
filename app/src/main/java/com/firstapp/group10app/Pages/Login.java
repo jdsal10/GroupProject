@@ -37,6 +37,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         TextView temp = findViewById(R.id.forgotPassword);
         temp.setOnClickListener(this);
+
+        TextView loginAnonymous = findViewById(R.id.loginAnonymous);
+        loginAnonymous.setOnClickListener(this);
     }
 
     //Actions for when login button or forgot password is pressed
@@ -67,7 +70,17 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         } else if (id == R.id.forgotPassword) {
             startActivity(new Intent(Login.this, ForgotPassword.class));
             overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
-        } else if (id == R.id.register) {
+        }
+          else if(id == R.id.loginAnonymous){
+            Session.setUserEmail(null);
+            Session.setSignedIn(false);
+
+            Intent intent = new Intent(getApplicationContext(), ActivityContainer.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        }
+
+          else if (id == R.id.register) {
             startActivity(new Intent(Login.this, Registration.class));
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
