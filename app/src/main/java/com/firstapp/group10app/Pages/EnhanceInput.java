@@ -17,6 +17,8 @@ import com.firstapp.group10app.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
+
 public class EnhanceInput extends Dialog implements View.OnClickListener {
     private EditText input;
     private String result, result2;
@@ -37,15 +39,13 @@ public class EnhanceInput extends Dialog implements View.OnClickListener {
         input = findViewById(R.id.enhanceTextInput);
     }
 
-    public Runnable runTask(String prompt, String prompt2) {
+    public Runnable runTask(String prompt) {
         return () -> {
             try {
                 result = "";
                 result = (ChatGptClient.chatGPT(prompt));
 
-                result2 = "";
-                result2 = (ChatGptClient.chatGPT(prompt2));
-                result2 = result.replaceAll("\\\\", "");
+                System.out.println("RESULT: " + result);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -61,24 +61,26 @@ public class EnhanceInput extends Dialog implements View.OnClickListener {
             if (!enhanceData.isEmpty()) {
                 // Add code to generate workout using Session.currentWorkout and new prompt.
                 String workoutString = Session.getSelectedWorkout().toString();
-                String prompt = "Given the following workout " + workoutString;
-                String prompt2 = "Apply the following request to the data, only returning the JSON, and in the exact format: " + enhanceData + ".";                System.out.println(prompt);
+                workoutString = workoutString.replace("\"", "\\\"");
+                String prompt = "Given the following workout: " + workoutString + ", apply the following request to the data, only returning the JSON, and in the exact format: " + enhanceData + ".";
+                System.out.println(prompt);
 
                 Toast.makeText(getContext(), "Generating...", Toast.LENGTH_SHORT).show();
 
-                Thread newThread = new Thread(runTask(prompt, prompt2));
+                Thread newThread = new Thread(runTask(prompt));
                 newThread.start();
 
                 try {
                     newThread.join();
-                    System.out.println("Result " + result2);
+                    result = result.replaceAll("\\\\n", "").replaceAll("\\\\", "");
+                    System.out.println("Result " + result);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
 
 //                 Update Session with new workout
                 try {
-                    Session.setSelectedWorkout(new JSONObject(result2));
+                    Session.setSelectedWorkout(new JSONObject(result));
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -90,6 +92,4 @@ public class EnhanceInput extends Dialog implements View.OnClickListener {
             }
         }
     }
-
-
 }
