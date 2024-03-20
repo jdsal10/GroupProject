@@ -21,7 +21,7 @@ import java.util.Arrays;
 
 public class EnhanceInput extends Dialog implements View.OnClickListener {
     private EditText input;
-    private String result, result2;
+    private String result;
 
     public EnhanceInput(Context context) {
         super(context);
@@ -62,7 +62,7 @@ public class EnhanceInput extends Dialog implements View.OnClickListener {
                 // Add code to generate workout using Session.currentWorkout and new prompt.
                 String workoutString = Session.getSelectedWorkout().toString();
                 workoutString = workoutString.replace("\"", "\\\"");
-                String prompt = "Given the following workout: " + workoutString + ", apply the following request to the data, only returning the JSON, and in the exact format: " + enhanceData + ". Include values for all fields, but set time, sets and reps to null when needed. ExerciseID and WorkoutID are not needed.";
+                String prompt = "Given the following workout: " + workoutString + ", apply the following update to the data, only returning the JSON, and in the exact format: " + enhanceData + ". Include values for all fields, but set time to null if it is rep, and vice versa. ExerciseID and WorkoutID are not needed.";
                 System.out.println(prompt);
 
                 Toast.makeText(getContext(), "Generating...", Toast.LENGTH_SHORT).show();
