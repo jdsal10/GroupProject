@@ -5,6 +5,7 @@
     <string name="welcomeLogin">Login</string>
     <string name="welcomeRegister">Need an account? Register</string>
     <string name="welcomeAnonymous">Anonymous Browsing</string>
+
     <string name="welcomeBackgroundImage">Background Image</string>
     <string name="welcomeLogoBackground">Logo Background</string>
     <string name="loginButton">Login</string>
@@ -13,6 +14,7 @@
     <!-- Login Page Values -->
     <string name="forgotPassword">Forgot your password?</string>
     <string name="register">Need an account? Register</string>
+    <string name="loginAnonymous">Want to be be anonymous? Click here</string>
     <string name="loginTitle">Login</string>
     <string name="loginUsername">Username</string>
     <string name="loginPassword">Password</string>
