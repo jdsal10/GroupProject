@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.firstapp.group10app.DB.OnlineDb.OnlineDbConnection;
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.ActivityContainer;
 import com.firstapp.group10app.Pages.WorkoutSearch;
@@ -22,7 +23,10 @@ import com.firstapp.group10app.R;
 
 public class Home extends Fragment implements View.OnClickListener {
     private TextView workoutsNum;
-    private String totalWorkouts;
+    private TextView totalTimeNum;
+    private String CurrentUser;
+//    private String totalWorkouts;
+//    private String totalTime;
 
     public Home() {
         super(R.layout.activity_home);
@@ -48,14 +52,19 @@ public class Home extends Fragment implements View.OnClickListener {
             // For now, a check should run at the start of each file for DB connection.
             Session.setOnlineDbStatus(OnlineDbConnection.testConnection());
 
-            totalWorkouts = Session.getUserDetails()[6];
-            System.out.println("show you num = " + totalWorkouts);
+            CurrentUser = Session.getUserDetails()[6];
+            System.out.println("show you num = " + CurrentUser);
+
+            String totalWorkouts = Integer.toString(OnlineDbHelper.getTotalinHistory(CurrentUser));
+            String totalTime = Integer.toString(OnlineDbHelper.getTotalMinutesFromHistory(CurrentUser));
+            System.out.println("totalTime: " + totalTime);
 
             //edit number values
             workoutsNum = rootView.findViewById(R.id.workoutCountTextView);
+            totalTimeNum = rootView.findViewById(R.id.timeTextView);
 
             //Dynamically add value
-            setWorkoutCount();
+            setWorkoutCount(totalWorkouts, totalTime);
         }
 
         // Behaviour if anonymous
@@ -83,9 +92,12 @@ public class Home extends Fragment implements View.OnClickListener {
     }
 
     // Method to dynamically edit workoutCountTextView
-    public void setWorkoutCount() {
-        if (workoutsNum != null) {
-            workoutsNum.setText(totalWorkouts);
+    public void setWorkoutCount(String val1, String val2) {
+        //need to add check for other three values
+        if (val1 != null) {
+            workoutsNum.setText(val1);
+            totalTimeNum.setText(val2 + " min");
+
         }
     }
 
