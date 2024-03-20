@@ -14,6 +14,7 @@ import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SettingsDataControl extends Fragment implements View.OnClickListener {
     // Declared variables
@@ -29,6 +30,7 @@ public class SettingsDataControl extends Fragment implements View.OnClickListene
     }
 
     public void updateValues(ArrayList<String> info) {
+        System.out.println(Arrays.toString(Session.getUserDetails()));
         // Since DOB is a regular value, no formatting is required
         dobValue.setText(info.get(0));
 
@@ -51,17 +53,18 @@ public class SettingsDataControl extends Fragment implements View.OnClickListene
         // Updates the units for sex.
         String selectedSex = info.get(3).trim();
 
+
         switch (selectedSex) {
             case "":
                 sexValue.setText("");
                 break;
-            case "M":
+            case "Male":
                 sexValue.setText("Male");
                 break;
-            case "F":
+            case "Female":
                 sexValue.setText("Female");
                 break;
-            case "O":
+            case "Other":
                 sexValue.setText("Other");
                 break;
         }
