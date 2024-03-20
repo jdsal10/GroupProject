@@ -83,7 +83,12 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
 
         // Creates the initial exercise.
         generateExercisePages(exerciseArray);
-        changePage(0);
+        changePage(0, true);
+
+        // Disables button if length is 1.
+        if (fragmentList.size() == 1) {
+            next.setVisibility(View.GONE);
+        }
 
         // Since its the first exercise, set visibility to GONE.
         previous.setVisibility(View.GONE);
@@ -110,14 +115,19 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
 
             } catch (JSONException e) {
                 throw new RuntimeException(e);
-
             }
         }
     }
 
-    public void changePage(int index) {
+    public void changePage(int index, boolean forward) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if (forward) {
+            fragmentTransaction.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out);
+        } else {
+            fragmentTransaction.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_right_out);
+        }
+
         fragmentTransaction.replace(R.id.viewPager, fragmentList.get(index));
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
@@ -159,7 +169,7 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
         int id = v.getId();
         if (id == R.id.nextExercise) {
             currentPage++;
-            changePage(currentPage);
+            changePage(currentPage, true);
             if (currentPage == fragmentList.size() - 1) {
                 next.setVisibility(View.GONE);
                 previous.setVisibility(View.VISIBLE);
@@ -169,7 +179,7 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
             }
         } else if (id == R.id.previousExercise) {
             currentPage--;
-            changePage(currentPage);
+            changePage(currentPage, false);
 
             if (currentPage == 0) {
                 next.setVisibility(View.VISIBLE);
@@ -201,7 +211,7 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
 
             next.setAlpha(1f);
             previous.setAlpha(1f);
-            
+
             findViewById(R.id.pauseWorkout).setVisibility(View.VISIBLE);
             findViewById(R.id.resumeWorkout).setVisibility(View.GONE);
             findViewById(R.id.finishWorkout).setVisibility(View.GONE);
