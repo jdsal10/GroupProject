@@ -96,7 +96,7 @@ public class Home extends Fragment implements View.OnClickListener {
         //need to add check for other three values
         if (val1 != null) {
             workoutsNum.setText(val1);
-            totalTimeNum.setText(val2);
+            totalTimeNum.setText(val2 + " min");
 
         }
     }
