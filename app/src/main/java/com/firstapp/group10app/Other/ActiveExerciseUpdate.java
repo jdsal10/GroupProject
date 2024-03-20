@@ -1,9 +1,12 @@
 package com.firstapp.group10app.Other;
 
 import android.os.Bundle;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -14,15 +17,12 @@ import androidx.fragment.app.Fragment;
 import com.firstapp.group10app.R;
 
 public class ActiveExerciseUpdate extends Fragment {
-    private String exerciseName;
-    private String description;
-    private String sets;
-    private String reps;
-    private String time;
+    private String exerciseName, description, sets, reps, time, image;
 
-    public ActiveExerciseUpdate() {}
+    public ActiveExerciseUpdate() {
+    }
 
-    public static ActiveExerciseUpdate newInstance(String exerciseName, String description, String sets, String reps, String time) {
+    public static ActiveExerciseUpdate newInstance(String exerciseName, String description, String sets, String reps, String time, String image) {
         ActiveExerciseUpdate fragment = new ActiveExerciseUpdate();
         Bundle args = new Bundle();
         args.putString("exerciseName", exerciseName);
@@ -30,8 +30,8 @@ public class ActiveExerciseUpdate extends Fragment {
         args.putString("sets", sets);
         args.putString("reps", reps);
         args.putString("time", time);
+        args.putString("image", image);
         fragment.setArguments(args);
-        System.out.println("CREATED");
         return fragment;
     }
 
@@ -44,6 +44,7 @@ public class ActiveExerciseUpdate extends Fragment {
             sets = getArguments().getString("sets");
             reps = getArguments().getString("reps");
             time = getArguments().getString("time");
+            image = getArguments().getString("image");
         }
     }
 
@@ -55,6 +56,16 @@ public class ActiveExerciseUpdate extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ImageView diagram = view.findViewById(R.id.exerciseImage);
+
+        int resourceId = getResources().getIdentifier(image.replace(".png", ""), "drawable", "com.firstapp.group10app");
+
+        if (resourceId != 0) {
+            diagram.setImageResource(resourceId);
+        } else {
+            diagram.setImageResource(R.drawable.icon_workout);
+        }
+
         TextView exerciseNameTextView = view.findViewById(R.id.activeExerciceName);
         TextView descriptionTextView = view.findViewById(R.id.activeDescription);
         TextView setsTextView = view.findViewById(R.id.activeSets);

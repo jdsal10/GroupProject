@@ -35,6 +35,8 @@ import org.json.JSONObject;
 
 public class ActiveWorkout extends AppCompatActivity implements View.OnClickListener {
     TextView timerText;
+    TimerTask flashTask;
+    Timer timer;
     int time, currentPage = 0;
     boolean paused, complete;
     Button pause, resume, finish, next, previous;
@@ -53,6 +55,7 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
             return insets;
         });
 
+        // Workout control buttons
         pause = findViewById(R.id.pauseWorkout);
         pause.setOnClickListener(this);
 
@@ -90,19 +93,20 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
     public void generateExercisePages(JSONArray list) {
         for (int i = 0; i < list.length(); i++) {
             try {
-                Fragment f1;
+                Fragment exerciseData;
 
                 JSONObject exercise = exerciseArray.getJSONObject(i);
 
-                f1 = ActiveExerciseUpdate.newInstance(
+                exerciseData = ActiveExerciseUpdate.newInstance(
                         exercise.getString("ExerciseName"),
                         exercise.getString("Description"),
                         exercise.getString("Sets"),
                         exercise.getString("Reps"),
-                        exercise.getString("Time")
+                        exercise.getString("Time"),
+                        exercise.getString("Illustration")
                 );
 
-                fragmentList.add(f1);
+                fragmentList.add(exerciseData);
 
             } catch (JSONException e) {
                 throw new RuntimeException(e);
@@ -178,6 +182,8 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
             next.setAlpha(.5f);
             previous.setAlpha(.5f);
 
+            timerText.setTextColor(getResources().getColor(R.color.pastel_red));
+
             paused = true;
             flashPaused();
             findViewById(R.id.pauseWorkout).setVisibility(View.GONE);
@@ -188,6 +194,8 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
             previous.setClickable(false);
         } else if (id == R.id.resumeWorkout) {
             paused = false;
+
+            timerText.setTextColor(getResources().getColor(R.color.black));
 
             next.setClickable(true);
             previous.setClickable(true);
@@ -253,7 +261,7 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
     }
 
     public void flashPaused() {
-        Timer timer = new Timer();
+        timer = new Timer();
         TimerTask flashTask = new TimerTask() {
             boolean pausedBoolean = true;
 
@@ -276,5 +284,4 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
 
         timer.schedule(flashTask, 1000, 2000);
     }
-
 }

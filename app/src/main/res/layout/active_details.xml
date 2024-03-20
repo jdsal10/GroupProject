@@ -3,15 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingStart="10sp"
+    android:background="@drawable/shape_transparent_very_curved_corners"
     android:paddingEnd="10sp"
     android:orientation="vertical">
 
     <ImageView
+        android:layout_marginTop="10sp"
+        android:background="@drawable/shape_transparent_very_curved_corners"
         android:id="@+id/exerciseImage"
         android:layout_width="match_parent"
         android:layout_height="0sp"
-        android:layout_weight="1"
-        android:background="@drawable/icon_workout" />
+        android:scaleType="centerInside"
+        android:padding="5sp"
+        android:adjustViewBounds="true"
+        android:layout_weight="1" />
 
     <LinearLayout
         android:id="@+id/exerciseDetailsHolder"
