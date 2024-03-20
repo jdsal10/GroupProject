@@ -149,11 +149,15 @@ public class Session {
         // Close the localDb connection
         if (DatabaseManager.getInstance().getLocalDbIfConnected() != null) {
             DatabaseManager.getInstance().getLocalDbIfConnected().close();
+            DatabaseManager.getInstance().setLocalDb(null);
         }
 
         // Close the onlineDb connection
         if (DatabaseManager.getInstance().getOnlineDbIfConnected() != null) {
             DatabaseManager.getInstance().getOnlineDbIfConnected().closeConnection();
+            DatabaseManager.getInstance().setOnlineDb(null);
         }
+
+        DatabaseManager.setInstance(null);
     }
 }

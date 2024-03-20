@@ -102,9 +102,6 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
 
                         // Insert sample data into the database
                         localDbConnection.insertSampleData();
-
-                        // Close the database connection
-//                        localDb.close();
                     } catch (Exception e) {
                         Log.e("Local DB Creation", "MainActivity.onCreate cause an error");
                         Log.e("Local DB Creation", "toString(): " + e);
