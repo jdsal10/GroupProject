@@ -482,7 +482,9 @@ public class OnlineDbHelper {
         OnlineDbConnection.getInstance().executeStatement(sqlHistory);
     }
 
-    //create get history
+    /**
+     * Obtain total amount of workouts completed by the user.
+     */
     public static Integer getTotalinHistory(String email){
         String query = "SELECT COUNT(*) AS total FROM HealthData.UserWorkoutHistory uwh " +
                 " WHERE uwh.Email = '"+ email +"';";
@@ -495,6 +497,28 @@ public class OnlineDbHelper {
         try {
             if(out.next()) {
                 total = out.getInt("total");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error processing ResultSet", e);
+        }
+        return total;
+    }
+
+    /**
+     * Obtain total amount of time spent doing exercise by the user
+     */
+    public static Integer getTotalMinutesFromHistory(String email){
+        String query = "SELECT SUM(Duration) AS total_duration FROM HealthData.UserWorkoutHistory uwh " +
+                " WHERE uwh.Email = '"+ email +"';";
+
+        OnlineDbConnection db = new OnlineDbConnection();
+        ResultSet out = db.executeQuery(query);
+
+        Integer total = null;
+
+        try {
+            if(out.next()) {
+                total = out.getInt("total_duration");
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error processing ResultSet", e);
