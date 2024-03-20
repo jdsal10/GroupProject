@@ -70,17 +70,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         } else if (id == R.id.forgotPassword) {
             startActivity(new Intent(Login.this, ForgotPassword.class));
             overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
-        }
-          else if(id == R.id.loginAnonymous){
+        } else if (id == R.id.loginAnonymous) {
             Session.setUserEmail(null);
             Session.setSignedIn(false);
 
             Intent intent = new Intent(getApplicationContext(), ActivityContainer.class);
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        }
-
-          else if (id == R.id.register) {
+        } else if (id == R.id.register) {
             startActivity(new Intent(Login.this, Registration.class));
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
@@ -89,7 +86,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void setSessionData(String email) throws SQLException {
         OnlineDbHelper db = new OnlineDbHelper();
         ResultSet data = db.getUser(email);
-        
+
         if (data.next()) {
             Session.setUserDetails(new String[7]);
             Session.getUserDetails()[0] = data.getString("DOB");
