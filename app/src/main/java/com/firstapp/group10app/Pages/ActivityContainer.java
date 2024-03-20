@@ -77,12 +77,14 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
             goSettings.setVisibility(View.VISIBLE);
             goSettings.setOnClickListener(this);
             bottomNavigationView.getMenu().findItem(R.id.goToHistory).setVisible(true);
+            bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setVisible(true);
         }
 
         // Behaviour if anonymous
         else {
             goSettings.setVisibility(View.GONE);
             bottomNavigationView.getMenu().findItem(R.id.goToHistory).setVisible(false);
+            bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setVisible(false);
 
             new Thread(() -> {
                 boolean localDbIsConnected = true;
