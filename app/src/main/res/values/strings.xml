@@ -35,6 +35,7 @@
     <string name="weight">Weight <font color='#d3d3d3'>(optional)</font></string>
     <string name="radioButtonMale">Male</string>
     <string name="radioButtonFemale">Female</string>
+    <string name="radioButtonOther">Other</string>
 
     <!-- Additional optional (Registration) -->
     <string name="healthConditions">Any health conditions? <font color='#d3d3d3'>(optional)</font></string>
