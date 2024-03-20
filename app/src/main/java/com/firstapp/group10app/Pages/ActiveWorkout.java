@@ -185,7 +185,6 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
             timerText.setTextColor(getResources().getColor(R.color.pastel_red));
 
             paused = true;
-            flashPaused();
             findViewById(R.id.pauseWorkout).setVisibility(View.GONE);
             findViewById(R.id.resumeWorkout).setVisibility(View.VISIBLE);
             findViewById(R.id.finishWorkout).setVisibility(View.VISIBLE);
@@ -258,30 +257,5 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
             }
 
         }
-    }
-
-    public void flashPaused() {
-        timer = new Timer();
-        TimerTask flashTask = new TimerTask() {
-            boolean pausedBoolean = true;
-
-            @Override
-            public void run() {
-                runOnUiThread(() -> {
-                    timerText = findViewById(R.id.timer);
-                    if (pausedBoolean) {
-                        timerText.setText("Paused");
-                    } else {
-                        int hours = time / 3600;
-                        int minutes = (time % 3600) / 60;
-                        int secs = time % 60;
-                        timerText.setText(String.format(Locale.ENGLISH, "%d:%02d:%02d", hours, minutes, secs));
-                    }
-                    pausedBoolean = !pausedBoolean;
-                });
-            }
-        };
-
-        timer.schedule(flashTask, 1000, 2000);
     }
 }
