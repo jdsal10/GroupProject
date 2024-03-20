@@ -27,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class WorkoutAi extends AppCompatActivity implements View.OnClickListener {
     private LinearLayout page1, page2;
@@ -131,76 +132,6 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
-            String output2 = "{" +
-                    "\"WorkoutName\": \"Cardio Abs Blast\"," +
-                    "\"WorkoutDuration\": 35," +
-                    "\"TargetMuscleGroup\": \"Abs\"," +
-                    "\"Equipment\": \"Mat\"," +
-                    "\"Difficulty\": \"Easy\"," +
-                    "\"Exercises\": [" +
-                    "{" +
-                    "\"ExerciseName\": \"Jumping Jacks\"," +
-                    "\"Description\": \"Start with feet together and arms at your sides. Jump while spreading your legs and raising your arms overhead. Jump back to the starting position and repeat.\"," +
-                    "\"TargetMuscleGroup\": \"Full Body\"," +
-                    "\"Equipment\": \"None\"," +
-                    "\"Difficulty\": \"Easy\"," +
-                    "\"Sets\": 3," +
-                    "\"Reps\": null," +
-                    "\"Time\": 45" +
-                    "}," +
-                    "{" +
-                    "\"ExerciseName\": \"Mountain Climbers\"," +
-                    "\"Description\": \"Start in a push-up position with hands directly under shoulders. Bring one knee toward your chest, then quickly switch legs, bringing the other knee toward your chest. Continue alternating legs as quickly as possible.\"," +
-                    "\"TargetMuscleGroup\": \"Abs\"," +
-                    "\"Equipment\": \"Mat\"," +
-                    "\"Difficulty\": \"Easy\"," +
-                    "\"Sets\": 3," +
-                    "\"Reps\": null," +
-                    "\"Time\": 45" +
-                    "}," +
-                    "{" +
-                    "\"ExerciseName\": \"High Knees\"," +
-                    "\"Description\": \"Stand in place and quickly alternate lifting your knees toward your chest, pumping your arms as if running in place.\"," +
-                    "\"TargetMuscleGroup\": \"Legs, Core\"," +
-                    "\"Equipment\": \"None\"," +
-                    "\"Difficulty\": \"Easy\"," +
-                    "\"Sets\": 3," +
-                    "\"Reps\": null," +
-                    "\"Time\": 45" +
-                    "}," +
-                    "{" +
-                    "\"ExerciseName\": \"Plank\"," +
-                    "\"Description\": \"Start in a push-up position, but with your weight on your forearms instead of your hands. Keep your body in a straight line from head to heels, engaging your core muscles. Hold this position for the specified time.\"," +
-                    "\"TargetMuscleGroup\": \"Core\"," +
-                    "\"Equipment\": \"Mat\"," +
-                    "\"Difficulty\": \"Easy\"," +
-                    "\"Sets\": 3," +
-                    "\"Reps\": null," +
-                    "\"Time\": 30" +
-                    "}," +
-                    "{" +
-                    "\"ExerciseName\": \"Bicycle Crunches\"," +
-                    "\"Description\": \"Lie on your back with hands behind your head and legs lifted, knees bent. Bring right elbow towards left knee while simultaneously straightening right leg. Switch sides, bringing left elbow towards right knee while straightening left leg. Continue alternating sides in a pedaling motion.\"," +
-                    "\"TargetMuscleGroup\": \"Abs\"," +
-                    "\"Equipment\": \"Mat\"," +
-                    "\"Difficulty\": \"Easy\"," +
-                    "\"Sets\": 3," +
-                    "\"Reps\": \"15\"," +
-                    "\"Time\": null" +
-                    "}," +
-                    "{" +
-                    "\"ExerciseName\": \"Russian Twists\"," +
-                    "\"Description\": \"Sit on the floor with knees bent and feet lifted off the ground. Lean back slightly, keeping your back straight. Clasp your hands together and twist your torso to the right, then to the left, while keeping your core engaged.\"," +
-                    "\"TargetMuscleGroup\": \"Obliques\"," +
-                    "\"Equipment\": \"Mat\"," +
-                    "\"Difficulty\": \"Easy\"," +
-                    "\"Sets\": 3," +
-                    "\"Reps\": \"12\"," +
-                    "\"Time\": null" +
-                    "}" +
-                    "]" +
-                    "}";
 
             // Adds the workout to the Database.
             try {
@@ -335,7 +266,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         return "Key: " +
                 "[] = optional data" +
                 ". " +
-                "Some info about a user: [37 years old] [67 kg] [M]" +
+                "Some info about a user: " + Arrays.toString(Session.getUserDetails()) +
                 " " +
                 equipmentInfo + ". " +
                 injuriesInfo + ". " +
