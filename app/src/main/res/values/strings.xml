@@ -239,6 +239,9 @@ with your account and we will send you an email with further instructions.</stri
     <string-array name="targetMuscleGroup">
         <item>Any</item>
         <item>Abs</item>
+        <item>Core</item>
+        <item>Full-body</item>
+        <item>Arms</item>
     </string-array>
 
     <!--    Filter-->
