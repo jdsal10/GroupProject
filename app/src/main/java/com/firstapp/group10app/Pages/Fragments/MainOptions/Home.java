@@ -41,6 +41,7 @@ public class Home extends Fragment implements View.OnClickListener {
 
         LinearLayout signedInLayout = rootView.findViewById(R.id.signedInLayout);
         LinearLayout anonymousLayout = rootView.findViewById(R.id.anonymousLayout);
+        LinearLayout FullBodyLink = rootView.findViewById(R.id.fullBody);
 
         // Behaviour if signed in
         if (Session.getSignedIn()) {
@@ -49,6 +50,8 @@ public class Home extends Fragment implements View.OnClickListener {
 
             workoutsNum = rootView.findViewById(R.id.workoutCountTextView);
             totalTimeNum = rootView.findViewById(R.id.timeTextView);
+
+            FullBodyLink.setOnClickListener(this);
 
             new Thread(() -> {
                 Session.setOnlineDbStatus(OnlineDbConnection.testConnection());
@@ -84,6 +87,9 @@ public class Home extends Fragment implements View.OnClickListener {
         } else if (id == R.id.logoutButton) {
             Log.d("Home.onClick()", "Logout button clicked");
             showConfirmationLogout();
+        } else if (id == R.id.fullBody) {
+            System.out.println("fullbody was clicked");
+            tellParentToStartNewActivity(new WorkoutSearch());
         }
     }
 
