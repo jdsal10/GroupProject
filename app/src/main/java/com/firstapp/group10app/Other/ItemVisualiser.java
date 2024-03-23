@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +16,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import com.firstapp.group10app.DB.DatabaseManager;
-import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
+import com.firstapp.group10app.DB.LocalDb.WorkoutContract;
 import com.firstapp.group10app.Pages.ActivityContainer;
 import com.firstapp.group10app.Pages.WorkoutHub;
 import com.firstapp.group10app.R;
@@ -263,13 +264,23 @@ public class ItemVisualiser {
         Button selectWorkout = v.findViewById(R.id.selectWorkout);
         selectWorkout.setOnClickListener(v1 -> {
             JSONObject workoutObject;
-            String out = DatabaseManager.getInstance().getWorkoutsAsJsonArray("WHERE w.WorkoutID = '" + id + "'");
+
+            // Dirty fix of a SQL error that would happen in anonymous due to differences in the db instances
+            String result;
+            if (Session.getSignedIn()) {
+                result = DatabaseManager.getInstance().getWorkoutsAsJsonArray("WHERE w.WorkoutID = '" + id + "'");
+            } else {
+                result = DatabaseManager.getInstance().getWorkoutsAsJsonArray("WHERE w." + WorkoutContract.WorkoutEntry._ID + " = '" + id + "'");
+            }
+            Log.d("ItemVisualiser.addSearchButtons", "result: " + result);
+
             JSONArray jsonArray;
 
             try {
-                jsonArray = new JSONArray(out);
+                jsonArray = new JSONArray(result);
                 workoutObject = jsonArray.getJSONObject(0);
             } catch (JSONException e) {
+                Log.e("ItemVisualiser.addSearchButtons", "Error: " + e);
                 throw new RuntimeException(e);
             }
 

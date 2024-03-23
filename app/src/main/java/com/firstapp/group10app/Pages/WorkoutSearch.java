@@ -110,9 +110,10 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
         }
 
         try {
+            String newData;
+
             if (toFilter.isEmpty()) {
-                String newData = DatabaseManager.getInstance().getWorkoutsAsJsonArray(null);
-                ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
+                newData = DatabaseManager.getInstance().getWorkoutsAsJsonArray(null);
             } else {
                 for (int i = 0; i < toFilter.size() - 1; i++) {
                     filter.append(toFilter.get(i)).append(" AND");
@@ -121,9 +122,11 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
                 filter.append(toFilter.get(toFilter.size() - 1));
 
                 String newFilter = filter.toString();
-                String newData = DatabaseManager.getInstance().getWorkoutsAsJsonArray(newFilter);
-                ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
+                newData = DatabaseManager.getInstance().getWorkoutsAsJsonArray(newFilter);
             }
+
+            ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
+
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
