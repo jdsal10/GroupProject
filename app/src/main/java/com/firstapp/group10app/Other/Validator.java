@@ -1,5 +1,10 @@
 package com.firstapp.group10app.Other;
 
+import android.util.Log;
+
+import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
+
+import java.sql.SQLException;
 import java.time.Year;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,12 +19,22 @@ public class Validator {
     private static final int PASSWORD_LENGTH = 6;
 
     public static String emailValidator(String email) {
-        if (email == null || email.isEmpty()) return ("Email is required!");
-        else {
-            Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-            Matcher matcher = pattern.matcher(email);
+        try {
+            if (email == null || email.isEmpty()) return ("Email is required!");
+            else if (OnlineDbHelper.checkUserExists(email)) return "Email is already in use!";
+            else if (email.length() > 50) return "Email is too long!";
+            else if (email.length() < 5) return "Email is too short!";
+            else if (email.contains(" ")) return "Email cannot contain spaces!";
+            else if (!email.contains("@")) return "Email is invalid!";
+            else {
+                Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+                Matcher matcher = pattern.matcher(email);
 
-            return matcher.matches() ? null : "Email is invalid!";
+                return matcher.matches() ? null : "Email is invalid!";
+            }
+        } catch (SQLException e) {
+            Log.e("Validator", "An error occurred while checking the email!", e);
+            return "An error occurred while checking the email!";
         }
     }
 

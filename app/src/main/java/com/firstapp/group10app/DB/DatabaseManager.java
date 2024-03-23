@@ -22,6 +22,10 @@ public class DatabaseManager {
         return instance;
     }
 
+    public static void setInstance(DatabaseManager newInstance) {
+        instance = newInstance;
+    }
+
     public LocalDbConnection getLocalDb() {
         if (localDb == null) throw new UnsupportedOperationException("LocalDb is not connected");
         return localDb;
@@ -31,6 +35,10 @@ public class DatabaseManager {
         return localDb;
     }
 
+    public void setLocalDb(LocalDbConnection newLocalDb) {
+        localDb = newLocalDb;
+    }
+
     private OnlineDbConnection getOnlineDb() {
         if (onlineDb == null) connectToOnlineDb();
         return onlineDb;
@@ -38,6 +46,10 @@ public class DatabaseManager {
 
     public OnlineDbConnection getOnlineDbIfConnected() {
         return onlineDb;
+    }
+
+    public void setOnlineDb(OnlineDbConnection newOnlineDb) {
+        onlineDb = newOnlineDb;
     }
 
     public void connectToLocalDb(Context context) {
