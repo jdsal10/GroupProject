@@ -51,23 +51,7 @@ public class SettingsDataControl extends Fragment implements View.OnClickListene
         }
 
         // Updates the units for sex.
-        String selectedSex = info.get(3).trim();
-
-
-        switch (selectedSex) {
-            case "":
-                sexValue.setText("");
-                break;
-            case "Male":
-                sexValue.setText("Male");
-                break;
-            case "Female":
-                sexValue.setText("Female");
-                break;
-            case "Other":
-                sexValue.setText("Other");
-                break;
-        }
+        sexValue.setText(info.get(3).trim());
 
         allergiesValue.setText(info.get(4));
 
