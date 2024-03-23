@@ -51,7 +51,8 @@ public class SettingsDataControl extends Fragment implements View.OnClickListene
         }
 
         // Updates the units for sex.
-        sexValue.setText(info.get(3).trim());
+        if (info.get(3) != null) sexValue.setText(info.get(3).trim());
+        else sexValue.setText("");
 
         allergiesValue.setText(info.get(4));
 
