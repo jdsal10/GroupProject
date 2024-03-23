@@ -45,11 +45,6 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
 
         pageTitle = findViewById(R.id.pageTitle);
 
-        Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("workoutHub")) {
-            FragmentHolderUpdate.updateView(new WorkoutHub(), this);
-        }
-
         // Behaviour if signed in
         if (Session.getSignedIn()) {
             BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
@@ -125,6 +120,11 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
                     }
                 }
             }).start();
+        }
+
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("workoutHub")) {
+            FragmentHolderUpdate.updateView(new WorkoutHub(), this);
         }
     }
 
