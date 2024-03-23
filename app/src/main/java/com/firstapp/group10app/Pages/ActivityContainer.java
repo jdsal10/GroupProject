@@ -45,46 +45,44 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
 
         pageTitle = findViewById(R.id.pageTitle);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
-        bottomNavigationView.setOnItemSelectedListener(this);
-
-        // If the current view is not set, set it to 1 (Home = default).
-        if (currentView != HOME && currentView != R.layout.activity_home
-                && currentView != WORKOUTS && currentView != R.layout.activity_workout_option
-                && currentView != HISTORY && currentView != R.layout.activity_history) {
-            Log.d("ActivityContainer.onCreate", "currentView static var not set, setting to 1 (Home)");
-            currentView = HOME;
-        }
-
-        if (currentView == HOME || currentView == R.layout.activity_home) {
-            bottomNavigationView.getMenu().findItem(R.id.goToHome).setChecked(true);
-            updateView(new Home());
-        } else if (currentView == WORKOUTS || currentView == R.layout.activity_workout_option) {
-            bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setChecked(true);
-            updateView(new WorkoutOption());
-        } else {
-            bottomNavigationView.getMenu().findItem(R.id.goToSettings).setChecked(true);
-            updateView(new History());
-        }
-
-        Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("workoutHub")) {
-            FragmentHolderUpdate.updateView(new WorkoutHub(), this);
-        }
-
         // Behaviour if signed in
         if (Session.getSignedIn()) {
+            BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
+            bottomNavigationView.setVisibility(View.VISIBLE);
+            bottomNavigationView.setOnItemSelectedListener(this);
+
+            // If the current view is not set, set it to 1 (Home = default).
+            if (currentView != HOME && currentView != R.layout.activity_home
+                    && currentView != WORKOUTS && currentView != R.layout.activity_workout_option
+                    && currentView != HISTORY && currentView != R.layout.activity_history) {
+                Log.d("ActivityContainer.onCreate", "currentView static var not set, setting to 1 (Home)");
+                currentView = HOME;
+            }
+
+            if (currentView == HOME || currentView == R.layout.activity_home) {
+                bottomNavigationView.getMenu().findItem(R.id.goToHome).setChecked(true);
+                updateView(new Home());
+            } else if (currentView == WORKOUTS || currentView == R.layout.activity_workout_option) {
+                bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setChecked(true);
+                updateView(new WorkoutOption());
+            } else {
+                bottomNavigationView.getMenu().findItem(R.id.goToSettings).setChecked(true);
+                updateView(new History());
+            }
+
             goSettings.setVisibility(View.VISIBLE);
             goSettings.setOnClickListener(this);
-            bottomNavigationView.getMenu().findItem(R.id.goToHistory).setVisible(true);
-            bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setVisible(true);
         }
 
         // Behaviour if anonymous
         else {
             goSettings.setVisibility(View.GONE);
-            bottomNavigationView.getMenu().findItem(R.id.goToHistory).setVisible(false);
-            bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setVisible(false);
+
+            // Hide the bottom navigation menu
+            BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
+            bottomNavigationView.setVisibility(View.GONE);
+
+            updateView(new Home());
 
             new Thread(() -> {
                 boolean localDbIsConnected = true;
@@ -92,7 +90,17 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
                     DatabaseManager.getInstance().getLocalDb();
                 } catch (UnsupportedOperationException e) {
                     Log.i("Local DB Creation", "LocalDb is not connected");
-                    localDbIsConnected = false;
+
+                    try {
+                        DatabaseManager.getInstance().connectToLocalDb(this);
+                    } catch (Exception e1) {
+                        Log.e("Local DB Creation", "MainActivity.onCreate cause an error");
+                        Log.e("Local DB Creation", "toString(): " + e1);
+                        Log.e("Local DB Creation", "getMessage(): " + e1.getMessage());
+                        Log.e("Local DB Creation", "StackTrace: " + Arrays.toString(e1.getStackTrace()));
+
+                        localDbIsConnected = false;
+                    }
                 }
 
                 // Start the local database on a new thread
@@ -112,6 +120,11 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
                     }
                 }
             }).start();
+        }
+
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("workoutHub")) {
+            FragmentHolderUpdate.updateView(new WorkoutHub(), this);
         }
     }
 
