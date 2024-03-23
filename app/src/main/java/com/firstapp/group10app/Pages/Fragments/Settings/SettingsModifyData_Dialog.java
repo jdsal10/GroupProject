@@ -142,10 +142,13 @@ public class SettingsModifyData_Dialog extends Dialog implements View.OnClickLis
                     horizontalLayout.addView(edit);
                     dropdown = new Spinner(getContext());
                     horizontalLayout.addView(dropdown);
+
+                    LinearLayout.LayoutParams dropdownParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    dropdownParams.gravity = Gravity.CENTER_VERTICAL;
+                    dropdown.setLayoutParams(dropdownParams);
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, spinnerEntries);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     dropdown.setAdapter(adapter);
-
 
                     if (weightValues.length < 2) {
                         dropdown.setSelection(2);
@@ -177,6 +180,7 @@ public class SettingsModifyData_Dialog extends Dialog implements View.OnClickLis
                     edit = new EditText(getContext());
                     edit.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
                     edit.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+
                     if (heightValues.length > 0) {
                         edit.setText(heightValues[0]);
                     }
