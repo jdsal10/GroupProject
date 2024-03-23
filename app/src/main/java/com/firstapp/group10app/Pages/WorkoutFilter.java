@@ -162,6 +162,15 @@ public class WorkoutFilter extends AlertDialog implements View.OnClickListener {
                     target.setSelection(1);
                     break;
                 // Add more when new options available!
+                case "Core":
+                    target.setSelection(2);
+                    break;
+                case "Full-body":
+                    target.setSelection(3);
+                    break;
+                case "Arms":
+                    target.setSelection(4);
+                    break;
             }
         }
 
