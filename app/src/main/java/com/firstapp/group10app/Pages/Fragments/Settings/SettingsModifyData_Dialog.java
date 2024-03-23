@@ -127,19 +127,22 @@ public class SettingsModifyData_Dialog extends Dialog implements View.OnClickLis
                     String[] spinnerEntries = {"kg", "lbs", ""};
                     String[] weightValues = updateValue.split(" ");
 
+                    // Create a horizontal LinearLayout to hold the EditText and Spinner
                     LinearLayout horizontalLayout = new LinearLayout(getContext());
                     horizontalLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                     horizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
 
+                    // EditText for height value
                     edit = new EditText(getContext());
-                    edit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    edit.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
                     edit.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
                     if (weightValues.length > 0) {
                         edit.setText(weightValues[0]);
                     }
-
                     horizontalLayout.addView(edit);
+
+                    // Spinner for unit selection
                     dropdown = new Spinner(getContext());
                     horizontalLayout.addView(dropdown);
 
@@ -162,6 +165,8 @@ public class SettingsModifyData_Dialog extends Dialog implements View.OnClickLis
                                 break;
                         }
                     }
+
+                    // Add the horizontal layout to the parent area
                     area.addView(horizontalLayout);
                     break;
                 }
