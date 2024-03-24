@@ -32,6 +32,9 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
 
         initializeLayout();
 
+        String targetMuscle = intent.getStringExtra("targetMuscle");
+        System.out.println("You clicked: " + targetMuscle);
+
         // Behaviour when a filter is applied
         if (intent != null && getIntent().hasExtra("duration") && getIntent().hasExtra("difficulty") && getIntent().hasExtra("targetMuscle")) {
             difficultyString = getIntent().getStringExtra("difficulty");
@@ -39,6 +42,8 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
             targetString = getIntent().getStringExtra("targetMuscle");
 
             visualizeWorkoutsWithFilter(difficultyString, durationString, targetString);
+        } else if (targetMuscle != null && !targetMuscle.isEmpty()) {
+            visualizeWorkoutsWithFilter("","", targetMuscle);
         }
 
         // Behaviour when there are no filters applied
