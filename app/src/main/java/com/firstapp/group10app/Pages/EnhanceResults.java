@@ -21,13 +21,13 @@ public class EnhanceResults extends Dialog implements View.OnClickListener {
     public EnhanceResults(Context context) {
         super(context);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.enhance_result);
+        setContentView(R.layout.popup_enhance_result);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.enhance_result);
+        setContentView(R.layout.popup_enhance_result);
 
         Button regenerate = findViewById(R.id.regenerateEnhance);
         regenerate.setOnClickListener(this);

@@ -30,7 +30,7 @@
     <dimen name="margin_very_small">4dp</dimen>
 
     <!-- padding -->
-    <dimen name="padding_default">5sp</dimen>
+    <dimen name="padding_default">10sp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>

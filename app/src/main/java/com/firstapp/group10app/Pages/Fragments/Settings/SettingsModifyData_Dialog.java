@@ -261,9 +261,6 @@ public class SettingsModifyData_Dialog extends Dialog implements View.OnClickLis
 
             Button clear = findViewById(R.id.clearUpdate);
             clear.setOnClickListener(this);
-
-            Button cancel = findViewById(R.id.cancelUpdate);
-            cancel.setOnClickListener(this);
         } else {
             Log.e("ModifyData", "User is not signed in. This page should not be accessible.");
 
@@ -415,8 +412,6 @@ public class SettingsModifyData_Dialog extends Dialog implements View.OnClickLis
                     Session.getUserDetails()[5] = "";
                     break;
             }
-            dismiss();
-        } else if (id == R.id.cancelUpdate) {
             dismiss();
         }
     }

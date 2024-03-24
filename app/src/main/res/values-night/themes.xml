@@ -2,6 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Group10App" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
+        <item name="android:dialogCornerRadius">@dimen/margin_default</item>
+
         <!-- main colors -->
         <item name="colorPrimary">@color/gradient_aLostMemory_tetradic1_lighter</item>
 <!--        <item name="colorPrimaryDark">@color/black</item>-->
@@ -21,12 +23,8 @@
     </style>
 
     <!-- Animations -->
-    <style name="filterAnimations">
+    <style name="filterAnimationsBottomPart">
         <item name="android:windowEnterAnimation">@anim/slide_up_in</item>
-        <item name="android:windowExitAnimation">@anim/slide_down_in</item>
-    </style>
-
-    <style name="filterCorners" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:windowBackground">@drawable/shape_transparent_very_curved_corners</item>
+        <item name="android:windowExitAnimation">@anim/slide_down_out</item>
     </style>
 </resources>

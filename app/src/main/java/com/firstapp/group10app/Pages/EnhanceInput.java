@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,21 +16,19 @@ import com.firstapp.group10app.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Arrays;
-
 public class EnhanceInput extends Dialog implements View.OnClickListener {
     private EditText input;
     private String result;
 
     public EnhanceInput(Context context) {
         super(context);
-        setContentView(R.layout.enhance_input);
+        setContentView(R.layout.popup_enhance_input);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.enhance_input);
+        setContentView(R.layout.popup_enhance_input);
 
         Button generateEnhance = findViewById(R.id.generateEnhance);
         generateEnhance.setOnClickListener(this);

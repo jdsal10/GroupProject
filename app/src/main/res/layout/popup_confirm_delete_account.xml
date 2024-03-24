@@ -1,9 +1,8 @@
 <!-- res/layout/dialog_password.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AlertDialog.AppCompat"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/margin_default"
-    android:layout_marginEnd="@dimen/margin_default"
     android:orientation="vertical">
 
     <TextView

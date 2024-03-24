@@ -1,26 +1,27 @@
 <!-- res/layout/dialog_password.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AlertDialog.AppCompat"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/margin_default"
-    android:layout_marginEnd="@dimen/margin_default"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/confirmFinishTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_default"/>
+        android:layout_marginBottom="@dimen/margin_default" />
 
     <Button
+        android:id="@+id/cancelWorkoutFinish"
         style="@style/ButtonNormal"
         android:layout_width="match_parent"
-        android:text="Go back to Workout"
-        android:id="@+id/cancelWorkoutFinish" />
+        android:text="Go back to Workout" />
+
     <Button
-        style="@style/ButtonPastelRed"
         android:id="@+id/confirmWorkoutFinish"
+        style="@style/ButtonPastelRed"
         android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/margin_small"
         android:text="Finish Workout" />
 
 </LinearLayout>

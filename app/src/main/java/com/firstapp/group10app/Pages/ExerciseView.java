@@ -13,7 +13,7 @@ public class ExerciseView extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exercise_popup);
+        setContentView(R.layout.popup_exercise);
 
         Button selectWorkout = findViewById(R.id.selectWorkout);
         selectWorkout.setOnClickListener(this);

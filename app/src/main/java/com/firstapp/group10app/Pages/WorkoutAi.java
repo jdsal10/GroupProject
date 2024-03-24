@@ -165,7 +165,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
 
         page3.addView(workoutLayout);
 
-        ItemVisualiser.startWorkoutGenerationAI(data, this, workoutLayout, "aiConfirm", R.layout.activity_exercise_popup_ai, R.id.exerciseScrollView);
+        ItemVisualiser.startWorkoutGenerationAI(data, this, workoutLayout, "aiConfirm", R.layout.popup_exercise_ai, R.id.exerciseScrollView);
     }
 
     public void populateSpinners() {
@@ -263,23 +263,17 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         }
 
 
-        return "Key: " +
-                "[] = optional data" +
-                ". " +
-                "Some info about a user: " + Arrays.toString(Session.getUserDetails()) +
-                " " +
+        return "Some info about a user: " + Arrays.toString(Session.getUserDetails()) +
+                "\n Some more info: " +
                 equipmentInfo + ". " +
                 injuriesInfo + ". " +
                 mainGoalInfo + ". " +
 
-                "Generate a workout in exact same JSON format of (WorkoutName, WorkoutDuration (in minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), " +
-                "Exercises (ExerciseName, Description, TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps, Time (if exercise isn't rep based, otherwise leave null))). output only the JSON" +
-                ". " +
-                "Some info about the required workout: [" + durationAnswer + "] [" + muscleGroupAnswer + "] [" + difficultyAnswer + "]. " +
-                ". " +
-                additionalInfo + ". " +
+                "\n Generate a workout in the exact JSON format of (WorkoutName, WorkoutDuration (in minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), Illustration (always set to null)" +
+                "Exercises [ExerciseName, Description, TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps (set to null if time-based), Time (set to null if rep-based)]). Output only the JSON." +
 
-                ". " +
+                "Some info about the required workout: [Duration " + durationAnswer + "] [" + muscleGroupAnswer + "] [" + difficultyAnswer + "]. " + additionalInfo + ". " +
+
                 "If you cannot generate a workout or there is not enough info, return (unsure). "
                 + "Do it on one line as a String, only output JSON";
     }

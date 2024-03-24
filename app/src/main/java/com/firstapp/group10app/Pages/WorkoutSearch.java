@@ -45,7 +45,7 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
         else {
             try {
                 String data = DatabaseManager.getInstance().getWorkoutsAsJsonArray(null);
-                ItemVisualiser.startWorkoutGeneration(data, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
+                ItemVisualiser.startWorkoutGeneration(data, this, workoutLayout, "search", R.layout.popup_exercise, R.id.exerciseScrollView);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
@@ -83,7 +83,7 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
 
             customDialog.setFilterChangeListener(this::visualizeWorkoutsWithFilter);
 
-            Objects.requireNonNull(customDialog.getWindow()).setWindowAnimations(R.style.filterAnimations);
+            Objects.requireNonNull(customDialog.getWindow()).setWindowAnimations(R.style.filterAnimationsBottomPart);
 
             customDialog.show();
             Log.d("WorkoutSearch.onClick()", "openFilter clicked");
@@ -128,7 +128,7 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
                 newData = DatabaseManager.getInstance().getWorkoutsAsJsonArray(newFilter);
             }
 
-            ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.activity_exercise_popup, R.id.exerciseScrollView);
+            ItemVisualiser.startWorkoutGeneration(newData, this, workoutLayout, "search", R.layout.popup_exercise, R.id.exerciseScrollView);
 
         } catch (JSONException e) {
             throw new RuntimeException(e);
