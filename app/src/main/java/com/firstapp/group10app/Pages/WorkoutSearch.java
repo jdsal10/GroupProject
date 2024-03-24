@@ -79,7 +79,7 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
             overridePendingTransition(R.anim.slide_up_in, R.anim.slide_up_out);
         } else if (id == R.id.openFilter) {
             // After creating an instance of workout_filter
-            WorkoutFilter customDialog = new WorkoutFilter(this);
+            WorkoutFilter customDialog = new WorkoutFilter(this, difficultyString, durationString, targetString);
 
             customDialog.setFilterChangeListener(this::visualizeWorkoutsWithFilter);
 
@@ -93,6 +93,9 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
     }
 
     public void visualizeWorkoutsWithFilter(String difficulty, String duration, String target) {
+        durationString = duration;
+        difficultyString = difficulty;
+        targetString = target;
         ArrayList<String> toFilter = new ArrayList<>();
         workoutLayout.removeAllViews();
         StringBuilder filter = new StringBuilder();

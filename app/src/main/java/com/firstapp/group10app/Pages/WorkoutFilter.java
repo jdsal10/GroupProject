@@ -20,12 +20,12 @@ public class WorkoutFilter extends AlertDialog implements View.OnClickListener {
     private FilterChangeListener filterChangeListener;
     Context context;
 
-    public WorkoutFilter(Context context) {
+    public WorkoutFilter(Context context, String difficultyValue, String durationValue, String targetValue) {
         super(context);
         this.context = context;
-        this.difficultyValue = "Any";
-        this.durationValue = "Any";
-        this.targetValue = "Any";
+        this.difficultyValue = difficultyValue;
+        this.durationValue = durationValue;
+        this.targetValue = targetValue;
     }
 
     @Override
@@ -73,9 +73,6 @@ public class WorkoutFilter extends AlertDialog implements View.OnClickListener {
         if (window != null) {
             WindowManager.LayoutParams params = window.getAttributes();
             params.gravity = Gravity.BOTTOM;
-            params.width = (getContext().getResources().getDisplayMetrics().widthPixels);
-            params.height = (int) (getContext().getResources().getDisplayMetrics().heightPixels * 0.55);
-            window.setAttributes(params);
         }
 
         Button applyFilter = findViewById(R.id.applyFilter);
@@ -93,7 +90,7 @@ public class WorkoutFilter extends AlertDialog implements View.OnClickListener {
             String durationString = duration.getSelectedItem().toString();
             String difficultyString = difficulty.getSelectedItem().toString();
             String targetMuscleString = target.getSelectedItem().toString();
-
+            System.out.println("Applying filter! Duration: " + durationString + " Difficulty: " + difficultyString + " Target: " + targetMuscleString);
             if (filterChangeListener != null) {
                 filterChangeListener.onFilterChanged(difficultyString, durationString, targetMuscleString);
             }
