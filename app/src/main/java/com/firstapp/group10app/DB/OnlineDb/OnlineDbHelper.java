@@ -214,6 +214,28 @@ public class OnlineDbHelper {
         }
     }
 
+    public static String getUserName(String email) {
+        try {
+            // Create and SQL query
+            String sql = "SELECT PreferredName FROM HealthData.Users WHERE Email = '" +
+                    email +
+                    "';";
+
+            // Execute the SQL query`
+            ResultSet resultSet = OnlineDbConnection.getInstance().executeQuery(sql);
+            if (resultSet.next()) {
+                return resultSet.getString("PreferredName");
+            } else {
+                return "";
+            }
+        } catch (Exception e) {
+            Log.e("OnlineDBHelper.getUserName()", "An error occurred while trying to get the user's name. '' string is returned");
+            Log.e("Error in DBHelper.getUserName()", e.toString());
+
+            return "";
+        }
+    }
+
     /**
      * Checks if a user exists in the database based on their email.
      *

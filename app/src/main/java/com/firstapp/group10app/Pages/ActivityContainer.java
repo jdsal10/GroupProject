@@ -44,6 +44,12 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         Button goSettings = findViewById(R.id.goToSettings);
 
         pageTitle = findViewById(R.id.pageTitle);
+        pageWelcome = findViewById(R.id.pageWelcome);
+
+        new Thread(() -> {
+            Session.setUserName();
+            pageWelcome.setText("Welcome, " + Session.getUserName() + "!");
+        }).start();
 
         // Behaviour if signed in
         if (Session.getSignedIn()) {

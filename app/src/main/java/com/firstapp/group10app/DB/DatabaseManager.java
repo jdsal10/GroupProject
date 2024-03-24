@@ -115,4 +115,12 @@ public class DatabaseManager {
             Log.i("DatabaseManager", "Cannot insert history while anonymous because there is no user");
         }
     }
+
+    public String getUserName(String email) {
+        if (Session.getSignedIn()) {
+            return OnlineDbHelper.getUserName(email);
+        } else {
+            return "Anonymous";
+        }
+    }
 }
