@@ -1,6 +1,7 @@
 package com.firstapp.group10app.DB;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.firstapp.group10app.DB.LocalDb.LocalDbConnection;
 import com.firstapp.group10app.DB.OnlineDb.OnlineDbConnection;
@@ -104,6 +105,14 @@ public class DatabaseManager {
         } catch (UnsupportedOperationException e) {
             // TODO: In the future we might want to handle this exception differently
             e.printStackTrace();
+        }
+    }
+
+    public void insertHistory(int minutes) {
+        if (Session.getSignedIn()) {
+            OnlineDbHelper.insertHistory(minutes);
+        } else {
+            Log.i("DatabaseManager", "Cannot insert history while anonymous because there is no user");
         }
     }
 }
