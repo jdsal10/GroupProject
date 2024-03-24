@@ -53,6 +53,12 @@ public class Home extends Fragment implements View.OnClickListener {
             LinearLayout FullBodyLink = rootView.findViewById(R.id.fullBody);
             FullBodyLink.setOnClickListener(this);
 
+            LinearLayout AbsLink = rootView.findViewById(R.id.abs);
+            AbsLink.setOnClickListener(this);
+
+            LinearLayout ArmsLink = rootView.findViewById(R.id.arms);
+            ArmsLink.setOnClickListener(this);
+
             new Thread(() -> {
                 Session.setOnlineDbStatus(OnlineDbConnection.testConnection());
 
@@ -89,7 +95,19 @@ public class Home extends Fragment implements View.OnClickListener {
             showConfirmationLogout();
         } else if (id == R.id.fullBody) {
             Log.d("Home.onClick()", "fullbody was clicked");
-            tellParentToStartNewActivity(new WorkoutSearch());
+            Intent intent = new Intent(getActivity(), WorkoutSearch.class);
+            intent.putExtra("targetMuscle", "Full-body");
+            startActivity(intent);
+        } else if (id == R.id.abs) {
+            Log.d("Home.onClick()", "fullbody was clicked");
+            Intent intent = new Intent(getActivity(), WorkoutSearch.class);
+            intent.putExtra("targetMuscle", "Abs");
+            startActivity(intent);
+        } else if (id == R.id.arms) {
+            Log.d("Home.onClick()", "fullbody was clicked");
+            Intent intent = new Intent(getActivity(), WorkoutSearch.class);
+            intent.putExtra("targetMuscle", "Arms");
+            startActivity(intent);
         }
     }
 
