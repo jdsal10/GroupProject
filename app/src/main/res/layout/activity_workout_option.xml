@@ -5,7 +5,7 @@
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
     android:orientation="vertical"
-    tools:context=".Pages.Fragments.MainOptions.WorkoutOption">
+    tools:context=".Pages.Fragments.MainOptions.Workout">
 
     <LinearLayout
         android:id="@+id/toggleParent"

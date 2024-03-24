@@ -50,7 +50,7 @@
             android:name=".Pages.Fragments.Settings.SettingsModifyData_Dialog"
             android:exported="false" />
         <activity
-            android:name=".Pages.Fragments.MainOptions.WorkoutOption"
+            android:name=".Pages.Fragments.MainOptions.Workout"
             android:exported="false" />
         <activity
             android:name=".Pages.ExerciseView"

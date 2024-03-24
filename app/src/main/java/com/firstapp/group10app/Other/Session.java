@@ -20,7 +20,7 @@ import org.json.JSONObject;
  * The Session class stores valuable information about the user's session.
  */
 public class Session {
-    private static String userEmail;
+    private static String userEmail, userName;
     private static boolean onlineDbStatus;
     private static boolean internetStatus; // is connected to the internet? true or false
     private static JSONObject selectedWorkout; // It looks like it should be "selectedExercise" instead of "selectedWorkout"
@@ -32,17 +32,20 @@ public class Session {
     // Format for userDetails is [DOB, Weight, Height, Sex, Health Condition, Reason for downloading]
     private static String[] userDetails;
 
-
-    public Session(String userEmail) {
-        Session.setUserEmail(userEmail);
-    }
-
     public static String getUserEmail() {
         return userEmail;
     }
 
     public static void setUserEmail(String userEmail) {
         Session.userEmail = userEmail;
+    }
+
+    public static String getUserName() {
+        return userName;
+    }
+
+    public static void setUserName() {
+        Session.userName = DatabaseManager.getInstance().getUserName(userEmail);
     }
 
     public static boolean getOnlineDbStatus() {
@@ -136,6 +139,7 @@ public class Session {
     private static void clearSessionData() {
         // Clear session data
         userEmail = null;
+        userName = null;
         onlineDbStatus = false;
         selectedWorkout = null;
         signedIn = false;

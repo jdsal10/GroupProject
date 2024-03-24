@@ -19,7 +19,7 @@ import com.firstapp.group10app.Other.FragmentHolderUpdate;
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.History;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.Home;
-import com.firstapp.group10app.Pages.Fragments.MainOptions.WorkoutOption;
+import com.firstapp.group10app.Pages.Fragments.MainOptions.Workout;
 import com.firstapp.group10app.Pages.Fragments.Other.Settings;
 import com.firstapp.group10app.R;
 import com.firstapp.group10app.databinding.ActivityContainerBinding;
@@ -31,7 +31,7 @@ import java.util.Arrays;
 public class ActivityContainer extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, View.OnClickListener {
     // This is a public variable that is used to store the current view.
     public static int currentView;  // 1 = Home, 2 = Workouts, 3 = History; else = no info
-    public static final int HOME = 1, WORKOUTS = 2, HISTORY = 3;
+    public static final int HOME = 1, WORKOUTS = 2, HISTORY = 3, SETTINGS = 4;
     private TextView pageTitle, pageWelcome;
 
     @Override
@@ -44,6 +44,12 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         Button goSettings = findViewById(R.id.goToSettings);
 
         pageTitle = findViewById(R.id.pageTitle);
+        pageWelcome = findViewById(R.id.pageWelcome);
+
+        new Thread(() -> {
+            Session.setUserName();
+            pageWelcome.setText("Welcome, " + Session.getUserName() + "!");
+        }).start();
 
         // Behaviour if signed in
         if (Session.getSignedIn()) {
@@ -64,7 +70,7 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
                 updateView(new Home());
             } else if (currentView == WORKOUTS || currentView == R.layout.activity_workout_option) {
                 bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setChecked(true);
-                updateView(new WorkoutOption());
+                updateView(new Workout());
             } else {
                 bottomNavigationView.getMenu().findItem(R.id.goToSettings).setChecked(true);
                 updateView(new History());
@@ -131,6 +137,12 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.goToSettings) {
+            // Unset selected navigation item
+            BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
+            bottomNavigationView.getMenu().findItem(R.id.invisible).setChecked(false);
+
+            currentView = SETTINGS;
+
             updateView(new Settings());
         }
     }
@@ -140,14 +152,20 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         int id = item.getItemId();
 
         if ((id == R.id.goToHome) && (currentView != 1)) {
-            updateView(new Home(), false);
-            currentView = 1;
+            if (currentView == SETTINGS) updateView(new Home());
+            else updateView(new Home(), false);
+
+            currentView = HOME;
         } else if ((id == R.id.goToWorkouts) && (currentView != 2)) {
-            updateView(new WorkoutOption(), currentView < 2);
-            currentView = 2;
+            if (currentView == SETTINGS) updateView(new Workout());
+            else updateView(new Workout(), currentView < 2);
+
+            currentView = WORKOUTS;
         } else if ((id == R.id.goToHistory) && (currentView != 3)) {
-            updateView(new History(), true);
-            currentView = 3;
+            if (currentView == SETTINGS) updateView(new History());
+            else updateView(new History(), true);
+
+            currentView = HISTORY;
         }
 
         return true;

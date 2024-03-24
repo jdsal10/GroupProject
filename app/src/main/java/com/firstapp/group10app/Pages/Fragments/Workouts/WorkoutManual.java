@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.CreateWorkout;
-import com.firstapp.group10app.Pages.Fragments.MainOptions.WorkoutOption;
+import com.firstapp.group10app.Pages.Fragments.MainOptions.Workout;
 import com.firstapp.group10app.Pages.WorkoutSearch;
 
 import com.firstapp.group10app.R;
@@ -69,7 +69,7 @@ public class WorkoutManual extends Fragment implements View.OnClickListener {
     }
 
     private void tellParentToStartNewActivity(AppCompatActivity newActivity) {
-        WorkoutOption parentFrag = (WorkoutOption) WorkoutManual.this.getParentFragment();
+        Workout parentFrag = (Workout) WorkoutManual.this.getParentFragment();
         if (parentFrag != null) {
             parentFrag.tellParentToStartNewActivity(newActivity, R.anim.slide_down_in, R.anim.slide_down_out);
         } else {
