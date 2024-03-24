@@ -264,13 +264,13 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
 
 
         return "Some info about a user: " + Arrays.toString(Session.getUserDetails()) +
-                "\n Some more info: " +
+                "Some more info: " +
                 equipmentInfo + ". " +
                 injuriesInfo + ". " +
                 mainGoalInfo + ". " +
 
-                "\n Generate a workout in the exact JSON format of (WorkoutName, WorkoutDuration (in minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), Illustration (always set to null)" +
-                "Exercises [ExerciseName, Description, TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps (set to null if time-based), Time (set to null if rep-based)]). Output only the JSON." +
+                "Generate a workout in the exact JSON format of (WorkoutName, WorkoutDuration (in minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), Illustration (always set to null)" +
+                " Exercises (ExerciseName, Description, TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps (set to null if time-based), Time (set to null if rep-based))). Output only the JSON." +
 
                 "Some info about the required workout: [Duration " + durationAnswer + "] [" + muscleGroupAnswer + "] [" + difficultyAnswer + "]. " + additionalInfo + ". " +
 
