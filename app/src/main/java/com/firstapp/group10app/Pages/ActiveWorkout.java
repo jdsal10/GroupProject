@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.firstapp.group10app.DB.DatabaseManager;
 import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
 import com.firstapp.group10app.Other.ActiveExerciseUpdate;
 import com.firstapp.group10app.Other.Session;
@@ -235,7 +236,7 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
 
                 finish.setOnClickListener(v12 -> {
                     int minutes = (time % 3600) / 60;
-                    OnlineDbHelper.insertHistory(minutes);
+                    DatabaseManager.getInstance().insertHistory(minutes);
                     alertDialog.dismiss();
                     startActivity(new Intent(this, ActivityContainer.class));
                 });
