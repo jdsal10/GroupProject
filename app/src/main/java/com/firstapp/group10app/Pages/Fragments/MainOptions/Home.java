@@ -121,7 +121,7 @@ public class Home extends Fragment implements View.OnClickListener {
     }
 
     public void tellParentToStartNewActivity(AppCompatActivity newActivity) {
-        WorkoutOption parentFrag = (WorkoutOption) Home.this.getParentFragment();
+        Workout parentFrag = (Workout) Home.this.getParentFragment();
         if (parentFrag != null) {
             parentFrag.tellParentToStartNewActivity(newActivity, R.anim.slide_down_in, R.anim.slide_down_out);
         } else {

@@ -21,8 +21,8 @@ import com.firstapp.group10app.Pages.Fragments.Workouts.WorkoutAi2;
 import com.firstapp.group10app.Pages.Fragments.Workouts.WorkoutManual;
 import com.firstapp.group10app.R;
 
-public class WorkoutOption extends Fragment implements CompoundButton.OnCheckedChangeListener {
-    public WorkoutOption() {
+public class Workout extends Fragment implements CompoundButton.OnCheckedChangeListener {
+    public Workout() {
         super(R.layout.activity_workout_option);
     }
 

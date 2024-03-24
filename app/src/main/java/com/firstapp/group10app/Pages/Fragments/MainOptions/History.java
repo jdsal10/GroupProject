@@ -100,7 +100,7 @@ public class History extends Fragment implements View.OnClickListener {
     }
 
     public void startNewActivityOnHistory(AppCompatActivity newActivity) {
-        WorkoutOption parentFrag = ((WorkoutOption) History.this.getParentFragment());
+        Workout parentFrag = ((Workout) History.this.getParentFragment());
         if (parentFrag != null) {
             parentFrag.tellParentToStartNewActivity(newActivity, R.anim.slide_down_in, R.anim.slide_down_out);
         } else {
