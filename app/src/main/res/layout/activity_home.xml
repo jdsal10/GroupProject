@@ -143,7 +143,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/stepcounter_sym">
+                    android:src="@drawable/icon_stepcounter">
                 </ImageView>
             </LinearLayout>
             <LinearLayout
