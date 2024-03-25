@@ -171,52 +171,11 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     }
 
     public void populateSpinners() {
-        // POPULATE DURATION SPINNER
-        ArrayList<String> muscleGroupList = new ArrayList<>();
-        ArrayList<String> durationList = new ArrayList<>();
-        ArrayList<String> difficultyList = new ArrayList<>();
-
         muscleGroupSpinner = findViewById(R.id.muscleGroupSpinner);
         durationSpinner = findViewById(R.id.durationSpinner);
         difficultySpinner = findViewById(R.id.difficultySpinner);
-        insertIntoSpinners(muscleGroupList, durationList, difficultyList);
-
-//        muscleGroupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-//                adapterView.getItemAtPosition(position);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//            }
-//        });
-//
-//        durationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-//                adapterView.getItemAtPosition(position);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//            }
-//        });
-//
-//        difficultySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-//                adapterView.getItemAtPosition(position);
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//            }
-//        });
 
         // Set values for difficultly.
-        difficultySpinner = findViewById(R.id.difficultyInput);
         ArrayAdapter<CharSequence> adapterDifficulty = ArrayAdapter.createFromResource(
                 this,
                 R.array.difficulty,
@@ -227,7 +186,6 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         difficultySpinner.setAdapter(adapterDifficulty);
         difficultySpinner.setSelection(0);
 
-        durationSpinner = findViewById(R.id.durationInput);
         ArrayAdapter<CharSequence> adapterDuration = ArrayAdapter.createFromResource(
                 this,
                 R.array.duration,
@@ -239,7 +197,6 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         durationSpinner.setSelection(0);
 
         // Set values for muscle target.
-        muscleGroupSpinner = findViewById(R.id.targetMuscleInput);
         ArrayAdapter<CharSequence> adapterTarget = ArrayAdapter.createFromResource(
                 this,
                 R.array.targetMuscleGroup,
@@ -249,24 +206,6 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         adapterTarget.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         muscleGroupSpinner.setAdapter(adapterTarget);
         muscleGroupSpinner.setSelection(0);
-    }
-
-    public void insertIntoSpinners(ArrayList<String> muscleList, ArrayList<String> durationList, ArrayList<String> difficultyList) {
-        muscleList.add("Abs");
-        muscleList.add("Back");
-        muscleList.add("Upper Body");
-        muscleList.add("Lower Body");
-
-        durationList.add("20 min");
-        durationList.add("40 min");
-        durationList.add("1h");
-        durationList.add("1h 20 min");
-        durationList.add("1h 40 min");
-        durationList.add("2h");
-
-        difficultyList.add("Easy");
-        difficultyList.add("Medium");
-        difficultyList.add("Hard");
     }
 
     public String fillGptInput() {
