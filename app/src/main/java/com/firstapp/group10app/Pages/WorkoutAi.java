@@ -1,5 +1,7 @@
 package com.firstapp.group10app.Pages;
 
+import static java.security.AccessController.getContext;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -179,54 +181,74 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         difficultySpinner = findViewById(R.id.difficultySpinner);
         insertIntoSpinners(muscleGroupList, durationList, difficultyList);
 
-        muscleGroupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                adapterView.getItemAtPosition(position);
-            }
+//        muscleGroupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+//                adapterView.getItemAtPosition(position);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        });
+//
+//        durationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+//                adapterView.getItemAtPosition(position);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        });
+//
+//        difficultySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+//                adapterView.getItemAtPosition(position);
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        });
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+        // Set values for difficultly.
+        difficultySpinner = findViewById(R.id.difficultyInput);
+        ArrayAdapter<CharSequence> adapterDifficulty = ArrayAdapter.createFromResource(
+                this,
+                R.array.difficulty,
+                android.R.layout.simple_spinner_item
+        );
 
-        durationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                adapterView.getItemAtPosition(position);
-            }
+        adapterDifficulty.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        difficultySpinner.setAdapter(adapterDifficulty);
+        difficultySpinner.setSelection(0);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+        durationSpinner = findViewById(R.id.durationInput);
+        ArrayAdapter<CharSequence> adapterDuration = ArrayAdapter.createFromResource(
+                this,
+                R.array.duration,
+                android.R.layout.simple_spinner_item
+        );
 
-        difficultySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                adapterView.getItemAtPosition(position);
+        adapterDuration.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        durationSpinner.setAdapter(adapterDuration);
+        durationSpinner.setSelection(0);
 
-            }
+        // Set values for muscle target.
+        muscleGroupSpinner = findViewById(R.id.targetMuscleInput);
+        ArrayAdapter<CharSequence> adapterTarget = ArrayAdapter.createFromResource(
+                this,
+                R.array.targetMuscleGroup,
+                android.R.layout.simple_spinner_item
+        );
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        ArrayAdapter<String> muscleGroupAdapter =
-                new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, muscleGroupList);
-        muscleGroupAdapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-        muscleGroupSpinner.setAdapter(muscleGroupAdapter);
-
-        ArrayAdapter<String> durationAdapter =
-                new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, durationList);
-        durationAdapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-        durationSpinner.setAdapter(durationAdapter);
-
-        ArrayAdapter<String> difficultyAdapter =
-                new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, difficultyList);
-        difficultyAdapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-        difficultySpinner.setAdapter(difficultyAdapter);
+        adapterTarget.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        muscleGroupSpinner.setAdapter(adapterTarget);
+        muscleGroupSpinner.setSelection(0);
     }
 
     public void insertIntoSpinners(ArrayList<String> muscleList, ArrayList<String> durationList, ArrayList<String> difficultyList) {
@@ -270,7 +292,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                 mainGoalInfo + ". " +
 
                 "Generate a workout in the exact JSON format of (WorkoutName, WorkoutDuration (in minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), Illustration (always set to null)" +
-                " Exercises (ExerciseName, Description, TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps (set to null if time-based), Time (set to null if rep-based))). Output only the JSON." +
+                "Exercises (ExerciseName, Description, Illustration (always set as null), TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps (set to null if time-based), Time (set to null if rep-based))). Output only the JSON." +
 
                 "Some info about the required workout: [Duration " + durationAnswer + "] [" + muscleGroupAnswer + "] [" + difficultyAnswer + "]. " + additionalInfo + ". " +
 
