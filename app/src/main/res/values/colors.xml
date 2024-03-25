@@ -59,4 +59,5 @@
     <!-- Bright colors -->
     <color name="bright_yellow">#FFD700</color>
     <color name="bright_orange">#FFA500</color>
+    <color name="bright_blue">#0096FF</color>
 </resources>
