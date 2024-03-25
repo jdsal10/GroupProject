@@ -22,17 +22,17 @@ public class Settings extends Fragment implements View.OnClickListener {
 
     public Settings() {
         super(R.layout.activity_settings);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         // Behaviour when the user is anonymous
         if (!Session.getSignedIn()) {
             Log.d("Settings.java", "User is not signed in. This page should not be accessible.");
             tellParentToFinish();
         }
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
