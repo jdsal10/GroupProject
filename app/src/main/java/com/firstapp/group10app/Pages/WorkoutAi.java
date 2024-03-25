@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.ChatGPT.ChatGptClient;
@@ -30,6 +31,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class WorkoutAi extends AppCompatActivity implements View.OnClickListener {
     private LinearLayout page1, page2;
@@ -114,44 +116,51 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             String input = fillGptInput();
             Toast.makeText(WorkoutAi.this, "Generating...", Toast.LENGTH_SHORT).show();
 
-            Runnable task = () -> {
-                try {
-                    output3 = (ChatGptClient.chatGPT(input)); // This is a test to see if the chatGPT function works.
-                    output3 = output3.replaceAll("\\\\", "");
-
-                    // Show loading animation
-                    performAnimation(loadingAnimation, View.VISIBLE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            };
-
-            Thread newThread = new Thread(task);
-            newThread.start();
+            Thread newThread = getThread(input);
 
             try {
                 newThread.join();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
-            // Adds the workout to the Database.
-            try {
-                addWorkout(output3);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-
-            // Adds shows the generated workout to the user.
-            try {
-                // Hide the animation.
-                performAnimation(loadingAnimation, View.GONE);
-                showWorkout(output3);
+            Log.d("WorkoutAI", "Output: " + output3);
+            if (output3.contains("unsure\"")) {
+                Toast.makeText(WorkoutAi.this, "Not enough information to generate a workout. Please try again.", Toast.LENGTH_SHORT).show();
+                page1.setVisibility(View.VISIBLE);
+                page2.setVisibility(View.GONE);
+                page3.setVisibility(View.GONE);
+                continueButton.setVisibility(View.VISIBLE);
+                generateButton.setVisibility(View.GONE);
+            } else {
+                try{
+                // Show the workout to the user.
+                 showWorkout(output3);
                 beginWorkoutButton.setVisibility(View.VISIBLE);
-            } catch (JSONException e) {
+                addWorkout(output3);
+            } catch(JSONException e){
                 throw new RuntimeException(e);
             }
         }
+        }
+    }
+
+    @NonNull
+    private Thread getThread(String input) {
+        Runnable task = () -> {
+            try {
+                output3 = (ChatGptClient.chatGPT(input)); // This is a test to see if the chatGPT function works.
+                output3 = output3.replace("\\n", "");
+                output3 = output3.replace("\\", "");
+                // Show loading animation
+                performAnimation(loadingAnimation, View.VISIBLE);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+
+        Thread newThread = new Thread(task);
+        newThread.start();
+        return newThread;
     }
 
     // Adds a workout to the database once the user confirms.
@@ -235,8 +244,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
 
                 "Some info about the required workout: [Duration " + durationAnswer + "] [" + muscleGroupAnswer + "] [" + difficultyAnswer + "]. " + additionalInfo + ". " +
 
-                "If you cannot generate a workout or there is not enough info, return (unsure). "
-                + "Do it on one line as a String, only output JSON";
+                "If you cannot generate a workout or there is not enough info, return only the word unsure. Do it on one line as a String, only output JSON";
     }
 
     public void performAnimation(View v, int visibility) {
