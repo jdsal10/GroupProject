@@ -35,4 +35,7 @@
     <!-- Bright colors -->
     <color name="bright_yellow">#FFFF00</color>
     <color name="bright_orange">#FFA500</color>
+    <color name="bright_blue">#0096FF</color>
+    <color name="bright_green">#32CD30</color>
+    <color name="bright_purple">#a020f0</color>
 </resources>
