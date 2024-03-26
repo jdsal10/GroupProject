@@ -44,7 +44,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/workouts_sym">
+                    android:src="@drawable/icon_workouts">
 
                 </ImageView>
 
@@ -72,7 +72,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/kcal_sym">
+                    android:src="@drawable/icon_kcal">
 
                 </ImageView>
 
@@ -100,7 +100,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/time_sym">
+                    android:src="@drawable/icon_time">
 
                 </ImageView>
 
@@ -143,7 +143,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/stepcounter_sym">
+                    android:src="@drawable/icon_stepcounter">
                 </ImageView>
             </LinearLayout>
             <LinearLayout

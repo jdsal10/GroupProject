@@ -44,8 +44,8 @@
 
         <Button
             android:id="@+id/goToSettings"
-            android:layout_width="@dimen/settings_icon_width_height"
-            android:layout_height="@dimen/settings_icon_width_height"
+            android:layout_width="@dimen/icon_width_height_settings"
+            android:layout_height="@dimen/icon_width_height_settings"
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin_small"
             android:background="@drawable/icon_settings"

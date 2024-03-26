@@ -1,5 +1,7 @@
 package com.firstapp.group10app.Pages;
 
+import static java.security.AccessController.getContext;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.ChatGPT.ChatGptClient;
@@ -28,6 +31,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class WorkoutAi extends AppCompatActivity implements View.OnClickListener {
     private LinearLayout page1, page2;
@@ -112,44 +116,51 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             String input = fillGptInput();
             Toast.makeText(WorkoutAi.this, "Generating...", Toast.LENGTH_SHORT).show();
 
-            Runnable task = () -> {
-                try {
-                    output3 = (ChatGptClient.chatGPT(input)); // This is a test to see if the chatGPT function works.
-                    output3 = output3.replaceAll("\\\\", "");
-
-                    // Show loading animation
-                    performAnimation(loadingAnimation, View.VISIBLE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            };
-
-            Thread newThread = new Thread(task);
-            newThread.start();
+            Thread newThread = getThread(input);
 
             try {
                 newThread.join();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
-            // Adds the workout to the Database.
-            try {
-                addWorkout(output3);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-
-            // Adds shows the generated workout to the user.
-            try {
-                // Hide the animation.
-                performAnimation(loadingAnimation, View.GONE);
-                showWorkout(output3);
+            Log.d("WorkoutAI", "Output: " + output3);
+            if (output3.contains("unsure\"")) {
+                Toast.makeText(WorkoutAi.this, "Not enough information to generate a workout. Please try again.", Toast.LENGTH_SHORT).show();
+                page1.setVisibility(View.VISIBLE);
+                page2.setVisibility(View.GONE);
+                page3.setVisibility(View.GONE);
+                continueButton.setVisibility(View.VISIBLE);
+                generateButton.setVisibility(View.GONE);
+            } else {
+                try{
+                // Show the workout to the user.
+                 showWorkout(output3);
                 beginWorkoutButton.setVisibility(View.VISIBLE);
-            } catch (JSONException e) {
+                addWorkout(output3);
+            } catch(JSONException e){
                 throw new RuntimeException(e);
             }
         }
+        }
+    }
+
+    @NonNull
+    private Thread getThread(String input) {
+        Runnable task = () -> {
+            try {
+                output3 = (ChatGptClient.chatGPT(input)); // This is a test to see if the chatGPT function works.
+                output3 = output3.replace("\\n", "");
+                output3 = output3.replace("\\", "");
+                // Show loading animation
+                performAnimation(loadingAnimation, View.VISIBLE);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+
+        Thread newThread = new Thread(task);
+        newThread.start();
+        return newThread;
     }
 
     // Adds a workout to the database once the user confirms.
@@ -169,82 +180,41 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     }
 
     public void populateSpinners() {
-        // POPULATE DURATION SPINNER
-        ArrayList<String> muscleGroupList = new ArrayList<>();
-        ArrayList<String> durationList = new ArrayList<>();
-        ArrayList<String> difficultyList = new ArrayList<>();
-
         muscleGroupSpinner = findViewById(R.id.muscleGroupSpinner);
         durationSpinner = findViewById(R.id.durationSpinner);
         difficultySpinner = findViewById(R.id.difficultySpinner);
-        insertIntoSpinners(muscleGroupList, durationList, difficultyList);
 
-        muscleGroupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                adapterView.getItemAtPosition(position);
-            }
+        // Set values for difficultly.
+        ArrayAdapter<CharSequence> adapterDifficulty = ArrayAdapter.createFromResource(
+                this,
+                R.array.difficulty,
+                android.R.layout.simple_spinner_item
+        );
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+        adapterDifficulty.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        difficultySpinner.setAdapter(adapterDifficulty);
+        difficultySpinner.setSelection(0);
 
-        durationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                adapterView.getItemAtPosition(position);
-            }
+        ArrayAdapter<CharSequence> adapterDuration = ArrayAdapter.createFromResource(
+                this,
+                R.array.duration,
+                android.R.layout.simple_spinner_item
+        );
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+        adapterDuration.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        durationSpinner.setAdapter(adapterDuration);
+        durationSpinner.setSelection(0);
 
-        difficultySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                adapterView.getItemAtPosition(position);
+        // Set values for muscle target.
+        ArrayAdapter<CharSequence> adapterTarget = ArrayAdapter.createFromResource(
+                this,
+                R.array.targetMuscleGroup,
+                android.R.layout.simple_spinner_item
+        );
 
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        ArrayAdapter<String> muscleGroupAdapter =
-                new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, muscleGroupList);
-        muscleGroupAdapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-        muscleGroupSpinner.setAdapter(muscleGroupAdapter);
-
-        ArrayAdapter<String> durationAdapter =
-                new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, durationList);
-        durationAdapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-        durationSpinner.setAdapter(durationAdapter);
-
-        ArrayAdapter<String> difficultyAdapter =
-                new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, difficultyList);
-        difficultyAdapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-        difficultySpinner.setAdapter(difficultyAdapter);
-    }
-
-    public void insertIntoSpinners(ArrayList<String> muscleList, ArrayList<String> durationList, ArrayList<String> difficultyList) {
-        muscleList.add("Abs");
-        muscleList.add("Back");
-        muscleList.add("Upper Body");
-        muscleList.add("Lower Body");
-
-        durationList.add("20 min");
-        durationList.add("40 min");
-        durationList.add("1h");
-        durationList.add("1h 20 min");
-        durationList.add("1h 40 min");
-        durationList.add("2h");
-
-        difficultyList.add("Easy");
-        difficultyList.add("Medium");
-        difficultyList.add("Hard");
+        adapterTarget.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        muscleGroupSpinner.setAdapter(adapterTarget);
+        muscleGroupSpinner.setSelection(0);
     }
 
     public String fillGptInput() {
@@ -270,12 +240,11 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                 mainGoalInfo + ". " +
 
                 "Generate a workout in the exact JSON format of (WorkoutName, WorkoutDuration (in minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), Illustration (always set to null)" +
-                " Exercises (ExerciseName, Description, TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps (set to null if time-based), Time (set to null if rep-based))). Output only the JSON." +
+                "Exercises (ExerciseName, Description, Illustration (always set as null), TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps (set to null if time-based), Time (set to null if rep-based))). Output only the JSON." +
 
                 "Some info about the required workout: [Duration " + durationAnswer + "] [" + muscleGroupAnswer + "] [" + difficultyAnswer + "]. " + additionalInfo + ". " +
 
-                "If you cannot generate a workout or there is not enough info, return (unsure). "
-                + "Do it on one line as a String, only output JSON";
+                "If you cannot generate a workout or there is not enough info, return only the word unsure. Do it on one line as a String, only output JSON";
     }
 
     public void performAnimation(View v, int visibility) {

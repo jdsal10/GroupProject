@@ -20,7 +20,7 @@
             android:foregroundGravity="top"
             android:paddingLeft="-75dp"
             android:paddingRight="-75dp"
-            android:src="@drawable/welcome_circle" />
+            android:src="@drawable/circle_welcome" />
 
         <ImageView
             android:layout_width="@dimen/logo_width_height"

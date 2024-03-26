@@ -71,21 +71,24 @@ public class EnhanceInput extends Dialog implements View.OnClickListener {
                     newThread.join();
                     result = result.replaceAll("\\\\n", "").replaceAll("\\\\", "");
                     System.out.println("Result " + result);
+//                    if (result.equals("unsure")) {
+//                        Toast.makeText(getContext(), "I'm not sure what you mean. Please try again.", Toast.LENGTH_SHORT).show();
+//                    } else {
+                        try {
+                            Session.setSelectedWorkout(new JSONObject(result));
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                        this.hide();
+                        // Show view with new workout - continues in that file
+                        EnhanceResults enhance2 = new EnhanceResults(getContext());
+                        enhance2.show();
+//                    }
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
-                }
 
-//                 Update Session with new workout
-                try {
-                    Session.setSelectedWorkout(new JSONObject(result));
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
                 }
-
-                this.hide();
-                // Show view with new workout - continues in that file
-                EnhanceResults enhance2 = new EnhanceResults(getContext());
-                enhance2.show();
             }
         }
     }
