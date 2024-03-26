@@ -212,9 +212,9 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/baseline_android_24">
+                    android:layout_width="150dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/full">
                 </ImageView>
             </LinearLayout>
             <LinearLayout
@@ -248,9 +248,9 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/baseline_android_24">
+                    android:layout_width="150dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/abs">
                 </ImageView>
             </LinearLayout>
             <LinearLayout
@@ -285,9 +285,9 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/baseline_android_24">
+                    android:layout_width="150dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/armspic">
                 </ImageView>
             </LinearLayout>
             <LinearLayout
