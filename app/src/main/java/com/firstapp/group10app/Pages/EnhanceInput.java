@@ -59,7 +59,8 @@ public class EnhanceInput extends Dialog implements View.OnClickListener {
                 // Add code to generate workout using Session.currentWorkout and new prompt.
                 String workoutString = Session.getSelectedWorkout().toString();
                 workoutString = workoutString.replace("\"", "\\\"");
-                String prompt = "Given the following workout: " + workoutString + ", apply the following update to the data, only returning the JSON, and in the exact format: " + enhanceData + ". Include values for all fields, but set time to null if it is rep, and vice versa. ExerciseID and WorkoutID are not needed.";
+                String prompt = "Given the following workout: " + workoutString + ", apply the following update to the data, only returning the JSON, and in the exact format: " + enhanceData + ". Include values for all fields, but set time to null if it is rep, and vice versa. ExerciseID and WorkoutID are not needed."
+                        + " If you are unsure, please type unsure.";
                 System.out.println(prompt);
 
                 Toast.makeText(getContext(), "Generating...", Toast.LENGTH_SHORT).show();
@@ -71,9 +72,9 @@ public class EnhanceInput extends Dialog implements View.OnClickListener {
                     newThread.join();
                     result = result.replaceAll("\\\\n", "").replaceAll("\\\\", "");
                     System.out.println("Result " + result);
-//                    if (result.equals("unsure")) {
-//                        Toast.makeText(getContext(), "I'm not sure what you mean. Please try again.", Toast.LENGTH_SHORT).show();
-//                    } else {
+                    if (result.startsWith("unsure") || !result.contains("\"WorkoutName\"")) {
+                        Toast.makeText(getContext(), "I'm not sure what you mean. Please try again.", Toast.LENGTH_SHORT).show();
+                    } else {
                         try {
                             Session.setSelectedWorkout(new JSONObject(result));
                         } catch (JSONException e) {
@@ -84,7 +85,7 @@ public class EnhanceInput extends Dialog implements View.OnClickListener {
                         // Show view with new workout - continues in that file
                         EnhanceResults enhance2 = new EnhanceResults(getContext());
                         enhance2.show();
-//                    }
+                    }
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
 

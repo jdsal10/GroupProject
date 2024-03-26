@@ -124,7 +124,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                 throw new RuntimeException(e);
             }
             Log.d("WorkoutAI", "Output: " + output3);
-            if (output3.contains("unsure\"")) {
+            if (!output3.contains("\"WorkoutName\"") || output3.startsWith("unsure")) {
                 Toast.makeText(WorkoutAi.this, "Not enough information to generate a workout. Please try again.", Toast.LENGTH_SHORT).show();
                 page1.setVisibility(View.VISIBLE);
                 page2.setVisibility(View.GONE);
@@ -239,12 +239,13 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                 injuriesInfo + ". " +
                 mainGoalInfo + ". " +
 
-                "Generate a workout in the exact JSON format of (WorkoutName, WorkoutDuration (in minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), Illustration (always set to null)" +
-                "Exercises (ExerciseName, Description, Illustration (always set as null), TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps (set to null if time-based), Time (set to null if rep-based))). Output only the JSON." +
+                "Generate a workout in the exact JSON format of (WorkoutName, WorkoutDuration (only a number, representing minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), Illustration (always set to null)" +
+                "Exercises (ExerciseName, Description, Illustration (always set as null), TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps (set to null if time-based), Time (set to null if rep-based))). "
+                + "Output only the JSON and everything must have a value unless specified ." +
 
                 "Some info about the required workout: [Duration " + durationAnswer + "] [" + muscleGroupAnswer + "] [" + difficultyAnswer + "]. " + additionalInfo + ". " +
 
-                "If you cannot generate a workout or there is not enough info, return only the word unsure. Do it on one line as a String, only output JSON";
+                "If you cannot generate a workout as the info given is not relevant or there is not enough info, return only the word unsure. Do it on one line as a String, only output JSON";
     }
 
     public void performAnimation(View v, int visibility) {
