@@ -8,14 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import androidx.activity.EdgeToEdge;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -33,6 +26,12 @@ import com.firstapp.group10app.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ActiveWorkout extends AppCompatActivity implements View.OnClickListener {
     TextView timerText;
@@ -103,14 +102,21 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
 
                 JSONObject exercise = exerciseArray.getJSONObject(i);
 
+                // Handles the case where there is no illustration. (There was a crash in CreateWorkout)
+                String illustration;
+                try {
+                    illustration = "viz_" + exercise.getString("Illustration");
+                } catch (Exception e) {
+                    illustration = null;
+                }
+
                 exerciseData = ActiveExerciseUpdate.newInstance(
                         exercise.getString("ExerciseName"),
                         exercise.getString("Description"),
                         exercise.getString("Sets"),
                         exercise.getString("Reps"),
                         exercise.getString("Time"),
-                        exercise.getString("Illustration")
-                );
+                        illustration);
 
                 fragmentList.add(exerciseData);
 

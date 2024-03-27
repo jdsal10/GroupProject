@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 import com.firstapp.group10app.R;
 
 public class ActiveExerciseUpdate extends Fragment {
-    private String exerciseName, description, sets, reps, time, image;
+    private String exerciseName, description, sets, reps, time, illustration;
 
     public ActiveExerciseUpdate() {
     }
@@ -44,7 +44,7 @@ public class ActiveExerciseUpdate extends Fragment {
             sets = getArguments().getString("sets");
             reps = getArguments().getString("reps");
             time = getArguments().getString("time");
-            image = getArguments().getString("image");
+            illustration = getArguments().getString("image");
         }
     }
 
@@ -58,7 +58,14 @@ public class ActiveExerciseUpdate extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ImageView diagram = view.findViewById(R.id.exerciseImage);
 
-        int resourceId = getResources().getIdentifier(image.replace(".png", ""), "drawable", "com.firstapp.group10app");
+        int resourceId;
+
+        // This is a security measure to prevent the app from crashing if the image is not found
+        try {
+            resourceId = getResources().getIdentifier(illustration.replace(".png", ""), "drawable", "com.firstapp.group10app");
+        } catch (Exception e) {
+            resourceId = 0;
+        }
 
         if (resourceId != 0) {
             diagram.setImageResource(resourceId);
