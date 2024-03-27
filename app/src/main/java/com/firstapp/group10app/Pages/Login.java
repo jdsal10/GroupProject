@@ -93,10 +93,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             Session.getUserDetails()[1] = data.getString("Weight");
             Session.getUserDetails()[2] = data.getString("Height");
 
-            if (data.getString("Sex").equals("M")) {
-                Session.getUserDetails()[3] = "Male";
-            } else if (data.getString("Sex").equals("F")) {
-                Session.getUserDetails()[3] = "Female";
+            if (data.getString("Sex") != null)
+            {
+                if (data.getString("Sex").equals("M")) {
+                    Session.getUserDetails()[3] = "Male";
+                } else if (data.getString("Sex").equals("F")) {
+                    Session.getUserDetails()[3] = "Female";
+                }
             }
 
             Session.getUserDetails()[4] = data.getString("HealthCondition");
