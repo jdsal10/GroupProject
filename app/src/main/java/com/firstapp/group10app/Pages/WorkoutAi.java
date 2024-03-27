@@ -1,12 +1,9 @@
 package com.firstapp.group10app.Pages;
 
-import static java.security.AccessController.getContext;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,9 +26,7 @@ import com.firstapp.group10app.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
 
 public class WorkoutAi extends AppCompatActivity implements View.OnClickListener {
     private LinearLayout page1, page2;
@@ -132,15 +127,15 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                 continueButton.setVisibility(View.VISIBLE);
                 generateButton.setVisibility(View.GONE);
             } else {
-                try{
-                // Show the workout to the user.
-                 showWorkout(output3);
-                beginWorkoutButton.setVisibility(View.VISIBLE);
-                addWorkout(output3);
-            } catch(JSONException e){
-                throw new RuntimeException(e);
+                try {
+                    // Show the workout to the user.
+                    showWorkout(output3);
+                    beginWorkoutButton.setVisibility(View.VISIBLE);
+                    addWorkout(output3);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             }
-        }
         }
     }
 
@@ -241,7 +236,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
 
                 "Generate a workout in the exact JSON format of (WorkoutName, WorkoutDuration (only a number, representing minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), Illustration (always set to null)" +
                 "Exercises (ExerciseName, Description, Illustration (always set as null), TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps (set to null if time-based), Time (set to null if rep-based))). "
-                + "Output only the JSON and everything must have a value unless specified ." +
+                + "Output only the JSON and everything must have a value unless specified. Do not use the apostrophe (') symbol" +
 
                 "Some info about the required workout: [Duration " + durationAnswer + "] [" + muscleGroupAnswer + "] [" + difficultyAnswer + "]. " + additionalInfo + ". " +
 
