@@ -46,9 +46,13 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         pageTitle = findViewById(R.id.pageTitle);
         pageWelcome = findViewById(R.id.pageWelcome);
 
+        // Set the welcome message in the header
         new Thread(() -> {
             Session.setUserName();
-            pageWelcome.setText("Welcome, " + Session.getUserName() + "!");
+
+            if (Session.getUserName() != null) {
+                pageWelcome.setText("Welcome, " + Session.getUserName() + "!");
+            }
         }).start();
 
         // Behaviour if signed in
