@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
     tools:context=".Pages.MainActivity">
 
     <FrameLayout
@@ -38,12 +39,23 @@
             android:src="@drawable/icon_app_logo_new" />
     </FrameLayout>
 
+    <TextView
+        android:id="@+id/quote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_large"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:layout_weight="0.2"
+        android:gravity="center_horizontal"
+        android:text="PLACEHOLDER" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_default"
         android:layout_marginEnd="@dimen/margin_default"
-        android:layout_weight="2"
+        android:layout_weight="1.5"
         android:gravity="center"
         android:orientation="vertical">
 

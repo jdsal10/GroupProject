@@ -14,7 +14,7 @@
     <!-- Login Page Values -->
     <string name="forgotPassword">Forgot your password?</string>
     <string name="register">Need an account? Register</string>
-    <string name="loginAnonymous">Want to be be anonymous? Click here</string>
+    <string name="loginAnonymous">Want to be anonymous? Click here</string>
     <string name="loginTitle">Login</string>
     <string name="loginUsername">Username</string>
     <string name="loginPassword">Password</string>
@@ -91,32 +91,33 @@
 
     <!--    Settings - Data Control-->
     <string-array name="weightUnits">
-        <item />
+        <item>""</item>
         <item>kg</item>
         <item>lbs</item>
     </string-array>
 
     <string-array name="heightUnits">
-        <item />
+        <item>""</item>
         <item>cm</item>
         <item>inch</item>
     </string-array>
 
     <string-array name="sex">
-        <item />
+        <item>""</item>
         <item>M</item>
         <item>F</item>
         <item>O</item>
     </string-array>
 
     <string-array name="reasons">
-        <item />
+        <item>""</item>
         <item>I want to lose weight</item>
         <item>I want to gain weight</item>
         <item>I want to maintain my weight</item>
-
-        <item name="updateAllValues">Update all values</item>
     </string-array>
+
+    <string name="updateAllValues">Update all values</string>
+
 
     <!-- Settings - Account Control-->
     <string name="changePasswordTitle">Change Password</string>
@@ -269,4 +270,32 @@ with your account and we will send you an email with further instructions.</stri
     <!-- Common Values -->
     <string name="cancel_button">Cancel</string>
     <string name="continue_button">Continue</string>
+
+    <string-array name="motivational_quotes">
+        <item>The only way to achieve the impossible is to believe it is possible.</item>
+        <item>Dont watch the clock; do what it does. Keep going.</item>
+        <item>The future depends on what you do today.</item>
+        <item>Believe you can and youre halfway there.</item>
+        <item>Dont wait for opportunity. Create it.</item>
+        <item>Success is not the key to happiness. Happiness is the key to success.</item>
+        <item>The secret of getting ahead is getting started.</item>
+        <item>The harder you work for something, the greater youll feel when you achieve it.</item>
+        <item>Dream bigger. Do bigger.</item>
+        <item>Dont stop when youre tired. Stop when youre done.</item>
+        <item>Wake up with determination. Go to bed with satisfaction.</item>
+        <item>Do something today that your future self will thank you for.</item>
+        <item>Little things make big days.</item>
+        <item>Its going to be hard, but hard does not mean impossible.</item>
+        <item>Dream it. Believe it. Build it.</item>
+        <item>Dont wait. The time will never be just right.</item>
+        <item>Success usually comes to those who are too busy to be looking for it.</item>
+        <item>The only place where success comes before work is in the dictionary.</item>
+        <item>The only limit to our realization of tomorrow will be our doubts of today.</item>
+        <item>The way to get started is to quit talking and begin doing.</item>
+        <item>If you can dream it, you can do it.</item>
+        <item>The purpose of our lives is to be happy.</item>
+        <item>Life is what happens when youre busy making other plans.</item>
+        <item>Get busy living or get busy dying.</item>
+        <item>Many of lifes failures are people who did not realize how close they were to success when they gave up.</item>
+    </string-array>
 </resources>

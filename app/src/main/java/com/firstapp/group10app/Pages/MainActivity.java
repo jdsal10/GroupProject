@@ -2,6 +2,7 @@ package com.firstapp.group10app.Pages;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -63,6 +64,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Default value.
         Session.setSignedIn(false);
+
+        String[] quotes = getResources().getStringArray(R.array.motivational_quotes);
+        int randomQuoteIndex = (int) (Math.random() * quotes.length);
+        TextView quote = findViewById(R.id.quote);
+        quote.setText(quotes[randomQuoteIndex]);
+        quote.setTypeface(null, Typeface.ITALIC);
 
         // Start the periodic internet check
         handler.post(internetCheckRunnable);
