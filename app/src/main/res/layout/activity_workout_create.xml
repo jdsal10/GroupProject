@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/margin_default"
+    android:layout_marginEnd="@dimen/margin_default"
     android:orientation="vertical"
     tools:context=".Pages.CreateWorkout">
 
@@ -26,8 +28,6 @@
         android:id="@+id/page1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_weight="5"
         android:gravity="center"
         android:orientation="vertical">
@@ -76,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_default"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/margin_small"
             android:orientation="horizontal">
 
             <TextView
@@ -109,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_default"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/margin_small"
             android:orientation="horizontal">
 
             <TextView
@@ -134,7 +134,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray" />
+            android:background="@android:color/darker_gray"
+            android:visibility="gone" />
 
 
         <LinearLayout
@@ -142,7 +143,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_default"
             android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="0dp"
@@ -173,7 +175,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_default"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/margin_small"
             android:orientation="horizontal">
 
             <TextView
@@ -197,7 +199,7 @@
                 android:id="@+id/easySelect"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
-                android:layout_marginEnd="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_very_small"
                 android:layout_weight="1"
                 android:background="@drawable/shape_transparent_very_curved_corners"
                 android:gravity="center|center_vertical"
@@ -209,7 +211,7 @@
                 android:id="@+id/mediumSelect"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
-                android:layout_marginEnd="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_very_small"
                 android:layout_weight="1"
                 android:background="@drawable/shape_transparent_very_curved_corners"
                 android:gravity="center|center_vertical"
@@ -228,11 +230,6 @@
                 android:textColor="@color/almost_black"
                 android:textStyle="bold" />
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray" />
 
     </LinearLayout>
 
@@ -267,8 +264,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
         android:layout_weight="1"
         android:gravity="center">
 
@@ -276,13 +271,15 @@
             android:id="@+id/cancelBtn"
             style="@style/ButtonNormal"
             android:layout_width="0dp"
+            android:layout_marginEnd="@dimen/margin_very_small"
             android:layout_weight="1"
             android:text="@string/cancel_button" />
 
         <Button
             android:id="@+id/continueBtn"
-            style="@style/ButtonTetradic1"
+            style="@style/ButtonGradient"
             android:layout_width="0dp"
+            android:layout_marginStart="@dimen/margin_very_small"
             android:layout_weight="1"
             android:text="@string/continue_button" />
     </LinearLayout>

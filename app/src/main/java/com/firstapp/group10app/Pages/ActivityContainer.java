@@ -47,13 +47,20 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         pageWelcome = findViewById(R.id.pageWelcome);
 
         // Set the welcome message in the header
-        new Thread(() -> {
-            Session.setUserName();
+//        new Thread(() -> {
+//            Session.setUserName();
+//            if (Session.getUserName() != null) {
+//                pageWelcome.setText("Welcome, " + Session.getUserName() + "!");
+//            }
+//        }).start();
 
-            if (Session.getUserName() != null) {
-                pageWelcome.setText("Welcome, " + Session.getUserName() + "!");
-            }
-        }).start();
+        // Took that out of the thread, because it would cause crashes
+        // Error: Only the original thread that created a view hierarchy can touch its views.
+        // TODO: Fix in the future if you have time
+        Session.setUserName();
+        if (Session.getUserName() != null) {
+            pageWelcome.setText("Welcome, " + Session.getUserName() + "!");
+        }
 
         // Behaviour if signed in
         if (Session.getSignedIn()) {

@@ -185,22 +185,23 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
             }
         });
 
-        equipment.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    equipment.setError("Equipment required");
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
+        // Hide the equipment field on Giovanni's suggestion (users don't like to type)
+//        equipment.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if (s.length() == 0) {
+//                    equipment.setError("Equipment required");
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//            }
+//        });
     }
 
     /**
@@ -341,7 +342,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
 
         // More complex logic for the Continue and Cancel buttons
         else if (id == R.id.continueBtn && activePage == 1) {
-            if ((name.getText().toString().isEmpty()) || (duration.getText().toString().isEmpty()) || (equipment.getText().toString().isEmpty())) {
+            if ((name.getText().toString().isEmpty()) || (duration.getText().toString().isEmpty())) {
                 continueButton.setError("Some fields have no info");
             } else if ((Integer.parseInt(duration.getText().toString()) > 180) || (Integer.parseInt(duration.getText().toString()) == 0)) {
                 duration.setError("Duration must be between 180 and 0!");
@@ -388,7 +389,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         data[0] = name.getText().toString();
         data[1] = duration.getText().toString();
         data[2] = target.getSelectedItem().toString();
-        data[3] = equipment.getText().toString();
+        data[3] = "No equipment info"; // equipment.getText().toString();
         data[4] = correctDifficulty;
 
         // Continues if there is data.
@@ -411,7 +412,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
             }
 
             // Creates the workout.
-            addWorkout(name.getText().toString(), duration.getText().toString(), target.getSelectedItem().toString(), equipment.getText().toString(), correctDifficulty, addedExercisesID);
+            addWorkout(data[0], data[1], data[2], data[3], data[4], addedExercisesID);
         });
         alertDialog.show();
     }

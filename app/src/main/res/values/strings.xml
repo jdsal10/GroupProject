@@ -176,9 +176,9 @@
     <!-- Workout View && Workout Create -->
     <string name="workoutName">Name</string>
     <string name="workoutDuration">Duration</string>
-    <string name="workoutTarget">Target Muscle Group</string>
-    <string name="workoutEquipment">Equipment</string>
-    <string name="workoutDifficulty">Difficulty</string>
+    <string name="workoutTarget">Target Muscle Group:</string>
+    <string name="workoutEquipment">Equipment:</string>
+    <string name="workoutDifficulty">Difficulty:</string>
     <string name="workout_name">Workout Name:</string>
     <string name="workout_duration">Duration (minutes):</string>
     <string name="easy_diff">Easy</string>
