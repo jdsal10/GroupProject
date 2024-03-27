@@ -17,18 +17,18 @@
         android:textStyle="bold" />
 
     <ScrollView
-        android:layout_marginStart="@dimen/margin_default"
-        android:layout_marginEnd="@dimen/margin_default"
         android:id="@+id/exerciseScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_default"
         android:layout_weight="5" />
 
-   <Button
-       style="@style/ButtonNormal"
-       android:id="@+id/closeButton"
-       android:layout_width="wrap_content"
-       android:layout_gravity="center"
-       android:text="Close"/>
+    <Button
+        android:id="@+id/closeButton"
+        style="@style/ButtonNormal"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:text="Close" />
 
 </LinearLayout>

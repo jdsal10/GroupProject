@@ -36,6 +36,7 @@
             android:id="@+id/previousExercise"
             style="@style/ButtonNormal"
             android:layout_width="match_parent"
+            android:layout_marginEnd="@dimen/margin_very_small"
             android:layout_weight="1"
             android:text="Previous" />
 
@@ -43,6 +44,7 @@
             android:id="@+id/nextExercise"
             style="@style/ButtonGradient"
             android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/margin_very_small"
             android:layout_weight="1"
             android:text="Next" />
     </LinearLayout>

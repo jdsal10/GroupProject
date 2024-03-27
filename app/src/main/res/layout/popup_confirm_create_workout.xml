@@ -50,7 +50,7 @@
 
         <Button
             android:id="@+id/confirmCreation"
-            style="@style/ButtonTetradic1"
+            style="@style/ButtonGradient"
             android:layout_width="0dp"
             android:layout_marginStart="3dp"
             android:layout_weight="1"
