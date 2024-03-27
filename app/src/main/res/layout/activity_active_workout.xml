@@ -4,9 +4,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/margin_default"
+    android:layout_marginEnd="@dimen/margin_default"
     android:orientation="vertical"
-    android:paddingStart="10sp"
-    android:paddingEnd="10sp"
     tools:context=".Pages.ActiveWorkout">
 
     <TextView
@@ -41,8 +41,8 @@
 
         <Button
             android:id="@+id/nextExercise"
+            style="@style/ButtonGradient"
             android:layout_width="match_parent"
-            style="@style/ButtonNormal"
             android:layout_weight="1"
             android:text="Next" />
     </LinearLayout>
@@ -56,22 +56,24 @@
 
         <Button
             android:id="@+id/pauseWorkout"
+            style="@style/ButtonNormal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="Pause" />
 
         <Button
             android:id="@+id/finishWorkout"
+            style="@style/ButtonNormal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_very_small"
             android:layout_weight="1"
             android:text="Finish"
             android:visibility="gone" />
 
         <Button
             android:id="@+id/resumeWorkout"
+            style="@style/ButtonNormal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_very_small"
             android:layout_weight="1"
             android:text="Resume"
             android:visibility="gone" />

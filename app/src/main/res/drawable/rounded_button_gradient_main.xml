@@ -9,5 +9,5 @@
 
     <stroke
         android:width="@dimen/stroke_width_default"
-        android:color="@color/almost_black" />
+        android:color="@color/accent_grayscale" />
 </shape>
