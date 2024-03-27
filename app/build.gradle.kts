@@ -58,6 +58,10 @@ dependencies {
     implementation("mysql:mysql-connector-java:5.1.49")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.fragment:fragment:1.6.2")
+    implementation(platform("androidx.compose:compose-bom:2024.03.00"))
+    implementation("androidx.activity:activity-compose")
+    implementation("androidx.compose.foundation:foundation")
+    implementation("androidx.compose.material:material")
 }
 
 android {
