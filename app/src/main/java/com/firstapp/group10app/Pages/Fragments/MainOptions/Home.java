@@ -115,6 +115,9 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
 
     public void onResume() {
         super.onResume();
+
+        if (!Session.getSignedIn()) return;
+
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACTIVITY_RECOGNITION)
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissionLauncher.launch(new String[]{Manifest.permission.ACTIVITY_RECOGNITION});
