@@ -43,7 +43,7 @@
 
             <Button
                 android:id="@+id/enhance"
-                style="@style/ButtonGradient"
+                style="@style/ButtonTetradic1"
                 android:layout_width="0dp"
                 android:layout_marginEnd="3dp"
                 android:layout_weight="1"
@@ -51,7 +51,7 @@
 
             <Button
                 android:id="@+id/beginWorkout"
-                style="@style/ButtonTetradic1"
+                style="@style/ButtonGradient"
                 android:layout_width="0dp"
                 android:layout_marginStart="3dp"
                 android:layout_weight="1"
