@@ -3,6 +3,7 @@ package com.firstapp.group10app.Other;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -109,6 +110,18 @@ public class Session {
 
     public static void setUserDetails(String[] userDetails) {
         Session.userDetails = userDetails;
+    }
+
+    public static void setUserDetailsAt(int index, String value) {
+        if (userDetails == null) {
+            userDetails = new String[7]; // TODO: This is hardcoded. Change to be dynamic in the future.
+        }
+
+        if (index < 0 || index >= userDetails.length) {
+            Log.i("Session.setUserDetailsAt", "Index out of bounds. Index: " + index + ", Length: " + userDetails.length);
+        } else {
+            userDetails[index] = value;
+        }
     }
 
     public static void logout(Context context) {

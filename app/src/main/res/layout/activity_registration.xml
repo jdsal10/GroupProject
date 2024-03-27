@@ -343,7 +343,7 @@
 
         <Button
             android:id="@+id/buttonNext"
-            style="@style/ButtonTetradic1"
+            style="@style/ButtonGradient"
             android:layout_width="0dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="3dp"

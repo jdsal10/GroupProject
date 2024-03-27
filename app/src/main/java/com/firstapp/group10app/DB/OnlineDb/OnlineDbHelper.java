@@ -285,7 +285,14 @@ public class OnlineDbHelper {
             }
         }
 
-        OnlineDbConnection.getInstance().executeStatement("UPDATE HealthData.Users SET " + toUpdate + " = '" + value + "' WHERE Email = '" + Session.getUserEmail() + "'");
+        if (value == null) {
+            OnlineDbConnection.getInstance().executeStatement("UPDATE HealthData.Users SET " + toUpdate + " = null WHERE Email = '" + Session.getUserEmail() + "'");
+        } else {
+            OnlineDbConnection.getInstance().executeStatement("UPDATE HealthData.Users SET " + toUpdate + " = '" + value + "' WHERE Email = '" + Session.getUserEmail() + "'");
+        }
+
+        // old code
+//        OnlineDbConnection.getInstance().executeStatement("UPDATE HealthData.Users SET " + toUpdate + " = '" + value + "' WHERE Email = '" + Session.getUserEmail() + "'");
     }
 
     /**
@@ -511,7 +518,7 @@ public class OnlineDbHelper {
     /**
      * Obtain total amount of workouts completed by the user.
      */
-    public static Integer getTotalinHistory(String email){
+    public static Integer getTotalinHistory(String email) {
         String query = "SELECT COUNT(*) AS total FROM HealthData.UserWorkoutHistory uwh " +
                 " WHERE uwh.Email = '" + email + "';";
 
@@ -533,9 +540,9 @@ public class OnlineDbHelper {
     /**
      * Obtain total amount of time spent doing exercise by the user
      */
-    public static Integer getTotalMinutesFromHistory(String email){
+    public static Integer getTotalMinutesFromHistory(String email) {
         String query = "SELECT SUM(Duration) AS total_duration FROM HealthData.UserWorkoutHistory uwh " +
-                " WHERE uwh.Email = '"+ email +"';";
+                " WHERE uwh.Email = '" + email + "';";
 
         OnlineDbConnection db = new OnlineDbConnection();
         ResultSet out = db.executeQuery(query);
@@ -543,7 +550,7 @@ public class OnlineDbHelper {
         Integer total = null;
 
         try {
-            if(out.next()) {
+            if (out.next()) {
                 total = out.getInt("total_duration");
             }
         } catch (SQLException e) {

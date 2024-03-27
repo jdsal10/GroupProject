@@ -50,7 +50,7 @@
 
         <Button
             android:id="@+id/useEnhance"
-            style="@style/ButtonTetradic1"
+            style="@style/ButtonGradient"
             android:layout_width="0dp"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/margin_very_small"

@@ -36,20 +36,20 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/confirmUpdate"
-            style="@style/ButtonTetradic1"
-            android:layout_width="0dp"
-            android:layout_marginEnd="3dp"
-            android:layout_weight="1"
-            android:text="Confirm" />
-
-        <Button
             android:id="@+id/clearUpdate"
             style="@style/ButtonPastelRed"
             android:layout_width="0dp"
-            android:layout_marginEnd="3dp"
+            android:layout_marginEnd="@dimen/margin_very_small"
             android:layout_weight="1"
             android:text="Clear" />
+
+        <Button
+            android:id="@+id/confirmUpdate"
+            style="@style/ButtonTetradic1"
+            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/margin_very_small"
+            android:layout_weight="1"
+            android:text="Confirm" />
     </LinearLayout>
 
 </LinearLayout>

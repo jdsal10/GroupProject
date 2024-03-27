@@ -258,13 +258,14 @@
         <ScrollView
             android:id="@+id/page3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:visibility="gone" />
 
         <Button
             android:id="@+id/beginWorkout"
-            style="@style/ButtonNormal"
+            style="@style/ButtonGradient"
             android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/margin_small"
             android:text="Begin Workout"
             android:visibility="gone" />
 
@@ -278,14 +279,14 @@
 
             <Button
                 android:id="@+id/continueButton"
-                style="@style/ButtonTetradic1"
+                style="@style/ButtonGradient"
                 android:layout_width="match_parent"
                 android:text="Continue"
                 android:visibility="visible" />
 
             <Button
                 android:id="@+id/generateWorkoutButton"
-                style="@style/ButtonTetradic1"
+                style="@style/ButtonGradient"
                 android:layout_width="match_parent"
                 android:text="Generate Workout"
                 android:visibility="gone" />

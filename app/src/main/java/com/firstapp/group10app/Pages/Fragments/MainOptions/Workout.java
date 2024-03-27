@@ -22,6 +22,8 @@ import com.firstapp.group10app.Pages.Fragments.Workouts.WorkoutManual;
 import com.firstapp.group10app.R;
 
 public class Workout extends Fragment implements CompoundButton.OnCheckedChangeListener {
+    private RadioButton toggleAI, toggleManual;
+
     public Workout() {
         super(R.layout.activity_workout_option);
     }
@@ -53,31 +55,38 @@ public class Workout extends Fragment implements CompoundButton.OnCheckedChangeL
             manualSelect.setOnCheckedChangeListener(this);
         }
 
-        // Behaviour if anonymous, they do not access to the AI or to create a workout.
-        else {
-            rootView.findViewById(R.id.toggle).setVisibility(View.GONE);
-            rootView.findViewById(R.id.toggleParent).setVisibility(View.GONE);
-        }
-
         return rootView;
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (toggleAI == null || toggleManual == null) {
+            toggleAI = getView().findViewById(R.id.toggleAI);
+            toggleManual = getView().findViewById(R.id.toggleManual);
+        }
+
         // If ensure only one is selected at once
         if (isChecked) {
             if (buttonView.getId() == R.id.toggleAI) {
                 if ((!Session.getSignedIn()) || (!OnlineDbConnection.testConnection())) {
                     Toast.makeText(requireContext(), "No connection!", Toast.LENGTH_SHORT).show();
+
                     // Need to add capability to enable somehow.
                     // AISelect.setEnabled(false);
                 } else {
                     Log.d("WorkoutOption.onClick()", "AI selected");
                     updateView(new WorkoutAi2(), R.anim.slide_right_in, R.anim.slide_left_out);
+
+                    toggleAI.setTextColor(getResources().getColor(R.color.white));
+                    toggleManual.setTextColor(getResources().getColor(R.color.black));
                 }
             } else if (buttonView.getId() == R.id.toggleManual) {
                 Log.d("WorkoutOption.onCheckedChanged()", "Manual selected");
                 updateView(new WorkoutManual(), R.anim.slide_left_in, R.anim.slide_right_out);
+
+                // Change the button text color to white.
+                toggleManual.setTextColor(getResources().getColor(R.color.white));
+                toggleAI.setTextColor(getResources().getColor(R.color.black));
             }
         }
     }

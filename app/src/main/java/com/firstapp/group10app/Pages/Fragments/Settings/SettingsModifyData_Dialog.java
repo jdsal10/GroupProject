@@ -275,14 +275,14 @@ public class SettingsModifyData_Dialog extends Dialog implements View.OnClickLis
             switch (thingToUpdate) {
                 case "DOB":
                     if (edit.getText().toString().isEmpty()) {
-                        DatabaseManager.getInstance().updateUserData("DOB", "");
+                        DatabaseManager.getInstance().updateUserData("DOB", null);
                         SettingsDataControl.updateValue("DOB", "");
-                        Session.getUserDetails()[0] = "";
+                        Session.setUserDetailsAt(0, "");
                         dismiss();
                     } else if (Validator.dobValid(edit.getText().toString())) {
                         DatabaseManager.getInstance().updateUserData("DOB", edit.getText().toString());
                         SettingsDataControl.updateValue("DOB", edit.getText().toString());
-                        Session.getUserDetails()[0] = edit.getText().toString();
+                        Session.setUserDetailsAt(0, edit.getText().toString());
                         dismiss();
                     } else {
                         edit.setError("Invalid format!");
@@ -293,17 +293,17 @@ public class SettingsModifyData_Dialog extends Dialog implements View.OnClickLis
                     if (dropdown.getSelectedItem().equals("Male")) {
                         DatabaseManager.getInstance().updateUserData("Sex", "M");
                         SettingsDataControl.updateValue("Sex", dropdown.getSelectedItem().toString());
-                        Session.getUserDetails()[3] = dropdown.getSelectedItem().toString();
+                        Session.setUserDetailsAt(3, dropdown.getSelectedItem().toString());
                         dismiss();
                     } else if (dropdown.getSelectedItem().equals("Female")) {
                         DatabaseManager.getInstance().updateUserData("Sex", "F");
                         SettingsDataControl.updateValue("Sex", dropdown.getSelectedItem().toString());
-                        Session.getUserDetails()[3] = dropdown.getSelectedItem().toString();
+                        Session.setUserDetailsAt(3, dropdown.getSelectedItem().toString());
                         dismiss();
                     } else if (dropdown.getSelectedItem().equals("Other")) {
                         DatabaseManager.getInstance().updateUserData("Sex", "O");
                         SettingsDataControl.updateValue("Sex", dropdown.getSelectedItem().toString());
-                        Session.getUserDetails()[3] = dropdown.getSelectedItem().toString();
+                        Session.setUserDetailsAt(3, dropdown.getSelectedItem().toString());
                         dismiss();
                     } else {
                         edit.setError("Invalid format!");
@@ -314,14 +314,14 @@ public class SettingsModifyData_Dialog extends Dialog implements View.OnClickLis
                     if (edit.getText().toString().isEmpty() && !dropdown.getSelectedItem().toString().isEmpty()) {
                         edit.setError("Invalid format!");
                     } else if (edit.getText().toString().isEmpty() && dropdown.getSelectedItem().toString().isEmpty()) {
-                        DatabaseManager.getInstance().updateUserData("Weight", "");
+                        DatabaseManager.getInstance().updateUserData("Weight", null);
                         SettingsDataControl.updateValue("Weight", "");
-                        Session.getUserDetails()[1] = "";
+                        Session.setUserDetailsAt(1, "");
                         dismiss();
                     } else if (Validator.weightValid(edit.getText().toString(), dropdown.getSelectedItem().toString())) {
                         DatabaseManager.getInstance().updateUserData("Weight", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
                         SettingsDataControl.updateValue("Weight", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
-                        Session.getUserDetails()[1] = edit.getText().toString() + " " + dropdown.getSelectedItem().toString();
+                        Session.setUserDetailsAt(1, edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
                         dismiss();
                     } else {
                         edit.setError("Invalid format!");
@@ -332,14 +332,14 @@ public class SettingsModifyData_Dialog extends Dialog implements View.OnClickLis
                     if (edit.getText().toString().isEmpty() && !dropdown.getSelectedItem().toString().isEmpty()) {
                         edit.setError("Invalid format!");
                     } else if (edit.getText().toString().isEmpty() && dropdown.getSelectedItem().toString().isEmpty()) {
-                        DatabaseManager.getInstance().updateUserData("Height", "");
+                        DatabaseManager.getInstance().updateUserData("Height", null);
                         SettingsDataControl.updateValue("Height", "");
-                        Session.getUserDetails()[2] = "";
+                        Session.setUserDetailsAt(2, "");
                         dismiss();
                     } else if (Validator.heightValid(edit.getText().toString(), dropdown.getSelectedItem().toString())) {
                         DatabaseManager.getInstance().updateUserData("Height", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
                         SettingsDataControl.updateValue("Height", edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
-                        Session.getUserDetails()[2] = edit.getText().toString() + " " + dropdown.getSelectedItem().toString();
+                        Session.setUserDetailsAt(2, edit.getText().toString() + " " + dropdown.getSelectedItem().toString());
                         dismiss();
                     } else {
                         edit.setError("Invalid format!");
@@ -348,68 +348,67 @@ public class SettingsModifyData_Dialog extends Dialog implements View.OnClickLis
 
                 case "Allergies":
                     if (edit.getText().toString().isEmpty()) {
-                        DatabaseManager.getInstance().updateUserData("HealthCondition", "");
+                        DatabaseManager.getInstance().updateUserData("HealthCondition", null);
                         SettingsDataControl.updateValue("Allergies", "");
-                        Session.getUserDetails()[4] = "";
+                        Session.setUserDetailsAt(4, "");
                         dismiss();
                     } else {
                         DatabaseManager.getInstance().updateUserData("HealthCondition", edit.getText().toString());
                         SettingsDataControl.updateValue("Allergies", edit.getText().toString());
-                        Session.getUserDetails()[4] = edit.getText().toString();
+                        Session.setUserDetailsAt(4, edit.getText().toString());
                         dismiss();
                     }
                     break;
 
                 case "Reasons":
                     if (dropdown.getSelectedItem().toString().isEmpty()) {
-                        DatabaseManager.getInstance().updateUserData("ReasonForDownloading", "");
+                        DatabaseManager.getInstance().updateUserData("ReasonForDownloading", null);
                         SettingsDataControl.updateValue("Reasons", "");
-                        Session.getUserDetails()[5] = "";
-                        dismiss();
+                        Session.setUserDetailsAt(5, "");
                     } else {
                         DatabaseManager.getInstance().updateUserData("ReasonForDownloading", dropdown.getSelectedItem().toString());
                         SettingsDataControl.updateValue("Reasons", dropdown.getSelectedItem().toString());
-                        Session.getUserDetails()[5] = dropdown.getSelectedItem().toString();
-                        dismiss();
+                        Session.setUserDetailsAt(5, dropdown.getSelectedItem().toString());
                     }
+                    dismiss();
                     break;
             }
         } else if (id == R.id.clearUpdate) {
             switch (thingToUpdate) {
                 case "DOB":
-                    DatabaseManager.getInstance().updateUserData("DOB", "");
+                    DatabaseManager.getInstance().updateUserData("DOB", null);
                     SettingsDataControl.updateValue("DOB", "");
-                    Session.getUserDetails()[0] = "";
+                    Session.setUserDetailsAt(0, "");
                     break;
 
                 case "Weight":
-                    DatabaseManager.getInstance().updateUserData("Weight", "");
+                    DatabaseManager.getInstance().updateUserData("Weight", null);
                     SettingsDataControl.updateValue("Weight", "");
-                    Session.getUserDetails()[1] = "";
+                    Session.setUserDetailsAt(1, "");
                     break;
 
                 case "Height":
-                    DatabaseManager.getInstance().updateUserData("Height", "");
+                    DatabaseManager.getInstance().updateUserData("Height", null);
                     SettingsDataControl.updateValue("Height", "");
-                    Session.getUserDetails()[2] = "";
+                    Session.setUserDetailsAt(2, "");
                     break;
 
                 case "Sex":
-                    DatabaseManager.getInstance().updateUserData("Sex", "");
+                    DatabaseManager.getInstance().updateUserData("Sex", null);
                     SettingsDataControl.updateValue("Sex", "");
-                    Session.getUserDetails()[3] = "";
+                    Session.setUserDetailsAt(3, "");
                     break;
 
                 case "Allergies":
-                    DatabaseManager.getInstance().updateUserData("HealthCondition", "");
+                    DatabaseManager.getInstance().updateUserData("HealthCondition", null);
                     SettingsDataControl.updateValue("Allergies", "");
-                    Session.getUserDetails()[4] = "";
+                    Session.setUserDetailsAt(4, "");
                     break;
 
                 case "Reasons":
-                    DatabaseManager.getInstance().updateUserData("ReasonForDownloading", "");
+                    DatabaseManager.getInstance().updateUserData("ReasonForDownloading", null);
                     SettingsDataControl.updateValue("Reasons", "");
-                    Session.getUserDetails()[5] = "";
+                    Session.setUserDetailsAt(5, "");
                     break;
             }
             dismiss();
