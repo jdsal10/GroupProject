@@ -3,6 +3,7 @@ package com.firstapp.group10app.Pages;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -103,12 +104,15 @@ public class ActiveWorkout extends AppCompatActivity implements View.OnClickList
                 JSONObject exercise = exerciseArray.getJSONObject(i);
 
                 // Handles the case where there is no illustration. (There was a crash in CreateWorkout)
-                String illustration;
+                String illustration = "viz_";
                 try {
-                    illustration = "viz_" + exercise.getString("Illustration");
+                    illustration += exercise.getString("Illustration");
                 } catch (Exception e) {
-                    illustration = null;
+                    illustration += exercise.getString("ExerciseName").toLowerCase().replace("-", "_");
                 }
+                illustration = illustration.replace(" ", "_");
+                Log.d("ActiveWorkout", "Exercise: " + exercise.getString("ExerciseName"));
+                Log.d("ActiveWorkout", "Illustration: " + illustration);
 
                 exerciseData = ActiveExerciseUpdate.newInstance(
                         exercise.getString("ExerciseName"),
