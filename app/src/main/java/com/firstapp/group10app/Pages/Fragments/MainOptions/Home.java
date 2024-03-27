@@ -2,6 +2,7 @@ package com.firstapp.group10app.Pages.Fragments.MainOptions;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,20 +12,37 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.firstapp.group10app.DB.OnlineDb.OnlineDbConnection;
 import com.firstapp.group10app.DB.OnlineDb.OnlineDbHelper;
+
+import android.Manifest;
+
 import com.firstapp.group10app.Other.Session;
 import com.firstapp.group10app.Pages.ActivityContainer;
 import com.firstapp.group10app.Pages.WorkoutSearch;
 import com.firstapp.group10app.R;
 
-public class Home extends Fragment implements View.OnClickListener {
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.widget.Toast;
+
+public class Home extends Fragment implements View.OnClickListener, SensorEventListener {
     private TextView workoutsNum;
     private TextView totalTimeNum;
+    private float initialStepCount = -1;
+    private static final int REQUEST_CODE_ACTIVITY_RECOGNITION = 1;
     private String CurrentUser;
+    private SensorManager sensorManager;
+    private View rootView;
 
     public Home() {
         super(R.layout.activity_home);
@@ -37,13 +55,19 @@ public class Home extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_home, container, false);
+        rootView = inflater.inflate(R.layout.activity_home, container, false);
 
         LinearLayout signedInLayout = rootView.findViewById(R.id.signedInLayout);
         LinearLayout anonymousLayout = rootView.findViewById(R.id.anonymousLayout);
 
         // Behaviour if signed in
         if (Session.getSignedIn()) {
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACTIVITY_RECOGNITION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.ACTIVITY_RECOGNITION},
+                        REQUEST_CODE_ACTIVITY_RECOGNITION);
+            }
             signedInLayout.setVisibility(View.VISIBLE);
             anonymousLayout.setVisibility(View.GONE);
 
@@ -70,6 +94,10 @@ public class Home extends Fragment implements View.OnClickListener {
                 // Update UI on the main thread after fetching data
                 getActivity().runOnUiThread(() -> setWorkoutCount(totalWorkouts, totalTime));
             }).start();
+
+            sensorManager = (SensorManager) getActivity().getSystemService(getActivity().SENSOR_SERVICE);
+            TextView steps = rootView.findViewById(R.id.StepCounter);
+            steps.setText("0");
         }
 
         // Behaviour if anonymous
@@ -83,6 +111,22 @@ public class Home extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
 
         return rootView;
+    }
+
+    public void onResume() {
+        super.onResume();
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACTIVITY_RECOGNITION)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissionLauncher.launch(new String[]{Manifest.permission.ACTIVITY_RECOGNITION});
+        } else {
+            Sensor countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+            if (countSensor != null) {
+                sensorManager.registerListener(this, countSensor, SensorManager.SENSOR_DELAY_UI);
+                initialStepCount = -1;
+            } else {
+                Log.e("Home.onResume()", "Count sensor not available!");
+            }
+        }
     }
 
     @Override
@@ -155,4 +199,41 @@ public class Home extends Fragment implements View.OnClickListener {
             Session.logout(getContext());
         }
     }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (initialStepCount == -1) {
+            initialStepCount = event.values[0];
+        }
+
+        float stepsTaken = event.values[0] - initialStepCount;
+        Log.d("Home.onSensorChanged()", "Step counter: " + stepsTaken);
+        TextView steps = rootView.findViewById(R.id.StepCounter);
+        steps.setText(String.valueOf(stepsTaken));
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    private final ActivityResultLauncher<String[]> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {
+                if (Boolean.TRUE.equals(result.get(Manifest.permission.ACTIVITY_RECOGNITION))) {
+                    // Permission granted
+                    LinearLayout stepLayout = rootView.findViewById(R.id.stepCounterLayout);
+                    TextView stepText = rootView.findViewById(R.id.stepTitle);
+                    stepText.setVisibility(View.VISIBLE);
+                    stepLayout.setVisibility(View.VISIBLE);
+                } else {
+                    // Permission denied
+                    LinearLayout stepLayout = rootView.findViewById(R.id.stepCounterLayout);
+                    TextView stepText = rootView.findViewById(R.id.stepTitle);
+                    stepText.setVisibility(View.GONE);
+                    stepLayout.setVisibility(View.GONE);
+                    Toast.makeText(getActivity(), "Permission denied. Please enable it from settings to use step counter.", Toast.LENGTH_LONG).show();
+                }
+            });
+
+
 }

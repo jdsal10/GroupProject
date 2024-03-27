@@ -126,6 +126,7 @@
 
 
             <TextView
+                android:id="@+id/stepTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
@@ -134,6 +135,7 @@
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"/>
             <LinearLayout
+                android:id="@+id/stepCounterLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_transparent_very_curved_corners"
