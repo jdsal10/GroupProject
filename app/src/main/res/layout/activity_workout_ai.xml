@@ -278,14 +278,14 @@
 
             <Button
                 android:id="@+id/continueButton"
-                style="@style/ButtonTetradic1"
+                style="@style/ButtonGradient"
                 android:layout_width="match_parent"
                 android:text="Continue"
                 android:visibility="visible" />
 
             <Button
                 android:id="@+id/generateWorkoutButton"
-                style="@style/ButtonTetradic1"
+                style="@style/ButtonGradient"
                 android:layout_width="match_parent"
                 android:text="Generate Workout"
                 android:visibility="gone" />
