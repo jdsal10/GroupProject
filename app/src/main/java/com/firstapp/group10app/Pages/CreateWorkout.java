@@ -386,7 +386,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
         String correctDifficulty = selected.substring(0, 1).toUpperCase() + selected.substring(1).toLowerCase();
 
         String[] data = new String[5];
-        data[0] = name.getText().toString();
+        data[0] = name.getText().toString().replaceAll("[^a-zA-Z]", "");
         data[1] = duration.getText().toString();
         data[2] = target.getSelectedItem().toString();
         data[3] = "No equipment info"; // equipment.getText().toString();
