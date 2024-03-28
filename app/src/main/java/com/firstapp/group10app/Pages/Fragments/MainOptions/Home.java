@@ -71,9 +71,11 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
             signedInLayout.setVisibility(View.VISIBLE);
             anonymousLayout.setVisibility(View.GONE);
 
+            //declare variables to edit
             workoutsNum = rootView.findViewById(R.id.workoutCountTextView);
             totalTimeNum = rootView.findViewById(R.id.timeTextView);
 
+            //Set click listeners for quick link buttons
             LinearLayout FullBodyLink = rootView.findViewById(R.id.fullBody);
             FullBodyLink.setOnClickListener(this);
 
