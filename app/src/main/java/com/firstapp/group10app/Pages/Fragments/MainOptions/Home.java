@@ -1,9 +1,12 @@
 package com.firstapp.group10app.Pages.Fragments.MainOptions;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,13 +39,14 @@ import android.hardware.SensorManager;
 import android.widget.Toast;
 
 public class Home extends Fragment implements View.OnClickListener, SensorEventListener {
-    private TextView workoutsNum;
-    private TextView totalTimeNum;
+    private TextView workoutsNum, totalTimeNum;
     private float initialStepCount = -1;
     private static final int REQUEST_CODE_ACTIVITY_RECOGNITION = 1;
-    private String CurrentUser;
+    private String CurrentUser, userIdKey;
     private SensorManager sensorManager;
     private View rootView;
+    private SharedPreferences sharedPreferences;
+
 
     public Home() {
         super(R.layout.activity_home);
@@ -57,16 +61,17 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.activity_home, container, false);
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        userIdKey = Session.getUserDetails()[6];
+
         LinearLayout signedInLayout = rootView.findViewById(R.id.signedInLayout);
         LinearLayout anonymousLayout = rootView.findViewById(R.id.anonymousLayout);
 
         // Behaviour if signed in
         if (Session.getSignedIn()) {
-            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACTIVITY_RECOGNITION)
-                    != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.ACTIVITY_RECOGNITION},
-                        REQUEST_CODE_ACTIVITY_RECOGNITION);
+            if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, REQUEST_CODE_ACTIVITY_RECOGNITION);
             }
             signedInLayout.setVisibility(View.VISIBLE);
             anonymousLayout.setVisibility(View.GONE);
@@ -92,10 +97,10 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
                 String totalTime = Integer.toString(OnlineDbHelper.getTotalMinutesFromHistory(CurrentUser));
 
                 // Update UI on the main thread after fetching data
-                getActivity().runOnUiThread(() -> setWorkoutCount(totalWorkouts, totalTime));
+                requireActivity().runOnUiThread(() -> setWorkoutCount(totalWorkouts, totalTime));
             }).start();
 
-            sensorManager = (SensorManager) getActivity().getSystemService(getActivity().SENSOR_SERVICE);
+            sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
             TextView steps = rootView.findViewById(R.id.StepCounter);
             steps.setText("0");
         }
@@ -118,8 +123,7 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
 
         if (!Session.getSignedIn()) return;
 
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACTIVITY_RECOGNITION)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissionLauncher.launch(new String[]{Manifest.permission.ACTIVITY_RECOGNITION});
         } else {
             Sensor countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
@@ -163,7 +167,7 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
         //need to add check for other three values
         if (val1 != null) {
             workoutsNum.setText(val1);
-            totalTimeNum.setText(val2 + " min");
+            totalTimeNum.setText(String.format("%s min", val2));
         }
     }
 
@@ -203,6 +207,7 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
         }
     }
 
+
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (initialStepCount == -1) {
@@ -211,6 +216,19 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
 
         float stepsTaken = event.values[0] - initialStepCount;
         Log.d("Home.onSensorChanged()", "Step counter: " + stepsTaken);
+
+        sharedPreferences.edit().putFloat(userIdKey + "_stepsTaken", stepsTaken).apply();
+
+        long lastResetTime = sharedPreferences.getLong(userIdKey + "_lastResetTime", System.currentTimeMillis());
+        if (System.currentTimeMillis() - lastResetTime >= 24 * 60 * 60 * 1000) {
+            // Reset steps
+            initialStepCount = event.values[0];
+            stepsTaken = 0;
+            sharedPreferences.edit().putFloat(userIdKey + "_stepsTaken", stepsTaken).apply();
+
+            sharedPreferences.edit().putLong(userIdKey + "_lastResetTime", System.currentTimeMillis()).apply();
+        }
+
         TextView steps = rootView.findViewById(R.id.StepCounter);
         steps.setText(String.valueOf(stepsTaken));
     }
@@ -220,23 +238,20 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
 
     }
 
-    private final ActivityResultLauncher<String[]> requestPermissionLauncher =
-            registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {
-                if (Boolean.TRUE.equals(result.get(Manifest.permission.ACTIVITY_RECOGNITION))) {
-                    // Permission granted
-                    LinearLayout stepLayout = rootView.findViewById(R.id.stepCounterLayout);
-                    TextView stepText = rootView.findViewById(R.id.stepTitle);
-                    stepText.setVisibility(View.VISIBLE);
-                    stepLayout.setVisibility(View.VISIBLE);
-                } else {
-                    // Permission denied
-                    LinearLayout stepLayout = rootView.findViewById(R.id.stepCounterLayout);
-                    TextView stepText = rootView.findViewById(R.id.stepTitle);
-                    stepText.setVisibility(View.GONE);
-                    stepLayout.setVisibility(View.GONE);
-                    Toast.makeText(getActivity(), "Permission denied. Please enable it from settings to use step counter.", Toast.LENGTH_LONG).show();
-                }
-            });
-
-
+    private final ActivityResultLauncher<String[]> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {
+        if (Boolean.TRUE.equals(result.get(Manifest.permission.ACTIVITY_RECOGNITION))) {
+            // Permission granted
+            LinearLayout stepLayout = rootView.findViewById(R.id.stepCounterLayout);
+            TextView stepText = rootView.findViewById(R.id.stepTitle);
+            stepText.setVisibility(View.VISIBLE);
+            stepLayout.setVisibility(View.VISIBLE);
+        } else {
+            // Permission denied
+            LinearLayout stepLayout = rootView.findViewById(R.id.stepCounterLayout);
+            TextView stepText = rootView.findViewById(R.id.stepTitle);
+            stepText.setVisibility(View.GONE);
+            stepLayout.setVisibility(View.GONE);
+            Toast.makeText(getActivity(), "Permission denied. Please enable it from settings to use step counter.", Toast.LENGTH_LONG).show();
+        }
+    });
 }
