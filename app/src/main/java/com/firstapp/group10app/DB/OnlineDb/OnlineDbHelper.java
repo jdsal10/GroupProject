@@ -568,6 +568,7 @@ public class OnlineDbHelper {
                 "FROM HealthData.UserWorkoutHistory AS uwh " +
                 "JOIN HealthData.Workouts AS w " +
                 "ON uwh.WorkoutID = w.WorkoutID " +
+                "WHERE uwh.Email = '" + email + "' " +
                 "GROUP BY TargetMuscleGroup " +
                 "ORDER BY occurences DESC " +
                 "LIMIT 1; ";
