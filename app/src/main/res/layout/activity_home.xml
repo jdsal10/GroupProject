@@ -58,13 +58,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Workout" />
+                        android:text="Workouts"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/workoutCountTextView"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0" />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <!-- Kcal -->
@@ -79,20 +79,20 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/icon_kcal">
+                        android:src="@drawable/icon_favourite">
 
                     </ImageView>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Kcal" />
+                        android:text="Your fave"
+                        android:textStyle="bold"/>
 
                     <TextView
-                        android:id="@+id/kcalTextView"
+                        android:id="@+id/favMuscleTextView"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0" />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <!-- Time -->
@@ -114,13 +114,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Time" />
+                        android:text="Time"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/timeTextView"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0 min" />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
             </LinearLayout>
 
