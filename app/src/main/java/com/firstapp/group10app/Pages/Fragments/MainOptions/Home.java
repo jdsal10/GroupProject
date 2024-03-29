@@ -88,6 +88,8 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
             LinearLayout ArmsLink = rootView.findViewById(R.id.arms);
             ArmsLink.setOnClickListener(this);
 
+            LinearLayout statsLayout = rootView.findViewById(R.id.statisticsLayout);
+            statsLayout.setAlpha(.5f);
             new Thread(() -> {
                 Session.setOnlineDbStatus(OnlineDbConnection.testConnection());
 
@@ -98,6 +100,7 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
 
                 // Update UI on the main thread after fetching data
                 requireActivity().runOnUiThread(() -> setWorkoutCount(totalWorkouts, totalTime));
+                statsLayout.setAlpha(1f);
             }).start();
 
             sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
