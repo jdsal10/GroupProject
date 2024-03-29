@@ -560,7 +560,7 @@ public class OnlineDbHelper {
     }
 
     /**
-     * Obtain total amount of time spent doing exercise by the user
+     * Obtain users favourite exercise based on most accessed. 
      */
     public static String getFavMuscle(String email){
         System.out.println("being printed ");
