@@ -560,7 +560,7 @@ public class OnlineDbHelper {
     }
 
     /**
-     * Obtain users favourite exercise based on most accessed. 
+     * Obtain users favourite exercise based on most accessed.
      */
     public static String getFavMuscle(String email){
         System.out.println("being printed ");
