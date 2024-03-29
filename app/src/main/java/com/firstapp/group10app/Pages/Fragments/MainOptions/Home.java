@@ -38,6 +38,7 @@ import android.widget.Toast;
 public class Home extends Fragment implements View.OnClickListener, SensorEventListener {
     private TextView workoutsNum;
     private TextView totalTimeNum;
+    private TextView favMuscleTarget;
     private float initialStepCount = -1;
     private static final int REQUEST_CODE_ACTIVITY_RECOGNITION = 1;
     private String CurrentUser;
@@ -74,6 +75,7 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
             //declare variables to edit
             workoutsNum = rootView.findViewById(R.id.workoutCountTextView);
             totalTimeNum = rootView.findViewById(R.id.timeTextView);
+            favMuscleTarget = rootView.findViewById(R.id.favMuscleTextView);
 
             //Set click listeners for quick link buttons
             LinearLayout FullBodyLink = rootView.findViewById(R.id.fullBody);
@@ -92,9 +94,9 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
 
                 String totalWorkouts = Integer.toString(OnlineDbHelper.getTotalinHistory(CurrentUser));
                 String totalTime = Integer.toString(OnlineDbHelper.getTotalMinutesFromHistory(CurrentUser));
-
+                String favMuscleTargeted = OnlineDbHelper.getFavMuscle(CurrentUser);
                 // Update UI on the main thread after fetching data
-                getActivity().runOnUiThread(() -> setWorkoutCount(totalWorkouts, totalTime));
+                getActivity().runOnUiThread(() -> setWorkoutCount(totalWorkouts, totalTime, favMuscleTargeted));
             }).start();
 
             sensorManager = (SensorManager) getActivity().getSystemService(getActivity().SENSOR_SERVICE);
@@ -161,11 +163,12 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
     }
 
     // Method to dynamically edit workoutCountTextView
-    public void setWorkoutCount(String val1, String val2) {
+    public void setWorkoutCount(String val1, String val2, String val3) {
         //need to add check for other three values
         if (val1 != null) {
             workoutsNum.setText(val1);
             totalTimeNum.setText(val2 + " min");
+            favMuscleTarget.setText(val3);
         }
     }
 
