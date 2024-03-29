@@ -168,7 +168,7 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
         if (val1 != null) {
             workoutsNum.setText(val1);
             totalTimeNum.setText(val2 + " min");
-            favMuscleTarget.setText(val3);
+            favMuscleTarget.setText("'" + val3 + "'");
         }
     }
 
