@@ -44,7 +44,7 @@
             android:name=".Pages.WorkoutAi"
             android:exported="false" />
         <activity
-            android:name=".Pages.CreateWorkout"
+            android:name=".Pages.WorkoutCreate"
             android:exported="false" />
         <activity
             android:name=".Pages.WorkoutFilter"

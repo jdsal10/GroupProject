@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.firstapp.group10app.Other.Session;
-import com.firstapp.group10app.Pages.CreateWorkout;
+import com.firstapp.group10app.Pages.WorkoutCreate;
 import com.firstapp.group10app.Pages.Fragments.MainOptions.Workout;
 import com.firstapp.group10app.Pages.WorkoutSearch;
 
@@ -64,7 +64,7 @@ public class WorkoutManual extends Fragment implements View.OnClickListener {
             tellParentToStartNewActivity(new WorkoutSearch());
         } else if (id == R.id.goToCreate) {
 
-            tellParentToStartNewActivity(new CreateWorkout());
+            tellParentToStartNewActivity(new WorkoutCreate());
         }
     }
 

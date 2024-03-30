@@ -50,7 +50,7 @@ import java.util.concurrent.Executors;
  * This class represents the CreateWorkout activity in the application.
  * It allows the user to create a new workout by selecting exercises and setting their details.
  */
-public class CreateWorkout extends AppCompatActivity implements View.OnClickListener {
+public class WorkoutCreate extends AppCompatActivity implements View.OnClickListener {
     private String selected = "easy";
     private TextView easy, medium, hard;
     private EditText name, duration, equipment;
@@ -64,7 +64,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
     private final ExecutorService executor;
     private final Handler handler;
 
-    public CreateWorkout() {
+    public WorkoutCreate() {
         super(R.layout.activity_workout_create);
 
         executor = Executors.newSingleThreadExecutor();
@@ -493,7 +493,7 @@ public class CreateWorkout extends AppCompatActivity implements View.OnClickList
                     handler.post(() -> {
                         Session.setWorkoutID(workoutId);
 
-                        Intent intent = new Intent(CreateWorkout.this, ActivityContainer.class);
+                        Intent intent = new Intent(WorkoutCreate.this, ActivityContainer.class);
                         intent.putExtra("workoutHub", WorkoutHub.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
