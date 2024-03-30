@@ -560,6 +560,36 @@ public class OnlineDbHelper {
     }
 
     /**
+     * Obtain users favourite exercise based on most accessed.
+     */
+    public static String getFavMuscle(String email){
+        System.out.println("being printed ");
+        String query = "SELECT TargetMuscleGroup, COUNT(*) AS occurences " +
+                "FROM HealthData.UserWorkoutHistory AS uwh " +
+                "JOIN HealthData.Workouts AS w " +
+                "ON uwh.WorkoutID = w.WorkoutID " +
+                "WHERE uwh.Email = '" + email + "' " +
+                "GROUP BY TargetMuscleGroup " +
+                "ORDER BY occurences DESC " +
+                "LIMIT 1; ";
+
+        OnlineDbConnection db = new OnlineDbConnection();
+        ResultSet out = db.executeQuery(query);
+
+        String result = null;
+
+        try {
+            if (out.next()) {
+                result = out.getString("TargetMuscleGroup");
+                System.out.println("your muscle is : " + result);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error processing ResultSet", e);
+        }
+        return result;
+    }
+
+    /**
      * Retrieves a limited (4) number of a user's workouts from the database.
      *
      * @param filter The email of the user to retrieve workouts for.

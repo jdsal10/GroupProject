@@ -213,10 +213,10 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     }
 
     public String fillGptInput() {
-        String additionalInfo = additionalInfoAnswer.getText().toString().trim();
-        String injuriesInfo = injuriesAnswer.getText().toString().trim();
-        String equipmentInfo = equipmentAnswer.getText().toString().trim();
-        String mainGoalInfo = mainGoalAnswer.getText().toString().trim();
+        String additionalInfo = additionalInfoAnswer.getText().toString().trim().replaceAll("[^a-zA-Z]", "");
+        String injuriesInfo = injuriesAnswer.getText().toString().trim().replaceAll("[^a-zA-Z]", "");
+        String equipmentInfo = equipmentAnswer.getText().toString().trim().replaceAll("[^a-zA-Z]", "");
+        String mainGoalInfo = mainGoalAnswer.getText().toString().trim().replaceAll("[^a-zA-Z]", "");
         if (!additionalInfo.isEmpty()) {
             additionalInfo = "Additional Info: " + additionalInfo;
         }
