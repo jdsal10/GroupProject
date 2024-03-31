@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,6 @@ import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -37,14 +37,12 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.widget.Toast;
 
 public class Home extends Fragment implements View.OnClickListener, SensorEventListener {
     private TextView workoutsNum;
     private TextView totalTimeNum;
     private TextView favMuscleTarget;
     private float initialStepCount = -1;
-    private static final int REQUEST_CODE_ACTIVITY_RECOGNITION = 1;
     private String CurrentUser, userIdKey;
     private SensorManager sensorManager;
     private View rootView;
@@ -63,7 +61,6 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.activity_home, container, false);
-
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         userIdKey = Session.getUserDetails()[6];
@@ -71,11 +68,9 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
         ScrollView signedInLayout = rootView.findViewById(R.id.signedInLayout);
         LinearLayout anonymousLayout = rootView.findViewById(R.id.anonymousLayout);
 
+
         // Behaviour if signed in
         if (Session.getSignedIn()) {
-            if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, REQUEST_CODE_ACTIVITY_RECOGNITION);
-            }
             signedInLayout.setVisibility(View.VISIBLE);
             anonymousLayout.setVisibility(View.GONE);
 
@@ -94,6 +89,8 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
             LinearLayout ArmsLink = rootView.findViewById(R.id.arms);
             ArmsLink.setOnClickListener(this);
 
+            LinearLayout statsLayout = rootView.findViewById(R.id.statisticsLayout);
+            statsLayout.setAlpha(.5f);
             new Thread(() -> {
                 Session.setOnlineDbStatus(OnlineDbConnection.testConnection());
 
@@ -103,7 +100,8 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
                 String totalTime = Integer.toString(OnlineDbHelper.getTotalMinutesFromHistory(CurrentUser));
                 String favMuscleTargeted = OnlineDbHelper.getFavMuscle(CurrentUser);
                 // Update UI on the main thread after fetching data
-                getActivity().runOnUiThread(() -> setWorkoutCount(totalWorkouts, totalTime, favMuscleTargeted));
+                requireActivity().runOnUiThread(() -> setWorkoutCount(totalWorkouts, totalTime));
+                statsLayout.setAlpha(1f);
             }).start();
 
             sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
@@ -123,7 +121,7 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
 
         return rootView;
     }
-
+    @Override
     public void onResume() {
         super.onResume();
 
@@ -135,11 +133,24 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
             Sensor countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
             if (countSensor != null) {
                 sensorManager.registerListener(this, countSensor, SensorManager.SENSOR_DELAY_UI);
-                initialStepCount = -1;
+                initialStepCount = sharedPreferences.getFloat(userIdKey + "_initialStepCount", -1);
             } else {
                 Log.e("Home.onResume()", "Count sensor not available!");
             }
+
+            float stepsTaken = sharedPreferences.getFloat(userIdKey + "_stepsTaken", 0);
+            TextView steps = rootView.findViewById(R.id.StepCounter);
+            steps.setText(String.valueOf(stepsTaken));
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (!Session.getSignedIn()) return;
+
+        sharedPreferences.edit().putFloat(userIdKey + "_initialStepCount", initialStepCount).apply();
     }
 
     @Override
@@ -258,7 +269,6 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
             TextView stepText = rootView.findViewById(R.id.stepTitle);
             stepText.setVisibility(View.GONE);
             stepLayout.setVisibility(View.GONE);
-            Toast.makeText(getActivity(), "Permission denied. Please enable it from settings to use step counter.", Toast.LENGTH_LONG).show();
         }
     });
 }
