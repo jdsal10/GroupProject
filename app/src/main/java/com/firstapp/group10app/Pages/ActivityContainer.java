@@ -2,18 +2,19 @@ package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -82,16 +83,52 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
             }
 
             if (currentView == HOME || currentView == R.layout.activity_home) {
-                bottomNavigationView.getMenu().findItem(R.id.goToHome).setChecked(true);
-                bottomNavigationView.findViewById(R.id.goToHome).setBackgroundResource(R.drawable.navigationbar_rounded);
+                MenuItem menuItem = bottomNavigationView.getMenu().findItem(R.id.goToHome);
+
+                menuItem.setChecked(true);
+                bottomNavigationView.findViewById(R.id.goToHome).setBackgroundResource(R.drawable.shape_tetradic1);
+
+                SpannableString s = new SpannableString(menuItem.getTitle());
+                s.setSpan(new ForegroundColorSpan(Color.WHITE), 0, s.length(), 0);
+                menuItem.setTitle(s);
+
+                // Set the color of the icon (above the text) to white
+                Drawable iconDrawable = getResources().getDrawable(R.drawable.icon_home);
+                iconDrawable.setColorFilter(new PorterDuffColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN));
+                menuItem.setIcon(iconDrawable);
+
                 updateView(new Home());
             } else if (currentView == WORKOUTS || currentView == R.layout.activity_workout_option) {
-                bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setChecked(true);
-                bottomNavigationView.findViewById(R.id.goToWorkouts).setBackgroundResource(R.drawable.navigationbar_rounded);
+                MenuItem menuItem = bottomNavigationView.getMenu().findItem(R.id.goToWorkouts);
+
+                menuItem.setChecked(true);
+                bottomNavigationView.findViewById(R.id.goToWorkouts).setBackgroundResource(R.drawable.shape_tetradic1);
+
+                SpannableString s = new SpannableString(menuItem.getTitle());
+                s.setSpan(new ForegroundColorSpan(Color.WHITE), 0, s.length(), 0);
+                menuItem.setTitle(s);
+
+                // Set the color of the icon (above the text) to white
+                Drawable iconDrawable = getResources().getDrawable(R.drawable.icon_workout);
+                iconDrawable.setColorFilter(new PorterDuffColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN));
+                menuItem.setIcon(iconDrawable);
+
                 updateView(new Workout());
             } else {
-                bottomNavigationView.getMenu().findItem(R.id.goToSettings).setChecked(true);
-                bottomNavigationView.findViewById(R.id.goToSettings).setBackgroundResource(R.drawable.navigationbar_rounded);
+                MenuItem menuItem = bottomNavigationView.getMenu().findItem(R.id.goToHistory);
+
+                menuItem.setChecked(true);
+                bottomNavigationView.findViewById(R.id.goToHistory).setBackgroundResource(R.drawable.shape_tetradic1);
+
+                SpannableString s = new SpannableString(menuItem.getTitle());
+                s.setSpan(new ForegroundColorSpan(Color.WHITE), 0, s.length(), 0);
+                menuItem.setTitle(s);
+
+                // Set the color of the icon (above the text) to white
+                Drawable iconDrawable = getResources().getDrawable(R.drawable.icon_history);
+                iconDrawable.setColorFilter(new PorterDuffColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN));
+                menuItem.setIcon(iconDrawable);
+
                 updateView(new History());
             }
 
@@ -173,32 +210,61 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-
+    public boolean onNavigationItemSelected(MenuItem selectedMenuItem) {
         BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
-        int id = item.getItemId();
+        int selectedItemId = selectedMenuItem.getItemId();
 
         for (int i = 0; i < bottomNavigationView.getMenu().size(); i++) {
             MenuItem menuItem = bottomNavigationView.getMenu().getItem(i);
             View view = bottomNavigationView.findViewById(menuItem.getItemId());
             view.setBackgroundColor(Color.WHITE);
+
+            SpannableString s = new SpannableString(menuItem.getTitle());
+            s.setSpan(new ForegroundColorSpan(Color.BLACK), 0, s.length(), 0);
+            menuItem.setTitle(s);
+
+            // Get the icon drawable
+            Drawable iconDrawable;
+            if (i == 0) iconDrawable = getResources().getDrawable(R.drawable.icon_home);
+            else if (i == 1) iconDrawable = getResources().getDrawable(R.drawable.icon_workout);
+            else iconDrawable = getResources().getDrawable(R.drawable.icon_history);
+
+            // Set the color of the icon (above the text) to black
+            iconDrawable.setColorFilter(new PorterDuffColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN));
+            menuItem.setIcon(iconDrawable);
         }
 
-        // Change background for selected item
-        View selectedView = bottomNavigationView.findViewById(item.getItemId());
-        selectedView.setBackgroundResource(R.drawable.navigationbar_rounded);
+        // Change background for selected selectedMenuItem
+        bottomNavigationView.findViewById(selectedMenuItem.getItemId()).setBackgroundResource(R.drawable.shape_tetradic1);
 
-        if ((id == R.id.goToHome) && (currentView != 1)) {
+        // Get the icon drawable
+        Drawable iconDrawable;
+        if (selectedItemId == R.id.goToHome)
+            iconDrawable = getResources().getDrawable(R.drawable.icon_home);
+        else if (selectedItemId == R.id.goToWorkouts)
+            iconDrawable = getResources().getDrawable(R.drawable.icon_workout);
+        else iconDrawable = getResources().getDrawable(R.drawable.icon_history);
+
+        // Set the color of the icon (above the text) to white
+        iconDrawable.setColorFilter(new PorterDuffColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN));
+        bottomNavigationView.getMenu().findItem(selectedMenuItem.getItemId()).setIcon(iconDrawable);
+
+        // Change text color for selected selectedMenuItem
+        SpannableString s = new SpannableString(selectedMenuItem.getTitle());
+        s.setSpan(new ForegroundColorSpan(Color.WHITE), 0, s.length(), 0);
+        selectedMenuItem.setTitle(s);
+
+        if ((selectedItemId == R.id.goToHome) && (currentView != 1)) {
             if (currentView == SETTINGS) updateView(new Home());
             else updateView(new Home(), false);
 
             currentView = HOME;
-        } else if ((id == R.id.goToWorkouts) && (currentView != 2)) {
+        } else if ((selectedItemId == R.id.goToWorkouts) && (currentView != 2)) {
             if (currentView == SETTINGS) updateView(new Workout());
             else updateView(new Workout(), currentView < 2);
 
             currentView = WORKOUTS;
-        } else if ((id == R.id.goToHistory) && (currentView != 3)) {
+        } else if ((selectedItemId == R.id.goToHistory) && (currentView != 3)) {
             if (currentView == SETTINGS) updateView(new History());
             else updateView(new History(), true);
 
