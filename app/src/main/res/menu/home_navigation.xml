@@ -8,22 +8,22 @@
         android:icon="@drawable/icon_home"
         android:textSize="15sp"
         android:title="@string/homeItem"
-    app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/goToWorkouts"
         android:icon="@drawable/icon_workout"
         android:textSize="15sp"
         android:title="@string/workoutsItem"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/goToHistory"
         android:icon="@drawable/icon_history"
         android:textSize="15sp"
         android:title="@string/historyItem"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/invisible"
         android:textSize="15sp"
         android:title="Hidden"
-    android:visible="false" />
+        android:visible="false" />
 </menu>

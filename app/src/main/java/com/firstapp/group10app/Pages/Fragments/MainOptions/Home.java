@@ -68,7 +68,7 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
         if (Session.getSignedIn()) {
             userIdKey = Session.getUserDetails()[6];
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            
+
             signedInLayout.setVisibility(View.VISIBLE);
             anonymousLayout.setVisibility(View.GONE);
 
