@@ -1,14 +1,19 @@
 package com.firstapp.group10app.Pages;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -59,7 +64,7 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
         // TODO: Fix in the future if you have time
         Session.setUserName();
         if (Session.getUserName() != null) {
-            pageWelcome.setText("Welcome, " + Session.getUserName() + "!");
+            pageWelcome.setText(String.format("Welcome, %s!", Session.getUserName()));
         }
 
         // Behaviour if signed in
@@ -78,12 +83,15 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
 
             if (currentView == HOME || currentView == R.layout.activity_home) {
                 bottomNavigationView.getMenu().findItem(R.id.goToHome).setChecked(true);
+                bottomNavigationView.findViewById(R.id.goToHome).setBackgroundResource(R.drawable.navigationbar_rounded);
                 updateView(new Home());
             } else if (currentView == WORKOUTS || currentView == R.layout.activity_workout_option) {
                 bottomNavigationView.getMenu().findItem(R.id.goToWorkouts).setChecked(true);
+                bottomNavigationView.findViewById(R.id.goToWorkouts).setBackgroundResource(R.drawable.navigationbar_rounded);
                 updateView(new Workout());
             } else {
                 bottomNavigationView.getMenu().findItem(R.id.goToSettings).setChecked(true);
+                bottomNavigationView.findViewById(R.id.goToSettings).setBackgroundResource(R.drawable.navigationbar_rounded);
                 updateView(new History());
             }
 
@@ -148,8 +156,14 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.goToSettings) {
-            // Unset selected navigation item
             BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
+
+            for (int i = 0; i < bottomNavigationView.getMenu().size(); i++) {
+                MenuItem menuItem = bottomNavigationView.getMenu().getItem(i);
+                View view = bottomNavigationView.findViewById(menuItem.getItemId());
+                view.setBackgroundColor(Color.WHITE);
+            }
+
             bottomNavigationView.getMenu().findItem(R.id.invisible).setChecked(false);
 
             currentView = SETTINGS;
@@ -160,7 +174,19 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.mainNavigation);
         int id = item.getItemId();
+
+        for (int i = 0; i < bottomNavigationView.getMenu().size(); i++) {
+            MenuItem menuItem = bottomNavigationView.getMenu().getItem(i);
+            View view = bottomNavigationView.findViewById(menuItem.getItemId());
+            view.setBackgroundColor(Color.WHITE);
+        }
+
+        // Change background for selected item
+        View selectedView = bottomNavigationView.findViewById(item.getItemId());
+        selectedView.setBackgroundResource(R.drawable.navigationbar_rounded);
 
         if ((id == R.id.goToHome) && (currentView != 1)) {
             if (currentView == SETTINGS) updateView(new Home());
