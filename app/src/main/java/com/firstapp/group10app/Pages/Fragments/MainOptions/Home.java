@@ -100,7 +100,7 @@ public class Home extends Fragment implements View.OnClickListener, SensorEventL
                 String totalTime = Integer.toString(OnlineDbHelper.getTotalMinutesFromHistory(CurrentUser));
                 String favMuscleTargeted = OnlineDbHelper.getFavMuscle(CurrentUser);
                 // Update UI on the main thread after fetching data
-                requireActivity().runOnUiThread(() -> setWorkoutCount(totalWorkouts, totalTime));
+                requireActivity().runOnUiThread(() -> setWorkoutCount(totalWorkouts, totalTime, favMuscleTargeted));
                 statsLayout.setAlpha(1f);
             }).start();
 
