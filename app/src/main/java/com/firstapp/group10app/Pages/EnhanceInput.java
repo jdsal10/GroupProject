@@ -20,6 +20,8 @@ public class EnhanceInput extends Dialog implements View.OnClickListener {
     private EditText input;
     private String result;
 
+    private Dialog enhancingWorkout;
+
     public EnhanceInput(Context context) {
         super(context);
         setContentView(R.layout.popup_enhance_input);
@@ -43,6 +45,8 @@ public class EnhanceInput extends Dialog implements View.OnClickListener {
                 result = (ChatGptClient.chatGPT(prompt));
 
                 System.out.println("RESULT: " + result);
+
+                enhancingWorkout.dismiss();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -53,21 +57,26 @@ public class EnhanceInput extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.generateEnhance) {
+            enhancingWorkout = new Dialog(getContext(), android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+            enhancingWorkout.setContentView(R.layout.generating);
+            enhancingWorkout.setCancelable(false);
+            enhancingWorkout.show();
+
             String enhanceData = input.getText().toString();
             // Check theres data first.
             if (!enhanceData.isEmpty()) {
                 // Add code to generate workout using Session.currentWorkout and new prompt.
                 String workoutString = Session.getSelectedWorkout().toString();
                 workoutString = workoutString.replace("\"", "\\\"");
-                String prompt = "Given the following workout: " + workoutString + ", apply the following update to the data, only returning the JSON, and in the exact format: " + enhanceData + ". Include values for all fields, but set time to null if it is rep, and vice versa. ExerciseID and WorkoutID are not needed."
-                        + "The result should be in the following JSON format: (WorkoutName, WorkoutDuration (only a number, representing minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), Illustration (always set to null)"
+                String prompt = "Given the following workout: " + workoutString + ", apply the following update to the data, only returning the JSON, and in the exact format: " + enhanceData + ". Include values for all fields, but set time to null if it is rep, and vice versa. ExerciseID and WorkoutID are not needed. "
+                        + "The result should be in the following JSON format on one line: (WorkoutName, WorkoutDuration (only a number, representing minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), Illustration (always set to null)"
                         + "Exercises (ExerciseName, Description, Illustration (always set as null), TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps (set to null if time-based), Time (set to null if rep-based)))."
-                        + "If you are unsure, please type unsure.";
+                        + "If you are unsure or if it breaks the format of the required output, please type unsure.";
                 System.out.println(prompt);
 
-                Toast.makeText(getContext(), "Generating...", Toast.LENGTH_SHORT).show();
-
                 Thread newThread = new Thread(runTask(prompt));
+
+                this.dismiss();
                 newThread.start();
 
                 try {

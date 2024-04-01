@@ -1,5 +1,6 @@
 package com.firstapp.group10app.Pages;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,6 +39,8 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     private Button beginWorkoutButton;
     private String output3;
     private View loadingAnimation;
+
+    private Dialog generatingWorkout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,11 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             intent.putExtra("workoutHub", WorkoutHub.class);
             startActivity(intent);
         } else {   // If button == GenerateButton
+            generatingWorkout = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+            generatingWorkout.setContentView(R.layout.generating);
+            generatingWorkout.setCancelable(false);
+            generatingWorkout.show();
+            
             page1.setVisibility(View.GONE);
             page2.setVisibility(View.GONE);
 
@@ -153,6 +161,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             }
         };
 
+        generatingWorkout.dismiss();
         Thread newThread = new Thread(task);
         newThread.start();
         return newThread;
