@@ -116,6 +116,18 @@ public class DatabaseManager {
         }
     }
 
+    public void deleteHistory(String email){
+        try{
+            if(Session.getSignedIn()) {
+                OnlineDbHelper.deleteUserHistory(email);
+            } else {
+                throw new UnsupportedOperationException("Cannot delete history while anonymous because there is no history");
+            }
+        } catch (UnsupportedOperationException e) {
+            e.printStackTrace();
+        }
+    }
+
     public String getUserName(String email) {
         if (Session.getSignedIn()) {
             return OnlineDbHelper.getUserName(email);
