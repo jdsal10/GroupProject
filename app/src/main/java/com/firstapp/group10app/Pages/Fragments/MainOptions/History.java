@@ -80,7 +80,7 @@ public class History extends Fragment implements View.OnClickListener {
                         ItemVisualiser.showEmpty(historyLayout);
                     } else {
                         try {
-                            ItemVisualiser.startWorkoutGenerationLimiting(result, getContext(), historyLayout, "null", R.layout.popup_history, R.id.popupHistory);
+                            ItemVisualiser.startWorkoutGenerationLimiting(result, getContext(), historyLayout, "history", R.layout.popup_history, R.id.popupHistory);
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
