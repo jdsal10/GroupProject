@@ -1,0 +1,35 @@
+<!-- res/layout/dialog_password.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AlertDialog.AppCompat"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/deleteHistoryTitle"
+        android:layout_marginBottom="@dimen/margin_default"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/deleteAccountSubtitle"
+        android:textSize="@dimen/font_size_small" />
+
+    <EditText
+        android:id="@+id/PasswordDeleteHistory"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/text_field_height_default"
+        android:autofillHints="password"
+        android:hint="@string/deleteAccountInput"
+        android:layout_marginBottom="@dimen/margin_default"
+        android:inputType="textPassword" />
+
+    <Button
+        style="@style/ButtonPastelRed"
+        android:id="@+id/btn_confim"
+        android:layout_width="match_parent"
+        android:text="@string/deleteAccountConfirm" />
+
+</LinearLayout>

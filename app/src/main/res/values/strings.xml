@@ -143,6 +143,7 @@
 
     <!--Settings - Account Control - Delete Account-->
     <string name="deleteAccountTitle">Are you sure you want to do this? \nYour workout history and account will be deleted.</string>
+    <string name="deleteHistoryTitle">Are you sure you want to do this? \nYour workout history will be deleted.</string>
     <string name="deleteAccountSubtitle">Please enter your password to confirm:</string>
     <string name="deleteAccountInput">Password</string>
     <string name="deleteAccountConfirm">Confirm</string>
