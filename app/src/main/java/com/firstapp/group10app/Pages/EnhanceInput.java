@@ -60,9 +60,9 @@ public class EnhanceInput extends Dialog implements View.OnClickListener {
                 String workoutString = Session.getSelectedWorkout().toString();
                 workoutString = workoutString.replace("\"", "\\\"");
                 String prompt = "Given the following workout: " + workoutString + ", apply the following update to the data, only returning the JSON, and in the exact format: " + enhanceData + ". Include values for all fields, but set time to null if it is rep, and vice versa. ExerciseID and WorkoutID are not needed."
-                        + " The result should be in the following JSON format: (WorkoutName, WorkoutDuration (only a number, representing minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), Illustration (always set to null)\" +\n" +
-                        "                \"Exercises (ExerciseName, Description, Illustration (always set as null), TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps (set to null if time-based), Time (set to null if rep-based)))." +
-                        " If you are unsure, please type unsure.";
+                        + "The result should be in the following JSON format: (WorkoutName, WorkoutDuration (only a number, representing minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), Illustration (always set to null)"
+                        + "Exercises (ExerciseName, Description, Illustration (always set as null), TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps (set to null if time-based), Time (set to null if rep-based)))."
+                        + "If you are unsure, please type unsure.";
                 System.out.println(prompt);
 
                 Toast.makeText(getContext(), "Generating...", Toast.LENGTH_SHORT).show();
