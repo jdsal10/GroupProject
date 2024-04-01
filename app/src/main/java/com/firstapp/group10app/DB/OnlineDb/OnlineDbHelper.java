@@ -305,6 +305,15 @@ public class OnlineDbHelper {
     }
 
     /**
+     * Deletes history of the user from the database based on their email.
+     *
+     * @param email The email of the user to delete.
+     */
+    public static void deleteUserHistory(String email) {
+        OnlineDbConnection.getInstance().executeStatement("DELETE FROM HealthData.UserWorkoutHistory WHERE Email = '" + email + "'");
+    }
+
+    /**
      * Links an exercise to a workout in the database.
      *
      * @param workoutID  The ID of the workout.
