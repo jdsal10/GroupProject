@@ -301,6 +301,7 @@ public class OnlineDbHelper {
      * @param email The email of the user to delete.
      */
     public static void deleteUser(String email) {
+        OnlineDbConnection.getInstance().executeStatement("DELETE FROM HealthData.UserWorkoutHistory WHERE Email = '" + email + "'");
         OnlineDbConnection.getInstance().executeStatement("DELETE FROM HealthData.Users WHERE Email = '" + email + "'");
     }
 

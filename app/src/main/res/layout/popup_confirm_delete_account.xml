@@ -1,6 +1,7 @@
 <!-- res/layout/dialog_password.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/AlertDialog.AppCompat"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -17,14 +18,22 @@
         android:text="@string/deleteAccountSubtitle"
         android:textSize="@dimen/font_size_small" />
 
-    <EditText
-        android:id="@+id/accountDeletePassword"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etPasswordLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/text_field_height_default"
-        android:autofillHints="password"
-        android:hint="@string/deleteAccountInput"
-        android:layout_marginBottom="@dimen/margin_default"
-        android:inputType="textPassword" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/accountDeletePassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         style="@style/ButtonPastelRed"
