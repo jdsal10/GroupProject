@@ -29,7 +29,6 @@ import org.json.JSONException;
 
 public class History extends Fragment implements View.OnClickListener {
     private LinearLayout historyLayout;
-    private Button viewAll;
     private ExecutorService executor;
     private Handler handler;
 
@@ -59,7 +58,7 @@ public class History extends Fragment implements View.OnClickListener {
         historyLayout.setOrientation(LinearLayout.VERTICAL);
 
         //Initialise Buttons
-        viewAll = rootView.findViewById(R.id.goToViewAll);
+        Button viewAll = rootView.findViewById(R.id.goToViewAll);
 
         viewAll.setOnClickListener(this);
 

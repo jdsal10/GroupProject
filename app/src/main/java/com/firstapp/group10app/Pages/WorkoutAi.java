@@ -63,7 +63,6 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             page1.setVisibility(View.VISIBLE);
             page2.setVisibility(View.GONE);
             page3.setVisibility(View.GONE);
-            TextView mainGoalEdit = findViewById(R.id.mainGoalTitle);
             populateSpinners();
 
             loadingAnimation = findViewById(R.id.loadingScreen);

@@ -19,7 +19,6 @@ import org.json.JSONObject;
 public class EnhanceInput extends Dialog implements View.OnClickListener {
     private EditText input;
     private String result;
-
     private Dialog enhancingWorkout;
 
     public EnhanceInput(Context context) {
@@ -48,7 +47,7 @@ public class EnhanceInput extends Dialog implements View.OnClickListener {
 
                 enhancingWorkout.dismiss();
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         };
     }

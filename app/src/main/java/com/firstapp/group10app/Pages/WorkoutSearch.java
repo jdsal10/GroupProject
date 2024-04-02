@@ -36,7 +36,7 @@ public class WorkoutSearch extends AppCompatActivity implements View.OnClickList
         System.out.println("You clicked: " + targetMuscle);
 
         // Behaviour when a filter is applied
-        if (intent != null && getIntent().hasExtra("duration") && getIntent().hasExtra("difficulty") && getIntent().hasExtra("targetMuscle")) {
+        if (getIntent().hasExtra("duration") && getIntent().hasExtra("difficulty") && getIntent().hasExtra("targetMuscle")) {
             difficultyString = getIntent().getStringExtra("difficulty");
             durationString = getIntent().getStringExtra("duration");
             targetString = getIntent().getStringExtra("targetMuscle");
