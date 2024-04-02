@@ -7,11 +7,31 @@
     android:orientation="vertical"
     tools:context=".Pages.Fragments.MainOptions.History">
 
-    <ImageButton
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/statisticsLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="?attr/homeAsUpIndicator" />
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="?attr/homeAsUpIndicator" />
+
+        <Button
+            android:id="@+id/clearHistorybtn"
+            style="@style/ButtonPastelRed"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear Data"
+            android:layout_marginLeft="80dp"/>
+
+    </LinearLayout>
+
 
     <ScrollView
         android:id="@+id/historyElementsContinued"

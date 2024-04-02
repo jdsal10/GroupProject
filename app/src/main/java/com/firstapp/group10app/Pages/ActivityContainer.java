@@ -199,8 +199,21 @@ public class ActivityContainer extends AppCompatActivity implements NavigationBa
                 MenuItem menuItem = bottomNavigationView.getMenu().getItem(i);
                 View view = bottomNavigationView.findViewById(menuItem.getItemId());
                 view.setBackgroundColor(Color.WHITE);
-            }
 
+                SpannableString s = new SpannableString(menuItem.getTitle());
+                s.setSpan(new ForegroundColorSpan(Color.BLACK), 0, s.length(), 0);
+                menuItem.setTitle(s);
+
+                // Get the icon drawable
+                Drawable iconDrawable;
+                if (i == 0) iconDrawable = getResources().getDrawable(R.drawable.icon_home);
+                else if (i == 1) iconDrawable = getResources().getDrawable(R.drawable.icon_workout);
+                else iconDrawable = getResources().getDrawable(R.drawable.icon_history);
+
+                // Set the color of the icon (above the text) to black
+                iconDrawable.setColorFilter(new PorterDuffColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN));
+                menuItem.setIcon(iconDrawable);
+            }
             bottomNavigationView.getMenu().findItem(R.id.invisible).setChecked(false);
 
             currentView = SETTINGS;

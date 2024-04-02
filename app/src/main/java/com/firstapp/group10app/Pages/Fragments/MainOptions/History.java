@@ -66,16 +66,21 @@ public class History extends Fragment implements View.OnClickListener {
         historyScrollView.addView(historyLayout);
 
         // Get the user's workout history (done in a separate thread)
+
+        return rootView;
+    }
+
+    private void refreshUI() {
+        historyLayout.removeAllViews();
         executor.execute(() -> {
             try {
                 final String result = OnlineDbHelper.getUserWorkoutsLimited(Session.getUserEmail());
-
                 handler.post(() -> {
                     if (result == null) {
                         ItemVisualiser.showEmpty(historyLayout);
                     } else {
                         try {
-                            ItemVisualiser.startWorkoutGenerationLimiting(result, getContext(), historyLayout, "null", R.layout.popup_history, R.id.popupHistory);
+                            ItemVisualiser.startWorkoutGenerationLimiting(result, getContext(), historyLayout, "history", R.layout.popup_history, R.id.popupHistory);
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
@@ -86,8 +91,13 @@ public class History extends Fragment implements View.OnClickListener {
                 throw new RuntimeException(e);
             }
         });
+    }
 
-        return rootView;
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Refresh UI when the activity is resumed
+        refreshUI();
     }
 
     @Override
