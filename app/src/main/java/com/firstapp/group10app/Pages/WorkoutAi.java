@@ -44,6 +44,7 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     private View loadingAnimation;
 
     private Dialog generatingWorkout;
+    private StringBuilder moreInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,9 +141,9 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                 if (!output3.startsWith("{")) {
                     output3 = "{" + output3;
                 }
-//                if (!output3.endsWith("}")) {
-//                    output3 = output3 + "}";
-//                }
+                if (!output3.endsWith("}")) {
+                    output3 = output3 + "}";
+                }
                 Log.d("WorkoutAI", "Output: " + output3);
 
                 if (!output3.contains("\"WorkoutName\"") || output3.startsWith("unsure")) {
@@ -232,33 +233,36 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
         String injuriesInfo = injuriesAnswer.getText().toString().trim().replaceAll("[^a-zA-Z]", "");
         String equipmentInfo = equipmentAnswer.getText().toString().trim().replaceAll("[^a-zA-Z]", "");
         String mainGoalInfo = mainGoalAnswer.getText().toString().trim().replaceAll("[^a-zA-Z]", "");
-        if (!additionalInfo.isEmpty()) {
-            additionalInfo = "Additional Info: " + additionalInfo;
-        }
-        if (!equipmentInfo.isEmpty()) {
-            equipmentInfo = "User has the following equipment: " + equipmentInfo;
-        }
-        if (!injuriesInfo.isEmpty()) {
-            injuriesInfo = "User suffers from the following injuries: " + injuriesInfo;
-        }
 
         String[] userDetails = Session.getUserDetails();
         return "Some info about a user: DOB is - " + userDetails[0] + "." +
                 " User has a weight of " + userDetails[1] + " and a height of " + userDetails[2] + ". " +
                 "User is a " + userDetails[3] + " and has the following health conditions: " + userDetails[4] + ". " +
 
-                "Some more info: " +
-                "Equipment: " + equipmentInfo + ". " +
-                "Injuries: " + injuriesInfo + ". " +
-                "Main Focus:" + mainGoalInfo + ". " +
+                getStringBuilder(equipmentInfo, injuriesInfo, mainGoalInfo) +
 
                 "Generate a workout in the exact JSON format of (WorkoutName, WorkoutDuration (only a number, representing minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), Illustration (always set to null)," +
                 " Exercises (ExerciseName, Description, Illustration (always set as null), TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps (set to null if time-based), Time (set to null if rep-based))). "
-                + "Output only the JSON and everything must have a value unless specified. Do not use the apostrophe (') symbol. " +
+                + "Output only the JSON and everything must have a value unless specified. "
 
-                "Some info about the required workout: [Duration: " + durationAnswer + "] [Target Muscle Group: " + muscleGroupAnswer + "] [Difficulty: " + difficultyAnswer + "]. Additional Info: " + additionalInfo + ". " +
+                + "Some info about the required workout: [Duration: " + durationAnswer + "] [Target Muscle Group: " + muscleGroupAnswer + "] [Difficulty: " + difficultyAnswer + "]. Additional Info: " + additionalInfo + ". " +
 
                 "If you cannot generate a workout as the info given is not relevant or there is not enough info, return only the word unsure. Do it on one line as a String, only output JSON";
+    }
+
+    @NonNull
+    private static StringBuilder getStringBuilder(String equipmentInfo, String injuriesInfo, String mainGoalInfo) {
+        StringBuilder moreInfo = new StringBuilder();
+        if (!equipmentInfo.isEmpty() || !injuriesInfo.isEmpty() || !mainGoalInfo.isEmpty()) {
+            moreInfo.append("Some more info: ");
+            if (!equipmentInfo.isEmpty())
+                moreInfo.append("User has the following equipment: ").append(equipmentInfo).append(". ");
+            if (!injuriesInfo.isEmpty())
+                moreInfo.append("User suffers from the following injuries: ").append(injuriesInfo).append(". ");
+            if (!mainGoalInfo.isEmpty())
+                moreInfo.append("User's main goal is: ").append(mainGoalInfo).append(". ");
+        }
+        return moreInfo;
     }
 
     public void performAnimation(View v, int visibility) {
