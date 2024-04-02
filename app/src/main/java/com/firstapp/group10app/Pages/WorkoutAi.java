@@ -3,6 +3,8 @@ package com.firstapp.group10app.Pages;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -103,13 +105,6 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             generatingWorkout.setContentView(R.layout.generating);
             generatingWorkout.setCancelable(false);
             generatingWorkout.show();
-            
-            page1.setVisibility(View.GONE);
-            page2.setVisibility(View.GONE);
-
-            continueButton.setVisibility(View.GONE);
-            generateButton.setVisibility(View.GONE);
-            page3.setVisibility(View.VISIBLE);
 
             // Nikola's changes
             mainGoalAnswer = findViewById(R.id.mainGoalEdit);
@@ -118,37 +113,14 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             String input = fillGptInput();
             Toast.makeText(WorkoutAi.this, "Generating...", Toast.LENGTH_SHORT).show();
 
-            Thread newThread = getThread(input);
+            Thread newThread = new Thread(getTask(input));
+            newThread.start();
 
-            try {
-                newThread.join();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            Log.d("WorkoutAI", "Output: " + output3);
-            if (!output3.contains("\"WorkoutName\"") || output3.startsWith("unsure")) {
-                Toast.makeText(WorkoutAi.this, "Not enough information to generate a workout. Please try again.", Toast.LENGTH_SHORT).show();
-                page1.setVisibility(View.VISIBLE);
-                page2.setVisibility(View.GONE);
-                page3.setVisibility(View.GONE);
-                continueButton.setVisibility(View.VISIBLE);
-                generateButton.setVisibility(View.GONE);
-            } else {
-                try {
-                    // Show the workout to the user.
-                    showWorkout(output3);
-                    beginWorkoutButton.setVisibility(View.VISIBLE);
-                    addWorkout(output3);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+
         }
     }
-
-    @NonNull
-    private Thread getThread(String input) {
-        Runnable task = () -> {
+    private Runnable getTask(String input) {
+        return () -> {
             try {
                 output3 = (ChatGptClient.chatGPT(input)); // This is a test to see if the chatGPT function works.
                 output3 = output3.replace("\\n", "");
@@ -158,12 +130,37 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        };
 
-        generatingWorkout.dismiss();
-        Thread newThread = new Thread(task);
-        newThread.start();
-        return newThread;
+            // Create a new Handler to post the result back to the UI thread
+            new Handler(Looper.getMainLooper()).post(() -> {
+                generatingWorkout.dismiss();
+                Log.d("WorkoutAI", "Output: " + output3);
+                if (!output3.contains("\"WorkoutName\"") || output3.startsWith("unsure")) {
+                    Toast.makeText(WorkoutAi.this, "Not enough information to generate a workout. Please try again.", Toast.LENGTH_SHORT).show();
+                    page1.setVisibility(View.VISIBLE);
+                    page2.setVisibility(View.GONE);
+                    page3.setVisibility(View.GONE);
+                    continueButton.setVisibility(View.VISIBLE);
+                    generateButton.setVisibility(View.GONE);
+                } else {
+                    page1.setVisibility(View.GONE);
+                    page2.setVisibility(View.GONE);
+
+                    continueButton.setVisibility(View.GONE);
+                    generateButton.setVisibility(View.GONE);
+                    page3.setVisibility(View.VISIBLE);
+
+                    try {
+                        // Show the workout to the user.
+                        showWorkout(output3);
+                        beginWorkoutButton.setVisibility(View.VISIBLE);
+                        addWorkout(output3);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        };
     }
 
     // Adds a workout to the database once the user confirms.
