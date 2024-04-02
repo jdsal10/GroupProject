@@ -36,8 +36,6 @@ import java.util.TimerTask;
 
 public class ActiveWorkout extends AppCompatActivity implements View.OnClickListener {
     TextView timerText;
-    TimerTask flashTask;
-    Timer timer;
     int time, currentPage = 0;
     boolean paused, complete;
     Button pause, resume, finish, next, previous;

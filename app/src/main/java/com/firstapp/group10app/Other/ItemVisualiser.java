@@ -87,12 +87,16 @@ public class ItemVisualiser {
             exerciseMainView.removeAllViews();
 
             // Adds button function if required.
-            if (buttonType.equals("search")) {
-                addSearchButtons(popupView, alertDialog, box.getId());
-            } else if (buttonType.equals("aiConfirm")) {
-                addCloseButton(popupView, alertDialog);
-            } else if (buttonType.equals("history")) {
-                addRedoButtons(popupView, alertDialog, box.getId());
+            switch (buttonType) {
+                case "search":
+                    addSearchButtons(popupView, alertDialog, box.getId());
+                    break;
+                case "aiConfirm":
+                    addCloseButton(popupView, alertDialog);
+                    break;
+                case "history":
+                    addRedoButtons(popupView, alertDialog, box.getId());
+                    break;
             }
 
             LinearLayout exerciseLayout = new LinearLayout(context);

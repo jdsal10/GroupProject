@@ -13,8 +13,7 @@ import com.firstapp.group10app.Other.Validator;
 import com.firstapp.group10app.R;
 
 public class ForgotPasswordContinued extends AppCompatActivity implements View.OnClickListener {
-    private EditText password1;
-    private EditText password2;
+    private EditText password1, password2;
     private Button passwordchangeconfirm;
     private String email;
 
