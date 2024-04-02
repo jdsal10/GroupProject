@@ -637,7 +637,7 @@ public class OnlineDbHelper {
                 "   HealthData.Workouts w" +
                 " JOIN HealthData.UserWorkoutHistory uwh ON w.WorkoutID = uwh.WorkoutID" +
                 " WHERE uwh.Email = '" + filter + "'" +
-                " ORDER BY uwh.Date DESC" +
+                " ORDER BY uwh.HistoryID DESC" +
                 " LIMIT 4";
 
         ResultSet resultSet = OnlineDbConnection.getInstance().executeQuery(query);

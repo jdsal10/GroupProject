@@ -74,6 +74,7 @@ public class History extends Fragment implements View.OnClickListener {
         executor.execute(() -> {
             try {
                 final String result = OnlineDbHelper.getUserWorkoutsLimited(Session.getUserEmail());
+                System.out.println("fixing history: " + result);
                 handler.post(() -> {
                     if (result == null) {
                         ItemVisualiser.showEmpty(historyLayout);
