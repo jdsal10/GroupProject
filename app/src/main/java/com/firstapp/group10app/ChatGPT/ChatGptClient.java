@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * This class is responsible for interacting with the OpenAI GPT-3.5 API.
@@ -53,10 +55,11 @@ public class ChatGptClient {
             }
         }
 
-        // Extract the text from the response
-        int start = responseRaw.indexOf("content\": \"") + 11;
-        int end = responseRaw.indexOf("\"finish_reason\":") - 15;
+        // Extract the text from the response using Jackson
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode responseJson = objectMapper.readTree(responseRaw.toString());
+        String response = responseJson.get("choices").get(0).get("message").get("content").asText();
 
-        return responseRaw.substring(start, end); // Return the response
+        return response; // Return the response
     }
 }
