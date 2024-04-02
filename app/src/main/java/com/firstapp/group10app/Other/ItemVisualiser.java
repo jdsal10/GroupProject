@@ -150,8 +150,14 @@ public class ItemVisualiser {
                 TextView exerciseRepsView = exerciseBox.findViewById(R.id.exerciseRepsView);
                 TextView exerciseTimeView = exerciseBox.findViewById(R.id.exerciseTimeView);
 
-
                 ImageView exerciseImage = exerciseBox.findViewById(R.id.exerciseImage);
+                // If day theme, set workout icon color to black (and vice versa)
+                if (uiModeManager.getNightMode() != UiModeManager.MODE_NIGHT_YES) {
+                    workoutImage.setColorFilter(ContextCompat.getColor(context, R.color.black));
+                } else {
+                    workoutImage.setColorFilter(ContextCompat.getColor(context, R.color.white));
+                }
+
                 View difficultyScale = exerciseBox.findViewById(R.id.difficulty);
                 TextView difficultyText = exerciseBox.findViewById(R.id.difficultyText);
 
@@ -180,6 +186,13 @@ public class ItemVisualiser {
 
                 exerciseImage.setImageResource(R.drawable.icon_workout);
                 String difficultyValue = workoutObject.optString("Difficulty", "");
+
+                // If day theme, set workout icon color to black (and vice versa)
+                if (uiModeManager.getNightMode() != UiModeManager.MODE_NIGHT_YES) {
+                    workoutImage.setColorFilter(ContextCompat.getColor(context, R.color.black));
+                } else {
+                    workoutImage.setColorFilter(ContextCompat.getColor(context, R.color.white));
+                }
 
                 switch (difficultyValue) {
                     case "Easy":
