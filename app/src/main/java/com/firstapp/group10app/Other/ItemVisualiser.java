@@ -41,7 +41,7 @@ public class ItemVisualiser {
         TextView difficultyView = box.findViewById(R.id.workoutDifficultyView);
 
         ImageView workoutImage = box.findViewById(R.id.workoutImage);
-
+        Log.e("WorkoutID", String.valueOf(details.optInt("WorkoutID")));
         box.setId(details.optInt("WorkoutID"));
 
         // Sets the textViews to the appropriate details.
@@ -203,42 +203,6 @@ public class ItemVisualiser {
         });
     }
 
-    private static void addRedoButtons(View popupView, AlertDialog alertDialog, int id) {
-        Button redoWorkout = popupView.findViewById(R.id.redoExercise);
-        redoWorkout.setOnClickListener(v1 -> {
-            JSONObject workoutObject;
-
-            // Dirty fix of a SQL error that would happen in anonymous due to differences in the db instances
-            String result;
-            if (Session.getSignedIn()) {
-                result = DatabaseManager.getInstance().getWorkoutsAsJsonArray("WHERE w.WorkoutID = '" + id + "'");
-            } else {
-                result = DatabaseManager.getInstance().getWorkoutsAsJsonArray("WHERE w." + WorkoutContract.WorkoutEntry._ID + " = '" + workoutLayout.getId() + "'");
-            }
-            Log.d("ItemVisualiser.addRedoButtons", "result: " + result);
-
-            JSONArray jsonArray;
-
-            try {
-                jsonArray = new JSONArray(result);
-                workoutObject = jsonArray.getJSONObject(0);
-            } catch (JSONException e) {
-                Log.e("ItemVisualiser.addRedoButtons", "Error: " + e);
-                throw new RuntimeException(e);
-            }
-
-            Session.setSelectedWorkout(workoutObject);
-            Session.setWorkoutID(workoutLayout.getId());
-
-            Intent intent = new Intent(context, ActivityContainer.class);
-            intent.putExtra("workoutHub", WorkoutHub.class);
-            context.startActivity(intent);
-        });
-
-        Button closeWorkout = popupView.findViewById(R.id.closeExercise);
-        closeWorkout.setOnClickListener(v1 -> alertDialog.dismiss());
-    }
-
     public static void startWorkoutGeneration(String data, Context context, LinearLayout layout, String buttonType, int popupID, int exerciseScrollID) throws JSONException {
         ItemVisualiser.context = context;
         workoutLayout = layout;
@@ -336,6 +300,42 @@ public class ItemVisualiser {
 
         Button closeWorkout = v.findViewById(R.id.closeExercise);
         closeWorkout.setOnClickListener(v1 -> popup.dismiss());
+    }
+
+    private static void addRedoButtons(View popupView, AlertDialog alertDialog, int id) {
+        Button redoWorkout = popupView.findViewById(R.id.redoExercise);
+        redoWorkout.setOnClickListener(v1 -> {
+            JSONObject workoutObject;
+
+            // Dirty fix of a SQL error that would happen in anonymous due to differences in the db instances
+            String result;
+            if (Session.getSignedIn()) {
+                result = DatabaseManager.getInstance().getWorkoutsAsJsonArray("WHERE w.WorkoutID = '" + id + "'");
+            } else {
+                result = DatabaseManager.getInstance().getWorkoutsAsJsonArray("WHERE w." + WorkoutContract.WorkoutEntry._ID + " = '" + workoutLayout.getId() + "'");
+            }
+            Log.d("ItemVisualiser.addRedoButtons", "result: " + result);
+
+            JSONArray jsonArray;
+
+            try {
+                jsonArray = new JSONArray(result);
+                workoutObject = jsonArray.getJSONObject(0);
+            } catch (JSONException e) {
+                Log.e("ItemVisualiser.addRedoButtons", "Error: " + e);
+                throw new RuntimeException(e);
+            }
+
+            Session.setSelectedWorkout(workoutObject);
+            Session.setWorkoutID(id);
+
+            Intent intent = new Intent(context, ActivityContainer.class);
+            intent.putExtra("workoutHub", WorkoutHub.class);
+            context.startActivity(intent);
+        });
+
+        Button closeWorkout = popupView.findViewById(R.id.closeExercise);
+        closeWorkout.setOnClickListener(v1 -> alertDialog.dismiss());
     }
 
     public static void addCloseButton(View v, AlertDialog popup) {
