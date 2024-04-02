@@ -305,6 +305,11 @@ public class SettingsModifyData_Dialog extends Dialog implements View.OnClickLis
                         SettingsDataControl.updateValue("Sex", dropdown.getSelectedItem().toString());
                         Session.setUserDetailsAt(3, dropdown.getSelectedItem().toString());
                         dismiss();
+                    } else if (dropdown.getSelectedItem().equals("")) {
+                        DatabaseManager.getInstance().updateUserData("Sex", null);
+                        SettingsDataControl.updateValue("Sex", "");
+                        Session.setUserDetailsAt(3, "");
+                        dismiss();
                     } else {
                         edit.setError("Invalid format!");
                     }
