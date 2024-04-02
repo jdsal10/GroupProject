@@ -1,6 +1,7 @@
 package com.firstapp.group10app.Other;
 
 import android.app.Activity;
+import android.app.UiModeManager;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -121,6 +122,15 @@ public class Session {
             Log.i("Session.setUserDetailsAt", "Index out of bounds. Index: " + index + ", Length: " + userDetails.length);
         } else {
             userDetails[index] = value;
+        }
+    }
+
+    public static boolean getDeviceTheme(Context context) {
+        UiModeManager uiModeManager = (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
+        if (uiModeManager.getNightMode() != UiModeManager.MODE_NIGHT_YES) {
+            return Index.DAY;
+        } else {
+            return Index.NIGHT;
         }
     }
 

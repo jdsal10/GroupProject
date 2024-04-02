@@ -9,4 +9,5 @@ public class Index {
     public static final String[] USER_DETAILS = {"Email", "PreferredName", "Password", "DOB", "Weight", "Height", "Sex", "HealthCondition", "ReasonForDownloading"};
     public static final String[] WORKOUT_DETAILS = {"WorkoutName", "WorkoutDuration", "TargetMuscleGroup", "Equipment", "Difficulty"};
     public static final String[] EXERCISE_DETAILS = {"ExerciseName", "Description", "TargetMuscleGroup", "Equipment", "Difficulty"};
+    public static final boolean DAY = true, NIGHT = false;
 }
