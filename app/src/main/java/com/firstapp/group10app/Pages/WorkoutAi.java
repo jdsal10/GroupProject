@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firstapp.group10app.ChatGPT.ChatGptClient;
+import com.firstapp.group10app.Other.Index;
 import com.firstapp.group10app.Other.ItemVisualiser;
 import com.firstapp.group10app.Other.JsonToDb;
 import com.firstapp.group10app.Other.Session;
@@ -134,7 +135,16 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             // Create a new Handler to post the result back to the UI thread
             new Handler(Looper.getMainLooper()).post(() -> {
                 generatingWorkout.dismiss();
+
+                output3 = output3.replaceAll("'", "");
+                if (!output3.startsWith("{")) {
+                    output3 = "{" + output3;
+                }
+//                if (!output3.endsWith("}")) {
+//                    output3 = output3 + "}";
+//                }
                 Log.d("WorkoutAI", "Output: " + output3);
+
                 if (!output3.contains("\"WorkoutName\"") || output3.startsWith("unsure")) {
                     Toast.makeText(WorkoutAi.this, "Not enough information to generate a workout. Please try again.", Toast.LENGTH_SHORT).show();
                     page1.setVisibility(View.VISIBLE);
@@ -232,18 +242,21 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             injuriesInfo = "User suffers from the following injuries: " + injuriesInfo;
         }
 
+        String[] userDetails = Session.getUserDetails();
+        return "Some info about a user: DOB is - " + userDetails[0] + "." +
+                " User has a weight of " + userDetails[1] + " and a height of " + userDetails[2] + ". " +
+                "User is a " + userDetails[3] + " and has the following health conditions: " + userDetails[4] + ". " +
 
-        return "Some info about a user: " + Arrays.toString(Session.getUserDetails()) +
                 "Some more info: " +
-                equipmentInfo + ". " +
-                injuriesInfo + ". " +
-                mainGoalInfo + ". " +
+                "Equipment: " + equipmentInfo + ". " +
+                "Injuries: " + injuriesInfo + ". " +
+                "Main Focus:" + mainGoalInfo + ". " +
 
-                "Generate a workout in the exact JSON format of (WorkoutName, WorkoutDuration (only a number, representing minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), Illustration (always set to null)" +
-                "Exercises (ExerciseName, Description, Illustration (always set as null), TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps (set to null if time-based), Time (set to null if rep-based))). "
-                + "Output only the JSON and everything must have a value unless specified. Do not use the apostrophe (') symbol" +
+                "Generate a workout in the exact JSON format of (WorkoutName, WorkoutDuration (only a number, representing minutes), TargetMuscleGroup, Equipment, Difficulty (Easy, Medium or Hard), Illustration (always set to null)," +
+                " Exercises (ExerciseName, Description, Illustration (always set as null), TargetMuscleGroup, Equipment, Difficulty (easy medium hard), Sets, Reps (set to null if time-based), Time (set to null if rep-based))). "
+                + "Output only the JSON and everything must have a value unless specified. Do not use the apostrophe (') symbol. " +
 
-                "Some info about the required workout: [Duration " + durationAnswer + "] [" + muscleGroupAnswer + "] [" + difficultyAnswer + "]. " + additionalInfo + ". " +
+                "Some info about the required workout: [Duration: " + durationAnswer + "] [Target Muscle Group: " + muscleGroupAnswer + "] [Difficulty: " + difficultyAnswer + "]. Additional Info: " + additionalInfo + ". " +
 
                 "If you cannot generate a workout as the info given is not relevant or there is not enough info, return only the word unsure. Do it on one line as a String, only output JSON";
     }

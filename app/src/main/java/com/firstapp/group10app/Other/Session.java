@@ -30,7 +30,7 @@ public class Session {
     private static int workoutID;
     private static AppCompatActivity container;
 
-    // Format for userDetails is [DOB, Weight, Height, Sex, Health Condition, Reason for downloading]
+    // Format for userDetails is [DOB, Weight, Height, Sex, Health Condition, Reason for downloading, Email]
     private static String[] userDetails;
 
     public static String getUserEmail() {

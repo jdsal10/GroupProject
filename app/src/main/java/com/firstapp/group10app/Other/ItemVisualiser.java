@@ -248,6 +248,11 @@ public class ItemVisualiser {
         if (data == null) {
             showEmpty(layout);
         } else {
+            Log.e("ItemVisualiser.startWorkoutGenerationAI", data);
+            if(data.startsWith("[") && data.endsWith("]")) {
+                Log.e("ItemVisualiser.startWorkoutGenerationAI", "Removing brackets");
+                data = data.substring(1, data.length() - 1);
+            }
             JSONObject workoutObject = new JSONObject(data);
             addDetails(workoutObject, buttonType);
         }
