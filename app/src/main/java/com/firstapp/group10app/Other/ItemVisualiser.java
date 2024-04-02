@@ -1,6 +1,7 @@
 package com.firstapp.group10app.Other;
 
 import android.app.AlertDialog;
+import android.app.UiModeManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -53,6 +54,14 @@ public class ItemVisualiser {
 
         workoutImage.setImageResource(R.drawable.icon_workout);
         String exerciseList = details.optString("Exercises");
+
+        // If day theme, set workout image color to black (and vice versa)
+        UiModeManager uiModeManager = (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
+        if (uiModeManager.getNightMode() != UiModeManager.MODE_NIGHT_YES) {
+            workoutImage.setColorFilter(ContextCompat.getColor(context, R.color.black));
+        } else {
+            workoutImage.setColorFilter(ContextCompat.getColor(context, R.color.white));
+        }
 
         // Adds to a linear layout.
         workoutLayout.addView(box);
