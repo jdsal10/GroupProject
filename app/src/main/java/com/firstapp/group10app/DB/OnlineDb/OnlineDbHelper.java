@@ -599,7 +599,7 @@ public class OnlineDbHelper {
         OnlineDbConnection db = new OnlineDbConnection();
         ResultSet out = db.executeQuery(query);
 
-        String result = null;
+        String result = "none";
 
         try {
             if (out.next()) {
