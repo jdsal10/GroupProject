@@ -606,8 +606,9 @@ public class OnlineDbHelper {
      * @return A JSON string containing the user's workouts.
      */
     public static String getUserWorkoutsLimited(String filter) {
-        String query = "SELECT " +
-                "JSON_ARRAYAGG(" +
+        String query =
+                "SELECT " +
+                "JSON_ARRAY(" +
                 "  JSON_OBJECT(" +
                 "    'WorkoutID', w.WorkoutID," +
                 "    'WorkoutName', w.WorkoutName," +
@@ -638,19 +639,32 @@ public class OnlineDbHelper {
                 " JOIN HealthData.UserWorkoutHistory uwh ON w.WorkoutID = uwh.WorkoutID" +
                 " WHERE uwh.Email = '" + filter + "'" +
                 " ORDER BY uwh.HistoryID DESC" +
-                " LIMIT 4";
+                " LIMIT 4;";
 
         ResultSet resultSet = OnlineDbConnection.getInstance().executeQuery(query);
 
         try {
-            if (resultSet.next()) {
-                return resultSet.getString("Result");
+            StringBuilder resultBuilder = new StringBuilder();
+            String finalResult;
+            while (resultSet.next()){
+                String result = resultSet.getString("Result");
+
+                result = result.substring(1, result.length() -1) + ",";
+
+                resultBuilder.append(result);
             }
+            if (resultBuilder.length() == 0){
+                return null;
+            }
+            finalResult = "[" + resultBuilder.substring(0, resultBuilder.length() - 1) + "]";
+            System.out.println("my debugging: " + finalResult);
+
+            return finalResult;
+
         } catch (SQLException e) {
             throw new RuntimeException("Error processing ResultSet", e);
         }
 
-        return "";
     }
 
     /**
