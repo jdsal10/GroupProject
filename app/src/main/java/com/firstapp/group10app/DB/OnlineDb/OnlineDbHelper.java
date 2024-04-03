@@ -466,50 +466,63 @@ public class OnlineDbHelper {
      * @return A JSON string containing the user's workouts.
      */
     public static String getUserWorkouts(String filter) {
-        String query = "SELECT " +
-                "JSON_ARRAYAGG(" +
-                "  JSON_OBJECT(" +
-                "    'WorkoutID', w.WorkoutID," +
-                "    'WorkoutName', w.WorkoutName," +
-                "    'WorkoutDuration', w.WorkoutDuration," +
-                "    'TargetMuscleGroup', w.TargetMuscleGroup," +
-                "    'Equipment', w.Equipment," +
-                "    'Difficulty', w.Difficulty," +
-                "    'Exercises', (" +
-                "      SELECT JSON_ARRAYAGG(" +
-                "        JSON_OBJECT(" +
-                "          'ExerciseID', e.ExerciseID," +
-                "          'ExerciseName', e.ExerciseName," +
-                "          'Description', e.Description," +
-                "          'Illustration', e.Illustration," +
-                "          'TargetMuscleGroup', e.TargetMuscleGroup," +
-                "          'Equipment', e.Equipment," +
-                "          'Difficulty', e.Difficulty" +
-                "        )" +
-                "      )" +
-                "      FROM HealthData.ExerciseWorkoutPairs ewp" +
-                "      JOIN HealthData.Exercises e ON ewp.ExerciseID = e.ExerciseID" +
-                "      WHERE ewp.WorkoutID = w.WorkoutID" +
-                "    )" +
-                "  )" +
-                ") AS Result" +
-                " FROM" +
-                "   HealthData.Workouts w" +
-                " JOIN HealthData.UserWorkoutHistory uwh ON w.WorkoutID = uwh.WorkoutID" +
-                " WHERE uwh.Email = '" + filter + "'" +
-                " ORDER BY uwh.Date DESC";
+        String query =
+                "SELECT " +
+                        "JSON_ARRAY(" +
+                        "  JSON_OBJECT(" +
+                        "    'WorkoutID', w.WorkoutID," +
+                        "    'WorkoutName', w.WorkoutName," +
+                        "    'WorkoutDuration', w.WorkoutDuration," +
+                        "    'TargetMuscleGroup', w.TargetMuscleGroup," +
+                        "    'Equipment', w.Equipment," +
+                        "    'Difficulty', w.Difficulty," +
+                        "    'Exercises', (" +
+                        "      SELECT JSON_ARRAYAGG(" +
+                        "        JSON_OBJECT(" +
+                        "          'ExerciseID', e.ExerciseID," +
+                        "          'ExerciseName', e.ExerciseName," +
+                        "          'Description', e.Description," +
+                        "          'Illustration', e.Illustration," +
+                        "          'TargetMuscleGroup', e.TargetMuscleGroup," +
+                        "          'Equipment', e.Equipment," +
+                        "          'Difficulty', e.Difficulty" +
+                        "        )" +
+                        "      )" +
+                        "      FROM HealthData.ExerciseWorkoutPairs ewp" +
+                        "      JOIN HealthData.Exercises e ON ewp.ExerciseID = e.ExerciseID" +
+                        "      WHERE ewp.WorkoutID = w.WorkoutID" +
+                        "    )" +
+                        "  )" +
+                        ") AS Result" +
+                        " FROM" +
+                        "   HealthData.Workouts w" +
+                        " JOIN HealthData.UserWorkoutHistory uwh ON w.WorkoutID = uwh.WorkoutID" +
+                        " WHERE uwh.Email = '" + filter + "'" +
+                        " ORDER BY uwh.HistoryID DESC";
 
         ResultSet resultSet = OnlineDbConnection.getInstance().executeQuery(query);
 
         try {
-            if (resultSet.next()) {
-                return resultSet.getString("Result");
+            StringBuilder resultBuilder = new StringBuilder();
+            String finalResult;
+            while (resultSet.next()){
+                String result = resultSet.getString("Result");
+
+                result = result.substring(1, result.length() -1) + ",";
+
+                resultBuilder.append(result);
             }
+            if (resultBuilder.length() == 0){
+                return null;
+            }
+            finalResult = "[" + resultBuilder.substring(0, resultBuilder.length() - 1) + "]";
+            System.out.println("my debugging: " + finalResult);
+
+            return finalResult;
+
         } catch (SQLException e) {
             throw new RuntimeException("Error processing ResultSet", e);
         }
-
-        return "";
     }
 
     /**
@@ -664,7 +677,6 @@ public class OnlineDbHelper {
         } catch (SQLException e) {
             throw new RuntimeException("Error processing ResultSet", e);
         }
-
     }
 
     /**
