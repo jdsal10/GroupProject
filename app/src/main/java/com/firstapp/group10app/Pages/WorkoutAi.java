@@ -37,11 +37,40 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
     private String muscleGroupAnswer, durationAnswer, difficultyAnswer;
     private TextView generateButton, continueButton;
     private Button beginWorkoutButton;
-    private String output3;
+    private String gptOutput;
     private View loadingAnimation;
-
     private Dialog generatingWorkout;
-    private StringBuilder moreInfo;
+
+    private static StringBuilder getMoreInfoPart1(String[] userDetails) {
+        StringBuilder moreInfo = new StringBuilder();
+        if (userDetails != null) {
+            if (userDetails[0] != null) {
+                moreInfo.append("Some info about a user: DOB is - ").append(userDetails[0]).append(". ");
+            }
+            if (userDetails[1] != null) {
+                moreInfo.append("User has a weight of ").append(userDetails[1]).append(" and a height of ").append(userDetails[2]).append(". ");
+            }
+            if (userDetails[3] != null) {
+                moreInfo.append("User is a ").append(userDetails[3]).append(" and has the following health conditions: ").append(userDetails[4]).append(". ");
+            }
+        }
+        return moreInfo;
+    }
+
+    @NonNull
+    private static StringBuilder getMoreInfoPart2(String equipmentInfo, String injuriesInfo, String mainGoalInfo) {
+        StringBuilder moreInfo = new StringBuilder();
+        if (!equipmentInfo.isEmpty() || !injuriesInfo.isEmpty() || !mainGoalInfo.isEmpty()) {
+            moreInfo.append("Some more info: ");
+            if (!equipmentInfo.isEmpty())
+                moreInfo.append("User has the following equipment: ").append(equipmentInfo).append(". ");
+            if (!injuriesInfo.isEmpty())
+                moreInfo.append("User suffers from the following injuries: ").append(injuriesInfo).append(". ");
+            if (!mainGoalInfo.isEmpty())
+                moreInfo.append("User's main goal is: ").append(mainGoalInfo).append(". ");
+        }
+        return moreInfo;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,12 +147,13 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
 
         }
     }
+
     private Runnable getTask(String input) {
         return () -> {
             try {
-                output3 = (ChatGptClient.chatGPT(input)); // This is a test to see if the chatGPT function works.
-                output3 = output3.replace("\\n", "");
-                output3 = output3.replace("\\", "");
+                gptOutput = (ChatGptClient.chatGPT(input)); // This is a test to see if the chatGPT function works.
+                gptOutput = gptOutput.replace("\\n", "");
+                gptOutput = gptOutput.replace("\\", "");
                 // Show loading animation
                 performAnimation(loadingAnimation, View.VISIBLE);
             } catch (Exception e) {
@@ -135,23 +165,23 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                 generatingWorkout.dismiss();
 
                 // Modify the output
-                if(output3.startsWith("[") && output3.endsWith("]")) {
+                if (gptOutput.startsWith("[") && gptOutput.endsWith("]")) {
                     Log.e("ItemVisualiser.startWorkoutGenerationAI", "Removing brackets");
-                    output3 = output3.substring(1, output3.length() - 1);
+                    gptOutput = gptOutput.substring(1, gptOutput.length() - 1);
                 }
 
-                output3 = output3.replaceAll("'", "");
+                gptOutput = gptOutput.replaceAll("'", "");
 
-                if (!output3.startsWith("{")) {
-                    output3 = "{" + output3;
+                if (!gptOutput.startsWith("{")) {
+                    gptOutput = "{" + gptOutput;
                 }
-                if (!output3.endsWith("}")) {
-                    output3 = output3 + "}";
+                if (!gptOutput.endsWith("}")) {
+                    gptOutput = gptOutput + "}";
                 }
 
-                Log.i("WorkoutAI", "Modified output: " + output3);
+                Log.i("WorkoutAI", "Modified output: " + gptOutput);
 
-                if (!output3.contains("\"WorkoutName\"") || output3.startsWith("unsure")) {
+                if (!gptOutput.contains("\"WorkoutName\"") || gptOutput.startsWith("unsure")) {
                     Toast.makeText(WorkoutAi.this, "Not enough information to generate a workout. Please try again.", Toast.LENGTH_SHORT).show();
                     page1.setVisibility(View.VISIBLE);
                     page2.setVisibility(View.GONE);
@@ -168,9 +198,9 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
 
                     try {
                         // Show the workout to the user.
-                        showWorkout(output3);
+                        showWorkout(gptOutput);
                         beginWorkoutButton.setVisibility(View.VISIBLE);
-                        addWorkout(output3);
+                        addWorkout(gptOutput);
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
@@ -251,37 +281,6 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
                 + "Some info about the required workout: [Duration: " + durationAnswer + "] [Target Muscle Group: " + muscleGroupAnswer + "] [Difficulty: " + difficultyAnswer + "]. Additional Info: " + additionalInfo + ". " +
 
                 "If you cannot generate a workout as the info given is not relevant or there is not enough info, return only the word unsure. Do it on one line as a String, only output JSON";
-    }
-
-    private static StringBuilder getMoreInfoPart1(String[] userDetails) {
-        StringBuilder moreInfo = new StringBuilder();
-        if (userDetails != null) {
-            if (userDetails[0] != null) {
-                moreInfo.append("Some info about a user: DOB is - ").append(userDetails[0]).append(". ");
-            }
-            if (userDetails[1] != null) {
-                moreInfo.append("User has a weight of ").append(userDetails[1]).append(" and a height of ").append(userDetails[2]).append(". ");
-            }
-            if (userDetails[3] != null) {
-                moreInfo.append("User is a ").append(userDetails[3]).append(" and has the following health conditions: ").append(userDetails[4]).append(". ");
-            }
-        }
-        return moreInfo;
-    }
-
-    @NonNull
-    private static StringBuilder getMoreInfoPart2(String equipmentInfo, String injuriesInfo, String mainGoalInfo) {
-        StringBuilder moreInfo = new StringBuilder();
-        if (!equipmentInfo.isEmpty() || !injuriesInfo.isEmpty() || !mainGoalInfo.isEmpty()) {
-            moreInfo.append("Some more info: ");
-            if (!equipmentInfo.isEmpty())
-                moreInfo.append("User has the following equipment: ").append(equipmentInfo).append(". ");
-            if (!injuriesInfo.isEmpty())
-                moreInfo.append("User suffers from the following injuries: ").append(injuriesInfo).append(". ");
-            if (!mainGoalInfo.isEmpty())
-                moreInfo.append("User's main goal is: ").append(mainGoalInfo).append(". ");
-        }
-        return moreInfo;
     }
 
     public void performAnimation(View v, int visibility) {
