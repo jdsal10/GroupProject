@@ -98,7 +98,7 @@ public class ActiveExerciseUpdate extends Fragment {
         }
 
         if (!time.equals("null")) {
-            timeTextView.setText(String.format("- %s seconds?", time));
+            timeTextView.setText(String.format("- %s seconds", time));
         } else {
             timeTextView.setVisibility(View.GONE);
         }

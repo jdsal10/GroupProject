@@ -142,8 +142,6 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
 
             Thread newThread = new Thread(getTask(input));
             newThread.start();
-
-
         }
     }
 
