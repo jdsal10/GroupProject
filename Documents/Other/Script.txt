@@ -1,0 +1,129 @@
+SCRIPT:
+
+
+(Whilst on MainActivity:)
+
+Hello, for our COMP6000 project this year our group developed a Workout Assistant App. It is a privacy-centred fitness platform that utilises generative AI to deliver personalised workout experiences.
+From the get-go users have a choice between logging in with an account or choosing to be anonymous.
+If they choose to be anonymous
+
+(Click on “Anonymous Browsing”)
+
+They are taken to a simplified version of the home page.
+The feature that they have access to is searching our local database of exercises and workouts.
+
+(Click on “Search”)
+(Hover the mouse above the exercise)
+
+We’ve added a sample workout to showcase that.
+
+(Click Back, then Log out, and confirm)
+
+They can also log in with an account to access the rest of the features.
+But first, we need to create an account.
+
+(Clicks on register text)
+
+Only email and password are required, everything else is optional.
+
+(Adds details, can add some optional data, and click, next and confirm)
+
+Now we log in.
+
+(Log in)
+
+Once logged in, they are taken to the homepage
+Here, they can see their statistics, including number of workouts, favourite workout, and time spent. There is also a step counter that is saved locally on the device. At the bottom they can quickly pick a workout targeted at a specific muscle.
+
+(Points to the top)
+
+At the top, there is a banner, which is consistent whilst navigating the main pages. It includes a title, welcome message, and a button to the settings.
+
+(Navigate to settings)
+
+In settings, users can switch between Data Control and Account Management tabs.
+In data control, they can modify all their details
+
+(Show changing/adding data. Clicks on account)
+
+In the other tab, users can choose between changing passwords, logging out, or deleting their account.
+Back to home, goes to home page, goes to workout
+On the workouts page, users can switch between manual and AI tabs.
+In manual they have two options: Search and Create
+
+(Open search)
+
+In Search, users can browse and filter existing workouts.
+
+(Show filtering. Pick a workout)
+
+One can also see the details of every exercise in the workout.
+
+(Go back)
+(Go to create)
+
+In Create, users utilise our exercise database to create a workout.
+First they add details about their new workout, including name and difficulty.
+
+(Click continue.)
+
+Then, they choose from a list of exercises.
+
+(Pick a few and click confirm)
+
+Once selected, the users have a final look at their workout, before confirming.
+
+(Go back)
+(Go to AI tab)
+
+However, probably most interesting are AI generated workouts. Users provide the AI necessary information and get a personalised workout made for them.
+
+(Provide some data)
+
+No matter which path they choose to get their workout, after selecting it they are always sent to the Workout Hub.
+
+(Select the workout)
+
+The Workout Hub gives them an overview of their workout. They also have the options to Enhance or Begin.
+In Enhance, users can further modify their workout.
+
+(Show enhancing)
+
+Once enhanced, the user can either pick the new workout or, if not happy, regenerate again.
+
+(Pick select)
+
+Once they start the workout, they are shown an outline of the current exercise, including an image and a description.
+
+(Click next)
+
+“Next” takes them to the next exercise. They can also navigate back.
+
+(Click pause)
+
+Pausing and resuming the workout is also possible.
+
+(Clicks finish)
+
+Once finished, they are then taken back to the workouts page.
+
+(Go to History)
+
+Finally, the history page shows the user an outline of all workouts they have completed. By default, it only shows four workouts. To view all they must click the appropriate button.
+If a user wants to redo a past workout, all they have to do is to find it in History.
+
+(Click on a workout)
+(And click “Redo”)
+
+Finally, we want to show how easy it is for a user to disappear off our database.
+There is a button to wipe history and statistics.
+
+(Wipe History)
+
+There is also a button to delete one’s account.
+
+(Delete users account)
+
+These are the most important pages and functionalities in our Workout Assistant app. Thank you for watching.
+
+(VIDEO ENDS)
