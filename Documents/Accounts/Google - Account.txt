@@ -1,3 +1,0 @@
-Username = noreplyhealthapp@gmail.com
-
-Password = comp6000health

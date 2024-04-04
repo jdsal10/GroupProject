@@ -1,5 +1,0 @@
-Username = nk465@kent.ac.uk
-
-Password = comp6000health
-
-Phone: +359 882808200 (Nikola - BG)
