@@ -139,7 +139,6 @@ public class WorkoutAi extends AppCompatActivity implements View.OnClickListener
             injuriesAnswer = findViewById(R.id.injuriesEdit);
             additionalInfoAnswer = findViewById(R.id.additionalInfoEdit);
             String input = fillGptInput();
-            Toast.makeText(WorkoutAi.this, "Generating...", Toast.LENGTH_SHORT).show();
 
             Thread newThread = new Thread(getTask(input));
             newThread.start();
